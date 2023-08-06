@@ -13,7 +13,6 @@ export default function Analytics() {
             let end = parseInt(analytics.servers.toString().substring(0,3));
             if (servers == end) return;
             let incTime = (1/end) * 1000;
-            console.log("SERVERS");
             let timer = setInterval(() => {
                 servers += 1;
                 setServerState(String(servers) + analytics.servers.toString().substring(3))
@@ -24,7 +23,6 @@ export default function Analytics() {
             let members = 0;
             let end = parseInt(analytics.members.toString().substring(0,3));
             if (members == end) return;
-            console.log("MEMBERS")
             let incTime = (1/end) * 1000;
             let timer = setInterval(() => {
                 members += 1;
@@ -33,8 +31,8 @@ export default function Analytics() {
               }, incTime);
         }
     }, [analytics, status]);
-    return (<div className={"flex flex-col gap-2"}>
-        <p className={"flex gap-2 secondary text-5xl w-full"}><BsServer/> <code>{parseInt(serverState).toLocaleString()}</code> servers.</p>
-        <p className={"flex gap-2 secondary text-5xl w-full"}><BsPerson/> <code>{parseInt(memberState).toLocaleString()}</code> members.</p>
+    return (<div className={"flex flex-col gap-2 max-md:gap-5"}>
+        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsServer/> <code>{parseInt(serverState).toLocaleString()}</code> server{ parseInt(serverState) != 1 ? "s" : ""}.</p>
+        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsPerson/> <code>{parseInt(memberState).toLocaleString()}</code> member{ parseInt(memberState) != 1 ? "s" : ""}.</p>
         </div>);
 }

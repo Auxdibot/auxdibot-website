@@ -15,8 +15,8 @@
         @apply font-roboto text-gray-300;
     }
     .video {
-        @apply scale-125;
-        background-attachment: fixed;
+        @apply absolute -z-10 -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 bg-black h-full min-w-full min-h-[100vw] object-cover blur-sm;
+        background-attachment: scroll;
         
     }
 }
