@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsEnvelope, BsGear, BsBook, BsDiscord, BsArrowUp } from 'react-icons/bs';
 export default function LayoutNavbar() {
     return (
-    <nav className={"fixed flex align-middle items-center gap-10 w-full bg-transparent px-5 py-2 h-16 bg-gray-600"}>
+    <nav className={"fixed flex align-middle items-center gap-10 w-full px-5 py-2 h-16 bg-gray-600 z-10"}>
         <Link href={'/'} className={""}><Image
                 src={"/logo.png"}
                 alt={"Auxdibot icon."}

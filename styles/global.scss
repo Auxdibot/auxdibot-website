@@ -14,6 +14,11 @@
     .text {
         @apply font-roboto text-gray-300;
     }
+    .video {
+        @apply scale-125;
+        background-attachment: fixed;
+        
+    }
 }
 @keyframes translateDown {
     0% {

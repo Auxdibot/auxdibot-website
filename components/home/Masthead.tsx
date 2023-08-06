@@ -1,12 +1,17 @@
+
 import Image from "next/image";
 import Analytics from "./Analytics";
 import Link from "next/link";
 import { BsGear } from 'react-icons/bs';
 export default function Masthead() {
-    
     return (
     <main className={"h-screen"}>
-        <section className={"flex items-center bg-gray-700 h-full bg-no-repeat bg-blend-color-dodge bg-cover 0"}>
+        <div className={"absolute blur-sm -z-10 h-16"}>
+            <video className={"scale-125 -translate-y-48 -translate-x-48"} autoPlay muted loop playsInline>
+                <source src={"/auxdibot-video.mp4"} type="video/mp4" />
+            </video>
+        </div>
+        <section className={"flex items-center bg-gray-700 bg-opacity-75 h-full bg-no-repeat bg-blend-color-dodge bg-cover 0"}>
         <div className={"flex w-full flex-row justify-center"}>
             <section className={"flex-grow flex-shrink flex-1 flex items-center justify-center flex-col mx-auto"}>
                 <div className={"w-fit"}>
