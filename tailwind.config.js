@@ -11,9 +11,13 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'auxdibot-masthead': "url('/auxdibot-masthead-image.jpg')"
       },
-      animation: {
-        'themeChange': 'translateDown 0.5s ease-out forwards'
+      fontFamily: {
+        'josefin-sans': "'Josefin Sans', sans-serif",
+        'roboto': "'Roboto', sans-serif",
+        'lato': "'Lato', sans-serif",
+        'montserrat': "'Montserrat', sans-serif"
       }
     },
   },

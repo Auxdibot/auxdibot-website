@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Lato:wght@300&family=Montserrat:wght@300&family=Roboto:wght@300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    .header {
+        @apply font-josefin-sans bg-gradient-to-l from-orange-400 to-red-500 bg-clip-text text-transparent;
+    }
+    .secondary {
+        @apply font-montserrat text-gray-300;
+    }
+    .text {
+        @apply font-roboto text-gray-300;
+    }
+}
 @keyframes translateDown {
     0% {
         transform: translateY(-2rem);

@@ -10,10 +10,14 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "url": "https://github.com/Auxdibot/auxdibot-website"
+  },
   "dependencies": {
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
+    "@types/react-icons": "^3.0.0",
     "autoprefixer": "10.4.14",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",

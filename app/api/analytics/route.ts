@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
-    let clientID = searchParams.get("clientID");
+    let clientID = searchParams.get("clientID") || process.env.DISCORD_BOT_CLIENT_ID;
     return prisma.analytics.findMany({ ...(clientID ? { where: { clientID } } : {} ), 
     select: { clientID: true, commands: true, members: true, servers: true } })
             .then((data) => NextResponse.json(data, { status: 200 }))
