@@ -32,7 +32,7 @@ export default function Analytics() {
         }
     }, [analytics, status]);
     return (<div className={"flex flex-col gap-2 max-md:gap-5"}>
-        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsServer/> <code>{parseInt(serverState).toLocaleString()}</code> server{ parseInt(serverState) != 1 ? "s" : ""}.</p>
-        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsPerson/> <code>{parseInt(memberState).toLocaleString()}</code> member{ parseInt(memberState) != 1 ? "s" : ""}.</p>
+        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsServer/> <span><code>{parseInt(serverState).toLocaleString()}</code> server{ parseInt(serverState) != 1 ? "s" : ""}.</span></p>
+        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsPerson/> <span><code>{parseInt(memberState).toLocaleString()}</code> member{ parseInt(memberState) != 1 ? "s" : ""}.</span></p>
         </div>);
 }

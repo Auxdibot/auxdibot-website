@@ -1,11 +1,13 @@
-import Features from "@/components/home/Features";
+import About from "@/components/home/About";
+import Footer from "@/components/home/Footer";
 import Masthead from "@/components/home/Masthead";
 
 export default function Home() {
   return (
     <>
       <Masthead/>
-      <Features/>
+      <About/>
+      <Footer/>
     </>
   )
 }

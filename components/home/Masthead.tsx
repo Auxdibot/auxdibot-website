@@ -5,14 +5,15 @@ import Link from "next/link";
 import { BsGear } from 'react-icons/bs';
 export default function Masthead() {
     return (
-    <main className={"h-screen"}>
-        <div className={"block -z-10 max-lg:top-16 h-screen min-h-[100vw] overflow-hidden absolute bottom-0 top-0 left-0 right-0"}>
+    <main className={"min-h-screen"}>
+        
+        <div className={"block -z-10 max-lg:top-16 min-h-[110vw] max-md:min-h-[160vw] max-sm:min-h-[240vw] overflow-hidden absolute bottom-0 top-0 left-0 right-0"}>
         <video className={"video"} autoPlay muted loop playsInline>
                 <source src={"/auxdibot-video.mp4"} type="video/mp4" />
         </video>
         </div>
+        <section className={"flex items-center bg-gray-700 bg-opacity-75 min-h-screen"}>
         
-        <section className={"flex items-center bg-gray-700 bg-opacity-75 h-full bg-no-repeat bg-blend-color-dodge bg-cover 0"}>
         <div className={"flex w-full flex-row max-md:flex-col max-md:gap-8 justify-center"}>
             <section className={"flex-grow flex-shrink flex-1 flex items-center justify-center flex-col mx-auto"}>
                 <div className={"w-fit max-md:text-center"}>
@@ -28,7 +29,6 @@ export default function Masthead() {
                 alt={"Auxdibot icon."}
                 width={256}
                 height={256}
-                priority
             />
             </section>
         </div>
