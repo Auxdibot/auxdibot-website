@@ -2,7 +2,7 @@ import Image from "next/image";
 import { motion } from 'framer-motion';
 import { useMediaQuery } from "react-responsive";
 export default function Features() {
-    return (<ul className={"flex flex-col gap-10 my-20"}>
+    return (<ul className={"flex flex-col gap-10 my-20 overflow-hidden"}>
         <li>
             <Feature features={[
                 "A powerful punishment suite, featuring every command you will need for essential moderation duties.", 
@@ -90,10 +90,10 @@ type FeatureProps = { features?: string[]; description: string; title: string; i
 export function Feature({ features, description, title, imageUrl }: FeatureProps) {
     const isMobile = useMediaQuery({ query: '(max-width: 720px)' })
     return (<div className={"w-full relative flex justify-center items-center z-10 overflow-hidden rounded-2xl hover:scale-105 transition-all border-2 border-transparent hover:border-orange-500"}>
-        <div className={"flex flex-grow flex-1 flex-col gap-2 max-md:gap-10 max-md:text-center p-5 bg-gray-950 bg-opacity-70"}>
+        <div className={"flex flex-grow flex-1 flex-col gap-2 max-md:gap-10 max-md:text-center md:p-5 max-md:py-5 bg-gray-950 bg-opacity-70"}>
             <motion.h1 initial={{ ...(isMobile ? { translateY: "-2rem" } : { translateX: "-8rem" }), opacity: 0 }} whileInView={{ translateX: "0", translateY: "0rem", opacity: 1 }} viewport={{ once: true }} className={"header text-5xl max-sm:text-4xl"}>{title}</motion.h1>
-            <p className={"secondary bg text-xl"}>{description}</p>
-            <ul className={"list-disc max-md:list-none max-md:gap-5 md:pl-8 flex flex-col text text-lg"}>
+            <p className={"secondary bg text-xl max-sm:text-md"}>{description}</p>
+            <ul className={"list-disc max-md:list-none max-md:gap-5 md:pl-8 flex flex-col text text-lg max-sm:text-sm"}>
                 {features?.map((i, index) => <li key={index}>{i}</li>)}
             </ul>
         </div>
