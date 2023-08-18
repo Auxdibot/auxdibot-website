@@ -35,6 +35,10 @@ const authOptions = <AuthOptions>{
       return token;
     }
   },
+  pages: {
+     signIn: "/auth/signin",
+     signOut: "/auth/signout"
+  }
 };
 const handler = NextAuth(authOptions);
 

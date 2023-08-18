@@ -36,7 +36,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
             {status == "authenticated" ? 
             <Link href={"/dashboard"} onClick={() => setExpanded(false)}  className={"flex flex-row gap-2 items-center font-roboto text-black hover:text-gray-700 transition-colors group cursor-pointer"}><span className={"bg-gray-600 p-1 rounded-lg text-black group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsListTask/></span>Servers</Link> : ""}
                 {status == "unauthenticated" ? <span onClick={() => signIn('discord')} className={"flex flex-row gap-2 items-center font-roboto text-black hover:text-gray-700 transition-colors group cursor-pointer"}><span className={"bg-gray-600 p-1 rounded-lg text-black group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowRightCircle/></span>Sign in</span>
-                : <span onClick={() => signOut()} className={"flex flex-row gap-2 items-center font-roboto text-black hover:text-gray-700 transition-colors group cursor-pointer"}><span className={"bg-gray-600 p-1 rounded-lg text-black group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowLeftCircle/></span>Sign out</span> }
+                : <span onClick={() => signOut({ callbackUrl: "/" })} className={"flex flex-row gap-2 items-center font-roboto text-black hover:text-gray-700 transition-colors group cursor-pointer"}><span className={"bg-gray-600 p-1 rounded-lg text-black group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowLeftCircle/></span>Sign out</span> }
             </ul>
         </div>
     </div>)
