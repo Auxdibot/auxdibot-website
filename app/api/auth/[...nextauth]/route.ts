@@ -8,7 +8,7 @@ const isDiscordProfile = (profile: any): profile is DiscordProfile => {
 if (!process.env.DISCORD_BOT_CLIENT_ID || !process.env.OAUTH2_CLIENT_SECRET) {
   throw new Error("A client id AND client secret need to be specified!");
 }
-export const authOptions = <AuthOptions>{
+const authOptions = <AuthOptions>{
   providers: [DiscordProvider({
     clientId: process.env.DISCORD_BOT_CLIENT_ID,
     clientSecret: process.env.OAUTH2_CLIENT_SECRET, 
