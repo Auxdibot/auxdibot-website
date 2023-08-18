@@ -12,6 +12,7 @@ export default function LayoutNavbar() {
                 className={"inline-block align-middle"}
                 width={32}
                 height={32}
+                quality="100"
                 priority
             /><span className={"header text-3xl text-center items-center align-bottom pt-2 max-md:hidden"}>Auxdibot</span></Link>
         <div className={"flex gap-5 max-md:gap-8 align-middle items-center font-montserrat text-gray-100"}>
