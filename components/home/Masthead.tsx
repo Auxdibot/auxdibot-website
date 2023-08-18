@@ -3,6 +3,7 @@ import Image from "next/image";
 import Analytics from "./Analytics";
 import Link from "next/link";
 import { BsGear } from 'react-icons/bs';
+import Button from "../Button";
 export default function Masthead() {
     return (
     <main className={"min-h-screen"}>
@@ -19,7 +20,7 @@ export default function Masthead() {
                 <div className={"w-fit max-md:text-center"}>
                     <h1 className={"header text-8xl max-md:text-6xl max-md:my-4"}>Auxdibot</h1>
                     <Analytics/>
-                    <Link className={"w-fit px-8 mx-auto rounded-full border-gray-300 border flex gap-2 justify-center secondary items-center my-2 max-md:my-4 py-2 text-2xl hover:bg-gradient-to-l transition-all hover:text-gray-800 hover:border-gray-800 hover:from-orange-500 hover:to-red-400"} href={'/dashboard'}><BsGear/> Dashboard</Link>
+                    <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/>
                 </div>
                 
             </section>

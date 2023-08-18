@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import NextAuth, { AuthOptions } from "next-auth"
 import DiscordProvider, { DiscordProfile } from "next-auth/providers/discord";
@@ -26,8 +27,9 @@ export const authOptions = <AuthOptions>{
       if (isDiscordProfile(profile) && account?.access_token) {
         let headers = new Headers();
         headers.append("Authorization", `Bearer ${account.access_token}`)
-        let guilds = await fetch("https://discord.com/api/users/@me/guilds", { headers: headers }).then(async (data) => 
-        await data.json().then((data) => data?.length ? data.filter((i: DiscordGuild) => i.owner || i.permissions&0x8) : [data])).catch(() => [])
+        let guilds: DiscordGuild[] = await fetch("https://discord.com/api/users/@me/guilds", { headers }).then(async (data) => 
+        await data.json().then((data) => data.filter((i: DiscordGuild) => i.owner || i.permissions&0x8)).catch(() => [])).catch(() => []);
+        console.log(guilds);
         token.guilds = guilds;
       }
       return token;

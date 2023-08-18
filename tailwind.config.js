@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "discord-message": "#323338",
+        "discord-bg": "#323338",
+        "discord-primary": "#7289DA"
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

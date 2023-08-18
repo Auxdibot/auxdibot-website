@@ -88,7 +88,7 @@ export default function Features() {
 }
 type FeatureProps = { features?: string[]; description: string; title: string; imageUrl: string; }
 export function Feature({ features, description, title, imageUrl }: FeatureProps) {
-    const isMobile = useMediaQuery({ query: '(max-width: 720px)' })
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
     return (<div className={"w-full relative flex justify-center items-center z-10 overflow-hidden rounded-2xl hover:scale-105 transition-all border-2 border-transparent hover:border-orange-500"}>
         <div className={"flex flex-grow flex-1 flex-col gap-2 max-md:gap-10 max-md:text-center md:p-5 max-md:py-5 bg-gray-950 bg-opacity-70"}>
             <motion.h1 initial={{ ...(isMobile ? { translateY: "-2rem" } : { translateX: "-8rem" }), opacity: 0 }} whileInView={{ translateX: "0", translateY: "0rem", opacity: 1 }} viewport={{ once: true }} className={"header text-5xl max-sm:text-4xl"}>{title}</motion.h1>
