@@ -2,7 +2,7 @@ import Image from "next/image";
 import { motion } from 'framer-motion';
 import { useMediaQuery } from "react-responsive";
 export default function Features() {
-    return (<ul className={"flex flex-col gap-10 my-20 p-5 max-lg:overflow-hidden"}>
+    return (<ul className={"flex flex-col gap-10 my-20 p-7 max-lg:overflow-hidden"}>
         <li>
             <Feature features={[
                 "A powerful punishment suite, featuring every command you will need for essential moderation duties.", 
