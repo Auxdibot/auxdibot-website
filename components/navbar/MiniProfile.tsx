@@ -20,8 +20,8 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
             src={session.user.image}
             alt={"Discord profile icon"}
             className={"inline-block align-middle rounded-full"}
-            width={36}
-            height={36}
+            width={32}
+            height={32}
             quality="100"
             priority
             /> : <BsPersonAdd className={"text text-3xl align-middle inline-block"}/>}

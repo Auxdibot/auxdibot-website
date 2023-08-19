@@ -8,11 +8,12 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({
-  children,
+  children, params
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: { serverID: string }
 }) {
   return (
-    <main className={"flex flex-row flex-1 flex-grow w-full"}><DashboardSidebarContainer/>{children}</main>
+    <main className={"flex flex-row flex-1 flex-grow w-full"}><DashboardSidebarContainer serverID={params.serverID}/>{children}</main>
   )
 }

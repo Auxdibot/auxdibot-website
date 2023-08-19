@@ -18,7 +18,7 @@ export default function Servers() {
         <h1 className={"header text-6xl max-md:text-5xl mx-auto my-5"}>Your Servers</h1>
         <p className={"secondary text-2xl text-center my-4"}>Select a server to get started with Auxdibot&apos;s Dashboard!<br/>You can view the Auxdibot documentation below.</p>
         <Button icon={<BsBook/>} text={"Documentation"} href={"/docs"} className={"my-4"}/>
-        <div className={"grid grid-flow-row grid-cols-3 max-md:grid-cols-2 max-w-2xl mx-auto auto-cols-1 auto-rows-1 bg-gray-800 rounded-3xl"}>
+        <div className={"grid grid-flow-row grid-cols-3 max-md:grid-cols-2 max-w-2xl mx-auto auto-cols-1 auto-rows-1 px-2 bg-gray-800 rounded-3xl"}>
         {session.user.guilds.map((i: DiscordGuild) => {
        return <Server key={i.id} server={i}/>
     })}

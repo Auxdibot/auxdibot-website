@@ -8,6 +8,9 @@
     .header {
         @apply font-josefin-sans bg-gradient-to-l from-orange-400 to-red-500 bg-clip-text text-transparent;
     }
+    .hover-gradient {
+        @apply hover:bg-gradient-to-l hover:from-orange-400 hover:to-red-500
+    }
     .secondary {
         @apply font-montserrat text-gray-300;
     }
@@ -17,7 +20,14 @@
     .video {
         @apply absolute -z-10 -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 bg-black h-full min-w-full min-h-fit object-cover blur-sm;
         background-attachment: scroll;
-        
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 @keyframes translateDown {
@@ -26,5 +36,16 @@
     }
     100% {
         transform: translateY(0);
+    }
+}
+@keyframes shake {
+    0% {
+        transform: translateX(-0.5rem);
+    }
+    50% {
+        transform: translateX(0.5rem)
+    }
+    100% {
+        transform: translateX(0rem);
     }
 }

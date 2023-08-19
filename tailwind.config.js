@@ -17,6 +17,10 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'auxdibot-masthead': "url('/auxdibot-masthead-image.jpg')"
       },
+      animation: {
+        'incorrect': "shake 300ms linear 0s 1",
+        'fadeIn': 'fadeIn 1.25s ease-in-out 0s 1 forwards'
+      },
       fontFamily: {
         'josefin-sans': "'Josefin Sans', sans-serif",
         'roboto': "'Roboto', sans-serif",
