@@ -34,8 +34,8 @@ export default function AuxdibotSettings({ data }: { data: { serverID: string }}
     }
     
     return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl"}>
-    <h2 className={"bg-gray-900 secondary text-3xl p-4 md:pl-1 max-md:text-2xl max-md:text-center rounded-2xl rounded-b-none"}>Bot Settings</h2>
+    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-fit"}>
+    <h2 className={"bg-gray-900 secondary text-3xl p-4 max-md:text-2xl text-center rounded-2xl rounded-b-none"}>Bot Settings</h2>
     <button onClick={() => setConfirmation(!confirmation)} className={"secondary my-5 mx-auto hover:bg-gradient-to-l hover:from-red-400 hover:to-red-700 hover:text-black text-lg hover:border-black transition-all w-fit border-white border rounded-xl p-1 flex flex-row gap-2 items-center"} type="submit">
         <BsTrash/> Reset Bot
     </button>

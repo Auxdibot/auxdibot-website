@@ -17,7 +17,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     </div>)
     return (<div {...props}>
         {status == "authenticated" && session.user?.image ? <Image
-            src={session.user.image}
+            src={session.user.image + "?size=32"}
             alt={"Discord profile icon"}
             className={"inline-block align-middle rounded-full"}
             width={32}
