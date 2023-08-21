@@ -2,24 +2,24 @@
 
 import Error from "@/app/error";
 import DiscordGuild from "@/lib/types/DiscordGuild";
-import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import PageLoading from "../PageLoading";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../Button";
 import { BsBook } from "react-icons/bs";
+import useSession from "@/lib/hooks/useSession";
 
 export default function Servers() {
-    const { data: session, status } = useSession();
+    const { user, status } = useSession();
     if (status == "loading") return (<PageLoading/>)
-    if (!session?.user?.guilds) return (<Error/>);
+    if (!user?.guilds) return (<Error/>);
     return (<div className={"flex-grow py-5 bg-gray-700 flex justify-center flex-col"}>
         <h1 className={"header text-6xl max-md:text-5xl mx-auto my-5"}>Your Servers</h1>
         <p className={"secondary text-2xl text-center my-4"}>Select a server to get started with Auxdibot&apos;s Dashboard!<br/>You can view the Auxdibot documentation below.</p>
         <Button icon={<BsBook/>} text={"Documentation"} href={"/docs"} className={"my-4"}/>
         <div className={"grid grid-flow-row grid-cols-3 max-md:grid-cols-2 max-w-2xl mx-auto auto-cols-1 auto-rows-1 px-2 bg-gray-800 rounded-3xl"}>
-        {session.user.guilds.map((i: DiscordGuild) => {
+        {user.guilds.map((i: DiscordGuild) => {
        return <Server key={i.id} server={i}/>
     })}
         </div>
@@ -28,10 +28,10 @@ export default function Servers() {
 type ServerProps = { server: DiscordGuild }
 export function Server({ server }: ServerProps) {
     
-    const { data, status } = useQuery(["server_list", server.id], async () => await fetch(`/api/servers/${server.id}`).then(async (i) => await i.json().then((i) => i.data).catch(() => undefined)).catch(() => undefined));
-    return (<Link href={data ? "/dashboard/" + server.id : process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK + "&guild_id=" + server.id}><div className={"flex flex-col text-center justify-center items-center w-full h-44 py-5 rounded-xl"}>
+    const { data, status } = useQuery(["server_list", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    return (<Link href={data?.inServer ? "/dashboard/" + server.id : process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK + "&guild_id=" + server.id}><div className={"flex flex-col text-center justify-center items-center w-full h-44 py-5 rounded-xl"}>
         <div className={"flex-1 flex-grow flex-shrink"}>
-        <div className={data ? "bg-gradient-to-l from-orange-400 to-red-500 rounded-[5rem] hover:rounded-2xl transition-all p-0.5" : ""}>
+        <div className={data?.inServer ? "bg-gradient-to-l from-orange-400 to-red-500 rounded-[5rem] hover:rounded-2xl transition-all p-0.5" : ""}>
         {server.icon ? <Image
          src={`https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png?size=64`}
          alt={server.name + " icon"}

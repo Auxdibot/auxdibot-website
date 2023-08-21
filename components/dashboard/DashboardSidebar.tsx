@@ -1,7 +1,7 @@
 "use client";
 import NotFound from "@/app/not-found";
+import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,10 +11,10 @@ import { useMediaQuery } from "react-responsive";
 export default function DashboardSidebarContainer({ serverID }: { serverID: string }) {
     let [expanded, setExpanded] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-    const { data: session, status } = useSession();
+    const { user, status } = useSession();
     if (status == "loading") return <></>
     if (status == "unauthenticated") return <></>
-    let server = session?.user.guilds.find((i: DiscordGuild) => i.id == serverID);
+    let server = user.guilds.find((i: DiscordGuild) => i.id == serverID);
     return (<>{isMobile ? <div className={"fixed w-64 z-50 max-md:w-48"}>
         <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
             <DashboardSidebar server={server} />
