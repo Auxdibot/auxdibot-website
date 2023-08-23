@@ -5,7 +5,6 @@ import { useState } from 'react';
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useQuery, useQueryClient } from "react-query";
 export default function LogChannel({ server }: { server: { id: string, data: {log_channel: string} }}) {
-    console.log(server);
     let { data: channels } = useQuery(["data_channels", server.id], async () => await fetch(`/api/v1/servers/${server.id}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const [channel, setChannel] = useState("");

@@ -1,10 +1,6 @@
 "use client";
 
-import Button from "@/components/Button";
-import useSession from "@/lib/hooks/useSession";
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useRouter } from "next/navigation";
-import { BsArrowLeftCircle,BsThreeDots, BsTrash } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import LogChannel from "./LogChannel";
 
