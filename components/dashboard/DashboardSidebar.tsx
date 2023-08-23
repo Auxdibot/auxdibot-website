@@ -4,8 +4,9 @@ import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
 
 export default function DashboardSidebarContainer({ serverID }: { serverID: string }) {
@@ -24,40 +25,72 @@ export default function DashboardSidebarContainer({ serverID }: { serverID: stri
         </button>
     </div> : <DashboardSidebar server={server}/>}</>)
 }
+enum SidebarCategories {
+    HOME = "home",
+    SETTINGS = "settings",
+    LOGGING = "logging",
+    MODERATION = "moderation",
+    SCHEDULES = "schedules",
+    PERMISSIONS = "permissions",
+    EMBEDS = "embeds",
+    STARBOARD = "starboard",
+    SUGGESTIONS = "suggestions",
+    LEVELS = "levels",
+    
+}
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
-    if (!server) return (<NotFound/>)
-    return (<><nav className={`fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
-        <ul className={"flex flex-col gap-3 pt-3"}>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <Link href={`/dashboard/${server?.id}/settings`} className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2 cursor-pointer"}><BsGear/> Settings</Link>
+    const router = useRouter();
+    const [selected, setSelected] = useState<SidebarCategories>(SidebarCategories.HOME);
+    function changeCategory(category: SidebarCategories) {
+        if (category == selected || !server) return;
+        if (category != "home") router.push(`/dashboard/${server.id}/${category}`);
+        else router.push(`/dashboard/${server.id}/`)
+        setSelected(category);
+    }
+    if (!server) return (<NotFound/>);
+    return (<div className={"w-64 flex-shrink-0"}>
+    <nav className={`fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
+        <ul className={"flex flex-col"}>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${selected == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsJournalBookmark/> Logging</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.LOGGING ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.LOGGING ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.LOGGING)} className={`dashboard-sidebar-element ${selected == SidebarCategories.LOGGING ? "dashboard-sidebar-selected-text" : ""}`}><BsJournalBookmark/> Logging</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsHammer/> Moderation</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.MODERATION ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.MODERATION ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.MODERATION)} className={`dashboard-sidebar-element ${selected == SidebarCategories.MODERATION ? "dashboard-sidebar-selected-text" : ""}`}><BsHammer/> Moderation</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsClock/> Schedules</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.SCHEDULES ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.SCHEDULES)} className={`dashboard-sidebar-element ${selected == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected-text" : ""}`}><BsClock/> Schedules</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsShieldCheck/> Permissions</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.PERMISSIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.PERMISSIONS)} className={`dashboard-sidebar-element ${selected == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsShieldCheck/> Permissions</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsTextLeft/> Embeds</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.EMBEDS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.EMBEDS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.EMBEDS)} className={`dashboard-sidebar-element ${selected == SidebarCategories.EMBEDS ? "dashboard-sidebar-selected-text" : ""}`}><BsTextLeft/> Embeds</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsStar/> Starboard</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.STARBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.STARBOARD)} className={`dashboard-sidebar-element ${selected == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsStar/> Starboard</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsQuestionCircle/> Suggestions</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.SUGGESTIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.SUGGESTIONS)} className={`dashboard-sidebar-element ${selected == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsQuestionCircle/> Suggestions</span>
             </li>
-            <li className={"py-2 border-b-2 border-opacity-50 border-gray-700"}>
-                <span className={"flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2"}><BsTrophy/> Levels</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${selected == SidebarCategories.LEVELS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${selected == SidebarCategories.LEVELS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.LEVELS)} className={`dashboard-sidebar-element ${selected == SidebarCategories.LEVELS ? "dashboard-sidebar-selected-text" : ""}`}><BsTrophy/> Levels</span>
             </li>
+            
         </ul>
         {server ? <span className={"flex gap-3 py-4 items-center flex-col justify-center"}>
-        <Link href={`/dashboard/${server.id}`}>
+        <span className={"cursor-pointer"} onClick={() => changeCategory(SidebarCategories.HOME)}>
         {server.icon ?
         <Image
         src={`https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png?size=64`}
@@ -68,8 +101,8 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
         className={`rounded-[5rem] bg-discord-bg hover:rounded-2xl transition-all duration-300 flex-grow`}
        />
         : <span className={`h-16 font-roboto text-gray-100 w-16 items-center flex justify-center bg-discord-bg rounded-[5rem] text-sm hover:rounded-2xl hover:bg-discord-primary transition-all cursor-pointer duration-300`}>{server.name.split(" ").map((i) => "abcdefghijklmnopqrstuvwxyz".indexOf(i[0]) != -1 ? i[0] : "").join("")}</span>}
-        </Link>
+        </span>
         <span className={"secondary text-gray-100 text-md text-center"}>{server.name}</span>
         </span> : "T"}
-    </nav><div className={"max-md:hidden w-64 max-md:w-64 h-16"}></div></>);
+    </nav></div>);
 }

@@ -14,5 +14,5 @@ export default function ModuleSlider({ module, server }: { module: string, serve
         body.append('module', module);
         fetch(`/api/v1/servers/${server.data.serverID}/modules`, { method: "PATCH", body }).then(() => queryClient.invalidateQueries(["data_settings", server.data.serverID])).catch(() => undefined);
     }
-    return (<div className={"w-16 h-8 border rounded-full relative px-1 bg-gray-700"} ><div onClick={() => handleClick()} className={`cursor-pointer absolute rounded-full top-1/2 bottom-1/2 -translate-y-1/2 h-7 w-7 transition-all bg-gradient-to-l flex items-center justify-center ${server.data.disabled_modules.indexOf(module) != -1 ? "from-red-500 to-red-700 translate-x-full" : "-translate-x-0.5 from-green-500 to-green-700"}`}><span className={"text-white text-md opacity-60"}>{ModuleIcons[module]}</span></div></div>)
+    return (<div className={"w-16 h-8 border rounded-full relative px-1 bg-gray-700"} ><div onClick={() => handleClick()} className={`cursor-pointer absolute rounded-full top-1/2 bottom-1/2 -translate-y-1/2 h-7 w-7 transition-all bg-gradient-to-l flex items-center justify-center ${server.data.disabled_modules.indexOf(module) != -1 ? "from-red-500 to-red-700 -translate-x-0.5" : "translate-x-full from-green-500 to-green-700"}`}><span className={"text-white text-md opacity-60"}>{ModuleIcons[module]}</span></div></div>)
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsHouse } from 'react-icons/bs';
 export default function NotFound() {
-    return (<section className={"flex-grow bg-gray-700 flex justify-center items-center align-middle"}>
+    return (<section className={"flex-grow flex-1 h-full bg-gray-700 flex justify-center items-center align-middle"}>
         <div className={"flex flex-col gap-4 items-center justify-center"}>
             <Image
                 src={"/icon.png"}

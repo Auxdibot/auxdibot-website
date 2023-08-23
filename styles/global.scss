@@ -21,6 +21,18 @@
         @apply absolute -z-10 -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 bg-black h-full min-w-full min-h-fit object-cover blur-sm;
         background-attachment: scroll;
     }
+    .dashboard-sidebar-wrapper {
+        @apply flex flex-row items-center py-2 border-b-2 border-opacity-50 border-gray-700 transition-all;
+    }
+    .dashboard-sidebar-element {
+        @apply flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2 cursor-pointer transition-all;
+    }
+    .dashboard-sidebar-selected {
+        @apply text-3xl max-md:text-sm bg-center bg-gradient-to-l from-orange-400 to-red-500;
+    }
+    .dashboard-sidebar-selected-text {
+        @apply text-xl max-md:text-base;
+    }
 }
 @keyframes fadeIn {
     0% {
