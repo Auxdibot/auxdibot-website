@@ -4,7 +4,6 @@ import DashboardSidebarContext from "@/context/DashboardSidebarContext";
 import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
 import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";

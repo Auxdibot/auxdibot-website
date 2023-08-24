@@ -1,5 +1,6 @@
 "use client";
 
+import PunishmentType from "@/lib/types/PunishmentType";
 import Punishment from "./Punishment";
 
 export default function LatestPunishments({ punishments, serverID }: { serverID: string, punishments?: PunishmentType[] }) {

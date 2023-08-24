@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       colors: {
         "discord-bg": "#323338",
-        "discord-primary": "#7289DA"
+        "discord-primary": "#7289DA",
+        "discord-embed": "#2B2D31"
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

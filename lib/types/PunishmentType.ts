@@ -9,3 +9,5 @@ type PunishmentType = {
     moderatorID?: string;
     punishmentID: number;
 };
+
+export default PunishmentType;

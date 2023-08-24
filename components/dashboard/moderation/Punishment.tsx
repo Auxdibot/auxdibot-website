@@ -1,3 +1,4 @@
+import PunishmentType from "@/lib/types/PunishmentType";
 import Image from "next/image";
 import { BsCalendar, BsClock, BsDashCircle, BsExclamationTriangle, BsHammer, BsHourglass, BsHourglassTop, BsMicMute, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
