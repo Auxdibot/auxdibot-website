@@ -41,8 +41,8 @@ export default function Punishment({ serverID, punishment }: { serverID: string,
             quality="100"
             priority
             /> : ""} {moderator?.username || "No moderator."}</span>
-    <h3 className={"font-lato text-xl"}>Reason</h3>
-    <span className={"bg-gray-600 rounded-2xl p-1 text-lg w-fit"}>{punishment.reason}</span>
+    <h3 className={"font-lato text-xl"}>Reason:</h3>
+    <span className={"bg-gray-600 rounded-lg p-1 text-lg w-fit"}>{punishment.reason}</span>
     <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deletePunishment()}><BsTrash/></button> Delete</span>
     </div>;
 }

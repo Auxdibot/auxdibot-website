@@ -1,5 +1,9 @@
+"use client";
+
 import { Metadata } from 'next'
 import DashboardSidebarContainer from '@/components/dashboard/DashboardSidebar';
+import { useState } from 'react';
+import DashboardSidebarContext from '@/context/DashboardSidebarContext';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -13,7 +17,8 @@ export default function DashboardLayout({
   children: React.ReactNode,
   params: { serverID: string }
 }) {
+  const [page, setCurrentPage] = useState<string>("home");
   return (
-    <main className={"flex flex-row flex-1 flex-grow w-full"}><DashboardSidebarContainer serverID={params.serverID}/>{children}</main>
+    <DashboardSidebarContext.Provider value={{ page, setCurrentPage }}><main className={"flex flex-row flex-1 flex-grow w-full"}><DashboardSidebarContainer serverID={params.serverID}/>{children}</main></DashboardSidebarContext.Provider>
   )
 }
