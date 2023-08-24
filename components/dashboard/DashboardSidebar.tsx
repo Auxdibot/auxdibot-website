@@ -6,10 +6,11 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useContext } from "react";
+import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
 import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
 
+const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
 export default function DashboardSidebarContainer({ serverID }: { serverID: string }) {
     let [expanded, setExpanded] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
@@ -17,14 +18,14 @@ export default function DashboardSidebarContainer({ serverID }: { serverID: stri
     if (status == "loading") return <></>
     if (status == "unauthenticated") return <></>
     let server = user.guilds.find((i: DiscordGuild) => i.id == serverID);
-    return (<>{isMobile ? <div className={"fixed w-64 z-50 max-md:w-48"}>
+    return (<ExpandedContext.Provider value={{ expanded, setExpanded }}>{isMobile ? <div className={"fixed w-64 z-50 max-md:w-48"}>
         <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
             <DashboardSidebar server={server} />
         </div>
         <button className={`fixed text-3xl border-t-2 border-t-gray-700 bg-gray-600 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
             <BsList/>
         </button>
-    </div> : <DashboardSidebar server={server}/>}</>)
+    </div> : <DashboardSidebar server={server}/>}</ExpandedContext.Provider>)
 }
 enum SidebarCategories {
     HOME = "home",
@@ -42,12 +43,14 @@ enum SidebarCategories {
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const router = useRouter();
     const contextPage = useContext(DashboardSidebarContext)
+    const contextExpanded = useContext(ExpandedContext);
     let page = contextPage ? contextPage.page : "home";
     function changeCategory(category: SidebarCategories) {
         if (!server) return;
+
         if (category != "home") router.push(`/dashboard/${server.id}/${category}`);
         else router.push(`/dashboard/${server.id}/`)
-        
+        setTimeout(() => contextExpanded?.setExpanded(false), 50);
     }
     if (!server) return (<NotFound/>);
     return (<><div className={"w-64 flex-shrink-0"}>
