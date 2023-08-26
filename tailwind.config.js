@@ -20,7 +20,8 @@ module.exports = {
       },
       animation: {
         'incorrect': "shake 300ms linear 0s 1",
-        'fadeIn': 'fadeIn 1.25s ease-in-out 0s 1 forwards'
+        'fadeIn': 'fadeIn 1.25s ease-in-out 0s 1 forwards',
+        'colorPicker': 'fadeIn 0.25s ease-in-out 0s 1 forwards'
       },
       fontFamily: {
         'josefin-sans': "'Josefin Sans', sans-serif",

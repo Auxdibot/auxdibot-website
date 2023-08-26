@@ -4,12 +4,13 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsChatLeftDots, BsCheckLg, BsClock, BsImage, BsListTask, BsMegaphone, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
+import { BsChatLeftDots, BsClock, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
+import { SketchPicker } from 'react-color';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>();
+    const { register, watch, control, handleSubmit, reset, setValue } = useForm<ScheduleBody>();
     const { fields, append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -19,6 +20,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
     });
     const queryClient = useQueryClient();
     const [embedExpand, setEmbedExpand] = useState(false);
+    const [expandedColor, setExpandedColor] = useState(false);
     function onSubmit(data: ScheduleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel);
@@ -37,6 +39,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         })
     }
     const embed = watch("embed");
+    const color = watch("embed.color");
     return <>
     <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Schedule</h2>
@@ -66,8 +69,16 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for no embed)</span>
         <section className={"my-5 flex flex-col gap-2"}>
         <label className={"flex flex-row max-md:mx-auto gap-2 items-center font-lato text-xl"}>
-            Color:
-            <input className={"border rounded-md border-white"} type="color" {...register("embed.color")}/>
+            
+        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 relative"}>
+            <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
+            <BsPencil/></span> Set Color</span>
+            {expandedColor ? <SketchPicker width='15rem' disableAlpha styles={{ 
+                default: {  picker: { backgroundColor: "rgb(209, 213, 219)", color: "white !important", fontFamily: '"Roboto", sans-serif' }, controls: { color: "white" }} 
+            }} className={`absolute border-2 border-gray-800 translate-y-48 touch-none max-md:right-1/2 max-md:translate-x-1/2 md:translate-x-4 animate-colorPicker`} color={color?.toString(16) || "ff0000"} onChange={(newColor) => {
+                setValue("embed.color", parseInt(newColor.hex.replace("#", ""), 16))
+                console.log(parseInt(newColor.hex.replace("#", ""), 16));
+            }}/> : ""}
         </label> 
         <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(leave empty for no color)</span>
         <span className={"flex flex-row gap-2 items-center font-lato text-xl"}><BsPerson/> Author</span>
