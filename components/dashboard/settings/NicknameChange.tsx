@@ -1,13 +1,15 @@
 "use client";
 
-import { BsCheck, BsCheckLg, BsPersonBadge } from "react-icons/bs";
-import { useState } from 'react'; 
+import { BsCheckLg, BsPersonBadge } from "react-icons/bs";
+import { useContext, useState } from 'react'; 
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useQueryClient } from "react-query";
+import DashboardActionContext from "@/context/DashboardActionContext";
 export default function NicknameChange({ server }: { server: DiscordGuild & { data: {serverID: string, disabled_modules: string[]} } }) {
     const [nick, setNick] = useState("");
     const [success, setSuccess] = useState(false);
     const queryClient = useQueryClient();
+    const actionContext = useContext(DashboardActionContext);
     function onNickChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (success) setSuccess(false);
         setNick(e.currentTarget.value);
@@ -16,9 +18,13 @@ export default function NicknameChange({ server }: { server: DiscordGuild & { da
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_nickname", nick);
-        fetch(`/api/v1/servers/${server.id}/nick`, { method: "POST", body }).then(() => {
+        fetch(`/api/v1/servers/${server.id}/nick`, { method: "POST", body }).then(async (data) => {
+            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
             queryClient.invalidateQueries(["data_settings", server.id])
             setSuccess(true)
+            if (actionContext) {
+                json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Set Auxdibot's nickname to "${nick || "Auxdibot"}"`, success: true }) : ""
+            }
             setNick("");
         }).catch(() => {});
     }

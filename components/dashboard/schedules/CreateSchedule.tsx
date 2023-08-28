@@ -2,10 +2,11 @@
 import MockEmbed from '@/components/MockEmbed';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsClock, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
 import { SketchPicker } from 'react-color';
+import DashboardActionContext from '@/context/DashboardActionContext';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
@@ -21,6 +22,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
     const queryClient = useQueryClient();
     const [embedExpand, setEmbedExpand] = useState(false);
     const [expandedColor, setExpandedColor] = useState(false);
+    const actionContext = useContext(DashboardActionContext);
     function onSubmit(data: ScheduleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel);
@@ -31,12 +33,17 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         }
         body.append('times_to_run', data.times_to_run.toString())
         fetch(`/api/v1/servers/${serverID}/schedules`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => ({ error: "can't become json" }));
-            if (!json['error']) {
+            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
+            if (json && !json['error']) {
                 queryClient.invalidateQueries(['data_schedules', serverID]);
+                if (actionContext)
+                    actionContext.setAction({ status: `Successfully created a new schedule.`, success: true })
                 reset();
+            } else {
+                if (actionContext)
+                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
             }
-        })
+        }).catch(() => {})
     }
     const embed = watch("embed");
     const color = watch("embed.color");

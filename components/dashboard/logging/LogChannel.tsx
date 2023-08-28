@@ -1,14 +1,16 @@
 "use client";
 
 import { BsCheck, BsCheckLg, BsPersonBadge } from "react-icons/bs";
-import { useState } from 'react'; 
+import { useContext, useState } from 'react'; 
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useQuery, useQueryClient } from "react-query";
+import DashboardActionContext from "@/context/DashboardActionContext";
 export default function LogChannel({ server }: { server: { id: string, data: {log_channel: string} }}) {
     let { data: channels } = useQuery(["data_channels", server.id], async () => await fetch(`/api/v1/servers/${server.id}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState("");
     const [success, setSuccess] = useState(false);
+    const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
     function onLogChannelChange(e: React.ChangeEvent<HTMLSelectElement>) {
         if (success) setSuccess(false);
@@ -24,7 +26,10 @@ export default function LogChannel({ server }: { server: { id: string, data: {lo
             queryClient.invalidateQueries(["data_logging", server.id])
             setSuccess(true)
             setChannel("");
-        }).catch(() => {});
+            if (actionContext)
+                actionContext.setAction({ status: `Successfully updated log channel to:  ${channels.find((c: { id: string }) => channel == c.id)?.name || "None. Logs are disabled."}`, success: true });
+        }).catch(() => {     
+        });
     }
     if (!channels) return <></>;
 

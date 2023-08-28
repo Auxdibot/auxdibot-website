@@ -1,6 +1,7 @@
 import MockEmbed from "@/components/MockEmbed";
+import DashboardActionContext from "@/context/DashboardActionContext";
 import ScheduleType from "@/lib/types/ScheduleType";
-import { useState } from 'react'; 
+import { useContext, useState } from 'react'; 
 import { BsArrowsExpand, BsCardList, BsChatLeft, BsChatLeftDots, BsClock, BsList, BsMegaphone, BsPlay, BsRepeat, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
@@ -8,10 +9,22 @@ export default function Schedule({ serverID, schedule }: { serverID: string, sch
     let { data: channel } = useQuery(["data_channel", schedule.channelID], async () => await fetch(`/api/v1/servers/${serverID}/channels/${schedule.channelID}`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [expanded, setExpanded] = useState(false);
+    const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
 
     function deleteSchedule() {
-        fetch(`/api/v1/servers/${serverID}/schedules/${schedule.index}`, { method: "DELETE" }).then(() => queryClient.invalidateQueries(["data_schedules", serverID]))
+        fetch(`/api/v1/servers/${serverID}/schedules/${schedule.index}`, { method: "DELETE" }).then(async (data) => 
+        {
+            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
+            queryClient.invalidateQueries(["data_schedules", serverID])
+            if (json && json['error']) {
+                if (actionContext)
+                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+                return;
+            }
+            if (actionContext)
+                    actionContext.setAction({ status: `Successfully deleted schedule #${schedule.index+1}`, success: true })
+        })
     }
     return <div className={"bg-gray-700 rounded-xl p-1 flex flex-col gap-2"}>
     <code className={"text-md flex flex-row justify-between max-md:flex-col gap-1 mb-4"}>

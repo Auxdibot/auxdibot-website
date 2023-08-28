@@ -43,6 +43,26 @@
         opacity: 1;
     }
 }
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(4rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeRight {
+    0% {
+        opacity: 0;
+        transform: translateX(4rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0)
+    }
+}
 @keyframes translateDown {
     0% {
         transform: translateY(-2rem);
