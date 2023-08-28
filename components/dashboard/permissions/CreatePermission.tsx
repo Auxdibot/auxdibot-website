@@ -36,7 +36,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
     <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Permission Override</h2>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
-        <section className={"my-4"}>
+        <section className={"my-4 w-full flex flex-col max-md:justify-center max-md:items-center"}>
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsPeople/> Role:</span> 
             <select className={"rounded-md font-roboto w-fit text-lg"} {...register("role")}>
