@@ -22,7 +22,8 @@ export default function StarboardReactionCount({ server }: { server: { id: strin
         fetch(`/api/v1/servers/${server.id}/starboard/reaction_count`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
             queryClient.invalidateQueries(["data_starboard", server.id])
-            setSuccess(true)
+            if (!json['error'])
+                setSuccess(true);
             if (actionContext)
             json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully updated starboard reaction count to: ${reactionCount}`, success: true }) : "";
             setReactionCount("");
