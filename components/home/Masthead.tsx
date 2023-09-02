@@ -1,10 +1,12 @@
+"use client";
 
 import Image from "next/image";
 import Analytics from "./Analytics";
-import Link from "next/link";
-import { BsGear } from 'react-icons/bs';
+import { BsGear, BsPersonAdd } from 'react-icons/bs';
 import Button from "../Button";
+import useSession from "@/lib/hooks/useSession";
 export default function Masthead() {
+    const { user, status } = useSession();
     return (
     <main className={"min-h-screen"}>
         
@@ -20,7 +22,7 @@ export default function Masthead() {
                 <div className={"w-fit max-md:text-center"}>
                     <h1 className={"header text-8xl max-md:text-6xl max-md:my-4"}>Auxdibot</h1>
                     <Analytics/>
-                    <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/>
+                    {user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button icon={<BsPersonAdd/>} text={"Sign In"} href={"/api/v1/auth/discord"}/> }
                 </div>
                 
             </section>

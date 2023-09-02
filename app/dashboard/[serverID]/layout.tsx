@@ -7,6 +7,10 @@ import DashboardSidebarContext from '@/context/DashboardSidebarContext';
 import Action from '@/components/dashboard/Action';
 import { DashboardActionPrompt } from '@/lib/types/DashboardActionPrompt';
 import DashboardActionContext from '@/context/DashboardActionContext';
+import useSession from '@/lib/hooks/useSession';
+import DiscordGuild from '@/lib/types/DiscordGuild';
+import NotFound from '@/app/not-found';
+import Unauthorized from '@/app/unauthorized';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -20,8 +24,10 @@ export default function DashboardLayout({
   children: React.ReactNode,
   params: { serverID: string }
 }) {
+  const { user, status } = useSession();
   const [page, setCurrentPage] = useState<string>("home");
   const [action, setAction] = useState<DashboardActionPrompt | null>(null)
+  if (!user || !user.guilds.find((i: DiscordGuild) => i.id == params.serverID)) return <Unauthorized/>;
   return (
     <DashboardSidebarContext.Provider value={{ page, setCurrentPage }}>
       <DashboardActionContext.Provider value={{ action, setAction }}>
