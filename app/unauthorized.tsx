@@ -2,7 +2,6 @@
 
 import Button from "@/components/Button";
 import Image from "next/image";
-import Link from "next/link";
 import { BsHouse } from 'react-icons/bs';
 export default function Unauthorized() {
     return (<section className={"flex-grow flex-1 h-full bg-gray-700 flex justify-center items-center align-middle"}>

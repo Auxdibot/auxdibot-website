@@ -17,7 +17,8 @@ export const metadata: Metadata = {
     description: "The official website, blog, and dashboard for the multipurpose Discord utility bot, Auxdibot.",
     url: "https://bot.auxdible.me",
     images: "/icon.png"
-  }
+  },
+  
 };
 
 
