@@ -38,7 +38,7 @@ export function Server({ server }: ServerProps) {
          width={64}
          height={64}
          quality="100"
-         className={`rounded-[5rem] bg-discord-bg hover:rounded-2xl transition-all cursor-pointer duration-300 ${!data ? "grayscale" : ""}`}
+         className={`rounded-[5rem] bg-discord-bg hover:rounded-2xl transition-all cursor-pointer duration-300 ${!data || data['error'] ? "grayscale" : ""}`}
         />: <span className={`h-16 font-roboto text-gray-100 w-16 items-center flex justify-center bg-discord-bg rounded-[5rem] hover:rounded-2xl hover:bg-discord-primary transition-all cursor-pointer duration-300 ${!data ? "grayscale" : ""}`}>{server.name.split(" ").map((i) => "abcdefghijklmnopqrstuvwxyz".indexOf(i[0]) != -1 ? i[0] : "").join("")}</span>}
         </div>
         </div>

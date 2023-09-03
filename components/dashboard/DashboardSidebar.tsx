@@ -6,7 +6,7 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
-import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
@@ -37,7 +37,7 @@ enum SidebarCategories {
     STARBOARD = "starboard",
     SUGGESTIONS = "suggestions",
     LEVELS = "levels",
-    
+    ROLES = "roles"
 }
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const router = useRouter();
@@ -91,7 +91,10 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                 <span><BsArrowRight className={`${page == SidebarCategories.LEVELS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.LEVELS)} className={`dashboard-sidebar-element ${page == SidebarCategories.LEVELS ? "dashboard-sidebar-selected-text" : ""}`}><BsTrophy/> Levels</span>
             </li>
-            
+            <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.ROLES ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.ROLES ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.ROLES)} className={`dashboard-sidebar-element ${page == SidebarCategories.ROLES ? "dashboard-sidebar-selected-text" : ""}`}><BsPerson/> Roles</span>
+            </li>
         </ul>
         {server ? <span className={"flex gap-3 py-4 items-center flex-col justify-center"}>
         <span className={"cursor-pointer"} onClick={() => changeCategory(SidebarCategories.HOME)}>

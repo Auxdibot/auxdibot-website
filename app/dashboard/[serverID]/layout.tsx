@@ -11,6 +11,7 @@ import useSession from '@/lib/hooks/useSession';
 import DiscordGuild from '@/lib/types/DiscordGuild';
 import NotFound from '@/app/not-found';
 import Unauthorized from '@/app/unauthorized';
+import PageLoading from '@/components/PageLoading';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -27,6 +28,7 @@ export default function DashboardLayout({
   const { user, status } = useSession();
   const [page, setCurrentPage] = useState<string>("home");
   const [action, setAction] = useState<DashboardActionPrompt | null>(null)
+  if (!user && status == "loading") return <PageLoading/>;
   if (!user || !user.guilds.find((i: DiscordGuild) => i.id == params.serverID)) return <Unauthorized/>;
   return (
     <DashboardSidebarContext.Provider value={{ page, setCurrentPage }}>
