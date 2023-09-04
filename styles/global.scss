@@ -25,16 +25,33 @@
         @apply flex flex-row items-center py-2 border-b-2 border-opacity-50 border-gray-700 transition-all;
     }
     .dashboard-sidebar-element {
-        @apply flex flex-row gap-2 font-roboto text-lg max-sm:text-sm items-center ml-2 cursor-pointer transition-all;
+        @apply flex flex-row gap-2 font-roboto text-base max-sm:text-sm items-center ml-2 cursor-pointer transition-all;
     }
     .dashboard-sidebar-selected {
-        @apply text-3xl max-md:text-sm bg-center bg-gradient-to-l from-orange-400 to-red-500;
+        @apply text-2xl max-md:text-sm bg-center bg-gradient-to-l from-orange-400 to-red-500;
     }
     .dashboard-sidebar-selected-text {
         @apply text-xl max-md:text-base;
     }
 
 }
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+      width: 15px;
+      height: 20px;
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background: black;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: linear-gradient(to top, #fb923c, #ef4444);
+      border-radius: 100vh;
+      border: 3px solid black;
+    }
+  }
 @keyframes fadeIn {
     0% {
         opacity: 0;

@@ -50,7 +50,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Embed</h2>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
-        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsMegaphone/> Channel:</span> 
             <select className={"rounded-md font-roboto w-fit text-lg"} {...register("channel", { required: true })}>
             <option value={"null"}>Select a channel...</option>
@@ -107,7 +107,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         <input placeholder='Footer text' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md col-span-2"} type="text" {...register("embed.footer.text", { maxLength: 2048 })}/>
         <input placeholder='Footer icon URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.footer.icon_url")}/>
         </span>
-        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl my-5"}>
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center font-lato text-xl my-5"}>
             <span className={"flex flex-row gap-2 items-center"}><BsImage/> Embed Image:</span>
             <input className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md col-span-2"} type="url" {...register("embed.image.url")}/>
         </label>

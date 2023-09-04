@@ -10,9 +10,9 @@ export default function DashboardSchedulesConfig({ id }: { id: string }) {
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     return (<main className={"bg-gray-700 flex-grow"}>
-        <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
-        <h1 className={"header text-6xl max-md:text-5xl"}>Schedules</h1>
-        <span className={"flex flex-row max-md:flex-col gap-10"}>
+        <div className={"animate-fadeIn flex max-lg:items-center flex-col py-5 md:px-5 gap-5"}>
+        <h1 className={"header text-6xl max-lg:text-5xl"}>Schedules</h1>
+        <span className={"flex flex-row max-lg:flex-col gap-10"}>
             <Suspense fallback={null}>
                 <Schedules serverID={id} schedules={schedules?.data?.scheduled_messages}/>
                 <CreateSchedule serverID={id} />

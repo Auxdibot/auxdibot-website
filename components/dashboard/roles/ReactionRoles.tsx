@@ -36,7 +36,7 @@ export default function ReactionRoles({ server }: { server: DiscordGuild & {
     let { data: roles } = useQuery(["data_roles", server.id], async () => await fetch(`/api/v1/servers/${server.id}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     if (!roles) return <></>;
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-full max-md:h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Reaction Roles</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>

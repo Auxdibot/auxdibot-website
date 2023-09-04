@@ -34,7 +34,7 @@ export default function LevelMessageXP({ server }: { server: { id: string }}) {
 
     return <div className={"flex flex-col gap-3 w-fit mx-auto p-4 border-b border-gray-700"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Message XP</span>
-    <span className={"flex flex-row max-md:flex-col gap-2"}>
+    <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <input className={"rounded-md font-roboto text-center text-lg"} type="number" onChange={(e) => onMessageXPChange(e)} value={messageXP} />
         <button onClick={() => setMessageXPGiven()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsAward/> Change Message XP</>) }

@@ -35,7 +35,7 @@ export default function StarboardChannel({ server }: { server: { id: string }}) 
     return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Starboard Channel</span>
     
-    <span className={"flex flex-row max-md:flex-col gap-2"}>
+    <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <select onChange={(e) => onStarboardChannelChange(e)} value={channel} className={"font-roboto w-fit mx-auto rounded-md p-1 text-md"}>
             <option value={"null"}>Select a channel...</option>
             {channels.map((i: { id: string, name: string }) => <option key={i.id} value={i.id}>{i.name}</option>)}

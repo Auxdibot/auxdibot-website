@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
 import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { PiHandWavingLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
@@ -37,7 +38,8 @@ enum SidebarCategories {
     STARBOARD = "starboard",
     SUGGESTIONS = "suggestions",
     LEVELS = "levels",
-    ROLES = "roles"
+    ROLES = "roles",
+    GREETINGS = "greetings",
 }
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const router = useRouter();
@@ -53,8 +55,8 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     }
     if (!server) return (<NotFound/>);
     return (<><div className={"w-64 flex-shrink-0"}>
-    <nav className={`fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
-        <ul className={"flex flex-col"}>
+    <nav className={`flex flex-col fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
+        <ul className={"flex flex-col max-xl:h-96 max-xl:scrollbar max-xl:overflow-y-scroll"}>
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
@@ -95,8 +97,12 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                 <span><BsArrowRight className={`${page == SidebarCategories.ROLES ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.ROLES)} className={`dashboard-sidebar-element ${page == SidebarCategories.ROLES ? "dashboard-sidebar-selected-text" : ""}`}><BsPerson/> Roles</span>
             </li>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.GREETINGS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.GREETINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.GREETINGS)} className={`dashboard-sidebar-element ${page == SidebarCategories.GREETINGS ? "dashboard-sidebar-selected-text" : ""}`}><PiHandWavingLight/> Greetings</span>
+            </li>
         </ul>
-        {server ? <span className={"flex gap-3 py-4 items-center flex-col justify-center"}>
+        {server ? <span className={"flex flex-shrink-0 h-fit gap-3 py-4 items-center flex-col justify-center"}>
         <span className={"cursor-pointer"} onClick={() => changeCategory(SidebarCategories.HOME)}>
         {server.icon ?
         <Image

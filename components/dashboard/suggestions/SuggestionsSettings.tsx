@@ -27,7 +27,7 @@ export default function SuggestionsSettings({ server }: { server: DiscordGuild &
         { server ? <>
             <SuggestionsChannel server={server}/>
             <SuggestionsUpdateChannel server={server}/>
-            <div className={"flex flex-row max-md:flex-col md:justify-between w-fit mx-auto p-4 gap-10 text"}>
+            <div className={"flex flex-row max-xl:flex-col xl:justify-between w-fit mx-auto p-4 gap-10 text"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><SuggestionsAutoDelete server={server} /> Auto Delete</span>
             <span className={"flex flex-row gap-2 items-center text-xl"}><SuggestionsDiscussionThreads server={server} /> Discussion Threads</span>
             </div>
