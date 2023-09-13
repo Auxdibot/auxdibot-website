@@ -26,11 +26,9 @@ export function Reaction({ reaction, index, serverID }: { reaction: string, inde
     return (<span className={"flex flex-row gap-2 text-2xl items-center"}>{reaction} <span className={"border text-white rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReaction()}><BsX/></span></span>);
 }
 
-export default function SuggestionsReactions({ server }: { server: DiscordGuild & { 
-    data: {
-        serverID: string, 
-        suggestions_reactions: string[],
-    } 
+export default function SuggestionsReactions({ server }: { server: { 
+    serverID: string, 
+    suggestions_reactions: string[],    
 }}) {
     const [success, setSuccess] = useState(false);
     const [reaction, setReaction] = useState("");
@@ -40,9 +38,9 @@ export default function SuggestionsReactions({ server }: { server: DiscordGuild 
         if (!server) return;
         const body = new URLSearchParams();
         body.append("suggestion_reaction", reaction);
-        fetch(`/api/v1/servers/${server.id}/suggestions/reactions`, { method: "PATCH", body }).then(async (data) => {
+        fetch(`/api/v1/servers/${server.serverID}/suggestions/reactions`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_suggestions", server.id])
+            queryClient.invalidateQueries(["data_suggestions", server.serverID])
             
             if (!json['error'])
                 setSuccess(true);
@@ -57,7 +55,7 @@ export default function SuggestionsReactions({ server }: { server: DiscordGuild 
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Suggestions Reactions</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>
-        {server?.data?.suggestions_reactions?.map((i, index) => <li key={index}><Reaction reaction={i} index={index} serverID={server.data.serverID} /></li>)}
+        {server?.suggestions_reactions?.map((i, index) => <li key={index}><Reaction reaction={i} index={index} serverID={server.serverID} /></li>)}
 
     </Suspense>
     <input type="text" value={reaction} onChange={(e) => setReaction(e.currentTarget.value) } placeholder="Emoji (ex. ☕)" className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md w-fit mx-auto"}/>

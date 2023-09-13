@@ -12,10 +12,10 @@ export default function DashboardRolesConfig({ id }: { id: string }) {
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
         <h1 className={"header text-6xl max-md:text-5xl"}>Roles</h1>
         <span className={"grid grid-rows-2 max-md:grid-rows-none grid-cols-2 max-md:grid-cols-1 gap-10"}>
-            {reactionRoles ? <>
+            {reactionRoles && reactionRoles?.data?.serverID ? <>
                 <CreateReactionRole serverID={id} />
-                <ReactionRoles server={reactionRoles} />
-                <Massrole server={reactionRoles}/>
+                <ReactionRoles server={reactionRoles.data} />
+                <Massrole serverID={reactionRoles.data.serverID}/>
             </> : "" }
         </span>
         </div>

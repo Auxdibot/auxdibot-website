@@ -14,7 +14,7 @@ export default function DashboardStarboardConfig({ id }: { id: string }) {
         <span className={"flex flex-row max-md:flex-col gap-10"}>
             <Suspense fallback={null}>
                 <StarboardSettings server={starboard}/>
-                <StarboardStats server={starboard}/>
+                <StarboardStats server={starboard?.data}/>
             </Suspense>
         </span>
         </div>

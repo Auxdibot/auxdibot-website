@@ -27,20 +27,18 @@ export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: 
     return (<span className={"flex flex-row gap-2 text-lg items-center font-roboto"}>{index+1}) <span className={"italic"}>{reactionRole.messageID}</span> - {reactionRole.reactions.map((i: { emoji: string }) => i.emoji).join(", ")}<span className={"border text-white rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsX/></span></span>);
 }
 
-export default function ReactionRoles({ server }: { server: DiscordGuild & { 
-    data: {
-        serverID: string, 
-        reaction_roles: { reactions: { emoji: string }[], messageID: string }[],
-    } 
+export default function ReactionRoles({ server }: { server: { 
+    serverID: string, 
+    reaction_roles: { reactions: { emoji: string }[], messageID: string }[], 
 }}) {
-    let { data: roles } = useQuery(["data_roles", server.id], async () => await fetch(`/api/v1/servers/${server.id}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     if (!roles) return <></>;
     return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-full max-md:h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Reaction Roles</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>
-        {server?.data?.reaction_roles?.map((i, index) => <li key={index}><ReactionRole reactionRole={i} index={index} serverID={server.data.serverID} /></li>)}
+        {server?.reaction_roles?.map((i, index) => <li key={index}><ReactionRole reactionRole={i} index={index} serverID={server.serverID} /></li>)}
 
     </Suspense>
     </ul>

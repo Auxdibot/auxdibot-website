@@ -6,13 +6,12 @@ import LevelMessageXP from "./LevelMessageXP";
 import LevelEmbed from "./LevelEmbed";
 import LevelChannel from "./LevelChannel";
 
-export default function LevelSettings({ server }: { server: DiscordGuild & { 
-    data: {
+export default function LevelSettings({ server }: { server: { 
         serverID: string, 
         level_channel: string,
         level_embed: boolean,
         message_xp: number,
-    } 
+        level_rewards: { level: number, roleID: string }[], 
 }}) {
 
     

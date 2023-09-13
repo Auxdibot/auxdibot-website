@@ -7,7 +7,7 @@ import SuggestionsUpdateChannel from "./SuggestionsUpdateChannel";
 import SuggestionsAutoDelete from "./SuggestionsAutoDelete";
 import SuggestionsDiscussionThreads from "./SuggestionsDiscussionThreads";
 
-export default function SuggestionsSettings({ server }: { server: DiscordGuild & { 
+export default function SuggestionsSettings({ server }: { server: { 
     data: {
         serverID: string, 
         suggestions_channel: string,
@@ -25,8 +25,8 @@ export default function SuggestionsSettings({ server }: { server: DiscordGuild &
     <div className={"flex flex-col gap-4"}>
     <Suspense fallback={null}>
         { server ? <>
-            <SuggestionsChannel server={server}/>
-            <SuggestionsUpdateChannel server={server}/>
+            <SuggestionsChannel server={server.data}/>
+            <SuggestionsUpdateChannel server={server.data}/>
             <div className={"flex flex-row max-xl:flex-col xl:justify-between w-fit mx-auto p-4 gap-10 text"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><SuggestionsAutoDelete server={server} /> Auto Delete</span>
             <span className={"flex flex-row gap-2 items-center text-xl"}><SuggestionsDiscussionThreads server={server} /> Discussion Threads</span>

@@ -4,7 +4,7 @@ import { BsAward, BsCheckLg, BsPlusLg } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-export default function LevelMessageXP({ server }: { server: { id: string }}) {
+export default function LevelMessageXP({ server }: { server: { serverID: string }}) {
     const [messageXP, setMessageXP] = useState("");
     const [success, setSuccess] = useState(false);
     const actionContext = useContext(DashboardActionContext);
@@ -19,13 +19,13 @@ export default function LevelMessageXP({ server }: { server: { id: string }}) {
         if (!server) return;
         const body = new URLSearchParams();
         body.append("message_xp", messageXP);
-        fetch(`/api/v1/servers/${server.id}/levels/message_xp`, { method: "POST", body }).then(async (data) => {
+        fetch(`/api/v1/servers/${server.serverID}/levels/message_xp`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_levels", server.id])
+            queryClient.invalidateQueries(["data_levels", server.serverID])
             if (!json['error'])
                 setSuccess(true);
             if (actionContext)
-            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully updated starboard reaction count to: ${messageXP}`, success: true }) : "";
+            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully updated server Message XP to: ${messageXP}`, success: true }) : "";
             setMessageXP("");
             
         }).catch(() => {     

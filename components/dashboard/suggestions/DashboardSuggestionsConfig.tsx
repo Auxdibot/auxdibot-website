@@ -14,7 +14,7 @@ export default function DashboardSuggestionsConfig({ id }: { id: string }) {
         <span className={"grid grid-cols-2 max-md:grid-cols-1 gap-10"}>
             <Suspense fallback={null}>
                 <SuggestionsSettings server={suggestions}/>
-                <SuggestionsReactions server={suggestions}/>
+                <SuggestionsReactions server={suggestions?.data}/>
             </Suspense>
         </span>
         </div>

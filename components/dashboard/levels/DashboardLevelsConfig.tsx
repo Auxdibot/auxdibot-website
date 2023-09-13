@@ -12,9 +12,9 @@ export default function DashboardLevelsConfig({ id }: { id: string }) {
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
         <h1 className={"header text-6xl max-md:text-5xl"}>Levels</h1>
         <span className={"grid grid-cols-2 max-md:grid-cols-1 gap-10"}>
-            {levels ? <>
-            <LevelSettings server={levels}/>
-            <LevelRewards server={levels}/>
+            {levels?.data ? <>
+            <LevelSettings server={levels.data}/>
+            <LevelRewards server={levels.data}/>
             </> : "" }
         </span>
         </div>

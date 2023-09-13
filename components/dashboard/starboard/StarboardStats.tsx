@@ -4,12 +4,10 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense } from 'react';
 import { BsChatDots, BsStar } from "react-icons/bs";
 import { useState, useEffect } from "react"; 
-export default function StarboardStats({ server }: { server: DiscordGuild & { 
-    data: {
-        serverID: string, 
-        total_stars: number,
-        total_starred_messages: number,
-    } 
+export default function StarboardStats({ server }: { server: { 
+    serverID: string, 
+    total_stars: number,
+    total_starred_messages: number,
 }}) {
 
     let [starsState, setStarsState] = useState("0");
@@ -17,21 +15,21 @@ export default function StarboardStats({ server }: { server: DiscordGuild & {
     useEffect(() => {
         if (!server) return;
         let totalStars = 0;
-            let starsEnd = parseInt(server.data.total_stars.toString().substring(0,3));
+            let starsEnd = parseInt(server.total_stars.toString().substring(0,3));
             if (totalStars == starsEnd) return;
             let incTimeStars = (1/starsEnd) * 1000;
             let timerStars = setInterval(() => {
                 totalStars += 1;
-                setStarsState(String(totalStars) + server.data.total_stars.toString().substring(3))
+                setStarsState(String(totalStars) + server.total_stars.toString().substring(3))
                 if (totalStars == starsEnd) clearInterval(timerStars)       
               }, incTimeStars);
               let totalStarredMessages = 0;
-              let starredMessagesEnd = parseInt(server.data.total_starred_messages.toString().substring(0,3));
+              let starredMessagesEnd = parseInt(server.total_starred_messages.toString().substring(0,3));
               if (totalStarredMessages == starredMessagesEnd) return;
               let incTimeStarredMessages = (1/starredMessagesEnd) * 1000;
               let timerStarredMessages = setInterval(() => {
                   totalStarredMessages += 1;
-                  setMessagesState(String(totalStarredMessages) + server.data.total_starred_messages.toString().substring(3))
+                  setMessagesState(String(totalStarredMessages) + server.total_starred_messages.toString().substring(3))
                   if (totalStarredMessages == starredMessagesEnd) clearInterval(timerStarredMessages)       
                 }, incTimeStarredMessages);
     }, [server]);

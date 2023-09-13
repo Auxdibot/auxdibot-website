@@ -4,7 +4,7 @@ import { BsCheckLg, BsStars } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-export default function StarboardReaction({ server }: { server: { id: string }}) {
+export default function StarboardReaction({ server }: { server: { serverID: string }}) {
     const [reaction, setReaction] = useState("");
     const [success, setSuccess] = useState(false);
     const actionContext = useContext(DashboardActionContext);
@@ -19,9 +19,9 @@ export default function StarboardReaction({ server }: { server: { id: string }})
         if (!server) return;
         const body = new URLSearchParams();
         body.append("starboard_reaction", reaction);
-        fetch(`/api/v1/servers/${server.id}/starboard/reaction`, { method: "POST", body }).then(async (data) => {
+        fetch(`/api/v1/servers/${server.serverID}/starboard/reaction`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_starboard", server.id])
+            queryClient.invalidateQueries(["data_starboard", server.serverID])
             
             if (!json['error'])
                 setSuccess(true);

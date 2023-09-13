@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
 import LogChannel from "./LogChannel";
 
-export default function LogSettings({ server }: { server: { id: string, data: {log_channel: string} }}) {
+export default function LogSettings({ server }: { server: {serverID: string, log_channel: string} }) {
     const queryClient = useQueryClient();
     const router = useRouter();
     

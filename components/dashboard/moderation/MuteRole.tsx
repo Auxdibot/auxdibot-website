@@ -4,8 +4,8 @@ import { BsCheckLg, BsMicMute } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-export default function MuteRole({ server }: { server: { id: string}}) {
-    let { data: roles } = useQuery(["data_roles", server.id], async () => await fetch(`/api/v1/servers/${server.id}/roles`).then(async (data) => 
+export default function MuteRole({ server }: { server: { serverID: string}}) {
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const [role, setRole] = useState("");
     const actionContext = useContext(DashboardActionContext);
@@ -20,7 +20,7 @@ export default function MuteRole({ server }: { server: { id: string}}) {
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_mute_role", role);
-        fetch(`/api/v1/servers/${server.id}/mute_role`, { method: "POST", body }).then(() => {
+        fetch(`/api/v1/servers/${server.serverID}/mute_role`, { method: "POST", body }).then(() => {
             setSuccess(true)
             if (actionContext)
                 actionContext.setAction({ status: `Successfully updated mute role to:  ${roles.find((r: { id: string }) => role == r.id)?.name || "None. Muting will now timeout a user on Discord."}`, success: true });

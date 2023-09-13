@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import StarboardReaction from "./StarboardReaction";
 import StarboardReactionCount from "./StarboardReactionCount";
 
-export default function StarboardSettings({ server }: { server: DiscordGuild & { 
+export default function StarboardSettings({ server }: { server: { 
     data: {
         serverID: string, 
         starboard_channel: string,
@@ -22,9 +22,9 @@ export default function StarboardSettings({ server }: { server: DiscordGuild & {
     <div className={"flex flex-col gap-4"}>
     <Suspense fallback={null}>
         { server ? <>
-            <StarboardChannel server={server}/>
-            <StarboardReaction server={server}/>
-            <StarboardReactionCount server={server} />
+            <StarboardChannel server={server.data}/>
+            <StarboardReaction server={server.data}/>
+            <StarboardReactionCount server={server.data} />
         </> : "" }
 
     </Suspense>

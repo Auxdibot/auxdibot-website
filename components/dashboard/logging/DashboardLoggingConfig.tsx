@@ -17,7 +17,7 @@ export default function DashboardLoggingConfig({ id }: { id: string }) {
                 <LatestLog log={logging?.data?.latest_log}/>
             </Suspense>
             <Suspense fallback={null}>
-            <LogSettings server={logging}/>
+            <LogSettings server={logging?.data}/>
             </Suspense>
             
         </span>

@@ -28,13 +28,11 @@ export function Reward({ reward, role, index, serverID }: { role: { name: string
 }
 
 type LevelRewardBody = { level: number, roleID: string };
-export default function LevelRewards({ server }: { server: DiscordGuild & { 
-    data: {
-        serverID: string, 
-        level_rewards: { level: number, roleID: string }[],
-    } 
+export default function LevelRewards({ server }: { server: { 
+    serverID: string, 
+    level_rewards: { level: number, roleID: string }[],
 }}) {
-    let { data: roles } = useQuery(["data_roles", server.id], async () => await fetch(`/api/v1/servers/${server.id}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [success, setSuccess] = useState(false);
     const { register, handleSubmit, reset } = useForm<LevelRewardBody>();
@@ -45,9 +43,9 @@ export default function LevelRewards({ server }: { server: DiscordGuild & {
         const body = new URLSearchParams();
         body.append("level", formData.level.toString());
         body.append("role", formData.roleID);
-        fetch(`/api/v1/servers/${server.id}/levels/rewards`, { method: "PATCH", body }).then(async (data) => {
+        fetch(`/api/v1/servers/${server.serverID}/levels/rewards`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_levels", server.id])
+            queryClient.invalidateQueries(["data_levels", server.serverID])
             
             if (!json['error'])
                 setSuccess(true);
@@ -62,7 +60,7 @@ export default function LevelRewards({ server }: { server: DiscordGuild & {
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Level Rewards</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>
-        {server?.data?.level_rewards?.map((i, index) => <li key={index}><Reward reward={i} role={roles.find((role: { id: string }) => i.roleID == role.id)} index={index} serverID={server.data.serverID} /></li>)}
+        {server?.level_rewards?.map((i, index) => <li key={index}><Reward reward={i} role={roles.find((role: { id: string }) => i.roleID == role.id)} index={index} serverID={server.serverID} /></li>)}
 
     </Suspense>
     <select {...register("roleID", { required: true })} className={"font-roboto w-fit mx-auto rounded-md p-1 text-md"}>

@@ -15,7 +15,7 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
             
             <Suspense fallback={null}>
                 <LatestPunishments serverID={id} punishments={punishments?.data?.punishments}/>
-                <ModerationSettings server={punishments}/>
+                <ModerationSettings server={punishments?.data}/>
             </Suspense>
         </span>
         </div>

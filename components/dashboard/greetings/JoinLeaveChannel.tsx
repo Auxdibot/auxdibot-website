@@ -37,7 +37,7 @@ export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
     <span className={"flex items-center flex-col gap-2"}>
         <select onChange={(e) => onJoinLeaveChannelChange(e)} value={channel} className={"font-roboto w-fit mx-auto rounded-md p-1 text-md"}>
             <option value={"null"}>None (Disables Join/Leave Messages)</option>
-            {channels.map((i: { id: string, name: string }) => <option key={i.id} value={i.id}>{i.name}</option>)}
+            {channels?.map((i: { id: string, name: string }) => <option key={i.id} value={i.id}>{i.name}</option>)}
         </select> 
         <button onClick={() => setJoinLeaveChannel()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><PiHandWavingLight/> Change Join/Leave Channel</>) }
