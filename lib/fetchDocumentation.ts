@@ -7,7 +7,9 @@ const converter = new Showdown.Converter({
     ghCodeBlocks: true,
     parseImgDimensions: true,
     tables: true,
-    emoji: true
+    emoji: true,
+    customizedHeaderId: true,
+    
 })
 export default function fetchDocumentation(name: string): string | undefined {
     let doc: any = documentation;

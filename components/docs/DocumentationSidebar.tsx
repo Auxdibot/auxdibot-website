@@ -3,20 +3,18 @@ import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext, useEffect } from "react";
 import { BsArrowRight, BsClock, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
-import { useMediaQuery } from "react-responsive";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
 export default function DocumentationSidebarContainer({ doc }: { doc: string | string[] | undefined }) {
     let [expanded, setExpanded] = useState(false);
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-    return (<ExpandedContext.Provider value={{ expanded, setExpanded }}>{isMobile ? <div className={"fixed w-64 z-50 max-md:w-48"}>
-        <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
-            <DocumentationSidebar doc={doc} />
-        </div>
-        <button className={`fixed text-3xl border-t-2 border-t-gray-700 bg-gray-600 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
-            <BsList/>
-        </button>
-    </div> : <DocumentationSidebar doc={doc} />}</ExpandedContext.Provider>)
+    return (<ExpandedContext.Provider value={{ expanded, setExpanded }}><div className={"md:hidden fixed w-64 z-50 max-md:w-48"}>
+    <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
+        <DocumentationSidebar doc={doc} />
+    </div>
+    <button className={`fixed text-3xl border-t-2 border-t-gray-700 bg-gray-600 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
+        <BsList/>
+    </button>
+</div><div className={"max-md:hidden"}><DocumentationSidebar doc={doc}/></div></ExpandedContext.Provider>)
 }
 enum SidebarCategories {
     HOME = "home",
@@ -51,7 +49,7 @@ export function DocumentationSidebar({ doc: docPage }: { doc: string | string[] 
     }
     return (<><div className={"w-64 flex-shrink-0"}>
     <nav className={`flex flex-col fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
-        <ul className={"flex flex-col max-xl:h-96 max-xl:scrollbar max-xl:overflow-y-scroll"}>
+        <ul className={"flex flex-col"}>
         <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.HOME ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${doc == SidebarCategories.HOME ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.HOME)} className={`dashboard-sidebar-element ${doc == SidebarCategories.HOME ? "dashboard-sidebar-selected-text" : ""}`}><BsHouse/> Home</span>

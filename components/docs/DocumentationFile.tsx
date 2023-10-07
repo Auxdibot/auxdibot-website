@@ -9,7 +9,7 @@ export function DocumentationFile({
   doc
 }: DocumentationFileProps) {
   const docFile = fetchDocumentation((typeof doc == 'object' ? doc.join('/') : doc?.toString()) || 'home');
-  return <main className={"bg-gray-700 flex-grow"}>
+  return <main className={"bg-gray-700 flex-grow max-w-full"}>
     <div className={"doc-content"} dangerouslySetInnerHTML={{ __html: docFile || "" }}></div>
     </main>;
 }

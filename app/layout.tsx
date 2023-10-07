@@ -18,6 +18,12 @@ export const metadata: Metadata = {
     url: "https://bot.auxdible.me",
     images: "/icon.png"
   },
+  viewport: {
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    width: "device-width"
+  }
   
 };
 

@@ -13,11 +13,6 @@
          </a>
       </div>
       <div class="row">
-         <img src="https://img.shields.io/github/commit-activity/w/Auxdibot/auxdibot?style=flat-square"/>
-         <img src="https://img.shields.io/github/contributors/Auxdibot/auxdibot?style=flat-square"/>
-         <img src="https://img.shields.io/github/last-commit/Auxdibot/auxdibot?style=flat-square"/>
-      </div>
-      <div class="row">
       <a href="https://github.com/auxdibot">
             <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=GitHub&logoColor=white" alt="Auxdibot GitHub" width=100/>
       </a>
@@ -40,11 +35,16 @@ You can invite Auxdibot to your server through the "Add to Server" button on the
 
 Auxdibot's features are organized into individual "Modules," each containing different commands. Commands can also contain subcommands. Modules can be viewed using the `/help modules` command. Modules will be prefixed by a ✅ or ❌, displaying whether the module is enabled. To view a module's commands and a general description of the module's functionality, use the `/help module (module name)` command. Commands can be viewed using the `/help command (command name) [optional subcommand name]` command, displaying the command's permission, an example of the command's usage, and a summary of the functionality of that command.
 
+<p class="image">
+<img alt="Settings View" src="/docs/_assets/settings_view.png" width=450/>
+<em>The "Auxdibot Modules" embed. The Levels module and the Greetings module are disabled.</em>
+</p>
+
 | Command Name  | Command Description | Command Permission |
 | ------------- | ------------------- | ------------------ |
-| /help modules  | View Auxdibot's modules.        | commands.help.modules |
-| /help module | View a module's information, including commands and usage. | View a module's information, including commands and usage. | commands.help.module |
-| /help command | View a command or subcommand's usage and description. | commands.help.command |
+| `/help modules`| View Auxdibot's modules. | `commands.help.modules` |
+| `/help module` | View a module's information, including commands and usage. | `commands.help.module` |
+| `/help command`| View a command or subcommand's usage and description. | `commands.help.command` |
 
 ## 📁 Auxdibot's Modules
 
@@ -69,15 +69,6 @@ Auxdibot contains a suite of modules that are useful in many situations.
 * `⭐` *Starboard*
 
 * `⏲️` *Schedules*
-
-### Enabling and Disabling Modules
-
-If you don't like one of Auxdibot's modules or one of Auxdibot's modules is conflicting with another bot, it can be disabled and enabled using the `/modules` command. Disabling a feature will disable all Auxdibot commands attached to that module and disable any recurring actions for that module on your server.
-
-| Command Name  | Command Description | Command Permission |
-| ------------- | ------------------- | ------------------ |
-| /modules enable  | Enable Auxdibot's modules. | settings.modules.enable |
-| /modules disable | Disable Auxdibot's modules. | settings.modules.disable |
 
 ## ❓ What Next?
 
