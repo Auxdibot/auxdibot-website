@@ -3,11 +3,9 @@
   <h1 id="welcome">Settings</h1>
 </div>
 
-## ⚙️ Auxdibot Settings
-
 Auxdibot features many commands that will allow you to view and edit Auxdibot's settings for your server.
 
-### /settings
+## /settings
 
 Auxdibot's main `/settings` command allows you to view Auxdibot's configuration for your server, edit the mute role, join and leave messages channel, and log channel.
 
@@ -33,7 +31,7 @@ Running `/settings view` will present you with an organized embed containing all
 | `/settings log_channel` | Change the log channel for the server, where all actions are logged to. | `settings.log_channel` |
 | `/settings mute_role` | Change the mute role for the server, which is automatically assigned to muted users. | `settings.mute_role` |
 
-### Enabling and Disabling Modules
+## Enabling and Disabling Modules
 
 If you don't like one of Auxdibot's modules or one of Auxdibot's modules is conflicting with another bot, it can be disabled and enabled using the `/modules` command. Disabling a feature will disable all Auxdibot commands attached to that module and disable any recurring actions for that module on your server.
 
@@ -42,3 +40,11 @@ If you don't like one of Auxdibot's modules or one of Auxdibot's modules is conf
 | `/modules enable`  | Enable Auxdibot's modules. | `settings.modules.enable` |
 | `/modules disable` | Disable Auxdibot's modules. | `settings.modules.disable` |
 
+## Dashboard
+
+Modules can be enabled and disabled from Auxdibot's dashboard. Auxdibot's dashboard also features a "Reset Bot" option, and the ability to change the bot's nickname.
+
+<p class="image">
+<img alt="Dashboard Settings" src="/docs/_assets/dashboard_settings.png" width=450/>
+<em>The dashboard settings for Auxdibot, allowing you to change the bot's nickname, reset the bot's settings, and disable/enable modules.</em>
+</p>

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext, useEffect } from "react";
-import { BsArrowRight, BsClock, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsClock, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsLaptop, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
@@ -18,6 +18,7 @@ export default function DocumentationSidebarContainer({ doc }: { doc: string | s
 }
 enum SidebarCategories {
     HOME = "home",
+    DASHBOARD = "dashboard",
     SETTINGS = "settings",
     LOGGING = "logging",
     MODERATION = "moderation",
@@ -53,6 +54,10 @@ export function DocumentationSidebar({ doc: docPage }: { doc: string | string[] 
         <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.HOME ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${doc == SidebarCategories.HOME ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.HOME)} className={`dashboard-sidebar-element ${doc == SidebarCategories.HOME ? "dashboard-sidebar-selected-text" : ""}`}><BsHouse/> Home</span>
+            </li>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.DASHBOARD ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${doc == SidebarCategories.DASHBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.DASHBOARD)} className={`dashboard-sidebar-element ${doc == SidebarCategories.DASHBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsLaptop/> Dashboard</span>
             </li>
             <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${doc == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
