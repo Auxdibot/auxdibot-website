@@ -37,7 +37,7 @@ You can invite Auxdibot to your server through the "Add to Server" button on the
 Auxdibot's features are organized into individual "Modules," each containing different commands. Commands can also contain subcommands. Modules can be viewed using the `/help modules` command. Modules will be prefixed by a ✅ or ❌, displaying whether the module is enabled. To view a module's commands and a general description of the module's functionality, use the `/help module (module name)` command. Commands can be viewed using the `/help command (command name) [optional subcommand name]` command, displaying the command's permission, an example of the command's usage, and a summary of the functionality of that command.
 
 <p class="image">
-<img alt="Settings View" src="/docs/_assets/settings_view.png" width=450/>
+<img alt="Auxdibot Modules" src="/docs/_assets/help_modules.png" width=450/>
 <em>The "Auxdibot Modules" embed. The Levels module and the Greetings module are disabled.</em>
 </p>
 
@@ -59,7 +59,7 @@ Auxdibot contains a suite of modules that are useful in many situations.
 
 * `💻` *Embed Creator*
 
-* `👋` *Join, Join DM & Leave Messages*
+* `👋` *Greetings (Join, Join DM & Leave Messages)*
 
 * `👈` *Role Management (Join Roles, Sticky Roles, Massrole, Reaction Roles)*
 
