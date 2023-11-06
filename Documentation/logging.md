@@ -39,10 +39,16 @@ Auxdibot will log the following actions on your server.
 | Unban | A member of your server was unbanned. |
 | Member Join | A new member has joined your server. |
 | Member Leave | A member has left your server. |
+| Member Server Deafened | A member has been server deafened on voice. |
+| Member Server Muted | A member has been server muted on voice. |
 | Punishment Expired | A punishment has expired. |
 | Punishment Deleted | A punishment has been deleted. |
 | Permission Override Created | A permission override has been created. |
 | Permission Override Deleted | A permission override has been deleted. |
+| Channel Created | A channel has been created. |
+| Channel Deleted | A channel has been deleted. |
+| Thread Created | A thread has been created. |
+| Thread Deleted | A thread has been deleted. |
 | Message Edited | A message on your server has been edited. |
 | Message Deleted | A message on your server has been deleted. |
 | Join/Leave Channel Changed | The join/leave channel has been changed. |

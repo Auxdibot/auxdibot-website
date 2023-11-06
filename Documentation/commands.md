@@ -85,10 +85,13 @@ For commands that have a `duration` or `timestamp` option, you can to specify a 
 | `/modules disable` | Disable Auxdibot's modules. (/help modules) | `settings.modules.disable` |
 | `/modules enable` | Enable Auxdibot's modules. (/help modules) | `settings.modules.enable` |
 | `/settings view` | View all settings for the server. | `settings.view` |
-| `/settings log_channel` | Change the log channel for the server, where all actions are logged to. | `settings.log_channel` |
 | `/settings join_leave_channel` | Change the channel where join and leave messages are broadcast. | `settings.join_leave_channel` |
 | `/settings mute_role` | Change the mute role for the server, which is automatically assigned to muted users. | `settings.mute_role` |
-
+| `/logs channel` | Change the log channel for the server, where all actions are logged to. | `logs.log_channel` |
+| `/logs actions` | Get a list of every action Auxdibot can log. | `logs.actions` |
+| `/logs filter` | Toggle a log action from being logged on your server. | `logs.filter` |
+| `/logs latest` | Get the latest logs on your server. | `logs.latest` |
+| `/logs list_filtered` | List every filtered log action. | `logs.list_filtered` |
 ### Permissions Commands
 
 | Command Name  | Command Description | Command Permission |
