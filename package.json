@@ -14,11 +14,13 @@
     "url": "https://github.com/Auxdibot/auxdibot-website"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-color": "^3.0.6",
     "@types/react-dom": "18.2.7",
     "@types/react-icons": "^3.0.0",
+    "@types/showdown": "^2.0.2",
     "autoprefixer": "10.4.14",
     "discord-api-types": "^0.37.55",
     "eslint": "8.45.0",
@@ -36,6 +38,7 @@
     "react-responsive": "^9.0.2",
     "sass": "^1.64.1",
     "sharp": "^0.32.5",
+    "showdown": "^2.1.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   }

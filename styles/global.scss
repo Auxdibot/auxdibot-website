@@ -33,7 +33,29 @@
     .dashboard-sidebar-selected-text {
         @apply text-xl max-md:text-base;
     }
+    .doc-content {
+        @apply prose-headings:font-lato prose-h1:font-josefin-sans prose-headings:text-orange-500 
+        prose-headings:my-3 prose-h1:text-6xl prose-h2:text-4xl prose-p:my-5
+        prose-h3:text-2xl prose-code:text-gray-300 prose-code:bg-gray-800 prose-code:rounded-md prose-code:p-0.5 prose-blockquote:text-gray-400 
+        prose-blockquote:font-semibold prose-a:text-orange-500 prose-a:no-underline prose-strong:text-gray-100
+        prose-table:border prose-th:p-2 prose-th:border prose-tr:border-b prose-tr:border-gray-500 max-md:prose-tr:inline-flex max-md:prose-tr:p-2 max-md:prose-tr:w-full max-md:prose-tr:flex-col 
+        md:prose-td:border-r max-md:prose-thead:hidden prose-td:border-gray-500 prose-td:px-0.5 prose-th:border-gray-400 
+        prose-th:font-normal prose-th:text-xl prose-table:border-gray-500 prose-ul:list-disc prose-ul:ml-8
+        p-4 font-roboto;
 
+        .image {
+            @apply p-4 text-center border border-gray-500 w-fit gap-2 table;
+            img {
+                @apply max-w-full;
+            }
+            em {
+                @apply table-caption caption-bottom my-2 text-lg;
+            }
+        }
+        .row {
+            @apply justify-center flex flex-row py-1;
+        }
+    }
 }
 @layer utilities {
     .scrollbar::-webkit-scrollbar {
