@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "react-query"
-import LatestLog from "./LatestLog";
+import Logs from "./Logs";
 import LogSettings from "./LogSettings";
 import { Suspense } from 'react';
 
@@ -14,7 +14,7 @@ export default function DashboardLoggingConfig({ id }: { id: string }) {
         <span className={"grid grid-cols-2 grid-rows-2 max-lg:grid-cols-1 grid-flow-row gap-5"}>
             
             <Suspense fallback={null}>
-                <LatestLog log={logging?.data?.latest_log}/>
+                <Logs logs={logging?.data?.logs}/>
             </Suspense>
             <Suspense fallback={null}>
             <LogSettings server={logging?.data}/>
