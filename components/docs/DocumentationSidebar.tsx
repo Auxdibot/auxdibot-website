@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext, useEffect } from "react";
-import { BsArrowRight, BsClock, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsLaptop, BsList, BsPerson, BsQuestionCircle, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsBook, BsClock, BsCommand, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsLaptop, BsList, BsPerson, BsQuestion, BsQuestionCircle, BsShieldCheck, BsSlash, BsStar, BsTerminal, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
@@ -19,17 +19,9 @@ export default function DocumentationSidebarContainer({ doc }: { doc: string | s
 enum SidebarCategories {
     HOME = "home",
     DASHBOARD = "dashboard",
-    SETTINGS = "settings",
+    COMMANDS = "commands",
     LOGGING = "logging",
     MODERATION = "moderation",
-    SCHEDULES = "schedules",
-    PERMISSIONS = "permissions",
-    EMBEDS = "embeds",
-    STARBOARD = "starboard",
-    SUGGESTIONS = "suggestions",
-    LEVELS = "levels",
-    ROLES = "roles",
-    GREETINGS = "greetings",
 }
 export function DocumentationSidebar({ doc: docPage }: { doc: string | string[] | undefined }) {
     const router = useRouter();
@@ -59,49 +51,13 @@ export function DocumentationSidebar({ doc: docPage }: { doc: string | string[] 
                 <span><BsArrowRight className={`${doc == SidebarCategories.DASHBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.DASHBOARD)} className={`dashboard-sidebar-element ${doc == SidebarCategories.DASHBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsLaptop/> Dashboard</span>
             </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.COMMANDS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${doc == SidebarCategories.COMMANDS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.COMMANDS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.COMMANDS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Commands</span>
             </li>
             <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.LOGGING ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${doc == SidebarCategories.LOGGING ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.LOGGING)} className={`dashboard-sidebar-element ${doc == SidebarCategories.LOGGING ? "dashboard-sidebar-selected-text" : ""}`}><BsJournalBookmark/> Logging</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.MODERATION ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.MODERATION ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.MODERATION)} className={`dashboard-sidebar-element ${doc == SidebarCategories.MODERATION ? "dashboard-sidebar-selected-text" : ""}`}><BsHammer/> Moderation</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.SCHEDULES ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.SCHEDULES)} className={`dashboard-sidebar-element ${doc == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected-text" : ""}`}><BsClock/> Schedules</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.PERMISSIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.PERMISSIONS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsShieldCheck/> Permissions</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.EMBEDS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.EMBEDS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.EMBEDS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.EMBEDS ? "dashboard-sidebar-selected-text" : ""}`}><BsTextLeft/> Embeds</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.STARBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.STARBOARD)} className={`dashboard-sidebar-element ${doc == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsStar/> Starboard</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.SUGGESTIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.SUGGESTIONS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsQuestionCircle/> Suggestions</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.LEVELS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.LEVELS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.LEVELS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.LEVELS ? "dashboard-sidebar-selected-text" : ""}`}><BsTrophy/> Levels</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.ROLES ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.ROLES ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.ROLES)} className={`dashboard-sidebar-element ${doc == SidebarCategories.ROLES ? "dashboard-sidebar-selected-text" : ""}`}><BsPerson/> Roles</span>
-            </li>
-            <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.GREETINGS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${doc == SidebarCategories.GREETINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.GREETINGS)} className={`dashboard-sidebar-element ${doc == SidebarCategories.GREETINGS ? "dashboard-sidebar-selected-text" : ""}`}><PiHandWavingLight/> Greetings</span>
             </li>
         </ul>
         

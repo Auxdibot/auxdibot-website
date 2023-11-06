@@ -1,6 +1,6 @@
 {
     "home": "home.md",
     "dashboard": "dashboard.md",
-    "settings": "settings.md",
+    "commands": "commands.md",
     "logging": "logging.md"
 }
