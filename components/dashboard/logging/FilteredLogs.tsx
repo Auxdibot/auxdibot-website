@@ -46,7 +46,7 @@ export default function FilteredLogs({ server }: { server: {
             if (!json['error'])
                 setSuccess(true);
             if (actionContext)
-            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Added "${reaction}" as a suggestions reaction.`, success: true }) : "";
+            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Added "${reaction}" as a filtered log.`, success: true }) : "";
             setReaction("");
             
         }).catch(() => {     
