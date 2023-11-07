@@ -16,7 +16,6 @@ export default function LayoutNavbar() {
                 priority
             /><span className={"header text-3xl text-center items-center align-bottom pt-2 max-md:hidden"}>Auxdibot</span></Link>
         <div className={"flex gap-5 items-center font-montserrat text-gray-100"}>
-            <Link href={"/blog"} className={"flex gap-2 items-center text-xl max-sm:text-md group"}><BsEnvelope className={"group-hover:scale-110 group-hover:text-orange-500 transition-all"}/> <span className={"max-md:hidden"}>Blog</span></Link>
             <Link href={"/docs"} className={"flex gap-2 items-center text-xl max-sm:text-md group"}><BsBook className={"group-hover:scale-110 group-hover:text-orange-500 transition-all"}/> <span className={"max-md:hidden"}>Docs</span></Link>
             <Link href={process.env.NEXT_PUBLIC_DISCORD_SERVER_LINK || ""} className={"flex gap-2 items-center max-sm:text-md text-xl group"}><BsDiscord className={"group-hover:scale-110 group-hover:text-orange-500 transition-all"}/> <span className={"max-md:hidden"}>Discord</span></Link>
             <Link href={process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK || ""} className={"flex gap-2 items-center max-sm:text-md text-xl group"}><BsArrowUp className={"group-hover:scale-110 group-hover:text-orange-500 transition-all"}/> <span className={"max-md:hidden"}>Invite</span></Link>
