@@ -20,7 +20,7 @@ export default function Points() {
             transition={{ duration: 0.5 }}><BsWindowDesktop/></motion.span>
             <h1 className={"header text-4xl"}>Dashboard</h1>
             </div>
-            <p className={"flex-1 font-roboto text-md"}>Auxdibot features an easy-to-use dashboard site, allowing admins to customize Auxdibot&apos;s features from anywhere!</p>
+            <p className={"flex-1 font-inter text-md"}>Auxdibot features an easy-to-use dashboard site, allowing admins to customize Auxdibot&apos;s features from anywhere!</p>
         </section>
         </div>
         <div className={"relative flex-1 group"}>
@@ -55,7 +55,7 @@ export default function Points() {
             <h1 className={"header text-4xl"}>Multipurpose</h1>
             </div>
            
-            <p className={"flex-1 font-roboto text-md"}>Auxdibot contains an expansive suite of features for admins to manage their servers with! Auxdibot is the one-stop shop for Discord management tools.</p>
+            <p className={"flex-1 font-inter text-md"}>Auxdibot contains an expansive suite of features for admins to manage their servers with! Auxdibot is the one-stop shop for Discord management tools.</p>
         </section>
         </div>
         

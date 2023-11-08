@@ -31,7 +31,8 @@ module.exports = {
         'josefin-sans': "'Josefin Sans', sans-serif",
         'roboto': "'Roboto', sans-serif",
         'lato': "'Lato', sans-serif",
-        'montserrat': "'Montserrat', sans-serif"
+        'montserrat': "'Montserrat', sans-serif",
+        'inter': "'Inter', sans-serif"
       }
     },
   },

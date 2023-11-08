@@ -11,7 +11,7 @@ export default function DocumentationSidebarContainer({ doc }: { doc: string | s
     <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
         <DocumentationSidebar doc={doc} />
     </div>
-    <button className={`fixed text-3xl border-t-2 border-t-gray-700 bg-gray-600 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
+    <button className={`fixed text-3xl border-t-2 border-t-slate-700 bg-slate-600 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
         <BsList/>
     </button>
 </div><div className={"max-md:hidden"}><DocumentationSidebar doc={doc}/></div></ExpandedContext.Provider>)
@@ -41,7 +41,7 @@ export function DocumentationSidebar({ doc: docPage }: { doc: string | string[] 
         setTimeout(() => contextExpanded?.setExpanded(false), 50);
     }
     return (<><div className={"w-64 flex-shrink-0"}>
-    <nav className={`flex flex-col fixed h-screen w-64 max-md:w-48 bg-gray-600 border-t-2 border-gray-700`}>
+    <nav className={`flex flex-col fixed h-screen w-64 max-md:w-48 bg-slate-600 border-t-2 border-slate-700`}>
         <ul className={"flex flex-col"}>
         <li className={`pt-3 dashboard-sidebar-wrapper ${doc == SidebarCategories.HOME ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${doc == SidebarCategories.HOME ? "scale-75" : "scale-0 hidden"}`}/></span>

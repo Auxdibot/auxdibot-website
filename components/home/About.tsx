@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Features from './Features';
 import Points from './Points';
+import Commands from './Commands';
 
 export default function About() {
     
     return (
         <section className={"w-full flex flex-col bg-gray-700"}>
-        <section className={"bg-gradient-to-b from-gray-600 border-t-2 border-gray-700 to-gray-700"}>
+        <section className={"bg-gradient-to-b from-gray-600 border-t-2 border-gray-700 to-gray-700 py-5"}>
+        <Commands/>
         <Points/>
         </section>
         <section className={"max-w-4xl mx-auto flex flex-col gap-10 pb-20 border-b-2 border-b-gray-600"}>
