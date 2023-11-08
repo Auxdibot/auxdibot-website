@@ -33,6 +33,16 @@
     .dashboard-sidebar-selected-text {
         @apply text-xl max-md:text-base;
     }
+    .header-styles {
+        .react-datepicker__month-container {
+            .react-datepicker__header {
+                @apply bg-gray-700;
+                .react-datepicker__current-month {
+                    color: white !important;
+                }
+            }
+        }
+    }
     .doc-content {
         @apply prose-headings:font-lato prose-h1:font-josefin-sans prose-headings:text-orange-500 
         prose-headings:my-3 prose-h1:text-6xl prose-h2:text-4xl prose-p:my-5

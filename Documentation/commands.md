@@ -44,7 +44,7 @@ Field description for Field 2...
 
 ### Command Timestamps
 
-For commands that have a `duration` or `timestamp` option, you can to specify a timestamp. (`M` for months, `m` for minutes, `h` for hours, `d` for days, etc.) If the duration option is left empty, it will be substituted for a permanent duration.
+For commands that have a `duration`, `interval`, or `timestamp` option, you can to specify a timestamp. (`M` for months, `m` for minutes, `h` for hours, `d` for days, etc.) If the duration option is left empty, it will be substituted for a permanent duration.
 
 **Timestamp Examples**
 
@@ -92,6 +92,7 @@ For commands that have a `duration` or `timestamp` option, you can to specify a 
 | `/logs filter` | Toggle a log action from being logged on your server. | `logs.filter` |
 | `/logs latest` | Get the latest logs on your server. | `logs.latest` |
 | `/logs list_filtered` | List every filtered log action. | `logs.list_filtered` |
+
 ### Permissions Commands
 
 | Command Name  | Command Description | Command Permission |
@@ -111,6 +112,7 @@ For commands that have a `duration` or `timestamp` option, you can to specify a 
 | `/embed edit_json` | Edit an existing Embed by Auxdibot using valid Discord Embed JSON data. | `embed.edit.json` |
 | `/embed json` | Get the Discord Embed JSON data of any Embed on your server. | `embed.json` |
 | `/schedule message` | Schedule a message using Auxdibot. | `schedule.message` |
+| `/schedule edit` | Edit an existing Schedule by Auxdibot. | `schedule.edit` |
 | `/schedule list` | List the schedules running on your server. | `schedule.list` |
 | `/schedule remove` | Remove a schedule from your server. It will never run again after deletion. | `schedule.remove` |
 | `/schedule preview` | Preview a scheduled message. | `schedule.preview` |

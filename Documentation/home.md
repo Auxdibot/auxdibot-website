@@ -19,7 +19,7 @@
       </div>
     </div>
   <h1 id="welcome">Auxdibot</h1>
-  <em>(Updated for bot version 2.2.0)</em>
+  <em>(Updated for bot version 2.2.1)</em>
 </div>
 
 ## 👋 About Auxdibot

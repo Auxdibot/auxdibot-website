@@ -3,7 +3,6 @@ import '@/styles/global.scss'
 import { Metadata } from 'next'
 import LayoutNavbar from '@/components/navbar/LayoutNavbar';
 import { defaultMetadata } from '@/lib/constants/defaultMetadata';
-import DashboardSidebarContainer from '@/components/dashboard/DashboardSidebar';
 
 export const metadata: Metadata = defaultMetadata;
 

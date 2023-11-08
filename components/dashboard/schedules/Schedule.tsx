@@ -1,6 +1,7 @@
 import MockEmbed from "@/components/MockEmbed";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import ScheduleType from "@/lib/types/ScheduleType";
+import timestampToDuration from "@/lib/types/timestampToDuration";
 import { useContext, useState } from 'react'; 
 import { BsArrowsExpand, BsCardList, BsChatLeft, BsChatLeftDots, BsClock, BsList, BsMegaphone, BsPlay, BsRepeat, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
@@ -29,7 +30,8 @@ export default function Schedule({ serverID, schedule }: { serverID: string, sch
     return <div className={"bg-gray-700 rounded-xl p-1 flex flex-col gap-2"}>
     <code className={"text-md flex flex-row justify-between max-md:flex-col gap-1 mb-4"}>
         <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsCardList/> #{schedule.index+1}</span> 
-        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsClock/>Next Run {new Date(schedule.last_run_unix + schedule.interval_unix).toLocaleString().replaceAll(/, /g, " ")}</span>
+        {/*schedule.last_run returns iso string here but unix timestamp from server? what the heck?*/}
+        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsClock/>Last Run {new Date(new Date(schedule.last_run).valueOf() + Number(timestampToDuration(schedule.interval_timestamp))).toLocaleString()}</span>
     </code>
     <span className={"flex flex-row gap-2 items-center text-lg"}><BsMegaphone/> Channel: #{channel?.name || ""}</span>
     <span className={"flex flex-row gap-2 items-center text-lg"}><BsPlay/> Times run: {schedule.times_run}</span>
