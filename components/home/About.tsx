@@ -15,8 +15,8 @@ export default function About() {
         <Points/>
         <Commands/>
         </section>
-        <section className={"max-w-4xl mx-auto flex max-md:flex-col gap-10 overflow-x-hidden"}>
-        <motion.h1 initial={{ transform: "translateX(-4rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5 }} className={"header text-6xl text-end max-md:text-center flex-grow items-center flex"}>About Auxdibot</motion.h1>
+        <section className={"max-w-4xl mx-auto flex max-md:flex-col gap-10 max-md:overflow-x-hidden"}>
+        <motion.h1 initial={{ transform: "translateX(-4rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5 }} className={"header text-6xl text-end max-md:text-center max-md:mx-auto flex-grow items-center flex"}>About Auxdibot</motion.h1>
         <span className={"flex-grow w-1 border-r-2 border-gray-800 max-md:hidden"}></span>
         <motion.p initial={{ transform: "translateX(4rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5 }} className={'secondary text-2xl max-md:text-center'}>Auxdibot is a Discord bot project founded and maintained by <Link href={"https://auxdible.me"} className={"text-orange-400 hover:text-orange-500"}>Auxdible</Link>. Auxdibot features a wide variety of features for admins to manage their servers with. Auxdibot receives consistant updates and constant bug fixes, making it a reliable choice for your server!</motion.p>
         </section>
