@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Analytics from "./Analytics";
-import { BsGear, BsPersonAdd } from 'react-icons/bs';
+import { BsEnvelopePlus, BsGear, BsPersonAdd, BsRobot } from 'react-icons/bs';
 import Button from "../Button";
 import useSession from "@/lib/hooks/useSession";
 export default function Masthead() {
@@ -22,7 +22,7 @@ export default function Masthead() {
                 <div className={"w-fit max-md:text-center"}>
                     <h1 className={"header text-8xl max-md:text-6xl max-md:my-4"}>Auxdibot</h1>
                     <Analytics/>
-                    {user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button icon={<BsPersonAdd/>} text={"Sign In"} href={"/api/v1/auth/discord"}/> }
+                    {user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button icon={<BsEnvelopePlus/>} text={"Invite Bot"}/> }
                 </div>
                 
             </section>

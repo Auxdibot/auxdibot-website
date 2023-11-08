@@ -1,13 +1,15 @@
 "use client";
 import MockEmbed from '@/components/MockEmbed';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { useContext, useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsChatLeftDots, BsClock, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
+import { BsCalendar, BsChatLeftDots, BsClock, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
 import { SketchPicker } from 'react-color';
+import "react-datepicker/dist/react-datepicker.css"; 
 import DashboardActionContext from '@/context/DashboardActionContext';
-type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; }
+import DatePicker from 'react-datepicker';
+type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
@@ -28,6 +30,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         body.append('channel', data.channel);
         body.append('duration', data.duration);
         body.append('message', data.message);
+        if (data.start_date) body.append('start_date', data.start_date.toISOString() + "")
         if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
             body.append('embed', JSON.stringify(data.embed));
         }
@@ -61,6 +64,17 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsClock/> Duration:</span>  
             <input className={"rounded-md font-roboto w-fit text-lg"} type="text" pattern='\d+[mhdwMy]{1}' {...register("duration", { pattern: /\d+[mhdwMy]{1}/ })}/>
+        </label>
+        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>
+            <span className={"flex flex-row gap-2 items-center"}><BsCalendar/> Start Date (optional):</span>
+            <Controller name={'start_date'} control={control} render={({ field }) => (
+                <DatePicker dateFormat="MMM d, yyyy h:mm aa" weekDayClassName={() => {
+                    return "!bg-gray-700 !text-white"
+                }} dayClassName={() => {
+                    return "hover:!bg-gray-600 !text-white";
+                }} calendarClassName={"!bg-gray-700 !font-roboto !text-white !border !border-gray-600 header-styles"} selected={field.value}  showTimeInput onChange={field.onChange}  className={"rounded-md font-roboto w-fit text-lg"} allowSameDay/>
+        )}></Controller>
+            
         </label>
         <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(ex. 5m for 5 minutes, 5M for 5 months, 2w for 2 weeks, and 1d for 1 day.)</span>
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>

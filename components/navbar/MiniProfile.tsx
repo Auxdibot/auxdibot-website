@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { BsArrowDownShort, BsArrowRightCircle, BsListTask, BsPersonAdd, BsShield, BsThreeDots } from "react-icons/bs";
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSession from "@/lib/hooks/useSession";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import Link from "next/link";
@@ -13,6 +13,15 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     const { user, status } = useSession();
     const queryClient = useQueryClient();
     const router = useRouter();
+    const ref = useRef<HTMLDivElement | null>();
+    useEffect(() => {
+        const clickedOutside = (e: globalThis.MouseEvent) => {
+          if (expanded && ref.current && !ref.current.contains(e.target as Node)) setExpanded(false)
+          
+        }
+        document.addEventListener("mousedown", clickedOutside)
+        return () => document.removeEventListener("mousedown", clickedOutside);
+      }, [expanded])
     function expand() {
         setExpanded(!expanded)
     }
@@ -25,7 +34,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     if (status == "loading") return (<div {...props}>
         <BsThreeDots className={"animate-spin text-2xl text-white"}/>
     </div>)
-    return (<div {...props}>
+    return (<div ref={ref} {...props}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=32`}
             alt={"Discord profile icon"}
@@ -40,7 +49,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
         <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
         </span>
-        <div className={`absolute ${expanded ? "animate-account" : "hidden"} select-none top-14 -translate-x-4 z-10 max-md:-translate-x-8 bg-gray-500 border border-gray-500 rounded-xl`}>
+        <div className={`absolute ${expanded ? "opacity-100" : "opacity-0"} transition-all select-none top-14 z-10 max-md:-translate-x-8 bg-gray-500 border border-gray-500 rounded-xl`}>
             <h1 className={"secondary bg-gray-600 p-4 rounded-t-xl flex flex-row gap-2 items-center"}><BsShield/> Account</h1>
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 

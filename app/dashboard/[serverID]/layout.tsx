@@ -1,6 +1,7 @@
 
 
 import DashboardProviders from '@/components/dashboard/DashboardProviders';
+import '@/styles/global.scss'
 
 export default function DashboardLayout({
   children, params

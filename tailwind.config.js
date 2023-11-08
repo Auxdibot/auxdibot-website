@@ -22,7 +22,6 @@ module.exports = {
       animation: {
         'incorrect': "shake 300ms linear 0s 1",
         'fadeIn': 'fadeIn 1.25s ease-in-out 0s 1 forwards',
-        'account': 'fadeIn 0.25s ease-in-out 0s 1 forwards',
         'colorPicker': 'fadeIn 0.25s ease-in-out 0s 1 forwards',
         'fadeRight': 'fadeRight 0.5s ease-out 0s 1 forwards',
         'fadeUp': 'fadeUp 0.5s ease-out 0s 1 forwards',
@@ -31,7 +30,8 @@ module.exports = {
         'josefin-sans': "'Josefin Sans', sans-serif",
         'roboto': "'Roboto', sans-serif",
         'lato': "'Lato', sans-serif",
-        'montserrat': "'Montserrat', sans-serif"
+        'montserrat': "'Montserrat', sans-serif",
+        'inter': "'Inter', sans-serif"
       }
     },
   },
