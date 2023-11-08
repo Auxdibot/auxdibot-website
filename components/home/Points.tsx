@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 
 export default function Points() {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-    return <div className={"w-full flex flex-row justify-between gap-4 lg:px-40 px-10 max-md:flex-col mt-10 mb-52 max-w-screen-2xl mx-auto"}>
+    return <div className={"w-full flex flex-row justify-between gap-4 lg:px-40 px-10 max-md:flex-col mt-10 max-w-screen-2xl mx-auto"}>
         <div className={"relative flex-1 group"}>
             <div
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"

@@ -16,13 +16,13 @@ export default function LayoutNavbar({ preventCollapse }: { preventCollapse?: bo
     function onScroll() {
         
         const visible = previousScrollPos > window.pageYOffset;
-        if (!visible && window.pageYOffset < 32) return;
+        if (!visible && window.pageYOffset < 64) return;
         setScrollPos(window.pageYOffset);
         setVisible(visible);
     }
     return (<>
     
-    <nav className={`fixed transition-all flex align-middle items-center gap-10 max-md:gap-4 w-full px-5 py-2 h-16 bg-slate-600 border-b-4 border-slate-700 z-50${!visible ? " -translate-y-full" : ""}`}>
+    <nav className={`fixed transition-all flex align-middle items-center gap-10 max-md:gap-4 w-full px-5 py-2 h-16 bg-slate-600 border-b-2 border-slate-700 z-50${!visible ? " -translate-y-full" : ""}`}>
         <Link href={'/'} className={"flex flex-row gap-2 items-center min-w-fit"}><Image
                 src={"/logo.png"}
                 alt={"Auxdibot icon."}

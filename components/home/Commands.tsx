@@ -23,6 +23,6 @@ export default function Commands() {
         }
     }, [analytics, status, count]);
     return (<Suspense fallback={<></>}>
-        <motion.span onViewportEnter={() => { setCount(true) }} className={"flex gap-2 secondary text-4xl max-md:flex-col max-md:items-center max-md:text-3xl py-2 w-fit mx-auto"}><BsSlash/> <span><code>{parseInt(commandsState).toLocaleString()}</code> command{ parseInt(commandsState) != 1 ? "s" : ""}.</span></motion.span>
+        <motion.span onViewportEnter={() => { setCount(true) }} className={"flex my-5 gap-2 secondary text-5xl max-md:flex-col max-md:items-center max-md:text-center max-md:text-4xl py-2 w-fit mx-auto"}><BsSlash/> <span><code>{parseInt(commandsState).toLocaleString()}</code> command{ parseInt(commandsState) != 1 ? "s" : ""}.</span></motion.span>
         </Suspense>);
 }
