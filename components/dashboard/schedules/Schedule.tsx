@@ -31,7 +31,7 @@ export default function Schedule({ serverID, schedule }: { serverID: string, sch
     <code className={"text-md flex flex-row justify-between max-md:flex-col gap-1 mb-4"}>
         <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsCardList/> #{schedule.index+1}</span> 
         {/*schedule.last_run returns iso string here but unix timestamp from server? what the heck?*/}
-        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsClock/>Last Run {new Date(new Date(schedule.last_run).valueOf() + Number(timestampToDuration(schedule.interval_timestamp))).toLocaleString()}</span>
+        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsClock/>Next Run: {new Date(new Date(schedule.last_run).valueOf() + Number(timestampToDuration(schedule.interval_timestamp))).toLocaleString().replaceAll(/, /g, " ")}</span>
     </code>
     <span className={"flex flex-row gap-2 items-center text-lg"}><BsMegaphone/> Channel: #{channel?.name || ""}</span>
     <span className={"flex flex-row gap-2 items-center text-lg"}><BsPlay/> Times run: {schedule.times_run}</span>
