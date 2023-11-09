@@ -56,7 +56,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     if (!server) return (<NotFound/>);
     return (<><div className={"w-64 flex-shrink-0"}>
     <nav className={`flex flex-col fixed h-screen w-64 max-md:w-48 bg-slate-600 border-t-2 border-slate-700`}>
-        <ul className={"flex flex-col max-xl:h-96 max-xl:scrollbar max-xl:overflow-y-scroll"}>
+        <ul className={"flex flex-col h-96 scrollbar overflow-y-scroll"}>
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
