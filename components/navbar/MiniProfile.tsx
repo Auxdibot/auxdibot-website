@@ -49,7 +49,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
         <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
         </span>
-        <div className={`absolute ${expanded ? "opacity-100" : "opacity-0"} transition-all select-none top-14 z-10 max-md:-translate-x-8 bg-gray-500 border border-gray-500 rounded-xl`}>
+        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right md:origin-top select-none top-14 z-10 max-md:-translate-x-8 bg-gray-500 border border-gray-500 rounded-xl`}>
             <h1 className={"secondary bg-gray-600 p-4 rounded-t-xl flex flex-row gap-2 items-center"}><BsShield/> Account</h1>
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 

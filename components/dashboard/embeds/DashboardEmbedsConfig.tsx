@@ -2,7 +2,7 @@
 import MockEmbed from '@/components/MockEmbed';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsBroadcast, BsChatLeftDots, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
 import { SketchPicker } from 'react-color';
@@ -21,6 +21,15 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         }
     });
     const [expandedColor, setExpandedColor] = useState(false);
+    const colorRef = useRef(null);
+    useEffect(() => {
+        const clickedOutside = (e: globalThis.MouseEvent) => {
+          if (expandedColor && colorRef.current && !(colorRef.current == (e.target as Node))) setExpandedColor(false)
+          
+        }
+        document.addEventListener("mousedown", clickedOutside)
+        return () => document.removeEventListener("mousedown", clickedOutside);
+      }, [expandedColor])
     const actionContext = useContext(DashboardActionContext);
     function onSubmit(data: EmbedBody) {
         let body = new URLSearchParams();
@@ -69,7 +78,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 relative"}>
             <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
             <BsPencil/></span> Set Color</span>
-            {expandedColor ? <SketchPicker width='15rem' disableAlpha styles={{ 
+            {expandedColor ? <SketchPicker width='15rem' ref={colorRef} disableAlpha styles={{ 
                 default: {  picker: { backgroundColor: "rgb(209, 213, 219)", color: "white !important", fontFamily: '"Roboto", sans-serif' }, controls: { color: "white" }} 
             }} className={`absolute border-2 border-gray-800 translate-y-48 touch-none max-md:right-1/2 max-md:translate-x-1/2 md:translate-x-4 animate-colorPicker`} color={color?.toString(16) || "ff0000"} onChange={(newColor) => {
                 setValue("embed.color", parseInt(newColor.hex.replace("#", ""), 16))
