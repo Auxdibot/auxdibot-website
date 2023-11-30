@@ -2,7 +2,7 @@
 
 import { ComponentProps, Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { BsServer, BsPerson } from 'react-icons/bs';
+import { BsServer, BsPerson, BsPeople } from 'react-icons/bs';
 export default function Analytics() {
     let { data: analytics, status, error } = useQuery(["analytics"], async () => await fetch("/api/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
     let [serverState, setServerState] = useState("0");
@@ -32,9 +32,10 @@ export default function Analytics() {
         }
     }, [analytics, status]);
     return (<Suspense fallback={<></>}>
-        <div className={"flex flex-col gap-2 max-md:gap-5"}>
-        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsServer/> <span><code>{parseInt(serverState).toLocaleString()}</code> server{ parseInt(serverState) != 1 ? "s" : ""}.</span></p>
-        <p className={"flex gap-2 secondary text-5xl w-full max-md:flex-col max-md:items-center max-md:text-4xl"}><BsPerson/> <span><code>{parseInt(memberState).toLocaleString()}</code> member{ parseInt(memberState) != 1 ? "s" : ""}.</span></p>
+        <div className={"flex gap-4 max-md:gap-5 w-fit justify-center"}>
+        <p className={"flex gap-2 font-montserrat text-3xl max-md:flex-col items-center max-md:text-2xl w-max"}><BsPeople/> <span>{parseInt(serverState).toLocaleString()}</span></p>
+        <span className={"w-1 border-r-2"}></span>
+        <p className={"flex gap-2 font-montserrat text-3xl w-max max-md:flex-col items-center max-md:text-2xl"}><BsPerson/> <span>{parseInt(memberState).toLocaleString()}</span></p>
         </div>
         </Suspense>);
 }
