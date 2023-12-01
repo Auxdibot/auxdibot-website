@@ -1,12 +1,12 @@
 "use client";
 
 import Analytics from "./Analytics";
-import { BsEnvelopePlus, BsGear, BsPersonAdd, BsRobot } from 'react-icons/bs';
+import { BsEnvelopePlus, BsGear } from 'react-icons/bs';
 import Button from "../Button";
 import useSession from "@/lib/hooks/useSession";
 import { Icon } from "./Icon";
 import { Suspense } from "react";
-import { OrbitControls, PerspectiveCamera, PresentationControls } from "@react-three/drei";
+import { PerspectiveCamera, PresentationControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 export default function Masthead() {
     const { user, status } = useSession();

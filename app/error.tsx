@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsHouse } from 'react-icons/bs';
 export default function Error() {
-    return (<section className={"flex-grow bg-gray-700 flex justify-center items-center align-middle flex-1 h-screen"}>
+    return (<section className={"flex-grow bg-auxdibot-masthead bg-black flex justify-center items-center align-middle flex-1 h-screen"}>
         <div className={"flex flex-col gap-4 items-center justify-center text-center"}>
             <Image
-                src={"/icon.png"}
+                src={"/logo.png"}
                 alt={"Auxdibot icon."}
                 width={216}
                 height={216}
