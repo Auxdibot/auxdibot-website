@@ -1,5 +1,5 @@
 <div id="header" align="center">
-  <img src="https://bot.auxdible.me/icon.png" width=225/>
+  <img src="https://bot.auxdible.me/logo.png" width=225/>
   <h1 id="welcome">Logging</h1>
 </div>
 

@@ -3,10 +3,11 @@ import DashboardActionContext from "@/context/DashboardActionContext";
 import DisableableModules from "@/lib/constants/DisableableModules";
 import { useContext } from "react";
 import { BsHammer, BsList, BsPersonBadge, BsQuestionCircle, BsShieldCheck, BsStar, BsTrophy } from "react-icons/bs";
+import { PiHandWaving } from "react-icons/pi";
 import { useQueryClient } from "react-query";
 
 let ModuleIcons: { [K in typeof DisableableModules[number]]: React.ReactElement } = {
-    "Messages": <BsList/>, "Moderation": <BsHammer/>, "Permissions": <BsShieldCheck/>, "Roles": <BsPersonBadge/>, "Levels": <BsTrophy/>, "Suggestions": <BsQuestionCircle/>, "Starboard": <BsStar/>
+    "Messages": <BsList/>, "Moderation": <BsHammer/>, "Permissions": <BsShieldCheck/>, "Roles": <BsPersonBadge/>, "Levels": <BsTrophy/>, "Suggestions": <BsQuestionCircle/>, "Starboard": <BsStar/>, "Greetings": <PiHandWaving/>
 }
 export default function ModuleSlider({ module, server }: { module: string, server: { data: {serverID: string, disabled_modules: string[]} } }) {
     const queryClient = useQueryClient();

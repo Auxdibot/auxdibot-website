@@ -14,7 +14,7 @@
         --color-primary-600: 242, 142, 39;
     }
     .header {
-        @apply font-josefin-sans bg-gradient-to-b from-primary-100 to-primary-600 bg-center bg-clip-text text-transparent;
+        @apply font-bauhaus bg-gradient-to-b from-primary-100 to-primary-600 bg-center bg-clip-text text-transparent;
     }
     .hover-gradient {
         @apply hover:bg-gradient-to-l hover:from-orange-400 hover:to-red-500
@@ -52,7 +52,7 @@
         }
     }
     .doc-content {
-        @apply prose-headings:font-lato prose-h1:font-josefin-sans prose-headings:text-orange-500 
+        @apply prose-headings:font-lato prose-h1:font-bauhaus prose-h1:lowercase prose-headings:header 
         prose-headings:my-3 prose-h1:text-6xl prose-h2:text-4xl prose-p:my-5
         prose-h3:text-2xl prose-code:text-gray-300 prose-code:bg-gray-800 prose-code:rounded-md prose-code:p-0.5 prose-blockquote:text-gray-400 
         prose-blockquote:font-semibold prose-a:text-orange-500 prose-a:no-underline prose-strong:text-gray-100

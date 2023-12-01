@@ -25,7 +25,8 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'auxdibot-masthead': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1) 85%),radial-gradient(ellipse at top left, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at top right, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at center right, rgba(var(--color-primary-100), 0.5), transparent 50%),radial-gradient(ellipse at center left, rgba(var(--color-primary-100), 0.5), transparent 50%)"
+        'auxdibot-masthead': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1) 85%),radial-gradient(ellipse at top left, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at top right, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at center right, rgba(var(--color-primary-100), 0.5), transparent 50%),radial-gradient(ellipse at center left, rgba(var(--color-primary-100), 0.5), transparent 50%)",
+        'auxdibot-gradient': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.7) 85%),radial-gradient(ellipse at center left, rgba(var(--color-primary-600), 0.5), transparent 40%),radial-gradient(ellipse at center right, rgba(var(--color-primary-600), 0.5), transparent 40%),radial-gradient(ellipse at bottom right, rgba(var(--color-primary-100), 0.5), transparent 50%),radial-gradient(ellipse at bottom left, rgba(var(--color-primary-100), 0.5), transparent 50%)",
       },
       animation: {
         'incorrect': "shake 300ms linear 0s 1",
@@ -35,7 +36,8 @@ module.exports = {
         'fadeUp': 'fadeUp 0.5s ease-out 0s 1 forwards',
       },
       fontFamily: {
-        'josefin-sans': "'Bauhaus 93', sans-serif",
+        'josefin-sans': "'Josefin Sans', sans-serif",
+        'bauhaus': "'Bauhaus 93', sans-serif",
         'roboto': "'Roboto', sans-serif",
         'lato': "'Lato', sans-serif",
         'montserrat': "'Montserrat', sans-serif",
