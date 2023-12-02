@@ -9,11 +9,11 @@ export default function Unauthorized() {
             <Image
                 src={"/logo.png"}
                 alt={"Auxdibot icon."}
-                width={216}
-                height={216}
+                width={128}
+                height={128}
                  priority
                 />
-                <h1 className={"header text-6xl max-md:text-5xl"}>unauthorized</h1>
+                <h1 className={"header text-6xl max-md:text-5xl lowercase"}>Unauthorized</h1>
                 <p className={"text text-2xl"}>You are not authorized to view this content.</p>
                 <Button icon={<BsHouse/>} text={"Home"} href={"/"}/>
         </div>

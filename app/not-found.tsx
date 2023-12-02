@@ -9,11 +9,11 @@ export default function NotFound() {
             <Image
                 src={"/logo.png"}
                 alt={"Auxdibot icon."}
-                width={216}
-                height={216}
+                width={128}
+                height={128}
                  priority
                 />
-                <h1 className={"header text-6xl max-md:text-5xl"}>Not Found</h1>
+                <h1 className={"header text-6xl max-md:text-5xl lowercase"}>Not Found</h1>
                 <p className={"text text-2xl"}>Couldn&apos;t find that page.</p>
                 <Button icon={<BsHouse/>} text={"Home"} href={"/"}/>
         </div>
