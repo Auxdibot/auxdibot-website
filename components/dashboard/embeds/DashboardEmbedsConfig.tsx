@@ -52,9 +52,9 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     }
     const embed = watch("embed");
     const color = watch("embed.color");
-    return (<main className={"bg-gray-700 flex-grow"}>
+    return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
-        <h1 className={"header text-6xl max-md:text-5xl"}>Embeds</h1>
+        <h1 className={"header text-6xl max-md:text-5xl"}>embeds</h1>
         <span className={"flex flex-row max-md:flex-col gap-10"}>
         <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Embed</h2>

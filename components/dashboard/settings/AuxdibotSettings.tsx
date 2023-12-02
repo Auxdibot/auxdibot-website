@@ -45,8 +45,8 @@ export default function AuxdibotSettings({ server }: { server: DiscordGuild & { 
     </div>
     </div>
     {confirmation ? <div className={"fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-50 flex justify-center items-center"}>
-        <div className={"bg-gray-700 rounded-2xl max-w-lg items-center flex flex-col text-center p-5 gap-5 max-md:gap-3"}>
-            {loading ? <BsThreeDots className={"animate-spin text-8xl text-white"}/> : <><h1 className={"header text-6xl max-md:text-4xl"}>Warning!</h1>
+        <div className={"bg-auxdibot-masthead bg-black border-2 border-slate-800 bg-opacity-80 rounded-2xl max-w-lg items-center flex flex-col text-center p-5 gap-5 max-md:gap-3"}>
+            {loading ? <BsThreeDots className={"animate-spin text-8xl text-white"}/> : <><h1 className={"header text-6xl max-md:text-4xl"}>WARNING</h1>
             <p className={"text-2xl max-md:text-lg font-roboto"}>You are about to completely reset <span className={"font-bold text-red-500"}>EVERY</span> setting you have on Auxdibot for this server, and revert Auxdibot back to its default state. Are you sure?<br/><br/>Type <code>{server?.name}</code> below to confirm.</p>
             <input className={`${shake ? "animate-incorrect animate" : ""} text-white text text-lg max-md:text-sm rounded-md border border-gray-500 p-1`} ref={serverNameRef}/>
             <span className={"w-full flex flex-row justify-between"}>

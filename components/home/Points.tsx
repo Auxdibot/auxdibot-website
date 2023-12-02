@@ -1,62 +1,55 @@
-import { BsDiscord, BsHammer, BsWindowDesktop } from "react-icons/bs";
+import { BsDisc, BsDiscord, BsGear, BsHammer, BsWindowDesktop } from "react-icons/bs";
 import { motion } from 'framer-motion';
 import { useMediaQuery } from "react-responsive";
+import { IconType } from "react-icons/lib";
 
-export default function Points() {
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-    return <div className={"w-full flex flex-row justify-between gap-4 lg:px-40 px-10 max-md:flex-col mt-10 max-w-screen-2xl mx-auto"}>
-        <div className={"relative flex-1 group"}>
-            <div
-            className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
-            ></div>
-            <section className={"flex flex-col lg:group-hover:scale-105 transition-all justify-between border border-gray-500 py-5 items-center text-center w-fit bg-gray-600 rounded-xl shadow-2xl relative h-full"}>
+function Point({ title, description, Icon }: { title: string, description: string, Icon: IconType }) {
+    return (<section className={"flex flex-col lg:group-hover:scale-105 transition-all justify-between border border-gray-800 py-5 items-center text-center w-fit bg-gray-800 rounded-xl shadow-2xl relative h-full"}>
             
             <div className="flex-1 flex flex-col gap-2 items-center">
             <motion.span 
-            className={"p-2 rounded-lg text-4xl hover-gradient transition-all border hover:border-black hover:text-black w-fit h-fit"}
+            className={"p-2 rounded-lg text-4xl bg-gradient-to-b from-primary-100 to-primary-600 transition-all border border-black text-black w-fit h-fit"}
             initial={{ transform: "translateY(-2rem)", backgroundColor: "transparent", opacity: 0 }} 
             viewport={{ once: true }} 
             whileInView={{ transform: "translateY(0px)", backgroundColor: "rgb(107, 114, 128)", opacity: 1 }}  
-            transition={{ duration: 0.5 }}><BsWindowDesktop/></motion.span>
-            <h1 className={"header text-4xl"}>Dashboard</h1>
+            transition={{ duration: 0.5 }}>{<Icon/>}</motion.span>
+            <h1 className={"header text-4xl"}>{title}</h1>
             </div>
-            <p className={"flex-1 font-inter text-md"}>Auxdibot features an easy-to-use dashboard site, allowing admins to customize Auxdibot&apos;s features from anywhere!</p>
-        </section>
+            <p className={"flex-1 font-montserrat text-md"}>{description}</p>
+    </section>);
+}
+export default function Points() {
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    return <div className={"w-full flex flex-row justify-between gap-5 lg:px-40 px-10 max-md:flex-col mt-10 max-w-screen-2xl mx-auto"}>
+        <div className={"relative flex-1 group"}>
+            <div
+            className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
+            ></div>
+            <Point
+                title={"dashboard"}
+                description={"Auxdibot features an easy-to-use dashboard site, allowing admins to customize Auxdibot's features from anywhere!"}
+                Icon={BsWindowDesktop}
+            />
         </div>
         <div className={"relative flex-1 group"}>
             <div
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
             ></div>
-            <section className={"relative flex flex-col lg:group-hover:scale-105 transition-all border border-gray-500 justify-between py-5 items-center text-center w-fit bg-gray-600 rounded-xl shadow-2xl h-full"}>
-            <div className="flex-1 flex flex-col gap-2 items-center">
-            <motion.span 
-            className={"p-2 rounded-lg text-4xl hover-gradient transition-all border  hover:border-black hover:text-black w-fit h-fit"}
-            initial={{ transform: "translateY(-2rem)", backgroundColor: "transparent", opacity: 0 }} 
-            viewport={{ once: true }} 
-            whileInView={{ transform: "translateY(0px)", backgroundColor: "rgb(107, 114, 128)", opacity: 1 }} 
-            transition={{ duration: 0.5, ...(isMobile ? {} : { delay: 0.3 })  }}><BsDiscord/></motion.span>
-            <h1 className={"header text-4xl"}>Latest Features</h1>
-            </div>
-            <p className={"flex-1 font-roboto text-md"}>Auxdibot uses the latest Discord features, including Slash Commands, Models, and Timeouts!</p>
-        </section>
+            <Point
+                title={"configurable"}
+                description={"Auxdibot has many options that can be tweaked, allowing admins to take full advantage of Auxdibot's features!"}
+                Icon={BsGear}
+            />
         </div>
         <div className={"relative flex-1 group"}>
             <div
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
             ></div>
-            <section className={"relative flex flex-col lg:group-hover:scale-105 transition-all border border-gray-500 justify-between py-5 items-center text-center w-fit bg-gray-600 rounded-xl shadow-2xl"}>
-            <div className="flex-1 flex flex-col gap-2 items-center">
-            <motion.span 
-            className={"p-2 rounded-lg text-4xl hover-gradient transition-all border hover:border-black hover:text-black h-fit w-fit"}
-            initial={{ transform: "translateY(-2rem)", backgroundColor: "transparent", opacity: 0 }} 
-            viewport={{ once: true }} 
-            whileInView={{ transform: "translateY(0px)", backgroundColor: "rgb(107, 114, 128)", opacity: 1 }} 
-            transition={{ duration: 0.5, ...(isMobile ? {} : { delay: 0.6 }) }}><BsHammer/></motion.span>
-            <h1 className={"header text-4xl"}>Multipurpose</h1>
-            </div>
-           
-            <p className={"flex-1 font-inter text-md"}>Auxdibot contains an expansive suite of features for admins to manage their servers with! Auxdibot is the one-stop shop for Discord management tools.</p>
-        </section>
+            <Point
+                title={"multipurpose"}
+                description={"Auxdibot contains an expansive suite of features for admins to manage their servers with! Auxdibot is the one-stop shop for Discord management tools."}
+                Icon={BsDisc}
+            />
         </div>
         
     </div>;

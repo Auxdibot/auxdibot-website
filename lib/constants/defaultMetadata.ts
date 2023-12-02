@@ -13,7 +13,7 @@ export const defaultMetadata: Metadata = {
       countryName: "United States",
       description: "The official website, blog, and dashboard for the multipurpose Discord utility bot, Auxdibot.",
       url: "https://bot.auxdible.me",
-      images: "/icon.png"
+      images: "/logo.png"
     },
     viewport: {
       initialScale: 1,
