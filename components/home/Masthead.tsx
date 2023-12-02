@@ -1,7 +1,7 @@
 "use client";
 
 import Analytics from "./Analytics";
-import { BsEnvelopePlus, BsGear } from 'react-icons/bs';
+import { BsEnvelopePlus, BsGear, BsThreeDots } from 'react-icons/bs';
 import Button from "../Button";
 import useSession from "@/lib/hooks/useSession";
 import { Icon } from "./Icon";
@@ -16,6 +16,9 @@ export default function Masthead() {
         <section className={"min-h-screen flex justify-center"}>
         <div className={"flex w-full flex-col max-md:flex-col justify-center items-center gap-2"}>
         <div style={{ width: "250px", height: "200px", touchAction: "none" }}>
+        <Suspense fallback={ <BsThreeDots className={"animate-spin text-4xl text-white"}/>}>
+          
+        
         <Canvas>
         {/* todo mobile */}
         <ambientLight  intensity={0.0} />
@@ -33,16 +36,15 @@ export default function Masthead() {
       </PresentationControls>
             
         </Suspense>
-        
-        
       </Canvas>
+      </Suspense>
         </div>
         
      
             <h1 className={"header text-8xl max-md:text-6xl w-fit"}>auxdibot</h1>
             <p className={"secondary text-3xl max-md:text-2xl text-white text-center"}>The next Discord Bot for your server.</p>
             <Analytics/>
-            {user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button icon={<BsEnvelopePlus/>} text={"Invite Bot"}/> }
+            {status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button icon={<BsEnvelopePlus/>} text={"Invite Bot"}/> }
         </div>
         </section>
         

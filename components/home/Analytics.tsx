@@ -2,7 +2,7 @@
 
 import { ComponentProps, Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { BsServer, BsPerson, BsPeople } from 'react-icons/bs';
+import { BsServer, BsPerson, BsPeople, BsThreeDots } from 'react-icons/bs';
 export default function Analytics() {
     let { data: analytics, status, error } = useQuery(["analytics"], async () => await fetch("/api/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
     let [serverState, setServerState] = useState("0");
@@ -33,9 +33,9 @@ export default function Analytics() {
     }, [analytics, status]);
     return (<Suspense fallback={<></>}>
         <div className={"flex gap-4 max-md:gap-5 w-fit justify-center"}>
-        <p className={"flex gap-2 font-montserrat text-3xl max-md:flex-col items-center max-md:text-2xl w-max"}><BsPeople/> <span>{parseInt(serverState).toLocaleString()}</span></p>
+        <p className={"flex gap-2 font-montserrat text-3xl max-md:flex-col items-center max-md:text-2xl w-max"}><BsPeople/> <span>{status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(serverState).toLocaleString()}</span></p>
         <span className={"w-1 border-r-2"}></span>
-        <p className={"flex gap-2 font-montserrat text-3xl w-max max-md:flex-col items-center max-md:text-2xl"}><BsPerson/> <span>{parseInt(memberState).toLocaleString()}</span></p>
+        <p className={"flex gap-2 font-montserrat text-3xl w-max max-md:flex-col items-center max-md:text-2xl"}><BsPerson/> <span>{status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(memberState).toLocaleString()}</span></p>
         </div>
         </Suspense>);
 }
