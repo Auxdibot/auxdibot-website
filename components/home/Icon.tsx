@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 
 type AdditionalProps = { randomColor1?: string, randomColor2?: string, }
 export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
-  const { nodes } = useGLTF('/auxdibot.glb') as GLTFResult;
+  const { nodes } = useGLTF('/auxdibot.gltf') as GLTFResult;
   const ref = useRef<THREE.Mesh | null>(null);
   const [hovered, setHovered] = useState(false);
   const material = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: {
