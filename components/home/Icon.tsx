@@ -65,4 +65,4 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
   )
 }
 
-useGLTF.preload('/glasses.gltf')
+useGLTF.preload('/auxdibot.gltf')
