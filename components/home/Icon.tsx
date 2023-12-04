@@ -4,22 +4,15 @@ Command: npx gltfjsx@6.2.3 glasses.gltf --types
 */
 
 import * as THREE from 'three'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
-import { Vector3, useFrame } from '@react-three/fiber'
 
-type GLTFResult = GLTF & {
-  nodes: {
-    Text: THREE.Mesh
-  },
-}
 
 type AdditionalProps = { randomColor1?: string, randomColor2?: string, }
 export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
-  const { nodes } = useGLTF('/auxdibot.gltf') as GLTFResult;
+  const { nodes, scene } = useGLTF('/auxdibot.gltf', false);
+  let mesh = (nodes.Text as THREE.Mesh);
   const ref = useRef<THREE.Mesh | null>(null);
-  const [hovered, setHovered] = useState(false);
   const material = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: {
     color1: {
       value: new THREE.Color(props.randomColor1 || "#fd644f")
@@ -28,10 +21,10 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
       value: new THREE.Color(props.randomColor2 || "#ff9d00")
     },
     bboxMin: {
-      value: nodes.Text.geometry.boundingBox?.min
+      value: mesh.geometry.boundingBox?.min
     },
     bboxMax: {
-      value: nodes.Text.geometry.boundingBox?.max
+      value: mesh.geometry.boundingBox?.max
     }
   },
   vertexShader: `
@@ -59,7 +52,7 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
   `});
   return (
     <group rotation={[90,0,0]} {...props} dispose={null}>
-      <mesh ref={ref} geometry={nodes.Text.geometry} material={material}/>
+      <mesh ref={ref} geometry={mesh.geometry} material={material}/>
       
     </group>
   )

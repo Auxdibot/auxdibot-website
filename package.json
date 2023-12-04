@@ -14,7 +14,7 @@
     "url": "https://github.com/Auxdibot/auxdibot-website"
   },
   "dependencies": {
-    "@react-three/drei": "^9.89.0",
+    "@react-three/drei": "^9.90.0",
     "@react-three/fiber": "^8.15.11",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "20.4.4",
@@ -24,6 +24,7 @@
     "@types/react-dom": "18.2.7",
     "@types/react-icons": "^3.0.0",
     "@types/showdown": "^2.0.2",
+    "@use-gesture/react": "^10.3.0",
     "autoprefixer": "10.4.14",
     "discord-api-types": "^0.37.55",
     "eslint": "8.45.0",
