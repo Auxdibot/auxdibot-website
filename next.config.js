@@ -3,6 +3,7 @@ const nextConfig = {
     images: {
         domains: ["cdn.discordapp.com"]
     },
+    swcMinify: false,
     async rewrites() {
         return [
           {
