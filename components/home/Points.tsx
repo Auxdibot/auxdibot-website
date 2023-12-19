@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { IconType } from "react-icons/lib";
 
 function Point({ title, description, Icon }: { title: string, description: string, Icon: IconType }) {
-    return (<section className={"flex flex-col lg:group-hover:scale-105 transition-all justify-between border border-gray-800 py-5 items-center text-center w-fit bg-gray-800 rounded-xl shadow-2xl relative h-full"}>
+    return (<section className={"flex flex-col gap-2 lg:group-hover:scale-105 transition-all justify-between border border-gray-800 bg-gray-950 px-1 py-5 items-center text-center w-fit rounded-xl shadow-2xl relative h-full"}>
             
             <div className="flex-1 flex flex-col gap-2 items-center">
             <motion.span 
@@ -13,9 +13,9 @@ function Point({ title, description, Icon }: { title: string, description: strin
             viewport={{ once: true }} 
             whileInView={{ transform: "translateY(0px)", backgroundColor: "rgb(107, 114, 128)", opacity: 1 }}  
             transition={{ duration: 0.5 }}>{<Icon/>}</motion.span>
-            <h1 className={"header text-4xl"}>{title}</h1>
+            <h1 className={"font-montserrat text-gray-300 text-3xl"}>{title}</h1>
             </div>
-            <p className={"flex-1 font-montserrat text-md"}>{description}</p>
+            <p className={"flex-1 font-open-sans text-gray-300 text-md"}>{description}</p>
     </section>);
 }
 export default function Points() {
@@ -26,7 +26,7 @@ export default function Points() {
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
             ></div>
             <Point
-                title={"dashboard"}
+                title={"Dashboard"}
                 description={"Auxdibot features an easy-to-use dashboard site, allowing admins to customize Auxdibot's features from anywhere!"}
                 Icon={BsWindowDesktop}
             />
@@ -36,7 +36,7 @@ export default function Points() {
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
             ></div>
             <Point
-                title={"configurable"}
+                title={"Configurable"}
                 description={"Auxdibot has many options that can be tweaked, allowing admins to take full advantage of Auxdibot's features!"}
                 Icon={BsGear}
             />
@@ -46,7 +46,7 @@ export default function Points() {
             className="absolute lg:group-hover:scale-105 group-hover:opacity-75 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur"
             ></div>
             <Point
-                title={"multipurpose"}
+                title={"Multipurpose"}
                 description={"Auxdibot contains an expansive suite of features for admins to manage their servers with! Auxdibot is the one-stop shop for Discord management tools."}
                 Icon={BsDisc}
             />
