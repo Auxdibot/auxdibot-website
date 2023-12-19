@@ -3,14 +3,14 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
 export default function Features() {
-    return (<ul className={"flex flex-col gap-28 p-2 max-lg:overflow-hidden"}>
+    return (<ul className={"flex flex-col gap-28 xs:p-2 max-lg:overflow-hidden"}>
         <li>
             <Feature features={[
                 "A fleshed out automod system which automatically logs actions on the server and automatically deals out punishments for specific infractions.", 
                 "Manage or view an extensive punishment history with the /punishment command.",
                 "Manage users on the fly with an easy to navigate Discord embed and model using the /user command.",
                 ]} 
-                title={"punishments"} videoUrl={"/features/auxdibot-punishment.mp4"}/>
+                title={"Punishments"} videoUrl={"/features/auxdibot-punishment.mp4"}/>
         </li>
         <li>
             <Feature features={[
@@ -18,7 +18,7 @@ export default function Features() {
                 "Administrators can set a log channel where the Discord bot will send logs, taking the form of an organized embed.", 
                 "Auxdibot logs everything. Joining and leaving, punishments, settings changes, message events, and more!"
                 ]} 
-                title={"logging"} videoUrl={"/features/auxdibot-logging.mp4"} left/>
+                title={"Logging"} videoUrl={"/features/auxdibot-logging.mp4"} left/>
         </li>
         <li>
             <Feature features={[
@@ -26,14 +26,14 @@ export default function Features() {
                 "Permission overrides can be edited or viewed under the sole /permissions command.",
                 "Manage role and user permissions in bulk on Auxdibot's dashboard site."
                 ]} 
-                title={"permissions"} videoUrl={"/features/auxdibot-permissions.mp4"}/>
+                title={"Permissions"} videoUrl={"/features/auxdibot-permissions.mp4"}/>
         </li>
         <li>
             <Feature features={[
                 "Schedule reminders and messages using Auxdibot's /schedule command! Admins can specify the duration and times to perform the schedule.", 
                 "Write detailed announcements or rule embeds for your server using Auxdibot's embed customization tools, which can customize embeds to the tiniest detail.", 
                 ]} 
-                title={"messages"} videoUrl={"/features/auxdibot-messages.mp4"} left/>
+                title={"Messages"} videoUrl={"/features/auxdibot-messages.mp4"} left/>
         </li>
         <li>
             <Feature features={[
@@ -42,7 +42,7 @@ export default function Features() {
                 "Customize the message XP for your server with /levels message_xp.",
                 "Create custom level rewards with /levels add_reward!"
                 ]} 
-                title={"levels"} videoUrl={"/features/auxdibot-levels.mp4"}/>
+                title={"Levels"} videoUrl={"/features/auxdibot-levels.mp4"}/>
         </li>
         <li>
             <Feature features={[
@@ -51,7 +51,7 @@ export default function Features() {
                 "Respond to your members suggestions descriptively using Auxdibot's /suggestions add/consider/approve/consider.",
                 "Direct suggestion updates to a specific channel using Auxdibot's /suggestions update_channel command!"
                 ]}
-                title={"suggestions"} videoUrl={"/features/auxdibot-suggestions.mp4"} left/>
+                title={"Suggestions"} videoUrl={"/features/auxdibot-suggestions.mp4"} left/>
         </li>
         <li>
             <Feature features={[
@@ -61,7 +61,7 @@ export default function Features() {
                 "Setup a mute role automatically with /settings mute_role!"
                 ]} 
 
-                title={"roles"} videoUrl={"/features/auxdibot-roles.mp4"}/>
+                title={"Roles"} videoUrl={"/features/auxdibot-roles.mp4"}/>
         </li>
         <li>
             <Feature features={[
@@ -70,7 +70,7 @@ export default function Features() {
                 "Auxdibot automatically embeds any attachments sent with a starred message, to allow members to see additional context for any message!",
                 "Additionally, Auxdibot also automatically embeds the message that the starred message was quoting, if there is one."
                 ]} 
-                title={"starboard"} videoUrl={"/auxdibot-video.mp4"} left/>
+                title={"Starboard"} videoUrl={"/auxdibot-video.mp4"} left/>
         </li>
         <li>
             <Feature features={[
@@ -78,7 +78,7 @@ export default function Features() {
                 "You can setup a message to directly message to members joining your server using the /join_dm command!",
                 ]} 
                 
-                title={"greetings"} videoUrl={"/features/auxdibot-greetings.mp4"}/>
+                title={"Greetings"} videoUrl={"/features/auxdibot-greetings.mp4"}/>
         </li>
     </ul>)
 }
@@ -87,9 +87,9 @@ export function Feature({ features, title, videoUrl, docsLink, left }: FeaturePr
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
     return (<div className={`w-full flex ${left ? "flex-row-reverse" : ""} max-md:flex-col justify-center items-center z-10  transition-all gap-12`}>
         <div className={"flex flex-col gap-2 max-md:gap-10 max-md:text-center px-1.5 flex-1"}>
-            <motion.h1 initial={{ ...(isMobile ? { translateY: "-2rem" } : { translateX: "-8rem" }), opacity: 0 }} whileInView={{ translateX: "0", translateY: "0rem", opacity: 1 }} viewport={{ once: true }} className={"header text-5xl max-sm:text-4xl"}>{title} {docsLink ? <Link href={docsLink} className={"font-montserrat text-xl text-gray-500"}>[docs]</Link> : ""}</motion.h1>
+            <motion.h1 initial={{ ...(isMobile ? { translateY: "-2rem" } : { translateX: "-8rem" }), opacity: 0 }} whileInView={{ translateX: "0", translateY: "0rem", opacity: 1 }} viewport={{ once: true }} className={"header lowercase text-5xl"}>{title} {docsLink ? <Link href={docsLink} className={"font-montserrat text-xl text-gray-500"}>[docs]</Link> : ""}</motion.h1>
             
-            <ul className={"list-disc max-md:list-none gap-2 max-md:gap-5 md:pl-3 flex flex-col text text-md max-sm:text-sm"}>
+            <ul className={"list-disc max-md:list-none gap-2 max-md:gap-5 md:pl-3 flex flex-col text text-lg max-sm:text-md"}>
                 {features?.map((i, index) => <li key={index}>{i}</li>)}
             </ul>
         </div>
