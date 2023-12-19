@@ -17,7 +17,7 @@
         @apply font-bauhaus bg-gradient-to-b from-primary-100 to-primary-600 bg-center bg-clip-text text-transparent;
     }
     .secondary-gradient {
-        @apply bg-gradient-to-b from-gray-200 via-gray-300 to-95% to-gray-500 bg-center bg-clip-text text-transparent;
+        @apply bg-gradient-to-b from-gray-200 via-gray-300 to-[98%] to-gray-400 bg-center bg-clip-text text-transparent;
     }
     .hover-gradient {
         @apply hover:bg-gradient-to-l hover:from-orange-400 hover:to-red-500;

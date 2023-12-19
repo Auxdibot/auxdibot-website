@@ -22,7 +22,7 @@ export default function DashboardSidebarContainer({ serverID }: { serverID: stri
         <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
             <DashboardSidebar server={server} />
         </div>
-        <button className={`fixed text-3xl border-t-2 border-t-slate-950 bg-auxdibot-masthead transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
+        <button className={`fixed text-3xl border-t-2 border-t-slate-950 bg-auxdibot-gradient bg-gray-950 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
             <BsList/>
         </button>
     </div> : <DashboardSidebar server={server}/>}</ExpandedContext.Provider>)
