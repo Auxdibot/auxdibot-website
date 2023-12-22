@@ -5,9 +5,10 @@ import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { BsArrowLeftCircle, BsPersonBadge, BsThreeDots, BsToggles, BsTrash } from "react-icons/bs";
+import { BsArrowLeftCircle, BsPersonBadge, BsThreeDots, BsToggles, BsTrash, BsX } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import NicknameChange from "./NicknameChange";
+import TextBox from "@/components/input/TextBox";
 
 export default function AuxdibotSettings({ server }: { server: DiscordGuild & { data: {serverID: string, disabled_modules: string[]} } }) {
     const queryClient = useQueryClient();
@@ -16,12 +17,14 @@ export default function AuxdibotSettings({ server }: { server: DiscordGuild & { 
     const [confirmation, setConfirmation] = useState(false);
     const [shake, setBarShake] = useState(false);
     const [loading, setLoading] = useState(false);
-    
-    const serverNameRef = useRef<HTMLInputElement>(null);
+    const [confirmationDelete, setConfirmationDelete] = useState('');
+    function onConfirmationChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setConfirmationDelete(e.currentTarget.value);
+    }
     function reset(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         if (!server) return;
-        if (serverNameRef.current?.value != server?.name) {
+        if (confirmationDelete != server?.name) {
             setBarShake(true);
             setTimeout(() => { setBarShake(false) }, 300);
             return;
@@ -45,10 +48,10 @@ export default function AuxdibotSettings({ server }: { server: DiscordGuild & { 
     </div>
     </div>
     {confirmation ? <div className={"fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-50 flex justify-center items-center"}>
-        <div className={"bg-auxdibot-masthead bg-black border-2 border-slate-800 bg-opacity-80 rounded-2xl max-w-lg items-center flex flex-col text-center p-5 gap-5 max-md:gap-3"}>
+        <div className={"bg-auxdibot-masthead bg-black border-2 border-slate-800 rounded-2xl max-w-lg items-center flex flex-col text-center p-5 gap-5 max-md:gap-3"}>
             {loading ? <BsThreeDots className={"animate-spin text-8xl text-white"}/> : <><h1 className={"header text-6xl max-md:text-4xl"}>WARNING</h1>
             <p className={"text-2xl max-md:text-lg font-roboto"}>You are about to completely reset <span className={"font-bold text-red-500"}>EVERY</span> setting you have on Auxdibot for this server, and revert Auxdibot back to its default state. Are you sure?<br/><br/>Type <code>{server?.name}</code> below to confirm.</p>
-            <input className={`${shake ? "animate-incorrect animate" : ""} text-white text text-lg max-md:text-sm rounded-md border border-gray-500 p-1`} ref={serverNameRef}/>
+            <TextBox value={confirmationDelete} onChange={onConfirmationChange} Icon={shake ? BsX : BsTrash } className={`${shake ? "animate-incorrect animate" : ""}`}/>
             <span className={"w-full flex flex-row justify-between"}>
             <button onClick={(e) => reset(e)} className={"secondary text-2xl max-md:text-lg hover:bg-gradient-to-l hover:from-red-400 hover:to-red-700 hover:text-black hover:border-black transition-all w-fit border-white border rounded-xl p-1 flex flex-row gap-2 items-center"} type="submit">
                 <BsTrash/> Reset Bot

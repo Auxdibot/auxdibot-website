@@ -4,23 +4,23 @@ import { BsCheck, BsCheckLg, BsPersonBadge } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
+import Channels from "@/components/input/Channels";
 export default function LogChannel({ server }: { server: { serverID: string, log_channel: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const [channel, setChannel] = useState("");
+    const [channel, setChannel] = useState<string | null>("");
     const [success, setSuccess] = useState(false);
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
-    function onLogChannelChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function onLogChannelChange(e: { channel: string | null}) {
         if (success) setSuccess(false);
-        if (e.currentTarget.value == "null") return;
 
-        setChannel(e.currentTarget.value);
+        setChannel(e.channel || null);
     }
     function setLogChannel() {
         if (!server) return;
         const body = new URLSearchParams();
-        body.append("new_log_channel", channel);
+        body.append("new_log_channel", channel || '');
         fetch(`/api/v1/servers/${server.serverID}/log_channel`, { method: "POST", body }).then(() => {
             queryClient.invalidateQueries(["data_logging", server.serverID])
             setSuccess(true)
@@ -36,10 +36,7 @@ export default function LogChannel({ server }: { server: { serverID: string, log
     <span className={"secondary text-xl text-center flex flex-col"}>Set Log Channel</span>
     
     <span className={"flex flex-row max-md:flex-col gap-2"}>
-        <select onChange={(e) => onLogChannelChange(e)} value={channel} className={"font-roboto w-fit mx-auto rounded-md p-1 text-md"}>
-            <option value={"null"}>Select a channel...</option>
-            {channels?.map((i: { id: string, name: string }) => <option key={i.id} value={i.id}>{i.name}</option>)}
-        </select> 
+        <span className={"flex-1 max-md:mx-auto"}><Channels serverID={server.serverID} value={channel} onChange={(e) => onLogChannelChange(e)}/> </span>
         <button onClick={() => setLogChannel()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsPersonBadge/> Change Log Channel</>) }
         </button></span>

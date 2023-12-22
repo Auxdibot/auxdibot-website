@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext, useEffect } from "react";
-import { BsArrowRight, BsBook, BsClock, BsCommand, BsGear, BsHammer, BsHouse, BsJournalBookmark, BsLaptop, BsList, BsPerson, BsQuestion, BsQuestionCircle, BsShieldCheck, BsSlash, BsStar, BsTerminal, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsGear, BsHouse, BsJournalBookmark, BsLaptop, BsList } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
@@ -11,7 +11,7 @@ export default function DocumentationSidebarContainer({ doc }: { doc: string | s
     <div className={`transition-transform ${expanded ? "translate-x-0" : "-translate-x-48"}`}>
         <DocumentationSidebar doc={doc} />
     </div>
-    <button className={`fixed text-3xl border-t-2 border-t-slate-950 bg-auxdibot-gradient bg-gray-950 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
+    <button className={`fixed text-4xl border-t-2 border-t-slate-950 bg-auxdibot-gradient bg-gray-950 transition-all pr-2 pb-2 rounded-br-full ${expanded ? "ml-48" : ""}`} onClick={() => setExpanded(!expanded)}>
         <BsList/>
     </button>
 </div><div className={"max-md:hidden"}><DocumentationSidebar doc={doc}/></div></ExpandedContext.Provider>)
