@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsArrowDownShort, BsHash, BsX } from "react-icons/bs";
 import { useQuery } from "react-query";
 interface ChannelsInputProps {
@@ -11,11 +11,20 @@ export default function Channels({ serverID, onChange, value, required }: Channe
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [collapsed, setCollapsed] = useState(true);
+    const inputRef = useRef<HTMLSpanElement | null>(null);
+    useEffect(() => {
+        const clickedOutside = (e: globalThis.MouseEvent) => {
+          if (!collapsed && inputRef.current && !inputRef.current.contains(e.target as Node)) setCollapsed(true)
+          
+        }
+        document.addEventListener("mousedown", clickedOutside)
+        return () => document.removeEventListener("mousedown", clickedOutside);
+      }, [collapsed])
     function change(channel: string | null) {
         setCollapsed(!collapsed)
         onChange({ channel: channel || "" });
     }
-    return (<span className={"relative flex items-center"}>
+    return (<span className={"relative flex items-center"} ref={inputRef}>
             <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsHash/> : required ? '' : <BsX/>} {value ? channels.find((i: { id: string }) => i.id == value)?.name :  required ? 'Select a channel...' : 'No Channel'} <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>
                 </span>
