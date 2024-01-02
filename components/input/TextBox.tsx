@@ -10,8 +10,8 @@ interface TextBoxProps {
     readonly ref?: MutableRefObject<HTMLInputElement | null>;
 }
 export default function TextBox({ value, onChange, Icon, maxLength, className, ref }: TextBoxProps) {
-    return (<span className={"bg-gray-600 border border-slate-500 p-1 flex flex-row items-center gap-2 rounded-2xl focus-within:text-lg transition-all overflow-hidden"}>
-        <Icon className={"origin-left"}/>
+    return (<span className={"bg-gray-600 border border-slate-500 p-1 flex flex-row group items-center gap-2 rounded-2xl transition-all overflow-hidden"}>
+        <Icon className={"origin-left group-focus-within:text-lg text-base transition-all"}/>
         <input className={"bg-transparent text-base outline-none font-open-sans " + className} maxLength={maxLength} value={value} onChange={onChange} ref={ref}></input>
     </span>)
 }
