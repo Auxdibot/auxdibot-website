@@ -1,17 +1,22 @@
 "use client";
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
-import { useContext } from 'react';
-import { BsDiscord, BsPeople, BsPerson, BsShield, BsShieldCheck } from 'react-icons/bs';
+import { useContext, useState } from 'react';
+import { BsCheck, BsDiscord, BsPeople, BsPerson, BsShield, BsShieldCheck, BsX } from 'react-icons/bs';
 import DashboardActionContext from '@/context/DashboardActionContext';
+import Roles from '@/components/input/Roles';
+import TextBox from '@/components/input/TextBox';
 type PermissionBody = { allowed: boolean, permission: string, user?: string, role?: string };
 export default function CreatePermission({ serverID }: { serverID: string }) {
-    let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
-    await data.json().catch(() => undefined)).catch(() => undefined));
-    const { register, handleSubmit, reset } = useForm<PermissionBody>();
+    const { register, handleSubmit, reset, control, setValue } = useForm<PermissionBody>();
 
     const queryClient = useQueryClient();
+    const [usingRole, setUsingRole] = useState(true);
     const actionContext = useContext(DashboardActionContext);
+    function switchUsingRole() {
+        setValue(usingRole ? 'role' : 'user', '');
+        setUsingRole(!usingRole);
+    }
     function onSubmit(data: PermissionBody) {
         let body = new URLSearchParams();
         console.log(String(data.allowed));
@@ -25,7 +30,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
                 queryClient.invalidateQueries(['data_permissions', serverID]);
                 if (actionContext)
                     actionContext.setAction({ status: `Successfully created a new permission override.`, success: true })
-                reset();
+                reset({ user: '', role: '', allowed: true, permission: ''});
             } else {
                 if (actionContext)
                     actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
@@ -37,27 +42,41 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Permission Override</h2>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <section className={"my-4 w-full flex flex-col max-lg:justify-center max-lg:items-center"}>
-        <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsPeople/> Role:</span> 
-            <select className={"rounded-md font-roboto w-fit text-lg"} {...register("role")}>
-            <option value={"null"}>Select a role...</option>
-            {roles?.filter((i: { permissions: number }) => !(i.permissions&0x8))?.map((i: { id: string, name: string }) => <option key={i.id} value={i.id}>{i.name}</option>)}
-        </select></label>
-        <span className={"font-lato font-bold text-2xl italic"}>OR</span>
-        <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsDiscord/> Discord User ID:</span>  
-            <input className={"rounded-md font-roboto w-fit text-lg"} type="text" {...register("user")}/>
+        <span className={"flex flex-row max-md:flex-col gap-4"}>
+        <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${usingRole ? "" : "hidden"}`}>
+            <span className={"flex flex-row gap-2 items-center  text-xl"}><BsPeople/> Role:</span> 
+            <Controller name="role" control={control} render={({ field }) => {
+                return <Roles serverID={serverID} required value={field.value || null} onChange={(e) => field.onChange(e.role)} />
+            } }/>
+        </label> 
+        <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${!usingRole ? "" : "hidden"}`}>
+            <span className={"flex flex-row gap-2 items-center text-xl"}><BsDiscord/> Discord User ID:</span>  
+            <Controller name="user" control={control} render={({ field }) => {
+                return <TextBox Icon={BsDiscord} value={field.value} onChange={field.onChange} />
+            } }/>
         </label>
+        <span onClick={() => switchUsingRole()} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
+            <span className={"text-xl border rounded-xl p-2 hover:hover-gradient hover:border-black hover:text-black transition-all"}>{!usingRole ? <BsPeople /> : <BsDiscord/>}</span>
+            {usingRole ? 'Switch to Discord User ID' : 'Switch to Role'}</span>
+        </span>
+        
         </section>
         
         <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsShield/> Permission:</span>  
-            <input className={"rounded-md font-roboto w-fit text-lg"} type="text" required {...register("permission", { required: true })}/>
-            <label>Allowed? <input className={"rounded-md font-roboto w-fit text-lg"} type="checkbox" defaultChecked {...register("allowed")}/></label>
+            <Controller name="permission" control={control} render={({ field }) => {
+                return <TextBox Icon={BsShield} value={field.value} onChange={field.onChange} />
+            } }/>
+            <Controller control={control} name={'allowed'} render={({ field }) => {
+                return  <span onClick={() => field.onChange(!field.value)} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
+                <span className={`text-2xl border rounded-xl p-1 bg-gradient-to-l ${field.value ? "from-green-400 to-green-700" : "from-red-400 to-red-700"} border-black select-none text-black transition-all`}>{field.value ? <BsCheck /> : <BsX/>}</span>
+                    {field.value ? 'Allowed' : 'Denied'}
+                </span>;
+            }}/>
         </label>
         
         <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            <BsShieldCheck/> Submit Permission Override
+            <BsShieldCheck/> Create Permission Override
         </button>
     </form>
     

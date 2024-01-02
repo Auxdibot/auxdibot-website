@@ -25,7 +25,7 @@ export default function Roles({ serverID, onChange, value, required }: RolesInpu
         setCollapsed(!collapsed)
         onChange({ role: role || "" });
     }
-    let roleValue = roles.find((i: { id: string }) => i.id == value);
+    let roleValue = roles?.find((i: { id: string }) => i.id == value);
     return (<span className={"relative flex items-center"} ref={inputRef}>
             <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsAt className={"text-xl"} style={{ fill: roleValue?.color ? '#' + roleValue?.color.toString(16) : '' }}/> : required ? '' : <BsX/>} {value ? roleValue?.name :  required ? 'Select a role...' : 'No Role'} <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>
