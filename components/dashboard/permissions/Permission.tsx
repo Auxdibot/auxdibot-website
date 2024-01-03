@@ -2,7 +2,7 @@ import DashboardActionContext from "@/context/DashboardActionContext";
 import PermissionType from "@/lib/types/PermissionType";
 import Image from "next/image";
 import { useContext } from 'react'; 
-import { BsCardList, BsPeople, BsPerson, BsShieldCheck, BsShieldExclamation, BsShieldLock, BsTrash } from "react-icons/bs";
+import { BsCardList, BsPeople, BsPerson, BsShieldCheck, BsShieldExclamation, BsShieldLock, BsShieldX, BsTrash } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
 export default function Permission({ serverID, permission }: { serverID: string, permission: PermissionType }) {
@@ -23,21 +23,24 @@ export default function Permission({ serverID, permission }: { serverID: string,
                     actionContext.setAction({ status: `Successfully deleted permission #${permission.index+1}`, success: true })
         })
     }
-    return <div className={"bg-gray-700 rounded-xl p-1 flex flex-col gap-2"}>
-    <code className={"text-md flex flex-row justify-between max-md:flex-col gap-1 mb-4"}>
-        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}><BsCardList/> #{permission.index+1}</span> 
-        <span className={"bg-gray-600 rounded-xl px-2 w-fit flex flex-row gap-2 items-center"}>{permission.allowed ? <><BsShieldCheck/> Allowed</> : <><BsShieldExclamation/> Denied</>}</span>
-    </code>
-    <span className={"flex flex-row gap-2 items-center text-lg"}><BsShieldLock/> Permission: {permission.permission}</span>
-    {permission.user ? <span className={"flex flex-row gap-2 items-center text-lg"}><BsPerson/> User: {permission.user.avatar ? <Image
-            src={`https://cdn.discordapp.com/avatars/${permission.user.id}/${permission.user.avatar}.png`}
-            alt={"Discord profile icon"}
-            className={"inline-block align-middle rounded-full"}
-            width={32}
-            height={32}
-            quality="100"
-            priority
-            />  : ""}{permission.user.username}</span> : permission.role ? <span className={"flex flex-row gap-2 items-center text-lg"}><BsPeople/> Role: {permission.role.name}</span> : "" }
-    <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deletePermission()}><BsTrash/></button> Delete</span>
-    </div>;
+    return <span className={"flex gap-2"}>
+    <tr className={"border w-full max-md:w-full flex justify-between items-center px-2 max-md:flex-col group"}>
+
+    <td className="flex-1 flex items-center gap-2">{permission.allowed ? <BsShieldCheck/> : <BsShieldX/>} {permission.permission}</td> 
+
+        <td className="flex-1 justify-center flex items-center gap-1">
+    {permission.role ? permission.role.name : permission.user ? <>{permission.user?.avatar ? <Image
+        src={`https://cdn.discordapp.com/avatars/${permission.user.id}/${permission.user.avatar}.png`}
+        alt={"Discord profile icon"}
+        className={"inline-block align-middle rounded-full"}
+        width={24}
+        height={24}
+        quality="100"
+        priority
+        /> : ""}{permission.user.username}</> : "Not Found"}</td>
+    <td className="flex-1 text-center">#{permission.index+1}</td>
+    </tr>
+    <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}>
+        <button className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deletePermission()}><BsTrash/></button>
+        </span></span>;
 }
