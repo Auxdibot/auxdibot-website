@@ -16,7 +16,7 @@ export default function Log({ log }: { log: { type: string, userID: string, date
     }, [hovered, x, y])
     const tooltipRef = useRef<HTMLSpanElement | null>(null);
     return <tr onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className={"border w-full max-md:w-full flex justify-between items-center max-md:flex-col group"}>
-        <span className={"absolute group-hover:scale-100 scale-0 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}>
+        <span className={"absolute group-hover:scale-100 z-20 scale-0 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}>
             
             {log.description}</span>
         <td className="flex-1 flex-shrink-0 text-ellipsis">{log.type}</td> 
