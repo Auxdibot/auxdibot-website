@@ -85,19 +85,19 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         )}></Controller>
             
         </label>
-        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-lato text-xl"}>
+        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsRepeat/> Times to run:</span>
             <Controller name={'times_to_run'} control={control} render={({ field }) => (
                 <NumberBox Icon={BsRepeat} value={field.value} max={999} min={0} onChange={field.onChange}/>
         )}></Controller>
 
         </label>
-        <label className={"flex flex-col gap-2 max-md:items-center font-lato text-xl"}>
+        <label className={"flex flex-col gap-2 max-md:items-center font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
             <textarea className={"rounded-md font-roboto text-lg w-full"} cols={2} {...register("message")}/>
         </label>
         
-        <span className={"flex flex-row gap-2 items-center mx-auto font-lato text-xl"}><BsTextLeft/> Embed Settings</span>
+        <span className={"flex flex-row gap-2 items-center mx-auto font-open-sans text-xl"}><BsTextLeft/> Embed Settings</span>
         <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for no embed)</span>
         <Controller name={'embed'} control={control} render={({ field }) => (
                 <EmbedSettings addField={append} register={register} removeField={remove} setValue={setValue} value={field.value} />
