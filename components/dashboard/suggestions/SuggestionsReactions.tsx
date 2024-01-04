@@ -1,9 +1,10 @@
 "use client";
 
+import TextBox from "@/components/input/TextBox";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense, useContext, useState } from 'react';
-import { BsCheckLg, BsPlus, BsX } from "react-icons/bs";
+import { BsCheckLg, BsPlus, BsQuestionCircle, BsX } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
 export function Reaction({ reaction, index, serverID }: { reaction: string, index: number, serverID: string }) {
@@ -51,14 +52,15 @@ export default function SuggestionsReactions({ server }: { server: {
         }).catch(() => {     
         });
     }
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    return <div className={"bg-gray-800 flex flex-col shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Suggestions Reactions</h2>
+    <span className={"text-gray-400 text-center mx-auto italic font-open-sans"}>Must be a valid emoji or Discord emoji ID.</span>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>
         {server?.suggestions_reactions?.map((i, index) => <li key={index}><Reaction reaction={i} index={index} serverID={server.serverID} /></li>)}
 
     </Suspense>
-    <input type="text" value={reaction} onChange={(e) => setReaction(e.currentTarget.value) } placeholder="Emoji (ex. ☕)" className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md w-fit mx-auto"}/>
+    <TextBox Icon={BsQuestionCircle} value={reaction} onChange={(e) => setReaction(e.currentTarget.value) }  className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md w-fit mx-auto"}/>
     <button onClick={() => addSuggestionReaction()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsPlus/> Add Suggestion Reaction</>) }
         </button>
