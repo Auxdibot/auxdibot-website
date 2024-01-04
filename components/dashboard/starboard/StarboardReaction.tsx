@@ -1,9 +1,10 @@
 "use client";
 
-import { BsCheckLg, BsStars } from "react-icons/bs";
+import { BsCheckLg, BsStar, BsStarFill, BsStars } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
+import TextBox from "@/components/input/TextBox";
 export default function StarboardReaction({ server }: { server: { serverID: string }}) {
     const [reaction, setReaction] = useState("");
     const [success, setSuccess] = useState(false);
@@ -37,9 +38,9 @@ export default function StarboardReaction({ server }: { server: { serverID: stri
     <span className={"secondary text-xl text-center flex flex-col"}>Set Starboard Reaction</span>
     <span className={"text text-gray-500 italic text-sm text-center"}>(Use an emoji that is a valid Discord reaction.)</span>
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
-        <input className={"rounded-md font-roboto text-center text-lg"} type="text" onChange={(e) => onStarboardReactionChange(e)} value={reaction} />
+    <TextBox Icon={BsStarFill} value={reaction} onChange={onStarboardReactionChange}/> 
         <button onClick={() => setStarboardReaction()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStars/> Change Reaction</>) }
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStarFill/> Change Reaction</>) }
         </button></span>
     </div>
 }
