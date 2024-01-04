@@ -58,7 +58,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         </label>
         <span onClick={() => switchUsingRole()} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
             <span className={"text-xl border rounded-xl p-2 hover:hover-gradient hover:border-black hover:text-black transition-all"}>{!usingRole ? <BsPeople /> : <BsDiscord/>}</span>
-            {usingRole ? 'Switch to Discord User ID' : 'Switch to Role'}</span>
+            {usingRole ? 'Discord User ID' : 'Role'}</span>
         </span>
         
         </section>
