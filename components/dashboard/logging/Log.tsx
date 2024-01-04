@@ -19,7 +19,7 @@ export default function Log({ log }: { log: { type: string, userID: string, date
         <span className={"absolute group-hover:scale-100 z-20 scale-0 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}>
             
             {log.description}</span>
-        <td className="flex-1 flex-shrink-0 text-ellipsis">{log.type}</td> 
+        <td className="flex-1 flex-shrink-0 text-ellipsis group-hover:overflow-visible whitespace-nowrap overflow-hidden">{log.type}</td> 
         <td className="flex-1 flex-shrink-0 justify-center flex items-center gap-1 text-ellipsis">
         { user?.avatar ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
