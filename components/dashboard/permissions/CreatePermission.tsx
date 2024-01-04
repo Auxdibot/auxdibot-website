@@ -40,17 +40,18 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
     return <>
     <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Permission Override</h2>
+    <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <section className={"my-4 w-full flex flex-col max-lg:justify-center max-lg:items-center"}>
         <span className={"flex flex-row max-md:flex-col gap-4"}>
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${usingRole ? "" : "hidden"}`}>
-            <span className={"flex flex-row gap-2 items-center  text-xl"}><BsPeople/> Role:</span> 
+            <span className={"flex flex-row gap-2 items-center  text-xl"}><span className={"text-red-500"}>*</span> <BsPeople/> Role:</span> 
             <Controller name="role" control={control} render={({ field }) => {
                 return <Roles serverID={serverID} required value={field.value || null} onChange={(e) => field.onChange(e.role)} />
             } }/>
         </label> 
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${!usingRole ? "" : "hidden"}`}>
-            <span className={"flex flex-row gap-2 items-center text-xl"}><BsDiscord/> Discord User ID:</span>  
+            <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsDiscord/> Discord User ID:</span>  
             <Controller name="user" control={control} render={({ field }) => {
                 return <TextBox Icon={BsDiscord} value={field.value} onChange={field.onChange} />
             } }/>
@@ -63,7 +64,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         </section>
         
         <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsShield/> Permission:</span>  
+            <span className={"flex flex-row gap-2 items-center"}><span className={"text-red-500"}>*</span> <BsShield/> Permission:</span>  
             <Controller name="permission" control={control} render={({ field }) => {
                 return <TextBox Icon={BsShield} value={field.value} onChange={field.onChange} />
             } }/>
