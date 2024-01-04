@@ -49,13 +49,13 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Embed</h2>
     <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
-        <label className={"flex flex-row max-xl:flex-col gap-2 items-center font-lato text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
+            <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
             <Controller name={'channel'} control={control} render={({ field }) => (
                 <Channels required serverID={id} value={field.value} onChange={(e) => field.onChange(e.channel)}  />
         )}></Controller></label>
-        <label className={"flex flex-col gap-2 max-md:items-center font-lato text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
+        <label className={"flex flex-col gap-2 max-md:items-center"}>
+            <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsChatLeftDots/> Message:</span>
             <textarea className={"rounded-md font-roboto text-lg w-full"} cols={2} {...register("message")}/>
         </label>
         
@@ -72,7 +72,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     </div>
     <div className={"bg-gray-800 flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
         <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Embed Preview</h2>
-        <span className={"p-5 w-fit max-w-full"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
+        <span className={"p-5 w-full flex justify-center"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
     </div>
         </span>
         </div>
