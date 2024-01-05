@@ -28,7 +28,7 @@ export default function Servers() {
 type ServerProps = { server: DiscordGuild }
 export function Server({ server }: ServerProps) {
     
-    const { data, status } = useQuery(["server_list", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data } = useQuery(["server_list", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     return (<Link href={data?.inServer ? "/dashboard/" + server.id : process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK + "&guild_id=" + server.id}><div className={"flex flex-col text-center justify-center items-center w-full h-44 py-5 rounded-xl"}>
         <div className={"flex-1 flex-grow flex-shrink"}>
         <div className={data?.inServer ? "bg-gradient-to-l from-orange-400 to-red-500 rounded-[5rem] hover:rounded-2xl transition-all p-0.5" : ""}>

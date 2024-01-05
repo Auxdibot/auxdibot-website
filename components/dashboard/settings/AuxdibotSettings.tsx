@@ -1,11 +1,9 @@
 "use client";
 
-import Button from "@/components/Button";
-import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { BsArrowLeftCircle, BsPersonBadge, BsThreeDots, BsToggles, BsTrash, BsX } from "react-icons/bs";
+import { useState } from "react";
+import { BsArrowLeftCircle, BsThreeDots, BsTrash, BsX } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import NicknameChange from "./NicknameChange";
 import TextBox from "@/components/input/TextBox";
@@ -56,7 +54,7 @@ export default function AuxdibotSettings({ server }: { server: DiscordGuild & { 
             <button onClick={(e) => reset(e)} className={"secondary text-2xl max-md:text-lg hover:bg-gradient-to-l hover:from-red-400 hover:to-red-700 hover:text-black hover:border-black transition-all w-fit border-white border rounded-xl p-1 flex flex-row gap-2 items-center"} type="submit">
                 <BsTrash/> Reset Bot
             </button>
-            <button onClick={(e) => setConfirmation(false)} className={"secondary text-2xl max-md:text-lg hover-gradient hover:text-black hover:border-black transition-all w-fit border-white border rounded-xl p-1 flex flex-row gap-2 items-center"} type="submit">
+            <button onClick={() => setConfirmation(false)} className={"secondary text-2xl max-md:text-lg hover-gradient hover:text-black hover:border-black transition-all w-fit border-white border rounded-xl p-1 flex flex-row gap-2 items-center"} type="submit">
                 <BsArrowLeftCircle/> Cancel
             </button>
             </span></>}

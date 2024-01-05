@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext, useEffect } from "react";
 import { BsArrowRight, BsGear, BsHouse, BsJournalBookmark, BsLaptop, BsList } from "react-icons/bs";
-import { PiHandWavingLight } from "react-icons/pi";
 
 const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
 export default function DocumentationSidebarContainer({ doc }: { doc: string | string[] | undefined }) {

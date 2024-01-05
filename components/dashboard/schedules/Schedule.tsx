@@ -3,7 +3,7 @@ import DashboardActionContext from "@/context/DashboardActionContext";
 import ScheduleType from "@/lib/types/ScheduleType";
 import timestampToDuration from "@/lib/types/timestampToDuration";
 import { useContext, useState } from 'react'; 
-import { BsArrowsExpand, BsCardList, BsChatLeft, BsChatLeftDots, BsClock, BsList, BsMegaphone, BsPlay, BsRepeat, BsTrash } from "react-icons/bs";
+import { BsCardList, BsChatLeftDots, BsClock, BsMegaphone, BsPlay, BsRepeat, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export default function Schedule({ serverID, schedule }: { serverID: string, schedule: ScheduleType }) {

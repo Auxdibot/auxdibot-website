@@ -1,6 +1,5 @@
-import { BsDisc, BsDiscord, BsGear, BsHammer, BsWindowDesktop } from "react-icons/bs";
+import { BsDisc, BsGear, BsWindowDesktop } from "react-icons/bs";
 import { motion } from 'framer-motion';
-import { useMediaQuery } from "react-responsive";
 import { IconType } from "react-icons/lib";
 
 function Point({ title, description, Icon }: { title: string, description: string, Icon: IconType }) {
@@ -19,7 +18,6 @@ function Point({ title, description, Icon }: { title: string, description: strin
     </section>);
 }
 export default function Points() {
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     return <div className={"w-full flex flex-row justify-between gap-5 lg:px-40 px-10 max-md:flex-col mt-10 max-w-screen-2xl mx-auto"}>
         <div className={"relative flex-1 group"}>
             <div

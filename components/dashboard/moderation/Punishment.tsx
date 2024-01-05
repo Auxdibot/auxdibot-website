@@ -3,7 +3,7 @@ import useMousePosition from "@/hooks/useMousePosition";
 import PunishmentType from "@/lib/types/PunishmentType";
 import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
-import { BsCalendar, BsClock, BsDashCircle, BsExclamationTriangle, BsHammer, BsHourglass, BsHourglassTop, BsMicMute, BsTrash } from "react-icons/bs";
+import { BsDashCircle, BsExclamationTriangle, BsHammer, BsMicMute, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 

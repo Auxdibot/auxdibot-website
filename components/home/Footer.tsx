@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BsDiscord, BsGithub, BsHandThumbsUp, BsLink, BsRobot } from "react-icons/bs";
+import { BsDiscord, BsGithub } from "react-icons/bs";
 
 export default function Footer() {
     return (<footer className={"bg-gray-950 border-t-2 px-2 text-lg max-md:text-md md:h-32"}>

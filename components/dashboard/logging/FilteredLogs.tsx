@@ -7,7 +7,7 @@ import { Suspense, useContext, useState } from 'react';
 import { BsCheckLg, BsFilter, BsPlus, BsX } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
-export function LogFilter({ filtered, index, serverID }: { filtered: string, index: number, serverID: string }) {
+export function LogFilter({ filtered, serverID }: { filtered: string, index: number, serverID: string }) {
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
     function deleteReaction() {

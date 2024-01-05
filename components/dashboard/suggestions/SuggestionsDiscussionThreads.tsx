@@ -1,7 +1,7 @@
 "use client"
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { useContext } from "react";
-import { BsChatDots, BsTrash } from "react-icons/bs";
+import { BsChatDots } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
 export default function SuggestionsDiscussionThreads({ server }: { server: { data: { serverID: string, suggestions_discussion_threads: boolean } } }) {

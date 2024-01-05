@@ -1,11 +1,9 @@
 "use client";
 
 import DashboardActionContext from "@/context/DashboardActionContext";
-import DiscordGuild from "@/lib/types/DiscordGuild";
-import { Suspense, useContext, useState } from 'react';
-import { useForm } from "react-hook-form";
-import { BsAward, BsCheckLg, BsPlus, BsX } from "react-icons/bs";
-import { useQuery, useQueryClient } from "react-query";
+import { Suspense, useContext } from 'react';
+import { BsX } from "react-icons/bs";
+import { useQueryClient } from "react-query";
 
 export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: { reactions: { emoji: string }[], messageID: string }, index: number, serverID: string }) {
     const actionContext = useContext(DashboardActionContext);
@@ -31,10 +29,7 @@ export default function ReactionRoles({ server }: { server: {
     serverID: string, 
     reaction_roles: { reactions: { emoji: string }[], messageID: string }[], 
 }}) {
-    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
-    await data.json().catch(() => undefined)).catch(() => undefined));
-    if (!roles) return <></>;
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-full max-md:h-fit w-full max-md:mx-auto"}>
+    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Reaction Roles</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>
     <Suspense fallback={null}>

@@ -1,6 +1,5 @@
 "use client";
 
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import StarboardChannel from "./StarboardChannel";
 import { Suspense } from 'react';
 import StarboardReaction from "./StarboardReaction";

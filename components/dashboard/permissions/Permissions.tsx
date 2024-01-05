@@ -1,7 +1,6 @@
 "use client";
 
 import Permission from "./Permission";
-import Schedule from "./Permission";
 import PermissionType from "@/lib/types/PermissionType";
 
 export default function Permissions({ permissions, serverID }: { serverID: string, permissions?: PermissionType[] }) {

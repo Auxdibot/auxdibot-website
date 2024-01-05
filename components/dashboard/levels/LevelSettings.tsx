@@ -1,6 +1,5 @@
 "use client";
 
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense } from 'react';
 import LevelMessageXP from "./LevelMessageXP";
 import LevelEmbed from "./LevelEmbed";

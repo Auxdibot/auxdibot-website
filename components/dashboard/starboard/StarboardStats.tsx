@@ -1,6 +1,5 @@
 "use client";
 
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense } from 'react';
 import { BsChatDots, BsStar } from "react-icons/bs";
 import { useState, useEffect } from "react"; 

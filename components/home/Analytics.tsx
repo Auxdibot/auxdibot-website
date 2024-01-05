@@ -1,10 +1,10 @@
 "use client";
 
-import { ComponentProps, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { BsServer, BsPerson, BsPeople, BsThreeDots } from 'react-icons/bs';
+import { BsPerson, BsPeople, BsThreeDots } from 'react-icons/bs';
 export default function Analytics() {
-    let { data: analytics, status, error } = useQuery(["analytics"], async () => await fetch("/api/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
+    let { data: analytics, status } = useQuery(["analytics"], async () => await fetch("/api/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
     let [serverState, setServerState] = useState("0");
     let [memberState, setMemberState] = useState("0");
     useEffect(() => {

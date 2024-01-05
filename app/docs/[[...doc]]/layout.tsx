@@ -1,4 +1,3 @@
-import DashboardProviders from '@/components/dashboard/DashboardProviders';
 import DocumentationSidebarContainer from '@/components/docs/DocumentationSidebar';
 
 

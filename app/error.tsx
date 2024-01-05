@@ -2,7 +2,6 @@
 
 import Button from "@/components/Button";
 import Image from "next/image";
-import Link from "next/link";
 import { BsHouse } from 'react-icons/bs';
 export default function Error() {
     return (<section className={"flex-grow bg-auxdibot-masthead bg-black flex justify-center items-center align-middle flex-1 h-screen"}>
