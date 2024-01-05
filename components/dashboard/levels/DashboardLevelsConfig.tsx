@@ -2,7 +2,6 @@
 
 import { useQuery } from "react-query";
 import LevelSettings from "./LevelSettings";
-import { Suspense } from 'react';
 import LevelRewards from "./LevelRewards";
 
 export default function DashboardLevelsConfig({ id }: { id: string }) {

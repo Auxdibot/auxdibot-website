@@ -1,6 +1,6 @@
-import { ChangeEvent, MutableRefObject, useRef } from "react";
+import { MutableRefObject } from "react";
 import { IconType } from "react-icons";
-import { BsArrowDown, BsArrowDownShort, BsArrowUp, BsArrowUpShort } from "react-icons/bs";
+import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 
 interface NumberBoxProps {
     readonly value?: number;

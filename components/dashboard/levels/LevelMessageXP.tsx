@@ -1,6 +1,6 @@
 "use client";
 
-import { BsAward, BsCheckLg, BsPlusLg } from "react-icons/bs";
+import { BsAward, BsCheckLg } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";

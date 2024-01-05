@@ -1,14 +1,14 @@
 "use client";
 import { Controller, useForm } from 'react-hook-form';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { useContext, useState } from 'react';
-import { BsCheck, BsDiscord, BsPeople, BsPerson, BsShield, BsShieldCheck, BsX } from 'react-icons/bs';
+import { BsCheck, BsDiscord, BsPeople, BsShield, BsShieldCheck, BsX } from 'react-icons/bs';
 import DashboardActionContext from '@/context/DashboardActionContext';
 import Roles from '@/components/input/Roles';
 import TextBox from '@/components/input/TextBox';
 type PermissionBody = { allowed: boolean, permission: string, user?: string, role?: string };
 export default function CreatePermission({ serverID }: { serverID: string }) {
-    const { register, handleSubmit, reset, control, setValue } = useForm<PermissionBody>();
+    const { handleSubmit, reset, control, setValue } = useForm<PermissionBody>();
 
     const queryClient = useQueryClient();
     const [usingRole, setUsingRole] = useState(true);

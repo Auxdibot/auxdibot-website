@@ -4,13 +4,13 @@ Command: npx gltfjsx@6.2.3 glasses.gltf --types
 */
 
 import * as THREE from 'three'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 
 type AdditionalProps = { randomColor1?: string, randomColor2?: string, }
 export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
-  const { nodes, scene } = useGLTF('/auxdibot.gltf', false);
+  const { nodes } = useGLTF('/auxdibot.gltf', false);
   let mesh = (nodes.Text as THREE.Mesh);
   const ref = useRef<THREE.Mesh | null>(null);
   const material = new THREE.ShaderMaterial({ side: THREE.DoubleSide, uniforms: {

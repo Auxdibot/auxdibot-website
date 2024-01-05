@@ -2,7 +2,6 @@
 
 import TextBox from "@/components/input/TextBox";
 import DashboardActionContext from "@/context/DashboardActionContext";
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense, useContext, useState } from 'react';
 import { BsCheckLg, BsPlus, BsQuestionCircle, BsX } from "react-icons/bs";
 import { useQueryClient } from "react-query";

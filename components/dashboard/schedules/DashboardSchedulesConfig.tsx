@@ -1,7 +1,6 @@
 "use client";
 import { useQuery } from "react-query"
 import { Suspense } from 'react';
-import LatestPunishments from "./Schedules";
 import Schedules from "./Schedules";
 import CreateSchedule from "./CreateSchedule";
 

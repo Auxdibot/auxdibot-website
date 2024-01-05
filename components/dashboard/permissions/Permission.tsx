@@ -2,7 +2,7 @@ import DashboardActionContext from "@/context/DashboardActionContext";
 import PermissionType from "@/lib/types/PermissionType";
 import Image from "next/image";
 import { useContext } from 'react'; 
-import { BsCardList, BsPeople, BsPerson, BsShieldCheck, BsShieldExclamation, BsShieldLock, BsShieldX, BsTrash } from "react-icons/bs";
+import { BsShieldCheck, BsShieldX, BsTrash } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
 export default function Permission({ serverID, permission }: { serverID: string, permission: PermissionType }) {

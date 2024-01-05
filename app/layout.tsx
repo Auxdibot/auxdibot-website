@@ -1,7 +1,6 @@
 import Providers from '@/components/Providers'
 import '@/styles/global.scss'
 import { Metadata } from 'next'
-import LayoutNavbar from '@/components/navbar/LayoutNavbar';
 import { defaultMetadata } from '@/lib/constants/defaultMetadata';
 
 export const metadata: Metadata = defaultMetadata;

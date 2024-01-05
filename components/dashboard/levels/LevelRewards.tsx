@@ -3,7 +3,6 @@
 import NumberBox from "@/components/input/NumberBox";
 import Roles from "@/components/input/Roles";
 import DashboardActionContext from "@/context/DashboardActionContext";
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { Suspense, useContext, useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { BsAward, BsCheckLg, BsPeople, BsPlus, BsX } from "react-icons/bs";
@@ -37,7 +36,7 @@ export default function LevelRewards({ server }: { server: {
     let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [success, setSuccess] = useState(false);
-    const { register, handleSubmit, reset, control } = useForm<LevelRewardBody>();
+    const { handleSubmit, reset, control } = useForm<LevelRewardBody>();
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
     function addLevelReward(formData: LevelRewardBody) {
@@ -57,7 +56,6 @@ export default function LevelRewards({ server }: { server: {
         }).catch(() => {     
         });
     }
-    if (!roles) return <></>;
     return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Level Rewards</h2>
     <ul className={"flex flex-col gap-4 my-4 items-center"}>

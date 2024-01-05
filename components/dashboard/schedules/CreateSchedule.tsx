@@ -1,23 +1,21 @@
 "use client";
 import MockEmbed from '@/components/MockEmbed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useQuery, useQueryClient } from 'react-query';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { useContext, useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsCalendar, BsChatLeftDots, BsClock, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsRepeat, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
-import { SketchPicker } from 'react-color';
+import { BsCalendar, BsChatLeftDots, BsClock, BsMegaphone, BsRepeat, BsTextLeft } from 'react-icons/bs';
 import "react-datepicker/dist/react-datepicker.css"; 
 import DashboardActionContext from '@/context/DashboardActionContext';
 import DatePicker from 'react-datepicker';
 import Channels from '@/components/input/Channels';
-import { Channel } from 'diagnostics_channel';
 import TextBox from '@/components/input/TextBox';
 import NumberBox from '@/components/input/NumberBox';
 import EmbedSettings from '@/components/input/EmbedSettings';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset, setValue } = useForm<ScheduleBody>();
-    const { fields, append, remove } = useFieldArray({
+    const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
         rules: {

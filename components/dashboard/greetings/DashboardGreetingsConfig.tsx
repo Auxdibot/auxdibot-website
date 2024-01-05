@@ -1,7 +1,7 @@
 "use client";
 import MockEmbed from '@/components/MockEmbed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsTextLeft } from 'react-icons/bs';
 import { PiHandWavingLight } from 'react-icons/pi'; 
@@ -18,14 +18,13 @@ enum GreetingType {
 type GreetingBody = { message: string; greeting: GreetingType; embed: APIEmbed; }
 export default function DashboardGreetingsConfig({ id }: { id: string }) {
     const { register, watch, control, handleSubmit, reset, setValue } = useForm<GreetingBody>();
-    const { fields, append, remove } = useFieldArray({
+    const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
         rules: {
             maxLength: 25
         }
     });
-    const [expandedColor, setExpandedColor] = useState(false);
     const actionContext = useContext(DashboardActionContext);
     function onSubmit(bodyData: GreetingBody) {
         let body = new URLSearchParams();

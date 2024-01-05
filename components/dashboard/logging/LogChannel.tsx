@@ -1,6 +1,6 @@
 "use client";
 
-import { BsCheck, BsCheckLg, BsPersonBadge } from "react-icons/bs";
+import { BsCheckLg, BsPersonBadge } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";

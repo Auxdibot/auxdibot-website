@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BsArrowDownShort, BsAt, BsHash, BsX } from "react-icons/bs";
+import { BsArrowDownShort, BsAt, BsX } from "react-icons/bs";
 import { useQuery } from "react-query";
 interface RolesInputProps {
     readonly serverID: string;

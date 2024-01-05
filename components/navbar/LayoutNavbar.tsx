@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsBook, BsDiscord, BsArrowUp} from 'react-icons/bs';
 import MiniProfile from "./MiniProfile";
-import { useEffect, useState } from "react";
 export default function LayoutNavbar({ preventCollapse }: { preventCollapse?: boolean }) {
     return (<>
     

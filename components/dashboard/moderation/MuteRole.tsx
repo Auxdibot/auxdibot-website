@@ -2,7 +2,7 @@
 
 import { BsCheckLg, BsMicMute } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import Roles from "@/components/input/Roles";
 export default function MuteRole({ server }: { server: { serverID: string}}) {

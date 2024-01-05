@@ -1,11 +1,9 @@
 "use client";
 import MockEmbed from '@/components/MockEmbed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useQuery, useQueryClient } from 'react-query';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsBroadcast, BsChatLeftDots, BsImage, BsListTask, BsMegaphone, BsPencil, BsPerson, BsPlus, BsTextCenter, BsTextLeft, BsTextarea, BsX } from 'react-icons/bs';
-import { SketchPicker } from 'react-color';
+import { BsBroadcast, BsChatLeftDots, BsMegaphone, BsTextLeft } from 'react-icons/bs';
 import DashboardActionContext from '@/context/DashboardActionContext';
 import EmbedSettings from '@/components/input/EmbedSettings';
 import Channels from '@/components/input/Channels';
@@ -72,7 +70,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     </div>
     <div className={"bg-gray-800 flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
         <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Embed Preview</h2>
-        <span className={"p-5 w-full flex justify-center"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
+        <span className={"md:p-5 w-full flex justify-center"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
     </div>
         </span>
         </div>

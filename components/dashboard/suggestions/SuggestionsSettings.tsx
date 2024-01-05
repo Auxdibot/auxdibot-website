@@ -1,6 +1,5 @@
 "use client";
 
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import SuggestionsChannel from "./SuggestionsChannel";
 import { Suspense } from 'react';
 import SuggestionsUpdateChannel from "./SuggestionsUpdateChannel";

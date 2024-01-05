@@ -1,7 +1,6 @@
 "use client";
 import { useQuery } from "react-query"
 import { Suspense } from 'react';
-import CreateSchedule from "./CreatePermission";
 import Permissions from "./Permissions";
 import CreatePermission from "./CreatePermission";
 

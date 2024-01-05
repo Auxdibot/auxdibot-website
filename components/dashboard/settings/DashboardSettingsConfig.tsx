@@ -1,6 +1,5 @@
 "use client";
 import { useQuery } from "react-query"
-import Button from "../../Button";
 import DisabledModules from "./DisabledModules";
 import AuxdibotSettings from "./AuxdibotSettings";
 

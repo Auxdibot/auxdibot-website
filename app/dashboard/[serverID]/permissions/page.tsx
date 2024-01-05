@@ -1,7 +1,6 @@
 "use client";
 
 import DashboardPermissionsConfig from "@/components/dashboard/permissions/DashboardPermissionsConfig";
-import DashboardSchedulesConfig from "@/components/dashboard/schedules/DashboardSchedulesConfig";
 import DashboardSidebarContext from "@/context/DashboardSidebarContext";
 import { useContext } from 'react';
 
