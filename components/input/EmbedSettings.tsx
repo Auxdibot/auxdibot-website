@@ -1,17 +1,17 @@
 import { APIEmbed } from "discord-api-types/v10";
 import { useEffect, useRef, useState } from "react";
-import { SketchPicker } from "react-color";
-import { UseFieldArrayAppend, UseFieldArrayRemove, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { HexColorInput, HexColorPicker } from "react-colorful";
+import { Control, Controller, UseFieldArrayAppend, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { BsImage, BsListTask, BsPerson, BsPlus, BsTextCenter, BsTextarea, BsX } from "react-icons/bs";
 
 interface EmbedSettingsProps {
     readonly value: APIEmbed;
     readonly register: UseFormRegister<any & { embed: APIEmbed }>;
-    readonly setValue: UseFormSetValue<any & { embed: APIEmbed }>;
+    readonly control: Control<any & { embed: APIEmbed}>;
     readonly addField: UseFieldArrayAppend<any, "embed.fields">;
     readonly removeField: UseFieldArrayRemove;
 }
-export default function EmbedSettings({ value, register, setValue, addField, removeField }: EmbedSettingsProps) {
+export default function EmbedSettings({ value, register, control, addField, removeField }: EmbedSettingsProps) {
     const [expandedColor, setExpandedColor] = useState(false);
     const colorRef = useRef<HTMLLabelElement | null>(null);
     useEffect(() => {
@@ -24,17 +24,27 @@ export default function EmbedSettings({ value, register, setValue, addField, rem
       }, [expandedColor]);
     return (<div>
         <section className={"my-5 flex flex-col gap-2"}>
-        <label ref={colorRef} className={"flex flex-row max-md:mx-auto gap-2 items-center font-open-sans text-xl"}>
+        <label ref={colorRef} className={"flex flex-row max-md:mx-auto gap-2 items-center font-open-sans text-xl relative"}>
+        <span className={"flex flex-col relative"}>
+        <span className={"secondary text-xl text-gray-300 flex flex-row items-center max-md:justify-center gap-2 my-3"}>
             
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 relative"}>
-            <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
-            <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value.color ? `#${value.color.toString(16)}` : "black" }}></div>
-            </span> Set Color</span>
-            {expandedColor ? <SketchPicker width='15rem'  disableAlpha styles={{ 
-                default: {   picker: { backgroundColor: "rgb(95 105 119)", color: "white !important", fontFamily: '"Roboto", sans-serif' }, controls: { color: "white" }} 
-            }}  className={`absolute border-2 border-slate-500 translate-y-48 touch-none max-md:right-1/2 max-md:translate-x-1/2 md:translate-x-4 animate-colorPicker`} color={value.color?.toString(16) || "ff0000"} onChange={(newColor) => {
-                setValue('embed.color', parseInt(newColor.hex.replace("#", ""), 16));
-            }}/> : ""}
+            <Controller control={control} name={"embed.color"} render={({ field }) => {
+
+                return <>
+                <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
+                <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: field.value ? `#${field.value.toString(16)}` : "black" }}></div>
+                </span> Set Color
+                <HexColorInput color={field.value?.toString(16)} className={"text-md rounded-xl w-fit px-1"}  onChange={(newColor) => field.onChange(parseInt(newColor.replace("#", ""), 16))}/>
+                </>
+            }}/>
+            
+        </span>
+        {expandedColor ? 
+        <Controller control={control} name={"embed.color"} render={({ field }) => {
+            return <HexColorPicker  className={`absolute touch-none max-md:right-1/2 max-md:translate-x-1/2  animate-colorPicker`} color={field.value?.toString(16)} onChange={(newColor) => field.onChange(parseInt(newColor.replace("#", ""), 16))}/>
+        }}/> : ""}
+        </span>
+       
         </label> 
         <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(leave empty for no color)</span>
         <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsPerson/> Author</span>
