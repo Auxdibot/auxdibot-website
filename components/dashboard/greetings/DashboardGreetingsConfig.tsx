@@ -17,7 +17,7 @@ enum GreetingType {
 
 type GreetingBody = { message: string; greeting: GreetingType; embed: APIEmbed; }
 export default function DashboardGreetingsConfig({ id }: { id: string }) {
-    const { register, watch, control, handleSubmit, reset, setValue } = useForm<GreetingBody>();
+    const { register, watch, control, handleSubmit, reset } = useForm<GreetingBody>();
     const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -68,7 +68,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
         <span className={"flex flex-row gap-2 items-center mx-auto font-lato text-xl"}><BsTextLeft/> Embed Settings</span>
         <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for no embed)</span>
         <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings addField={append} register={register} removeField={remove} setValue={setValue} value={field.value} />
+                <EmbedSettings control={control} addField={append} register={register} removeField={remove} value={field.value} />
         )}></Controller>
         <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             <PiHandWavingLight/> Set Greeting

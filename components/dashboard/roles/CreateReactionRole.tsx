@@ -13,7 +13,7 @@ import EmbedSettings from '@/components/input/EmbedSettings';
 
 type ReactionRoleBody = { message: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed: APIEmbed; }
 export default function CreateReactionRole({ serverID }: { serverID: string }) {
-    const { register, watch, control, handleSubmit, reset, setValue } = useForm<ReactionRoleBody>();
+    const { register, watch, control, handleSubmit, reset } = useForm<ReactionRoleBody>();
     const { fields, append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -45,7 +45,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
             if (json && !json['error']) {
                 if (actionContext)
                     actionContext.setAction({ status: `Successfully created a new reaction role.`, success: true })
-                reset();
+                reset({ channel: '', embed: {}, message: '', reactions: [], title: ''});
                 removeReaction(fields.length);
                 queryClient.invalidateQueries(["data_reaction_roles", serverID]);
                 removeReaction(reactions.length);
@@ -93,9 +93,9 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         
         <span className={"flex flex-row gap-2 items-center mx-auto font-lato text-xl"}><BsTextLeft/> Embed Settings</span>
         <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for default reaction embed)</span>
-        <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings addField={append} register={register} removeField={remove} setValue={setValue} value={field.value} />
-        )}></Controller>
+        <Controller name={'embed'} control={control} render={({ field }) => {
+                return <EmbedSettings control={control} addField={append} register={register} removeField={remove} value={field.value} />
+        }}></Controller>
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 max-md:mx-auto"}><span className={"border text-white rounded-2xl w-fit p-2 hover-gradient transition-all hover:text-black hover:border-black text-xl cursor-pointer"} onClick={() => setEmbedExpand(!embedExpand)}><BsChatLeftDots/></span> View Embed</span>
         <span className={embedExpand ? "" : "hidden"}>
         {embed ? <MockEmbed embed={embed}/> : ""}

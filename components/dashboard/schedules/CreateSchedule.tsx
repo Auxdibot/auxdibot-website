@@ -14,7 +14,7 @@ import NumberBox from '@/components/input/NumberBox';
 import EmbedSettings from '@/components/input/EmbedSettings';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
-    const { register, watch, control, handleSubmit, reset, setValue } = useForm<ScheduleBody>();
+    const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>();
     const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -98,7 +98,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         <span className={"flex flex-row gap-2 items-center mx-auto font-open-sans text-xl"}><BsTextLeft/> Embed Settings</span>
         <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for no embed)</span>
         <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings addField={append} register={register} removeField={remove} setValue={setValue} value={field.value} />
+                <EmbedSettings addField={append} register={register} removeField={remove} control={control} value={field.value} />
         )}></Controller>
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 max-md:mx-auto"}><span className={"border text-white rounded-2xl w-fit p-2 hover-gradient transition-all hover:text-black hover:border-black text-xl cursor-pointer"} onClick={() => setEmbedExpand(!embedExpand)}><BsChatLeftDots/></span> View Embed</span>
         <span className={embedExpand ? "" : "hidden"}>
