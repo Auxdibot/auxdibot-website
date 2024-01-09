@@ -25,8 +25,8 @@ export default function EmbedSettings({ value, register, control, addField, remo
     return (<div>
         <section className={"my-5 flex flex-col gap-2"}>
         <label ref={colorRef} className={"flex flex-row max-md:mx-auto gap-2 items-center font-open-sans text-xl relative"}>
-        <span className={"flex flex-col relative"}>
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center max-md:justify-center gap-2 my-3"}>
+        <span className={"flex flex-col relative items-center"}>
+        <span className={"secondary text-xl text-gray-300 flex flex-row max-md:flex-col items-center max-md:justify-center gap-2 my-3"}>
             
             <Controller control={control} name={"embed.color"} render={({ field }) => {
 
@@ -41,7 +41,7 @@ export default function EmbedSettings({ value, register, control, addField, remo
         </span>
         {expandedColor ? 
         <Controller control={control} name={"embed.color"} render={({ field }) => {
-            return <HexColorPicker  className={`absolute touch-none max-md:right-1/2 max-md:translate-x-1/2  animate-colorPicker`} color={field.value?.toString(16)} onChange={(newColor) => field.onChange(parseInt(newColor.replace("#", ""), 16))}/>
+            return <HexColorPicker  className={`md:absolute touch-none animate-colorPicker`} color={field.value?.toString(16)} onChange={(newColor) => field.onChange(parseInt(newColor.replace("#", ""), 16))}/>
         }}/> : ""}
         </span>
        
