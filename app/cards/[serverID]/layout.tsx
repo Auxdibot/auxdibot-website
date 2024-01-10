@@ -4,7 +4,7 @@ import '@/styles/global.scss'
 
 interface CardProps {
     params: { readonly serverID: string }
-    children: React.Component
+    children: React.ReactNode
 }
 
 export async function generateMetadata({ params }: CardProps): Promise<Metadata> {
