@@ -38,14 +38,14 @@ module.exports = {
       fontFamily: {
         'josefin-sans': "'Josefin Sans', sans-serif",
         'bauhaus': "'Bauhaus 93', sans-serif",
+        'josefin-slab': "'Josefin Slab', sans-serif",
+        'playfair-display': "'Playfair Display', sans-serif",
+        'oswald': "'Oswald', sans-serif",
         'roboto': "'Roboto', sans-serif",
         'lato': "'Lato', sans-serif",
         'montserrat': "'Montserrat', sans-serif",
         'open-sans': "'Open Sans', sans-serif",
-        'playfair-display': "'Playfair Display', sans-serif",
-        'oswald': "'Oswald', sans-serif",
         'inter': "'Inter', sans-serif",
-        'josefin-slab': "'Josefin Slab', sans-serif",
       }
     },
   },
