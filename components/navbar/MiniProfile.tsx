@@ -38,7 +38,8 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     </div>)
     return (<div ref={ref} {...props}>
         <span className={"text-primary-300"}></span>
-        <span className={`flex flex-col gap-2 ${user?.badges && 'mt-8'}`}>
+        <span className={`flex flex-row max-sm:flex-col-reverse max-sm:mt-8 gap-2`}>
+        {user?.badges && <span className={"flex flex-row mx-auto text-base gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>{user?.badges?.map((i: UserBadge) => <span key={i}>{UserBadgeIcons[i]}</span>)}</span>}
         <span className={"flex flex-row gap-2"}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=32`}
@@ -58,7 +59,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         
 
         </span>
-        {user?.badges && <span className={"flex flex-row mx-auto text-base gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>{user?.badges?.map((i: UserBadge) => <span key={i}>{UserBadgeIcons[i]}</span>)}</span>}
+
         </span>
         <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right md:origin-top select-none top-14 z-10 max-md:-translate-x-8 bg-auxdibot-gradient bg-black border border-gray-950 rounded-xl`}>
             <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center border-b border-gray-950"}><BsShield/> Account</h1>
