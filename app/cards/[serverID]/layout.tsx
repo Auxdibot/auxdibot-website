@@ -1,5 +1,6 @@
 import LoadingCard from "@/components/cards/LoadingCard";
 import { Metadata } from "next";
+import '@/styles/global.scss'
 
 interface CardProps {
     params: { readonly serverID: string }
