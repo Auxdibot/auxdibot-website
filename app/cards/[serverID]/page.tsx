@@ -12,7 +12,7 @@ import { useMediaQuery } from "react-responsive";
 const GradientTemplates: { [key in CardGradients as string]: (color1?: string, color2?: string) => string } = {
     "RADIAL": (color1, color2) =>  `radial-gradient(${color1 ?? '#000000'} 10%, ${color2 ?? '#000000'} 100%)`,
     "LINEAR": (color1, color2) =>  `linear-gradient(${color1 ?? '#000000'} 0%, ${color2 ?? '#000000'} 90%)`,
-    "BACKGROUND": (color1, color2) =>  `linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1) 85%),radial-gradient(ellipse at top left, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at top right, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at center right, ${color2 ?? "#000000"}80, transparent 50%),radial-gradient(ellipse at center left, ${color2 ?? "#000000"}80, transparent 50%)`,
+    "BACKGROUND": (color1, color2) =>  `linear-gradient(180deg, transparent, transparent 85%),radial-gradient(ellipse at top left, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at top right, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at center right, ${color2 ?? "#000000"}80, transparent 50%),radial-gradient(ellipse at center left, ${color2 ?? "#000000"}80, transparent 50%)`,
 }
 
 export default function ServerCardPage({ params }: { params: { serverID: string } }) {
@@ -24,7 +24,7 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
     if (status == 'loading') return <></>
 
     return (
-    <main className={"flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden"} style={{ backgroundImage: GradientTemplates[data?.background?.gradient || 'BACKGROUND'](data?.background?.color1, data?.background?.color2)}}>
+    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: GradientTemplates[data?.background?.gradient || 'BACKGROUND'](data?.background?.color1, data?.background?.color2)}}>
         <div className={"flex max-md:flex-col max-md:p-1 justify-center items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
         {isMobile ? 
         <>

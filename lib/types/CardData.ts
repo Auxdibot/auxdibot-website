@@ -26,5 +26,6 @@ export interface CardData {
     text_font?: CardFont,
     header_font?: CardFont,
     badges: CardBadge[],
+    dark: boolean;
 
 }
