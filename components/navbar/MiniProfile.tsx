@@ -8,6 +8,8 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
+import { UserBadgeIcons } from "@/lib/types/UserBadgeIcons";
+import { UserBadge } from "@/lib/types/UserBadge";
 export default function MiniProfile(props: React.ComponentProps<any>) {
     const [expanded, setExpanded] = useState(false);
     const { user, status } = useSession();
@@ -35,6 +37,9 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         <BsThreeDots className={"animate-spin text-2xl text-white"}/>
     </div>)
     return (<div ref={ref} {...props}>
+        <span className={"text-primary-300"}></span>
+        <span className={`flex flex-col gap-2 ${user?.badges && 'mt-8'}`}>
+        <span className={"flex flex-row gap-2"}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=32`}
             alt={"Discord profile icon"}
@@ -47,7 +52,13 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         
         <span className={"flex group flex-row gap-2 items-center text-gray-200 font-roboto text-md cursor-pointer"} onClick={() => expand()}>
         <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
+        
         <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
+        </span>
+        
+
+        </span>
+        {user?.badges && <span className={"flex flex-row mx-auto text-base gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>{user?.badges?.map((i: UserBadge) => <span key={i}>{UserBadgeIcons[i]}</span>)}</span>}
         </span>
         <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right md:origin-top select-none top-14 z-10 max-md:-translate-x-8 bg-auxdibot-gradient bg-black border border-gray-950 rounded-xl`}>
             <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center border-b border-gray-950"}><BsShield/> Account</h1>
