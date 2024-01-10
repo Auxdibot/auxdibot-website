@@ -35,9 +35,9 @@ export default function ServerInfo({ data, serverID }: { readonly data: CardData
             <span className={"flex max-md:flex-col items-center justify-center gap-2 w-full px-10"}>
                 <ServerMembers totalMembers={data?.server?.members || 0}/>
                 <span className={"flex-1 max-md:hidden flex-shrink-0"}><span className={`border ${!data?.dark ? "border-gray-800" : "border-gray-300"} h-8`}></span></span>
-                <ServerBadges badges={data?.badges}/>
+                <ServerBadges badges={data?.badges} dark={data?.dark}/>
             </span>
-            <p className={`text-2xl`}>{data?.description || ''}</p>
+            <p className={`text-lg`}>{data?.description || ''}</p>
             <span className={"flex gap-4 items-center max-md:flex-col"}>
             {data?.invite_url && <Link href={data?.invite_url} className={" text-xl  group rounded-2xl w-fit relative "} >
                 <div className={"absolute -inset-0 rounded-2xl blur-xl z-0 opacity-0 group-hover:opacity-100 select-none transition-all"} style={{ backgroundImage: `linear-gradient(135deg, ${data?.background?.color1 ?? 'transparent'}, ${data?.background?.color2 ?? 'transparent'})`}}/>

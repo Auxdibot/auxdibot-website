@@ -25,7 +25,7 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
 
     return (
     <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: GradientTemplates[data?.background?.gradient || 'BACKGROUND'](data?.background?.color1, data?.background?.color2)}}>
-        <div className={"flex max-md:flex-col max-md:p-1 justify-center items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
+        <div className={"flex max-md:flex-col p-1 justify-center items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
         {isMobile ? 
         <>
         {data && <ServerInfo data={data} serverID={params.serverID} />}
