@@ -6,7 +6,7 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
-import { BsArrowRight, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsCardImage, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 
@@ -29,6 +29,7 @@ export default function DashboardSidebarContainer({ serverID }: { serverID: stri
 }
 enum SidebarCategories {
     HOME = "home",
+    CARD = "card",
     SETTINGS = "settings",
     LOGGING = "logging",
     MODERATION = "moderation",
@@ -60,6 +61,10 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
+            </li>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.CARD ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.CARD ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.CARD)} className={`dashboard-sidebar-element ${page == SidebarCategories.CARD ? "dashboard-sidebar-selected-text" : ""}`}><BsCardImage/> <span className={"bg-green-500 rounded-2xl px-1"}>BETA</span> Card</span>
             </li>
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.LOGGING ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.LOGGING ? "scale-75" : "scale-0 hidden"}`}/></span>

@@ -46,6 +46,7 @@ module.exports = {
         'montserrat': "'Montserrat', sans-serif",
         'open-sans': "'Open Sans', sans-serif",
         'inter': "'Inter', sans-serif",
+        'raleway': "'Raleway', sans-serif"
       }
     },
   },
