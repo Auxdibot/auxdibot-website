@@ -4,16 +4,10 @@ import NotFound from "@/app/not-found";
 import LatestMessages from "@/components/cards/LatestMessages";
 import ServerInfo from "@/components/cards/ServerInfo";
 import ServerRules from "@/components/cards/ServerRules";
+import { GradientTemplates } from "@/lib/constants/GradientTemplates";
 import { CardData } from "@/lib/types/CardData";
-import { CardGradients } from "@/lib/types/CardGradients";
 import { useQuery } from "react-query";
 import { useMediaQuery } from "react-responsive";
-
-const GradientTemplates: { [key in CardGradients as string]: (color1?: string, color2?: string) => string } = {
-    "RADIAL": (color1, color2) =>  `radial-gradient(${color1 ?? '#000000'} 10%, ${color2 ?? '#000000'} 100%)`,
-    "LINEAR": (color1, color2) =>  `linear-gradient(${color1 ?? '#000000'} 0%, ${color2 ?? '#000000'} 90%)`,
-    "BACKGROUND": (color1, color2) =>  `linear-gradient(180deg, transparent, transparent 85%),radial-gradient(ellipse at top left, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at top right, ${color1 ?? "#000000"}80, transparent 30%),radial-gradient(ellipse at center right, ${color2 ?? "#000000"}80, transparent 50%),radial-gradient(ellipse at center left, ${color2 ?? "#000000"}80, transparent 50%)`,
-}
 
 export default function ServerCardPage({ params }: { params: { serverID: string } }) {
     const { data, status, error } = useQuery<CardData | { error: string } | undefined>([params.serverID, 'card'], async () => await fetch(`/api/v1/cards/${params.serverID}`).then(async (data) => 
@@ -22,10 +16,10 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
     if ((!data && status != 'loading') || error || (data && 'error' in data)) { return <NotFound/> }
     
     if (status == 'loading') return <></>
-
+    const gradient = GradientTemplates?.[data?.background?.gradient || 'BACKGROUND'] ?? undefined;
     return (
-    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: GradientTemplates[data?.background?.gradient || 'BACKGROUND'](data?.background?.color1, data?.background?.color2)}}>
-        <div className={"flex max-md:flex-col p-1 justify-center items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
+    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: gradient && gradient(data?.background?.color1, data?.background?.color2)}}>
+        <div className={"flex max-md:flex-col p-1 justify-center mx-auto items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
         {isMobile ? 
         <>
         {data && <ServerInfo data={data} serverID={params.serverID} />}

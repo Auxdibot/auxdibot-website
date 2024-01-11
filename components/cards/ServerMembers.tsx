@@ -17,6 +17,6 @@ export default function ServerMembers({ totalMembers }: { readonly totalMembers:
     }, [totalMembers]);
 
     return (<Suspense fallback={<></>}>
-        <span className={"flex flex-1 gap-2 text-3xl items-center max-md:text-2xl"}><BsPerson/> <span>{status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(memberState).toLocaleString()}</span></span>
+        <span className={"flex w-fit gap-2 text-3xl items-center max-md:text-2xl"}><BsPerson/> <span>{parseInt(memberState).toLocaleString()}</span></span>
         </Suspense>);
 }

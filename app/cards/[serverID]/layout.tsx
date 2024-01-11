@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
 export default function ServerCardLayout({ params, children }: CardProps) {
     // extra div element here is to render in all card fonts to tailwind
     return (<>
-    <div className={"font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus"}/>
+    <div className={"font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus font-raleway"}/>
     <LoadingCard serverID={params.serverID}/>
     {children}
     </>)
