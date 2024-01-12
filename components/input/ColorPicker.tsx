@@ -26,7 +26,7 @@ export default function ColorPicker({ value, onChange, string }: ColorPickerProp
     <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
             <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value ? `#${value.toString(16)}` : "black" }}></div>
             </span> Set Color
-            <HexColorInput aria-valuenow={value} color={value?.toString(16)} className={"text-md rounded-xl w-fit px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
+            <HexColorInput aria-valuenow={value} color={value?.toString(16)} className={"text-md rounded-xl  px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
         
     </span>
     {expandedColor && 

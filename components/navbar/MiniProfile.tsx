@@ -39,7 +39,13 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     return (<div ref={ref} {...props}>
         <span className={"text-primary-300"}></span>
         <span className={`flex flex-row gap-2`}>
-        {user?.badges && <span className={"flex flex-row mx-auto text-base max-md:gap-1 md:gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>{user?.badges?.map((i: UserBadge) => <span key={i}>{UserBadgeIcons[i]}</span>)}</span>}
+        {user?.badges && <span className={"flex flex-row mx-auto text-base max-md:gap-1 md:gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>
+            {user?.badges?.map((i: UserBadge) => 
+                <span className={"flex flex-col relative group"} key={i}>
+                    {UserBadgeIcons[i]} 
+                    <span className={'absolute -z-10 group-hover:scale-100 scale-0 origin-top bg-gray-950 border border-gray-500 rounded-2xl transition-all px-1 font-open-sans translate-x-1/2 right-1/2 w-max top-8'}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</span></span>
+            )}
+        </span>}
         <span className={"flex flex-row gap-2"}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=32`}
@@ -61,7 +67,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         </span>
 
         </span>
-        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right md:origin-top select-none top-14 z-10 max-md:-translate-x-8 bg-auxdibot-gradient bg-black border border-gray-950 rounded-xl`}>
+        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-14 z-10 ${user && 'translate-x-6' } max-md:-translate-x-8 bg-auxdibot-gradient bg-black border border-gray-950 rounded-xl`}>
             <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center border-b border-gray-950"}><BsShield/> Account</h1>
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 

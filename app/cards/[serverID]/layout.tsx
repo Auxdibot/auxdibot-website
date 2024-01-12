@@ -1,6 +1,7 @@
 import LoadingCard from "@/components/cards/LoadingCard";
 import { Metadata } from "next";
 import '@/styles/global.scss'
+import Providers from "@/components/Providers";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -42,9 +43,9 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
 
 export default function ServerCardLayout({ params, children }: CardProps) {
     // extra div element here is to render in all card fonts to tailwind
-    return (<>
+    return (<div className={"flex flex-1 flex-col h-full"}>
     <div className={"font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus font-raleway"}/>
     <LoadingCard serverID={params.serverID}/>
     {children}
-    </>)
+    </div>)
 }
