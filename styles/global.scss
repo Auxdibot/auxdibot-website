@@ -32,6 +32,9 @@
         @apply absolute -z-10 -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 bg-black h-full min-w-full min-h-fit object-cover blur-sm;
         background-attachment: scroll;
     }
+    .break-words-wrap {
+        word-wrap: break-word;
+    }
     .dashboard-sidebar-wrapper {
         @apply flex flex-row items-center py-2 border-b-2 border-opacity-50 border-gray-700 transition-all;
     }

@@ -18,10 +18,12 @@ import { useMediaQuery } from "react-responsive";
 
 
 export default function DashboardCardPreview({ params: { serverID } }: { readonly params: { serverID: string }}) {
-    const { data: server, status, error } = useQuery<APIGuild | { error: string }>(["server_list", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data: server, error } = useQuery<APIGuild | { error: string }>(["server_list", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const searchParams = useSearchParams();
-    if (error || (server && 'error' in server)) return <NotFound/>; 
+    const { data: channel } = useQuery<{ name: string} | undefined>(["channels", searchParams.get('channelID')], async () => searchParams.get('channelID') && await fetch(`/api/v1/servers/${serverID}/channels/${searchParams.get('channelID')}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    if (error || (server && 'error' in server)) return <NotFound/>;
     const gradient = searchParams.get('bg_gradient');
     const header_font = searchParams.get('header_font') ?? 'BAUHAUS_93';
     const text_font = searchParams.get('text_font') ?? 'ROBOTO';
@@ -40,6 +42,12 @@ export default function DashboardCardPreview({ params: { serverID } }: { readonl
             icon_url: (server?.icon ?? undefined) && `https://cdn.discordapp.com/icons/${serverID}/${server?.icon}`,
             acronym: server?.name?.split(" ").map((i) => "abcdefghijklmnopqrstuvwxyz".indexOf(i[0]) != -1 ? i[0] : "").join("") ?? 'nf',
         },
+        channel: (channel && { name: channel.name,
+        messages: Array(3).fill({
+            author: "Preview Message",
+            date: Date.now(),
+            message: "This is where you would see the latest messages in your selected channel... sadly, this is just a placeholder!"
+        })}),
         rules: searchParams.getAll('rules').slice(0, 10),
         invite_url: 'https://bot.auxdible.me',
         header_font: (Object.entries(CardFonts).find((i) => i[0].toString() == header_font)?.[0] as CardFont) ?? CardFonts.BAUHAUS_93,

@@ -27,7 +27,7 @@ export async function generateMetadata({ searchParams, params: { serverID } }: C
 
 export default function ServerCardPreviewLayout({ children }: CardPreviewProps) {
     // extra div element here is to render in all card fonts to tailwind
-    return (<div>
+    return (<div className={"flex flex-1 flex-col h-full"}>
     <div className={"font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus font-raleway"}/>
     <h1 className={"text-lg text-center font-montserrat font-bold text-gradient mx-auto"}>THIS IS A PREVIEW; CARD BADGES AND MEMBERS ARE NOT REFLECTIVE OF YOUR SERVER.</h1>
     {children}

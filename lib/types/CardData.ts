@@ -21,7 +21,7 @@ export interface CardData {
         messages: { author: string, message: string, date: number }[]
     },
     primary_color: string,
-    rules?: string[],
+    rules: string[],
     public: boolean,
     featured: boolean,
     text_font?: CardFont,
