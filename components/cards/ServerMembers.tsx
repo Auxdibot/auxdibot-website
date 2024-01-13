@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { BsPerson, BsThreeDots } from 'react-icons/bs';
+import { BsPerson } from 'react-icons/bs';
 export default function ServerMembers({ totalMembers }: { readonly totalMembers: number }) {
     let [memberState, setMemberState] = useState("0");
     useEffect(() => {

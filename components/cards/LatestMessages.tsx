@@ -15,7 +15,8 @@ export default function LatestMessages({ data }: { readonly data: CardData; }) {
         <ul className={"flex flex-col max-w-full"}>
             {data.channel?.messages.map((i, index) => 
             <li className={"flex flex-col"} key={index}>
-                <span className={"break-words-wrap max-w-full"}>{i.author} • {new Date(i.date).toLocaleString()}</span>
+                <span className={"break-words-wrap max-w-full flex flex-col"}>{i.author} 
+                <span className={`${data?.dark ? 'text-gray-400' : 'text-gray-600'}`}>{new Date(i.date).toLocaleString()}</span></span>
                 <span className={"my-2 break-words-wrap max-w-full"}>{i.message || "{Message contains attachment.}"}</span>
             </li>)}
         </ul>
