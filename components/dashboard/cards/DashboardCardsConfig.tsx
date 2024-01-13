@@ -12,6 +12,8 @@ import DashboardActionContext from '@/context/DashboardActionContext';
 import Link from 'next/link';
 import { useQuery, useQueryClient } from 'react-query';
 import CardInfo from './CardInfo';
+import { GradientTemplates } from '@/lib/constants/GradientTemplates';
+import { CardGradients } from '@/lib/types/CardGradients';
 
 type CardBody = Omit<CardData, 'rules' | 'channel'> & { rulesField: { rule: string }[] } & { channelID: string };
 export default function DashboardCardsConfig({ id }: { id: string }) {
@@ -58,7 +60,11 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         }).catch(() => {})
     }
     const header = watch('header_font'),
-    text = watch('text_font');
+    text = watch('text_font'),
+    color1 = watch('background.color1'),
+    color2 = watch('background.color2'),
+    gradient = watch('background.gradient'),
+    dark = watch('dark');
 
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
@@ -68,54 +74,80 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create/Edit Card</h2>
 
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
-        <label>Card Theme</label>
+        <h3 className={"font-montserrat text-2xl mx-auto"}>Card Theme</h3>
+        <div className={"flex max-md:flex-col max-md:gap-8 max-md:my-2 md:justify-between max-md:items-center"}>
+        <span className={"flex flex-col items-center flex-1 justify-between"}>
+        <label className={"font-montserrat text-xl"}>Card Scheme</label>
         <Controller control={control} name={'dark'} render={({ field }) => {
                 return  <span onClick={() => field.onChange(!field.value)} className={"cursor-pointer flex w-fit gap-4 items-center flex-row justify-center font-open-sans text-lg max-md:mx-auto"}>
                 <span className={`text-2xl border rounded-xl p-1 bg-gradient-to-bl ${field.value ? "from-gray-800 to-purple-900 text-white" : "from-blue-500 to-gray-50 text-black"} border-black select-none transition-all`}>{field.value ? <BsMoonStars /> : <BsSun/>}</span>
                     {field.value ? 'Dark' : 'Light'}
                 </span>;
         }}/>
-        <span className={"flex flex-col gap-2"}>
-        <div>
-        <label>Color 1 (Primary)</label>
-        <Controller control={control} name={"background.color1"} render={({ field }) => {
-            return <ColorPicker value={field?.value ?? ''} string onChange={field.onChange}/>
-        }}/> 
-        </div>
-        <div>
-        <label>Color 2 (Secondary)</label>
-        <Controller control={control} name={"background.color2"} render={({ field }) => {
-        return <ColorPicker value={field?.value ?? ''} string onChange={field.onChange}/>
-        }}/>
-        </div>
         </span>
-        
-        <label>Card Background Gradient</label>
-        <select defaultValue={"background"} className={"w-fit rounded-xl text-lg font-open-sans"} {...register("background.gradient", { required: true })}>
+        <span className={"flex flex-col items-center flex-1 justify-between"}>
+        <label className={"font-montserrat text-xl"}>Card Gradient</label>
+        <span className={"flex gap-2"}>
+        <select defaultValue={"background"} className={"w-fit rounded-xl text-lg font-open-sans h-8"} {...register("background.gradient", { required: true })}>
             <option value={'BACKGROUND'}>Background Gradient</option>
             <option value={'LINEAR'}>Linear Gradient</option>
             <option value={'RADIAL'}>Radial Gradient</option>
         </select>
-        <label>Header Font</label>
-        <select defaultValue={"BAUHAUS_93"} className={`w-fit rounded-xl text-lg font-${CardFonts[header as CardFont]}`} {...register("header_font")}>
+        <div className={`h-8 w-8 ${dark ? "bg-black" : "bg-white"} rounded-md border border-gray-500`} style={{ backgroundImage: (GradientTemplates[gradient ?? CardGradients.BACKGROUND] ?? GradientTemplates['BACKGROUND'])('#' + (color1 ?? '000000'), '#' + (color2 ?? '000000'))}}/>
+        </span>
+        </span>
+        </div>
+        <span className={"flex h-full flex-row md:justify-between max-md:flex-col gap-2"}>
+        <div className={"flex flex-col h-fit flex-1 items-center"}>
+        <label className={"text-xl font-montserrat"}>Primary Color</label>
+        <Controller control={control} name={"background.color1"} render={({ field }) => {
+            return <ColorPicker md value={field?.value ?? ''} string onChange={field.onChange}/>
+        }}/> 
+        </div>
+        <div className={"flex flex-col h-fit flex-1 justify-center items-center"}>
+        <label className={"text-xl font-montserrat"}>Secondary Color</label>
+        <Controller control={control} name={"background.color2"} render={({ field }) => {
+        return <ColorPicker md value={field?.value ?? ''} string onChange={field.onChange}/>
+        }}/>
+        </div>
+        </span>
+        <h3 className={"font-montserrat text-2xl mx-auto"}>Card Text</h3>
+        <span className={"flex h-full flex-row md:justify-between max-md:flex-col max-md:gap-8 max-md:my-2 gap-2"}>
+        <div className={"flex flex-col h-fit flex-1 items-center"}>
+        <label className={"text-xl font-montserrat"}>Header Font</label>
+        <select defaultValue={"BAUHAUS_93"} className={`w-fit rounded-xl text-lg h-8 font-${CardFonts[header as CardFont]}`} {...register("header_font")}>
             {Object.keys(CardFonts).map((i) => <option value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</option>)}
         </select>
-        <label>Text Font</label>
-        <select defaultValue={"ROBOTO"} className={`w-fit rounded-xl text-lg font-${CardFonts[text as CardFont]}`} {...register("text_font")}>
+        </div>
+        <div className={"flex flex-col h-fit flex-1 justify-center items-center"}>
+        <label className={"text-xl font-montserrat"}>Text Font</label>
+        <select defaultValue={"ROBOTO"} className={`w-fit rounded-xl text-lg h-8 font-${CardFonts[text as CardFont]}`} {...register("text_font")}>
             {Object.keys(CardFonts).map((i) => <option value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</option>)}
         </select>
-        <label>Description</label>
+        </div>
+        </span>
+        
+        
+        <label className={"text-xl font-montserrat mx-auto"}>Card Description</label>
         <textarea className={`font-${CardFonts[text as CardFont] ?? 'open-sans'} rounded-xl p-1`} maxLength={500} required={false}  {...register("description")}/>
-        <label>Featured Channel</label>
+        <span className={"flex h-full flex-row md:justify-between max-md:flex-col gap-2"}>
+        <div className={"flex flex-col h-fit max-md:gap-2 flex-1 items-center"}>
+        <label className={"text-xl font-montserrat"}>Featured Channel</label>
         <Controller control={control} name={"channelID"} render={({ field }) => {
             return <Channels serverID={id} value={field.value} onChange={(e) => field.onChange(e.channel)}/>
         }}/>
-        <label>Invite URL</label>
+        </div>
+        <div className={"flex flex-col h-fit flex-1 justify-center items-center max-md:gap-2"}>
+        <label className={"text-xl font-montserrat"}>Invite URL</label>
         <Controller name={`invite_url`} control={control} render={({ field }) => {
                     const tested = /^https:\/\/discord\.gg\/(invite\/|)\w{8}$/.test(field.value || '');
-                    return  <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><TextBox Icon={BsDiscord} maxLength={60} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
+                    return  <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><TextBox className={"w-56 text-sm"} Icon={BsDiscord} maxLength={60} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
         } }/>
-        <label>Server Rules</label>
+        </div>
+        </span>
+        
+        
+        <label className={"text-xl font-montserrat mx-auto"}>Server Rules</label>
                 <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 mx-auto"}><span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => rules.length < 10 ? append({ rule: '' }, { shouldFocus: false }) : {}}><BsPlus/></span> Add Rule</span>
         <div className={"flex flex-col gap-4"}>
             {rules.map((item, index) => <li key={item.id} className={"flex w-fit mx-auto gap-2 items-center"}>
