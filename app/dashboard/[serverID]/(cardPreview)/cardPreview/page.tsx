@@ -78,7 +78,7 @@ export default function DashboardCardPreview({ params: { serverID } }: { readonl
     {data?.rules && data?.rules.length > 0 && <ServerRules data={data} />}
     </>}
     </div>
-    <span className={"text-xl w-fit py-2 max-md:my-5 max-md:text-center max-md:flex max-md:flex-col font-open-sans"}><span className={"bg-red-600 rounded-2xl border-gray-800 max-md:w-fit max-md:mx-auto border p-1 font-bold"}>ALPHA</span> This is a feature currently in extreme testing and development for Auxdibot and not the final product.</span>
+    <span className={"text-xl w-fit py-2 max-md:my-5 max-md:text-center max-md:flex max-md:flex-col font-open-sans"}><span className={"bg-green-500 rounded-2xl border-gray-800 max-md:w-fit max-md:mx-auto border p-1 font-bold"}>BETA</span> This is a feature currently in testing and development for Auxdibot and will receive constant updates.</span>
     
 </main>);
 }

@@ -1,6 +1,7 @@
 import LoadingCard from "@/components/cards/LoadingCard";
 import { Metadata } from "next";
 import '@/styles/global.scss'
+import { CardBadgeEmojis } from "@/lib/types/CardBadgeEmojis";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -30,9 +31,9 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
         themeColor: cardData.primary_color ?? "#000000",
         openGraph: {
             title: `${cardData.server.name}`,
-            description: (cardData.description ?? "A server card created utilizing Auxdibot's card system.") + `\n\n🧍 ${cardData.server.members} members`,
+            description: (cardData.description ?? "A server card created utilizing Auxdibot's card system."),
             images: cardData.server.icon_url && [cardData.server.icon_url],
-            siteName: 'Auxdibot',
+            siteName: `🧍 ${cardData.server.members.toLocaleString()} members | ${cardData.badges.map((i: string) => CardBadgeEmojis[i as keyof typeof CardBadgeEmojis] ?? '').join(' ')} badges`,
             type: 'website',
             url: 'https://bot.auxdible.me'
         }
