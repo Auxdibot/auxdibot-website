@@ -140,7 +140,7 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         <div className={"flex flex-col h-fit flex-1 justify-center items-center max-md:gap-2"}>
         <label className={"text-xl font-montserrat"}>Invite URL</label>
         <Controller name={`invite_url`} control={control} render={({ field }) => {
-                    const tested = /^https:\/\/discord\.gg\/(invite\/|)\w{8}$/.test(field.value || '');
+                    const tested = /^https:\/\/discord\.gg\/(invite\/|)\w+$/.test(field.value || '');
                     return  <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><TextBox className={"w-56 text-sm"} Icon={BsDiscord} maxLength={60} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
         } }/>
         </div>
