@@ -13,16 +13,22 @@ import { CardFonts } from "@/lib/types/CardFonts";
 import { CardGradients } from "@/lib/types/CardGradients";
 import { APIGuild } from "discord-api-types/v10";
 import { useSearchParams } from "next/navigation";
+import { BsThreeDots } from "react-icons/bs";
 import { useQuery } from "react-query";
 import { useMediaQuery } from "react-responsive";
 
 
 export default function DashboardCardPreview({ params: { serverID } }: { readonly params: { serverID: string }}) {
-    const { data: server, error } = useQuery<APIGuild | { error: string }>(["server_list", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data: server, status, error } = useQuery<APIGuild | { error: string }>(["server_list", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const searchParams = useSearchParams();
     const { data: channel } = useQuery<{ name: string} | undefined>(["channels", searchParams.get('channelID')], async () => searchParams.get('channelID') && await fetch(`/api/v1/servers/${serverID}/channels/${searchParams.get('channelID')}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    if (status == 'loading')
+    return <main className={"fixed top-0 h-screen w-screen gap-4 flex flex-col items-center justify-center"}>
+        <BsThreeDots className={"animate-spin text-white text-6xl"}/>
+        <h1 className={"font-montserrat text-2xl animate-pulse"}>Loading your preview card...</h1>
+    </main>;
     if (error || (server && 'error' in server)) return <NotFound/>;
     const gradient = searchParams.get('bg_gradient');
     const header_font = searchParams.get('header_font') ?? 'BAUHAUS_93';
