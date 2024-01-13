@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 
 interface ColorPickerProps {
-    readonly value: number;
+    readonly value: string;
     readonly onChange: (...event: any[]) => void;
     readonly string?: boolean;
 }
@@ -24,13 +24,13 @@ export default function ColorPicker({ value, onChange, string }: ColorPickerProp
     <span className={"flex flex-col md:h-12 relative max-md:items-center"}>
     <span className={"secondary text-xl text-gray-300 flex flex-row max-md:flex-col items-center max-md:justify-center gap-2 my-3"}>  
     <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
-            <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value ? `#${value.toString(16)}` : "black" }}></div>
+            <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value ? `#${value}` : "black" }}></div>
             </span> Set Color
-            <HexColorInput aria-valuenow={value} color={value?.toString(16)} className={"text-md rounded-xl  px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
+            <HexColorInput aria-valuenow={parseInt(value, 16)} color={value} className={"text-md rounded-xl  px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
         
     </span>
     {expandedColor && 
-    <HexColorPicker aria-valuenow={value} className={`md:absolute md:z-30 flex-none touch-none animate-colorPicker`} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/> }
+    <HexColorPicker aria-valuenow={parseInt(value, 16)} className={`md:absolute md:z-30 flex-none touch-none animate-colorPicker`} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/> }
     </span>
    
     </span> ;
