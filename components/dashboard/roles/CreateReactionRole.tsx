@@ -10,8 +10,9 @@ import Channels from '@/components/input/Channels';
 import TextBox from '@/components/input/TextBox';
 import Roles from '@/components/input/Roles';
 import EmbedSettings from '@/components/input/EmbedSettings';
+import { ReactionRoleTypes } from '@/lib/types/ReactionRoleTypes';
 
-type ReactionRoleBody = { message: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed: APIEmbed; }
+type ReactionRoleBody = { message: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed: APIEmbed; type: ReactionRoleTypes; }
 export default function CreateReactionRole({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset } = useForm<ReactionRoleBody>();
     const { fields, append, remove } = useFieldArray({
@@ -37,6 +38,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         body.append('reactions', JSON.stringify(data.reactions));
         body.append('message', data.message);
         body.append('title', data.title);
+        body.append('type', data.type ?? '')
         if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
             body.append('embed', JSON.stringify(data.embed));
         }
@@ -59,13 +61,25 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
     return <>
     <div className={"row-span-2 bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Reaction Role</h2>
-    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
+    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5 p-1"}>
         <span className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
             <Controller name={'channel'} control={control} render={({ field }) => (
                 <Channels serverID={serverID} value={field.value} onChange={(e) => field.onChange(e.channel)}  />
         )}/>
         </span>
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center font-lato text-xl"}>
+            <span className={"flex flex-row gap-2 items-center"}><span className={"text-red-500"}>*</span> <BsTag/> Type:</span> 
+            <select className={"rounded-md font-roboto w-fit text-lg"} {...register("type", { required: true })}>
+            <option value={'DEFAULT'}>Default</option>
+            <option value={'SELECT_ONE'}>Select One</option>
+            <option value={'STICKY'}>Sticky</option>
+            <option value={'STICKY_SELECT_ONE'}>Sticky (Select One)</option>
+            <option value={'BUTTON'}>Discord Button</option>
+            <option value={'BUTTON_SELECT_ONE'}>Discord Button (Select One)</option>
+            <option value={'SELECT_MENU'}>Select Menu</option>
+            <option value={'SELECT_ONE_MENU'}>Select Menu (Select One)</option>
+        </select></label>
         <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsTextCenter/> Title:</span> 
             <Controller control={control} name={'title'} render={({ field }) => {

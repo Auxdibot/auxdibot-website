@@ -14,9 +14,9 @@ export default function EmbedSettings({ value, register, control, addField, remo
     
     return (<div>
         <section className={"my-5 flex flex-col gap-2"}>
-        <Controller control={control} name={"embed.color"} render={({ field }) => {
+        <span className={"max-md:mx-auto"}><Controller control={control} name={"embed.color"} render={({ field }) => {
         return <ColorPicker value={field.value?.toString(16).padStart(6, '0')} onChange={field.onChange}/>
-        }}/> 
+        }}/> </span>
         <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(leave empty for no color)</span>
         <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsPerson/> Author</span>
         <span className={"grid w-full grid-cols-3 gap-3"}>
