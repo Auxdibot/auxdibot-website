@@ -3,9 +3,10 @@ import { useQuery } from "react-query"
 import { Suspense } from 'react';
 import LatestPunishments from "./LatestPunishments";
 import ModerationSettings from "./ModerationSettings";
+import WarnThreshold from "./WarnThreshold";
 
 export default function DashboardModerationConfig({ id }: { id: string }) {
-    let { data: punishments } = useQuery(["data_punishments", id], async () => await fetch(`/api/v1/servers/${id}/punishments?limit=5`).then(async (data) => 
+    let { data: moderation } = useQuery(["data_moderation", id], async () => await fetch(`/api/v1/servers/${id}/moderation`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     return (<main className={"bg-gray-950 flex-grow"}>
@@ -14,8 +15,9 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
         <span className={"grid grid-cols-2 grid-rows-2 max-lg:grid-cols-1 grid-flow-row gap-5"}>
             
             <Suspense fallback={null}>
-                <LatestPunishments serverID={id} punishments={punishments?.data?.punishments}/>
-                <ModerationSettings server={punishments?.data}/>
+                <LatestPunishments serverID={id} />
+                {moderation?.data && <ModerationSettings server={moderation?.data}/>}
+                {moderation?.data && <WarnThreshold server={moderation?.data}/>}
             </Suspense>
         </span>
         </div>
