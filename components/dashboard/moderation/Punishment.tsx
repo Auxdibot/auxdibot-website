@@ -1,20 +1,14 @@
 import DashboardActionContext from "@/context/DashboardActionContext";
 import useMousePosition from "@/hooks/useMousePosition";
-import PunishmentType from "@/lib/types/PunishmentType";
+import { PunishmentNames } from "@/lib/constants/PunishmentNames";
+import PunishmentData from "@/lib/types/PunishmentData";
 import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
-import { BsDashCircle, BsExclamationTriangle, BsHammer, BsMicMute, BsTrash } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 
-let iconClass = "text-red-600";
-const PunishmentIcons = {
-    "WARN": <BsExclamationTriangle className={iconClass}/>,
-    "KICK": <BsDashCircle className={iconClass}/>,
-    "MUTE": <BsMicMute className={iconClass}/>,
-    "BAN": <BsHammer className={iconClass}/>
-}
-export default function Punishment({ serverID, punishment }: { serverID: string, punishment: PunishmentType }) {
+export default function Punishment({ serverID, punishment }: { serverID: string, punishment: PunishmentData }) {
     const { data: user } = useQuery(["user", punishment.userID], async () => await fetch(`/api/v1/user?id=${punishment.userID}`).then(async (res) => await res.json()).catch(() => undefined));
     const { data: moderator } = useQuery(["user", punishment.moderatorID], async () => await fetch(`/api/v1/user?id=${punishment.moderatorID}`).then(async (res) => await res.json()).catch(() => undefined));
     const queryClient = useQueryClient();
@@ -39,7 +33,7 @@ export default function Punishment({ serverID, punishment }: { serverID: string,
     return <span className={"flex gap-2"}><tr onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className={"border w-full max-md:w-full flex justify-between items-center px-2 max-md:flex-col group"}>
         <span className={"absolute group-hover:scale-100 scale-0 z-20 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}> 
             Reason: {punishment.reason}{punishment.expires_date_unix ? <><br/><br/>Expires: {new Date(punishment.date_unix).toUTCString()}</> : ''}</span>
-        <td className="flex-1 flex items-center gap-2">{PunishmentIcons[punishment.type]}{punishment.type}</td> 
+        <td className="flex-1 flex items-center gap-2">{PunishmentNames[punishment.type].icon}{PunishmentNames[punishment.type].name}</td> 
         <td className="flex-1 justify-center flex items-center gap-1">
         { moderator?.avatar ? <Image
             src={`https://cdn.discordapp.com/avatars/${moderator.id}/${moderator.avatar}.png`}

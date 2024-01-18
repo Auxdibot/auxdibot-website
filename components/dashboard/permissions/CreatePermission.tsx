@@ -19,7 +19,6 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
     }
     function onSubmit(data: PermissionBody) {
         let body = new URLSearchParams();
-        console.log(String(data.allowed));
         body.append('allowed', String(data.allowed));
         body.append('permission', data.permission);
         body.append('user', data.user || "");
