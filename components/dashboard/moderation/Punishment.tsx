@@ -30,10 +30,12 @@ export default function Punishment({ serverID, punishment }: { serverID: string,
                 json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully deleted punishment #${punishment.punishmentID}`, success: true }) : ""
         })
     }
-    return <span className={"flex gap-2"}><tr onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className={"border w-full max-md:w-full flex justify-between items-center px-2 max-md:flex-col group"}>
-        <span className={"absolute group-hover:scale-100 scale-0 z-20 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}> 
+    return <span className={"flex gap-2 items-center"}>
+        <tr onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className={"border w-full max-md:w-full flex justify-between items-center px-2 max-md:flex-col group"}>
+        
+        <span className={"absolute group-hover:scale-100 group-focus:scale-100 scale-0 z-20 origin-center font-open-sans p-2 rounded-2xl border border-gray-600 bg-gray-800 max-w-xs italic"} ref={tooltipRef}> 
             Reason: {punishment.reason}{punishment.expires_date_unix ? <><br/><br/>Expires: {new Date(punishment.date_unix).toUTCString()}</> : ''}</span>
-        <td className="flex-1 flex items-center gap-2">{PunishmentNames[punishment.type].icon}{PunishmentNames[punishment.type].name}</td> 
+        <td className="flex-1 flex items-center gap-2"><span className={"font-bold font-open-sans"}>#{punishment.punishmentID}</span> {PunishmentNames[punishment.type].icon}{PunishmentNames[punishment.type].name}</td> 
         <td className="flex-1 justify-center flex items-center gap-1">
         { moderator?.avatar ? <Image
             src={`https://cdn.discordapp.com/avatars/${moderator.id}/${moderator.avatar}.png`}
