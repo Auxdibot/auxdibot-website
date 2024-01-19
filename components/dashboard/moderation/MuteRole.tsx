@@ -38,7 +38,7 @@ export default function MuteRole({ server }: { server: { readonly serverID: stri
     if (!roles) return <></>;
 
     return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
-    <span className={"secondary text-xl text-center flex flex-col"}>Set Mute Role</span>
+    <h3 className={"text-2xl font-open-sans text-gray-300 text-center flex flex-col"}>Set Mute Role</h3>
     
     <span className={"flex flex-row max-md:flex-col gap-2"}>
         <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={(e) => onMuteRoleChange(e)} value={role}/></span>

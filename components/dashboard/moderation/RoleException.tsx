@@ -25,9 +25,9 @@ export default function RoleException({ roleID, serverID, index }: { readonly ro
                 json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully deleted role exception #${index+1}`, success: true }) : ""
         })
     }
-    return <li className={"flex flex-row text-lg items-center font-open-sans gap-2"}>
-        <BsAt className={"text-xl"} style={{ fill: role.color ? '#' + role.color.toString(16) : '' }} />
-        <span>{role.name}</span>
+    return <li className={"flex flex-row text-lg items-center font-open-sans gap-2 "}>
+        
+        <span className={"flex flex-row text-lg items-center font-open-sans gap-1 bg-gray-900 px-1 p-0.5 rounded-2xl"}><BsAt className={"text-xl"} style={{ fill: role.color ? '#' + role.color.toString(16) : '' }} /> {role.name}</span>
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deleteException()}><BsTrash/></button></span>
     </li>;
 }
