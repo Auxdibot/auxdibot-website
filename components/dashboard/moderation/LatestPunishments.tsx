@@ -8,7 +8,7 @@ export default function LatestPunishments({ serverID }: { readonly serverID: str
     let { data: punishments } = useQuery<{ data: { punishments: PunishmentData[] } } | undefined>(["data_punishments", serverID], async () => await fetch(`/api/v1/servers/${serverID}/punishments?limit=5`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit flex-1 max-md:w-full max-md:mx-auto"}>
+    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch flex-1 max-md:w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Latest Punishments</h2>
     {punishments?.data?.punishments?.length ?
     <table cellPadding={5} className={"mx-auto font-open-sans my-2 flex flex-col p-2 max-md:p-8 text-sm"}>

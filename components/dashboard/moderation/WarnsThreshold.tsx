@@ -38,30 +38,33 @@ export default function WarnThreshold({ server }: { server: { readonly serverID:
             }
         }).catch(() => {})
     }
-    return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Warn Threshold</h2>
-    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center py-2 gap-4"}>
-        <div className={"flex max-md:flex-col gap-2 justify-center flex-1 w-full md:px-20 py-2"}>
-        <section className={"flex flex-col items-center justify-between"}>
-            <span className={"text-xl font-open-sans my-3"}>Punishment Type</span>
-            <Controller control={control} name={'punishment'} render={({ field }) => {
+    return <section className={"my-2 flex flex-col"}>
+    <h3 className={"text-2xl font-open-sans text-gray-300 text-center"}>Warns Threshold</h3>
+    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-4"}>
+        <div className={"flex flex-row justify-center flex-1 w-full py-2 gap-10"}>
+        <div className={"self-stretch "}>
+        <section className={"flex flex-col items-center justify-between gap-2"}>
+            <span className={"text-xl font-open-sans my-3 text-center"}>Punishment</span>
+            <span className={"flex-1 flex items-center"}><Controller control={control} name={'punishment'} render={({ field }) => {
             return <PunishmentSelect onChange={(e) => { setSuccess(false); field.onChange(e.type) }} value={field.value} />
-            } }/>
-        </section>
-        <div className={"flex-1 self-center max-md:hidden flex justify-center items-center"}><div className={"h-24 border w-fit"}/></div>
-        <section className={"flex flex-col items-center justify-between flex-1"}>
-            <span className={"text-xl font-open-sans my-3"}>Warn Count</span>
-            <Controller control={control} name={'warns'} render={({ field }) => {
-            return <NumberBox className={"w-10"} max={999} Icon={BsExclamationTriangle}  onChange={(e) => { setSuccess(false); field.onChange(e)}} value={field.value} />
-            } }/>
+            } }/></span>
         </section>
         </div>
+         
+        <div className={" self-stretch"}>
+        <section className={"flex flex-col items-center justify-between gap-2"}>
+            <span className={"text-xl font-open-sans my-3 text-center"}>Warn Count</span>
+            <span className={"flex-1 flex items-center"}><Controller control={control} name={'warns'} render={({ field }) => {
+            return <NumberBox className={"w-10"} max={999} Icon={BsExclamationTriangle}  onChange={(e) => { setSuccess(false); field.onChange(e)}} value={field.value} />
+            } }/></span>
+        </section>
+        </div>
+
+        </div>
         
-        <button type='submit' className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`}>
+        <button type='submit' className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black  hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`}>
         {success ? (<><BsCheckLg/> Updated!</>) : (<><BsExclamationTriangle/> Change Warns Threshold</>) }
         </button>
     </form>
-    </div>
-    </>;
+    </section>;
 }

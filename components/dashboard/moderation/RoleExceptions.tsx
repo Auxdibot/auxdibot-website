@@ -1,23 +1,23 @@
 "use client";
 
 import { Controller, useForm } from "react-hook-form";
-import { BsExclamationTriangle, BsTag } from "react-icons/bs";
+import { BsTag } from "react-icons/bs";
 import { useContext } from "react";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { useQueryClient } from "react-query";
 import Roles from "@/components/input/Roles";
 import RoleException from "./RoleException";
 
-type ThresholdFormBody = { role: string };
+type RoleExceptionsBody = { role: string };
 
 export default function RoleExceptions({ server }: { server: { readonly serverID: string, readonly automod_role_exceptions: string[] }}) {
     
 
-    const { control, reset, handleSubmit } = useForm<ThresholdFormBody>();
+    const { control, reset, handleSubmit } = useForm<RoleExceptionsBody>();
     
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
-    function onSubmit(data: ThresholdFormBody) {
+    function onSubmit(data: RoleExceptionsBody) {
         let body = new URLSearchParams();
         body.append('role', data.role ?? '');
 
@@ -26,7 +26,7 @@ export default function RoleExceptions({ server }: { server: { readonly serverID
             if (json && !json['error']) {
                 queryClient.invalidateQueries(['data_moderation', server.serverID]);
                 if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated the warns threshold for this server.`, success: true })
+                    actionContext.setAction({ status: `Successfully updated the role exceptions for this server.`, success: true })
 
             } else {
                 reset();
@@ -36,7 +36,7 @@ export default function RoleExceptions({ server }: { server: { readonly serverID
         }).catch(() => {})
     }
     return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <div className={"bg-gray-800 self-stretch shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Automod Role Exceptions</h2>
     <ul className={"flex flex-col justify-center items-center my-4 gap-1"}>
         {server.automod_role_exceptions && server.automod_role_exceptions.map((i, index) => <RoleException roleID={i} serverID={server.serverID} key={i} index={index}/>)}

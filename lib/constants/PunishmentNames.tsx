@@ -3,6 +3,10 @@ import { PunishmentType } from "../types/PunishmentType"
 
 let iconClass = "text-red-600";
 export const PunishmentNames: {[k in PunishmentType]: { name: string, icon: React.ReactElement }} = {
+    "DELETE_MESSAGE": {
+        name: 'Delete Message',
+        icon: <BsTrash className={iconClass}/>
+    },
     "WARN": {
         name: 'Warn',
         icon: <BsExclamationTriangle className={iconClass}/>
@@ -19,8 +23,5 @@ export const PunishmentNames: {[k in PunishmentType]: { name: string, icon: Reac
         name: 'Ban',
         icon: <BsHammer className={iconClass}/>
     },
-    "DELETE_MESSAGE": {
-        name: 'Delete Message',
-        icon: <BsTrash className={iconClass}/>
-    }
+    
 }
