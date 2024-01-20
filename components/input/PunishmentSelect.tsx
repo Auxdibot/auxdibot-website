@@ -30,7 +30,7 @@ export default function PunishmentSelect({ onChange, value, required, deleteMess
             <div className={`absolute z-10 overflow-hidden border border-gray-500 transition-all shadow-xl bg-gray-700 rounded-lg w-max top-full translate-y-1 origin-top-left max-md:origin-top max-md:-translate-x-1/2 max-md:left-1/2 ${collapsed ? 'scale-0' : 'scale-100 z-10'}`}>
             <div className={`flex flex-col gap-1 max-h-60 overflow-y-scroll font-open-sans p-2`}>
             {required ? <a className={"cursor-pointer bg-gray-800 p-0.5 rounded-lg"} onClick={() => change(null)}>Select a punishment...</a> : <a className={"flex items-center w-full gap-1 cursor-pointer hover:gap-2 transition-all p-0.5 rounded-lg bg-gray-800"} onClick={() => change(null)}><BsX/> No Punishment</a>}
-            {Object.keys(PunishmentNames).filter((i) => !deleteMessage && i != 'DELETE_MESSAGE').map((i: string) => <a className={"flex items-center w-full gap-2 cursor-pointer hover:gap-3 transition-all p-0.5 px-1 rounded-lg bg-gray-800"} key={i} onClick={() => change(i as PunishmentType)}>{PunishmentNames[i as PunishmentType].icon}{PunishmentNames[i as PunishmentType].name}</a>)}
+            {(deleteMessage ? Object.keys(PunishmentNames) : Object.keys(PunishmentNames).filter((i) => i != 'DELETE_MESSAGE')).map((i: string) => <a className={"flex items-center w-full gap-2 cursor-pointer hover:gap-3 transition-all p-0.5 px-1 rounded-lg bg-gray-800"} key={i} onClick={() => change(i as PunishmentType)}>{PunishmentNames[i as PunishmentType].icon}{PunishmentNames[i as PunishmentType].name}</a>)}
             </div>
             </div>
             
