@@ -31,7 +31,7 @@ export default function BlacklistedPhrases({ server }: { server: { readonly serv
                     actionContext.setAction({ status: `Successfully updated the blacklisted phrases for this server.`, success: true })
 
             } else {
-                reset();
+                reset({ phrase: '' });
                 if (actionContext)
                     actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
             }
@@ -39,7 +39,7 @@ export default function BlacklistedPhrases({ server }: { server: { readonly serv
     }
     return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Blacklisted Phrases</h2>
-    <ul className={"w-fit mx-auto my-2 md:columns-2"}>
+    <ul className={"w-fit mx-auto my-2 md:columns-3"}>
         {server.automod_banned_phrases && server.automod_banned_phrases.map((i, index) => <BlacklistedPhrase serverID={server.serverID} phrase={i} index={index} key={index} />)}
     </ul>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-3 py-2"}>

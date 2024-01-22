@@ -4,9 +4,12 @@ import { Suspense } from 'react';
 import LatestPunishments from "./LatestPunishments";
 import ModerationSettings from "./ModerationSettings";
 import WarnThreshold from "./WarnsThreshold";
-import RoleExceptions from "./RoleExceptions";
-import BlacklistedPhrases from "./BlacklistedPhrases";
-import ReportsSettings from "./ReportsSettings";
+import RoleExceptions from "./exceptions/RoleExceptions";
+import BlacklistedPhrases from "./blacklist/BlacklistedPhrases";
+import ReportsSettings from "./reports/ReportsSettings";
+import SpamSettings from "./spam/SpamSettings";
+import AttachmentsSettings from "./attachments/AttachmentsSettings";
+import InvitesSettings from "./invites/InvitesSettings";
 
 export default function DashboardModerationConfig({ id }: { id: string }) {
     let { data: moderation } = useQuery(["data_moderation", id], async () => await fetch(`/api/v1/servers/${id}/moderation`).then(async (data) => 
@@ -24,12 +27,18 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
         </span>
         <span className={"flex max-md:flex-col gap-5"}>
         {moderation?.data && <WarnThreshold server={moderation?.data}/>}
-                {moderation?.data && <RoleExceptions server={moderation?.data}/>}
+        {moderation?.data && <ReportsSettings server={moderation?.data}/>}
+        </span>
+        <span className={"flex max-md:flex-col gap-5"}>
+        {moderation?.data && <SpamSettings server={moderation?.data}/>}
+        {moderation?.data && <AttachmentsSettings server={moderation?.data}/>}
+        {moderation?.data && <InvitesSettings server={moderation?.data}/>}
         </span>
         <span className={"flex max-md:flex-col gap-5"}>
         {moderation?.data && <BlacklistedPhrases server={moderation?.data}/>}
-                {moderation?.data && <ReportsSettings server={moderation?.data}/>}
+        {moderation?.data && <RoleExceptions server={moderation?.data}/>}
         </span>
+        
         </div>
         
             

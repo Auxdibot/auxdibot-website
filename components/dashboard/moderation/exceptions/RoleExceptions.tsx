@@ -27,17 +27,17 @@ export default function RoleExceptions({ server }: { server: { readonly serverID
                 queryClient.invalidateQueries(['data_moderation', server.serverID]);
                 if (actionContext)
                     actionContext.setAction({ status: `Successfully updated the role exceptions for this server.`, success: true })
-
-            } else {
                 reset();
+            } else {
                 if (actionContext)
                     actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
             }
         }).catch(() => {})
     }
     return <>
-    <div className={"bg-gray-800 self-stretch shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <div className={"bg-gray-800 self-stretch shadow-2xl border-2 border-gray-800 rounded-2xl w-full flex max-h-[500px] flex-col max-md:mx-auto"}>
     <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Automod Role Exceptions</h2>
+    <div className={"flex flex-col h-full justify-between"}>
     <ul className={"flex flex-col justify-center items-center my-4 gap-1"}>
         {server.automod_role_exceptions && server.automod_role_exceptions.map((i, index) => <RoleException roleID={i} serverID={server.serverID} key={i} index={index}/>)}
     </ul>
@@ -55,6 +55,8 @@ export default function RoleExceptions({ server }: { server: { readonly serverID
         <BsTag/> Add Role Exception
         </button>
     </form>
+    </div>
+    
     </div>
     </>;
 }

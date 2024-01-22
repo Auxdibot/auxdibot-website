@@ -1,8 +1,8 @@
 "use client";
 
-import MuteRole from "./MuteRole";
-import PunishmentsSendModerator from "./PunishmentsSendModerator";
-import PunishmentsSendReason from "./PunishmentsSendReason";
+import MuteRole from "./settings/MuteRole";
+import PunishmentsSendModerator from "./settings/PunishmentsSendModerator";
+import PunishmentsSendReason from "./settings/PunishmentsSendReason";
 
 export default function ModerationSettings({ server }: { server: { readonly serverID: string, readonly mute_role: string, readonly punishment_send_reason: boolean, readonly punishment_send_moderator: boolean }}) {
     return <>
