@@ -37,8 +37,8 @@ export default function BlacklistedPhrases({ server }: { server: { readonly serv
             }
         }).catch(() => {})
     }
-    return <>
-    <h3 className={"text-2xl font-open-sans text-gray-300 text-center"}>Blacklisted Phrases</h3>
+    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full max-md:mx-auto"}>
+    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Blacklisted Phrases</h2>
     <ul className={"w-fit mx-auto my-2 md:columns-2"}>
         {server.automod_banned_phrases && server.automod_banned_phrases.map((i, index) => <BlacklistedPhrase serverID={server.serverID} phrase={i} index={index} key={index} />)}
     </ul>
@@ -56,5 +56,5 @@ export default function BlacklistedPhrases({ server }: { server: { readonly serv
         </button>
     </form>
     <BlacklistPunishment server={server} />
-    </>;
+    </div>;
 }

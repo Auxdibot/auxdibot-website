@@ -38,8 +38,9 @@ export default function WarnThreshold({ server }: { server: { readonly serverID:
             }
         }).catch(() => {})
     }
-    return <section className={"my-2 flex flex-col"}>
-    <h3 className={"text-2xl font-open-sans text-gray-300 text-center"}>Warns Threshold</h3>
+    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full max-md:mx-auto"}>
+    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Warns Threshold</h2>
+    <section className={"my-2 flex flex-col"}>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-4"}>
         <div className={"flex flex-row justify-center flex-1 w-full py-2 gap-10"}>
         <div className={"self-stretch "}>
@@ -66,5 +67,6 @@ export default function WarnThreshold({ server }: { server: { readonly serverID:
         {success ? (<><BsCheckLg/> Updated!</>) : (<><BsExclamationTriangle/> Change Warns Threshold</>) }
         </button>
     </form>
-    </section>;
+    </section>
+    </div>;
 }
