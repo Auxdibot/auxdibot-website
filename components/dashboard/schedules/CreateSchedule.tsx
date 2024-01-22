@@ -9,9 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import DashboardActionContext from '@/context/DashboardActionContext';
 import DatePicker from 'react-datepicker';
 import Channels from '@/components/input/Channels';
-import TextBox from '@/components/input/TextBox';
 import NumberBox from '@/components/input/NumberBox';
 import EmbedSettings from '@/components/input/EmbedSettings';
+import TimestampBox from '@/components/input/TimestampBox';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>();
@@ -63,12 +63,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span><BsClock/> Duration:</span>
-            <Controller name={'duration'} control={control} render={({ field }) => {
-                const tested = field.value?.match(/\d+[mhdwMy]{1}/);
-                return (
-                
-                <span className={`${field.value?.length >= 2 && !tested ? 'text-red-500' : tested && tested[0] == field.value ? 'text-green-500' : !tested ? '' : 'text-red-500'}`}><TextBox Icon={BsClock} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
-        )}}></Controller>
+            <Controller name={'duration'} control={control} render={({ field }) => <TimestampBox onChange={field.onChange} value={field.value} /> }></Controller>
             
         </label>
         <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(ex. 5m for 5 minutes, 5M for 5 months, 2w for 2 weeks, and 1d for 1 day.)</span>

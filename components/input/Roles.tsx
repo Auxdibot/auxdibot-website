@@ -27,7 +27,7 @@ export default function Roles({ serverID, onChange, value, required }: RolesInpu
     }
     let roleValue = roles?.find((i: { id: string }) => i.id == value);
     return (<span className={"relative flex items-center"} ref={inputRef}>
-            <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsAt className={"text-xl"} style={{ fill: roleValue?.color ? '#' + roleValue?.color.toString(16) : '' }}/> : required ? '' : <BsX/>} {value ? roleValue?.name :  required ? 'Select a role...' : 'No Role'} <span>
+            <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsAt className={"text-xl"} style={{ fill: roleValue?.color ? '#' + roleValue.color.toString(16) : '' }}/> : required ? '' : <BsX/>} {value ? roleValue?.name :  required ? 'Select a role...' : 'No Role'} <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>
                 </span>
             <div className={`absolute overflow-hidden border border-gray-500 transition-all shadow-xl bg-gray-700 rounded-lg w-max top-full translate-y-1 origin-top-left max-md:origin-top max-md:-translate-x-1/2 max-md:left-1/2 ${collapsed ? 'scale-0' : 'scale-100 z-10'}`}>

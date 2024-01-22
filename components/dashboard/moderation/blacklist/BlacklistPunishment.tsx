@@ -36,14 +36,12 @@ export default function BlacklistPunishment({ server }: { server: { readonly ser
             }
         }).catch(() => {})
     }
-    return <section className={"my-2 flex flex-col gap-2"}>
+    return <section className={"my-2 flex flex-col gap-4 pt-2"}>
     <span className={"text-xl font-open-sans text-center"}>Blacklist Punishment</span>
-    <form onSubmit={handleSubmit(onSubmit)} className={"flex max-md:flex-col items-center justify-center gap-4"}>
-        <section className={"flex flex-col items-center justify-between gap-2"}>
-            <span className={"flex-1 flex items-center"}><Controller control={control} name={'punishment'} render={({ field }) => {
+    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-2"}>
+    <span className={"flex-1 flex items-center"}><Controller control={control} name={'punishment'} render={({ field }) => {
             return <PunishmentSelect deleteMessage onChange={(e) => { setSuccess(false); field.onChange(e.type) }} value={field.value} />
             } }/></span>
-        </section>
         
         <button type='submit' className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black  hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`}>
         {success ? (<><BsCheckLg/> Updated!</>) : (<><BsHammer/> Change Blacklist Punishment</>) }

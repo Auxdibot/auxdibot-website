@@ -26,7 +26,7 @@ export default function ReportsRole({ server }: { server: { readonly serverID: s
             if (json && !json['error']) {
                 setSuccess(true)
                 if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated reports role to: ${roles.find((r: { id: string }) => role == r.id)?.name || "None. Muting will now timeout a user on Discord."}`, success: true });
+                    actionContext.setAction({ status: `Successfully updated reports role to: ${roles.find((r: { id: string }) => role == r.id)?.name || "None. No role will be pinged when a report is created."}`, success: true });
             } else {
                 setRole('');
                 if (actionContext)
@@ -44,6 +44,7 @@ export default function ReportsRole({ server }: { server: { readonly serverID: s
         <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={(e) => onReportsRoleChange(e)} value={role}/></span>
         <button onClick={() => setReportsRole()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsMegaphone/> Change Reports Role</>) }
-        </button></span>
+        </button>
+        </span>
     </div>
 }
