@@ -3,9 +3,10 @@ import { useQuery } from "react-query"
 import { Suspense } from 'react';
 import LatestPunishments from "./LatestPunishments";
 import ModerationSettings from "./ModerationSettings";
-import WarnThreshold from "./AutomodPunishments";
+import WarnThreshold from "./WarnsThreshold";
 import RoleExceptions from "./RoleExceptions";
-import AutomodPunishment from "./AutomodPunishments";
+import BlacklistedPhrases from "./BlacklistedPhrases";
+import ReportsSettings from "./ReportsSettings";
 
 export default function DashboardModerationConfig({ id }: { id: string }) {
     let { data: moderation } = useQuery(["data_moderation", id], async () => await fetch(`/api/v1/servers/${id}/moderation`).then(async (data) => 
@@ -22,8 +23,12 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
             </Suspense>
         </span>
         <span className={"flex max-md:flex-col gap-5"}>
-        {moderation?.data && <AutomodPunishment server={moderation?.data}/>}
+        {moderation?.data && <WarnThreshold server={moderation?.data}/>}
                 {moderation?.data && <RoleExceptions server={moderation?.data}/>}
+        </span>
+        <span className={"flex max-md:flex-col gap-5"}>
+        {moderation?.data && <BlacklistedPhrases server={moderation?.data}/>}
+                {moderation?.data && <ReportsSettings server={moderation?.data}/>}
         </span>
         </div>
         

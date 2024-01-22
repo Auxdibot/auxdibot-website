@@ -26,7 +26,7 @@ export default function MuteRole({ server }: { server: { readonly serverID: stri
             if (json && !json['error']) {
                 setSuccess(true)
                 if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated mute role to:  ${roles.find((r: { id: string }) => role == r.id)?.name || "None. Muting will now timeout a user on Discord."}`, success: true });
+                    actionContext.setAction({ status: `Successfully updated mute role to: ${roles.find((r: { id: string }) => role == r.id)?.name || "None. Muting will now timeout a user on Discord."}`, success: true });
             } else {
                 setRole('');
                 if (actionContext)

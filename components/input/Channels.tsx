@@ -25,7 +25,7 @@ export default function Channels({ serverID, onChange, value, required }: Channe
         onChange({ channel: channel || "" });
     }
     return (<span className={"relative flex items-center"} ref={inputRef}>
-            <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsHash/> : required ? '' : <BsX/>} {value ? channels.find((i: { id: string }) => i.id == value)?.name :  required ? 'Select a channel...' : 'No Channel'} <span>
+            <span onClick={() => setCollapsed(!collapsed)} className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans"}>{value ? <BsHash/> : required ? '' : <BsX/>} {value ? channels?.find((i: { id: string }) => i.id == value)?.name :  required ? 'Select a channel...' : 'No Channel'} <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>
                 </span>
             <div className={`absolute z-10 overflow-hidden border border-gray-500 transition-all shadow-xl bg-gray-700 rounded-lg w-max top-full translate-y-1 origin-top-left max-md:origin-top max-md:-translate-x-1/2 max-md:left-1/2 ${collapsed ? 'scale-0' : 'scale-100 z-10'}`}>
