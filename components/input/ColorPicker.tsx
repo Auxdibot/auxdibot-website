@@ -27,11 +27,11 @@ export default function ColorPicker({ value, onChange, string, md }: ColorPicker
     <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => setExpandedColor(!expandedColor)}>
             <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value ? `#${value}` : "black" }}></div>
             </span> Set Color
-            <HexColorInput aria-valuenow={parseInt(value, 16)} color={value} className={"text-md rounded-xl  px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
+            <HexColorInput aria-valuenow={parseInt(value, 16)} color={value} className={"text-md rounded-xl px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
         
     </span>
     {expandedColor && 
-    <HexColorPicker aria-valuenow={parseInt(value, 16)} className={`md:absolute md:z-30 flex-none touch-none animate-colorPicker`} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/> }
+    <HexColorPicker aria-valuenow={parseInt(value, 16)} className={`md:absolute z-30 flex-none touch-none animate-colorPicker`} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/> }
     </span>
    
     </span> ;
