@@ -19,10 +19,14 @@ export default function DashboardRolesConfig({ id }: { id: string }) {
         <span className={"grid grid-rows-3 max-md:grid-rows-none grid-cols-2 max-md:grid-cols-1 gap-10"}>
             {reactionRoles && reactionRoles?.data?.serverID ? <>
                 { reactionRoles && reactionRoles?.data?.serverID ? <CreateReactionRole serverID={id} /> : ""}
+                <div className={"flex flex-col row-span-2 gap-5"}>
                 {joinRoles && joinRoles?.data?.serverID ? <JoinRoles server={joinRoles.data}/> : ""}
                 {stickyRoles && stickyRoles?.data?.serverID ? <StickyRoles server={stickyRoles.data}/> : ""}
-                { reactionRoles && reactionRoles?.data?.serverID ? <ReactionRoles server={reactionRoles.data} /> : ""}
                 <Massrole serverID={reactionRoles.data.serverID}/>
+                </div>
+                
+                { reactionRoles && reactionRoles?.data?.serverID ? <ReactionRoles server={reactionRoles.data} /> : ""}
+
             </> : "" }
            
         </span>
