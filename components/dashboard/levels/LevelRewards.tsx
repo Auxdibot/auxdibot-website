@@ -36,13 +36,13 @@ export default function LevelRewards({ server }: { server: {
     let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [success, setSuccess] = useState(false);
-    const { handleSubmit, reset, control } = useForm<LevelRewardBody>();
+    const { handleSubmit, reset, control } = useForm<LevelRewardBody>({ defaultValues: { level: 1, roleID: "" }});
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
     function addLevelReward(formData: LevelRewardBody) {
         if (!server) return;
         const body = new URLSearchParams();
-        body.append("level", formData.level.toString());
+        body.append("level", formData.level?.toString() ?? '');
         body.append("role", formData.roleID);
         fetch(`/api/v1/servers/${server.serverID}/levels/rewards`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
@@ -72,7 +72,7 @@ export default function LevelRewards({ server }: { server: {
     <label className={"flex flex-row max-md:flex-col gap-2 items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsAward/> Level:</span>
             <Controller control={control} name={"level"} render={({ field }) => {
-                return <NumberBox Icon={BsAward} value={Number(field.value) || 0} max={999} min={0} onChange={field.onChange}/>;
+                return <NumberBox className={'w-10'} Icon={BsAward} value={Number(field.value) || 0} max={999} min={1} onChange={field.onChange}/>;
             }}/>
     </label>
     
