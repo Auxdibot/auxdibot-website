@@ -73,9 +73,9 @@ export default function DashboardCardPreview({ params: { serverID } }: { readonl
     </>
     :
     <>
-    {data?.channel && <LatestMessages data={data} />}
-    {data && <ServerInfo data={data} serverID={serverID} />}
-    {data?.rules && data?.rules.length > 0 && <ServerRules data={data} />}
+    <div className={"flex-1 flex justify-center"}>{data?.channel && <LatestMessages data={data} />}</div>
+    <div className={"flex-1 flex justify-center"}>{data && <ServerInfo data={data} serverID={serverID} />}</div>
+    <div className={"flex-1 flex justify-center"}>{data?.rules && data?.rules.length > 0 && <ServerRules data={data} />}</div>
     </>}
     </div>
     <span className={"text-xl w-fit py-2 max-md:my-5 max-md:text-center max-md:flex max-md:flex-col font-open-sans"}><span className={"bg-green-500 rounded-2xl border-gray-800 max-md:w-fit max-md:mx-auto border p-1 font-bold"}>BETA</span> This is a feature currently in testing and development for Auxdibot and will receive constant updates.</span>
