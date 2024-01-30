@@ -51,11 +51,12 @@ export default function EmojiPicker({ serverID, onChange, value }: EmojiInputPro
         onChange({ emoji: emoji || "" });
     }
     const serverEmojiValue = serverEmojis?.emojis.find((i) => i.id == value);
+    const emojiValue = value ? emojis.find((i) => i.emojis.find((emoji) => emoji.emoji == value))?.emojis.find((emoji) => emoji.emoji == value) : undefined;
     return (<span className={"relative flex items-center"} ref={inputRef}>
             <span onClick={() => setCollapsed(!collapsed)}  className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans select-none"}>
             {value ? serverEmojiValue ? 
               <Image alt={serverEmojiValue.name} width={24} height={24} quality={100} draggable="false" loading="lazy" src={serverEmojiValue.image}/> 
-              : <Twemoji>{value}</Twemoji> 
+              : <Twemoji>{emojiValue?.hexcode.toLowerCase() ?? value}</Twemoji> 
             : <span className={'flex items-center gap-2'}><Twemoji>👋</Twemoji> Select an Emoji</span>
             } 
             <span>
