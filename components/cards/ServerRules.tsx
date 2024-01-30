@@ -1,5 +1,5 @@
 import { CardData } from "@/lib/types/CardData";
-import { CardFonts } from "@/lib/types/CardFonts";
+import { CardFonts } from "@/lib/constants/CardFonts";
 
 
 export default function ServerRules({ data }: { readonly data: CardData; }) {

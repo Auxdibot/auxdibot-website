@@ -1,13 +1,17 @@
 "use client";
 
 import DashboardActionContext from "@/context/DashboardActionContext";
+import ServerEmojiBody from "@/lib/types/ServerEmojis";
+import Image from "next/image";
 import { Suspense, useContext } from 'react';
 import { BsX } from "react-icons/bs";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: { reactions: { emoji: string }[], messageID: string }, index: number, serverID: string }) {
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
+    let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => 
+    await data.json().catch(() => undefined)).catch(() => undefined)); 
     function deleteReward() {
         if (!serverID) return;
         const body = new URLSearchParams();
@@ -22,7 +26,11 @@ export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: 
         }).catch(() => {     
         });
     }
-    return (<span className={"flex flex-row gap-2 text-lg items-center font-roboto"}>{index+1}) <span className={"italic"}>{reactionRole.messageID}</span> - {reactionRole.reactions.map((i: { emoji: string }) => i.emoji).join(", ")}<span className={"border text-white rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsX/></span></span>);
+    return (<span className={"flex flex-row gap-2 text-lg items-center font-roboto"}>{index+1}) <span className={"italic"}>{reactionRole.messageID}</span> - {reactionRole.reactions.map((i: { emoji: string }) => {
+        const serverEmojiValue = serverEmojis?.emojis.find((i2) => i2.id == i.emoji);
+        return serverEmojiValue ? <Image width={24} height={24} alt={serverEmojiValue.name} draggable="false" loading="lazy" src={serverEmojiValue.image}/> : i.emoji;
+    
+    })}<span className={"border text-white rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsX/></span></span>);
 }
 
 export default function ReactionRoles({ server }: { server: { 

@@ -17,6 +17,7 @@
     "@react-three/drei": "^9.90.0",
     "@react-three/fiber": "^8.15.11",
     "@tailwindcss/typography": "^0.5.10",
+    "@twemoji/api": "^15.0.3",
     "@types/dompurify": "^3.0.5",
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
@@ -28,6 +29,7 @@
     "autoprefixer": "10.4.14",
     "discord-api-types": "^0.37.55",
     "dompurify": "^3.0.8",
+    "emojibase-data": "^15.3.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.15.0",
@@ -46,9 +48,11 @@
     "sharp": "^0.32.5",
     "showdown": "^2.1.0",
     "tailwindcss": "3.3.3",
+    "twemoji": "^14.0.2",
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/dompurify": "^3.0.5"
+    "@types/dompurify": "^3.0.5",
+    "@types/react-twemoji": "^0.4.3"
   }
 }

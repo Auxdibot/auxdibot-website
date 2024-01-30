@@ -7,7 +7,7 @@ import { useContext, useMemo, useState } from "react";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { useQueryClient } from "react-query";
 import { AutomodSpamLimit } from "@/lib/types/AutomodSpamLimit";
-import timestampToDuration from "@/lib/types/timestampToDuration";
+import timestampToDuration from "@/lib/timestampToDuration";
 import TimestampBox from "@/components/input/TimestampBox";
 import { AutomodPunishment } from "@/lib/types/AutomodPunishment";
 import SpamSettingsPunishment from "./SpamSettingsPunishment";

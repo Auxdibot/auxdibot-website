@@ -1,7 +1,7 @@
 import { CardData } from "@/lib/types/CardData";
 import { BsHash } from "react-icons/bs";
 
-import { CardFonts } from "@/lib/types/CardFonts";
+import { CardFonts } from "@/lib/constants/CardFonts";
 
 
 export default function LatestMessages({ data }: { readonly data: CardData; }) {

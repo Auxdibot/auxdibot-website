@@ -1,4 +1,4 @@
-import { CardFont } from "./CardFont";
+import { CardFont } from "../types/CardFont";
 
 export const CardFonts: { [k in CardFont]: string } = {
     "MONTSERRAT": "montserrat",

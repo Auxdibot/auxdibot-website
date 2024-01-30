@@ -1,4 +1,4 @@
-import { CardBadge } from "./CardBadge";
+import { CardBadge } from "../types/CardBadge";
 
 export const CardBadgeDescriptions: {[key in CardBadge]: string} = {
     "OLD_OWNER": 'The owner of this server is a long-time Auxdibot user.',

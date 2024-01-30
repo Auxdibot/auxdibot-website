@@ -1,7 +1,7 @@
 import LoadingCard from "@/components/cards/LoadingCard";
 import { Metadata } from "next";
 import '@/styles/global.scss'
-import { CardBadgeEmojis } from "@/lib/types/CardBadgeEmojis";
+import { CardBadgeEmojis } from "@/lib/constants/CardBadgeEmojis";
 
 interface CardProps {
     params: { readonly serverID: string }

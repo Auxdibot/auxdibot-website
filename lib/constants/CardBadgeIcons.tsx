@@ -1,5 +1,5 @@
 import { BsClock, BsGlobe, BsPeople, BsPerson, BsStar } from "react-icons/bs";
-import { CardBadge } from "./CardBadge";
+import { CardBadge } from "../types/CardBadge";
 
 export const CardBadgeIcons: {[key in CardBadge]: React.ReactElement} = {
     "OLD_OWNER": <BsClock />,

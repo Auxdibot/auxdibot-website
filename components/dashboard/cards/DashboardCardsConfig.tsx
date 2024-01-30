@@ -3,7 +3,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { BsCardImage, BsDiscord, BsEye, BsMoonStars, BsPlus, BsSun, BsTextLeft, BsX} from 'react-icons/bs';
 import { CardData } from '@/lib/types/CardData';
 import ColorPicker from '@/components/input/ColorPicker';
-import { CardFonts } from '@/lib/types/CardFonts';
+import { CardFonts } from '@/lib/constants/CardFonts';
 import { CardFont } from '@/lib/types/CardFont';
 import Channels from '@/components/input/Channels';
 import TextBox from '@/components/input/TextBox';
@@ -14,7 +14,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import CardInfo from './CardInfo';
 import { GradientTemplates } from '@/lib/constants/GradientTemplates';
 import { CardGradients } from '@/lib/types/CardGradients';
-import { testInvite } from '@/lib/types/testInvite';
+import { testInvite } from '@/lib/testInvite';
 
 type CardBody = Omit<CardData, 'rules' | 'channel'> & { rulesField: { rule: string }[] } & { channelID: string };
 export default function DashboardCardsConfig({ id }: { id: string }) {

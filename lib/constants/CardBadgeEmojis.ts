@@ -1,4 +1,4 @@
-import { CardBadge } from "./CardBadge";
+import { CardBadge } from "../types/CardBadge";
 
 export const CardBadgeEmojis: {[key in CardBadge]: string} = {
     "OLD_OWNER": '🕰️',

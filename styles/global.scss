@@ -14,6 +14,10 @@
         --color-primary-500: 243, 139, 44;
         --color-primary-600: 242, 142, 39;
     }
+    .emoji {
+        width: 1.5rem;
+        height: fit-content;
+    }
     .header {
         @apply font-bauhaus bg-gradient-to-b from-primary-100 to-primary-600 bg-center bg-clip-text text-transparent;
     }
