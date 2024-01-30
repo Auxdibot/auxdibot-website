@@ -11,6 +11,7 @@ import TextBox from '@/components/input/TextBox';
 import Roles from '@/components/input/Roles';
 import EmbedSettings from '@/components/input/EmbedSettings';
 import { ReactionRoleTypes } from '@/lib/types/ReactionRoleTypes';
+import EmojiPicker from '@/components/input/EmojiPicker';
 
 type ReactionRoleBody = { message: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed: APIEmbed; type: ReactionRoleTypes; }
 export default function CreateReactionRole({ serverID }: { serverID: string }) {
@@ -35,7 +36,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
     function onSubmit(data: ReactionRoleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel);
-        body.append('reactions', JSON.stringify(data.reactions));
+        body.append('reactions', JSON.stringify(data.reactions.map((i) => ({ emoji: i.emoji, roleID: i.roleID }))));
         body.append('message', data.message);
         body.append('title', data.title);
         body.append('type', data.type ?? '')
@@ -47,7 +48,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
             if (json && !json['error']) {
                 if (actionContext)
                     actionContext.setAction({ status: `Successfully created a new reaction role.`, success: true })
-                reset({ channel: '', embed: {}, message: '', reactions: [], title: ''});
+                reset();
                 removeReaction(fields.length);
                 queryClient.invalidateQueries(["data_reaction_roles", serverID]);
                 removeReaction(reactions.length);
@@ -92,7 +93,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         <div className={"flex flex-col gap-4"}>
         {reactions.map((item, index) => <li key={item.id} className={"flex flex-col gap-2 items-center"}>
                 <Controller name={`reactions.${index}.emoji`} control={control} render={({ field }) => {
-                    return <TextBox Icon={BsTag} value={field.value} maxLength={256} onChange={field.onChange} />
+                    return <EmojiPicker serverID={serverID  } value={field.value} onChange={(e) => field.onChange(e.emoji)} />
                 } }/>
                 <Controller control={control} name={`reactions.${index}.roleID`} render={({ field }) => {
                 return <Roles serverID={serverID} onChange={(e) => field.onChange(e.role)} value={field.value}/>;

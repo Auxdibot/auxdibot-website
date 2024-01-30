@@ -1,8 +1,8 @@
 "use client";
 
 import { CardBadge } from "@/lib/types/CardBadge";
-import { CardBadgeDescriptions } from "@/lib/types/CardBadgeDescriptions";
-import { CardBadgeIcons } from "@/lib/types/CardBadgeIcons";
+import { CardBadgeDescriptions } from "@/lib/constants/CardBadgeDescriptions";
+import { CardBadgeIcons } from "@/lib/constants/CardBadgeIcons";
 import { Suspense } from "react";
 export default function ServerBadges({ badges, dark }: { readonly badges: CardBadge[]; readonly dark?: boolean }) {
 

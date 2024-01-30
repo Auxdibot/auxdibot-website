@@ -8,7 +8,7 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
-import { UserBadgeIcons } from "@/lib/types/UserBadgeIcons";
+import { UserBadgeIcons } from "@/lib/constants/UserBadgeIcons";
 import { UserBadge } from "@/lib/types/UserBadge";
 export default function MiniProfile(props: React.ComponentProps<any>) {
     const [expanded, setExpanded] = useState(false);

@@ -1,7 +1,7 @@
 import MockEmbed from "@/components/MockEmbed";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import ScheduleType from "@/lib/types/ScheduleType";
-import timestampToDuration from "@/lib/types/timestampToDuration";
+import timestampToDuration from "@/lib/timestampToDuration";
 import { useContext, useState } from 'react'; 
 import { BsCardList, BsChatLeftDots, BsClock, BsMegaphone, BsPlay, BsRepeat, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";

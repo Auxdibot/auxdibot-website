@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
+import { BsX } from "react-icons/bs";
 
 interface ColorPickerProps {
     readonly value: string;
@@ -28,7 +29,7 @@ export default function ColorPicker({ value, onChange, string, md }: ColorPicker
             <div className={"h-6 w-12 rounded-2xl shadow-2xl border border-white"} style={{ backgroundColor: value ? `#${value}` : "black" }}></div>
             </span> Set Color
             <HexColorInput aria-valuenow={parseInt(value, 16)} color={value} className={"text-md rounded-xl px-1"} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/>
-        
+            <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><span className={"border cursor-pointer text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => onChange(undefined)}><BsX/></span></span>
     </span>
     {expandedColor && 
     <HexColorPicker aria-valuenow={parseInt(value, 16)} className={`md:absolute z-30 flex-none touch-none animate-colorPicker`} onChange={(newColor) => onChange(!string ? parseInt(newColor.replace("#", ""), 16) : newColor.replace("#", ""))}/> }

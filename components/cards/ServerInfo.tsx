@@ -2,7 +2,7 @@ import { CardData } from "@/lib/types/CardData";
 import { BsCheck, BsDiscord, BsShare } from "react-icons/bs";
 import ServerMembers from "./ServerMembers";
 import Image from "next/image";
-import { CardFonts } from "@/lib/types/CardFonts";
+import { CardFonts } from "@/lib/constants/CardFonts";
 import Link from "next/link";
 import { useState } from "react";
 import ServerBadges from "./ServerBadges";
