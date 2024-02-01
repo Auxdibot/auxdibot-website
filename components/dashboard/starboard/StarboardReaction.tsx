@@ -4,17 +4,16 @@ import { BsCheckLg, BsStarFill } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-import TextBox from "@/components/input/TextBox";
+import EmojiPicker from "@/components/input/EmojiPicker";
 export default function StarboardReaction({ server }: { server: { serverID: string }}) {
     const [reaction, setReaction] = useState("");
     const [success, setSuccess] = useState(false);
     const actionContext = useContext(DashboardActionContext);
     const queryClient = useQueryClient();
-    function onStarboardReactionChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function onStarboardReactionChange(e: { emoji: string | null }) {
         if (success) setSuccess(false);
-        if (e.currentTarget.value == "null") return;
 
-        setReaction(e.currentTarget.value);
+        setReaction(e.emoji ?? '');
     }
     function setStarboardReaction() {
         if (!server) return;
@@ -37,8 +36,8 @@ export default function StarboardReaction({ server }: { server: { serverID: stri
     return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Starboard Reaction</span>
     <span className={"text-gray-400 text-center mx-auto italic font-open-sans"}>Must be a valid emoji or Discord emoji ID.</span>
-    <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
-    <TextBox Icon={BsStarFill} value={reaction} onChange={onStarboardReactionChange}/> 
+    <span className={"flex flex-row max-xl:flex-col justify-center items-center gap-2"}>
+    <EmojiPicker serverID={server?.serverID} value={reaction} onChange={onStarboardReactionChange} />
         <button onClick={() => setStarboardReaction()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStarFill/> Change Reaction</>) }
         </button></span>

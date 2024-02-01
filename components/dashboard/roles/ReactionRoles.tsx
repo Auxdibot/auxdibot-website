@@ -1,6 +1,8 @@
 "use client";
 
+import Twemoji from "@/components/input/Twemoji";
 import DashboardActionContext from "@/context/DashboardActionContext";
+import { emojis } from "@/lib/constants/emojis";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
 import Image from "next/image";
 import { Suspense, useContext } from 'react';
@@ -28,7 +30,8 @@ export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: 
     }
     return (<span className={"flex flex-row gap-2 text-lg items-center font-roboto"}>{index+1}) <span className={"italic"}>{reactionRole.messageID}</span> - {reactionRole.reactions.map((i: { emoji: string }) => {
         const serverEmojiValue = serverEmojis?.emojis.find((i2) => i2.id == i.emoji);
-        return serverEmojiValue ? <Image width={24} height={24} alt={serverEmojiValue.name} draggable="false" loading="lazy" src={serverEmojiValue.image}/> : i.emoji;
+        const emojiValue = emojis.find((i2) => i2.emojis.find((emoji) => emoji.emoji == i.emoji))?.emojis.find((emoji) => emoji.emoji == i.emoji);
+        return serverEmojiValue ? <Image width={24} height={24} alt={serverEmojiValue.name} draggable="false" loading="lazy" src={serverEmojiValue.image}/> : <Twemoji>{emojiValue?.hexcode.toLowerCase() ?? ''}</Twemoji>;
     
     })}<span className={"border text-white rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsX/></span></span>);
 }
