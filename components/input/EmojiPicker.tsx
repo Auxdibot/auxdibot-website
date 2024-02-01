@@ -57,7 +57,7 @@ export default function EmojiPicker({ serverID, onChange, value }: EmojiInputPro
             {value ? serverEmojiValue ? 
               <Image alt={serverEmojiValue.name} width={24} height={24} quality={100} draggable="false" loading="lazy" src={serverEmojiValue.image}/> 
               : <Twemoji>{emojiValue?.hexcode.toLowerCase() ?? value}</Twemoji> 
-            : <span className={'flex items-center gap-2'}><Twemoji>👋</Twemoji> Select an Emoji</span>
+            : <span className={'flex items-center gap-2 text-sm italic text-gray-400'}><Twemoji>👋</Twemoji> Select an Emoji</span>
             } 
             <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>

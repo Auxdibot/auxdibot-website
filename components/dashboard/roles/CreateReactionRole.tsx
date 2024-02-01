@@ -91,7 +91,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         <span className={"flex flex-row gap-2 items-center text-2xl mx-auto secondary my-5"}><BsPerson/> Roles</span>
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 mx-auto"}><span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => reactions.length < 10 ? appendReaction({ name: "", value: "" }, { shouldFocus: false }) : {}}><BsPlus/></span> Add Role</span>
         <div className={"flex flex-col gap-4"}>
-        {reactions.map((item, index) => <li key={item.id} className={"flex flex-col gap-2 items-center"}>
+        {reactions.map((item, index) => <li key={item.id} className={"flex w-fit mx-auto max-md:flex-col gap-2 items-center"}>
                 <Controller name={`reactions.${index}.emoji`} control={control} render={({ field }) => {
                     return <EmojiPicker serverID={serverID  } value={field.value} onChange={(e) => field.onChange(e.emoji)} />
                 } }/>
