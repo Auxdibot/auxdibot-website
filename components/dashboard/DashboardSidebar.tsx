@@ -6,7 +6,7 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
-import { BsArrowRight, BsCardImage, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsBell, BsCardImage, BsClock, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 
@@ -41,6 +41,7 @@ enum SidebarCategories {
     LEVELS = "levels",
     ROLES = "roles",
     GREETINGS = "greetings",
+    NOTIFICATIONS = "notifications",
 }
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const router = useRouter();
@@ -62,6 +63,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                 <span><BsArrowRight className={`${page == SidebarCategories.SETTINGS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.SETTINGS)} className={`dashboard-sidebar-element ${page == SidebarCategories.SETTINGS ? "dashboard-sidebar-selected-text" : ""}`}><BsGear/> Settings</span>
             </li>
+
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.CARD ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.CARD ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.CARD)} className={`dashboard-sidebar-element ${page == SidebarCategories.CARD ? "dashboard-sidebar-selected-text" : ""}`}><BsCardImage/> <span className={"bg-green-500 rounded-2xl px-1"}>BETA</span> Card</span>
@@ -73,6 +75,10 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.MODERATION ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.MODERATION ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.MODERATION)} className={`dashboard-sidebar-element ${page == SidebarCategories.MODERATION ? "dashboard-sidebar-selected-text" : ""}`}><BsHammer/> Moderation</span>
+            </li>
+            <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.NOTIFICATIONS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.NOTIFICATIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.NOTIFICATIONS)} className={`dashboard-sidebar-element ${page == SidebarCategories.NOTIFICATIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsBell/> Notifications</span>
             </li>
             <li className={`pt-3 dashboard-sidebar-wrapper ${page == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SCHEDULES ? "scale-75" : "scale-0 hidden"}`}/></span>
