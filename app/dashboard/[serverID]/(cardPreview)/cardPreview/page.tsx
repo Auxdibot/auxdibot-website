@@ -19,7 +19,7 @@ import { useMediaQuery } from "react-responsive";
 
 
 export default function DashboardCardPreview({ params: { serverID } }: { readonly params: { serverID: string }}) {
-    const { data: server, status, error } = useQuery<APIGuild | { error: string }>(["server_list", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data: server, status, error } = useQuery<APIGuild | { error: string }>(["server_info", serverID], async () => await fetch(`/api/v1/servers/${serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const searchParams = useSearchParams();
