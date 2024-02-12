@@ -19,6 +19,11 @@ module.exports = {
           400: "rgb(var(--color-primary-400))",
           500: "rgb(var(--color-primary-500))",
           600: "rgb(var(--color-primary-600))"
+        },
+        "background": {
+          300: "#120202",
+          200: "#310707",
+          100: "#580F0F",
         }
       },
       backgroundImage: {
