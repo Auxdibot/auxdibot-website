@@ -8,7 +8,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 
-type AdditionalProps = { randomColor1?: string, randomColor2?: string, }
+type AdditionalProps = { randomColor1?: string, randomColor2?: string, frontToBack?: boolean }
 export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
   const { nodes } = useGLTF('/auxdibot.gltf', false);
   let mesh = (nodes.Text as THREE.Mesh);
@@ -47,7 +47,7 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
     
     void main() {
       
-      gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
+      gl_FragColor = vec4(mix(color1, color2, ${props.frontToBack ? 'vUv.y' : `vUv.x`}), 1.0);
     }
   `});
   return (

@@ -20,7 +20,6 @@ export default function Masthead() {
           
         
         <Canvas>
-        {/* todo mobile */}
         <ambientLight  intensity={0.0} />
         <PerspectiveCamera makeDefault position={[0,-1,10]}/>
         <Suspense fallback={null}>
@@ -32,7 +31,7 @@ export default function Masthead() {
         rotation={[0, 0, 0]}
         polar={[-Math.PI / 3, Math.PI / 3]}
         azimuth={[-Math.PI / 5, Math.PI / 5]}>
-        <Icon frustumCulled={false} scale={[12,12,12]} rotation={[Math.PI/2,0,0]}/>
+        <Icon frustumCulled={false} scale={[12,12,12]} rotation={[Math.PI/2,0,0]} frontToBack/>
       </PresentationControls>
             
         </Suspense>

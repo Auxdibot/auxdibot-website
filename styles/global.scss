@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer base {
+    body {
+        background-color: black;
+    }
     :root {
         --color-primary-100: 253, 100, 79;
         --color-primary-200: 249, 117, 68;
@@ -17,14 +20,24 @@
         width: 1.5rem;
         height: fit-content;
     }
+    .hover-underline {
+        @apply absolute block w-full h-[2px] -bottom-1 left-0 scale-0 transition-transform duration-300 origin-right hover:origin-left;
+        content: "";
+    }
+    .premium-gradient {
+        @apply bg-gradient-to-t from-yellow-200 to-yellow-500;
+    }
     .header {
         @apply font-bauhaus bg-gradient-to-b from-primary-100 to-primary-600 bg-center bg-clip-text text-transparent;
     }
     .secondary-gradient {
         @apply bg-gradient-to-b from-gray-200 via-gray-300 to-[98%] to-gray-400 bg-center bg-clip-text text-transparent;
     }
+    .primary-gradient {
+        @apply bg-gradient-to-br from-primary-100 to-primary-600;
+    }
     .hover-gradient {
-        @apply hover:bg-gradient-to-l hover:from-orange-400 hover:to-red-500;
+        @apply hover:bg-gradient-to-l hover:from-primary-100 hover:to-primary-600;
     }
     .secondary {
         @apply font-montserrat text-gray-300;
