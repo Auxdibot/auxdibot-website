@@ -32,6 +32,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'auxdibot-masthead': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1) 85%),radial-gradient(ellipse at top left, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at top right, rgba(var(--color-primary-600), 0.5), transparent 30%),radial-gradient(ellipse at center right, rgba(var(--color-primary-100), 0.5), transparent 50%),radial-gradient(ellipse at center left, rgba(var(--color-primary-100), 0.5), transparent 50%)",
         'auxdibot-gradient': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.7) 85%),radial-gradient(ellipse at center left, rgba(var(--color-primary-600), 0.5), transparent 40%),radial-gradient(ellipse at center right, rgba(var(--color-primary-600), 0.5), transparent 40%),radial-gradient(ellipse at bottom right, rgba(var(--color-primary-100), 0.5), transparent 50%),radial-gradient(ellipse at bottom left, rgba(var(--color-primary-100), 0.5), transparent 50%)",
+        'auxdibot-premium-masthead': "linear-gradient(180deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1) 85%),radial-gradient(ellipse at top left, #fef08a80, transparent 30%),radial-gradient(ellipse at top right, #fef08a80, transparent 30%),radial-gradient(ellipse at center right, #eab30880, transparent 50%),radial-gradient(ellipse at center left, #eab30880, transparent 50%)",
       },
       animation: {
         'incorrect': "shake 300ms linear 0s 1",

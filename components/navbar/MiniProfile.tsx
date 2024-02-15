@@ -46,18 +46,18 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
                     <span className={'absolute -z-10 group-hover:scale-100 scale-0 origin-top bg-gray-950 border border-gray-500 rounded-2xl transition-all px-1 font-open-sans translate-x-1/2 right-1/2 w-max top-8'}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</span></span>
             )}
         </span>}
-        <span className={"flex flex-row gap-2"}>
+        <span className={"flex items-center gap-2"}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
-            src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=32`}
+            src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
             alt={"Discord profile icon"}
-            className={"inline-block align-middle rounded-full"}
-            width={32}
-            height={32}
+            className={"inline-block align-middle rounded-xl"}
+            width={36}
+            height={36}
             quality="100"
             priority
             /> : <BsPersonAdd className={"text text-2xl align-middle inline-block"}/>}
         
-        <span className={"flex group flex-row gap-2 items-center text-gray-200 font-roboto text-md cursor-pointer"} onClick={() => expand()}>
+        <span className={"flex group flex-row gap-2 items-center text-gray-200 font-montserrat tracking-wide text-lg cursor-pointer"} onClick={() => expand()}>
         <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
         
         <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
