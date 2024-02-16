@@ -5,7 +5,6 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -40,6 +39,8 @@ module.exports = {
         'colorPicker': 'fadeIn 0.25s ease-in-out 0s 1 forwards',
         'fadeRight': 'fadeRight 0.5s ease-out 0s 1 forwards',
         'fadeUp': 'fadeUp 0.5s ease-out 0s 1 forwards',
+        'mastheadCycleDown': 'mastheadCycleDown 1990ms ease-in-out infinite 2000ms',
+        'mastheadCycleUp': 'mastheadCycleUp 1990ms ease-in-out infinite 2000ms',
       },
       fontFamily: {
         'josefin-sans': "'Josefin Sans', sans-serif",

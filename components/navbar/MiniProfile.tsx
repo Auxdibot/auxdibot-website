@@ -39,13 +39,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
     return (<div ref={ref} {...props}>
         <span className={"text-primary-300"}></span>
         <span className={`flex flex-row gap-2`}>
-        {user?.badges && <span className={"flex flex-row mx-auto text-base max-md:gap-1 md:gap-2 bg-gray-900 py-1 px-2 justify-center rounded-2xl w-fit items-center"}>
-            {user?.badges?.map((i: UserBadge) => 
-                <span className={"flex flex-col relative group"} key={i}>
-                    {UserBadgeIcons[i]} 
-                    <span className={'absolute -z-10 group-hover:scale-100 scale-0 origin-top bg-gray-950 border border-gray-500 rounded-2xl transition-all px-1 font-open-sans translate-x-1/2 right-1/2 w-max top-8'}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</span></span>
-            )}
-        </span>}
+       
         <span className={"flex items-center gap-2"}>
         {status == "authenticated" && user?.avatar && user?.id ? <Image
             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
