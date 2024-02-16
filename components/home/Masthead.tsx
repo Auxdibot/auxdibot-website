@@ -8,8 +8,11 @@ import { Icon } from "./Icon";
 import { Suspense } from "react";
 import { PerspectiveCamera, PresentationControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import Names from "./Names";
+
 export default function Masthead() {
     const { user, status } = useSession();
+    
     return (
     <main className={"min-h-screen bg-auxdibot-masthead"}>
         
@@ -41,7 +44,9 @@ export default function Masthead() {
         
      
             <h1 className={"header text-8xl max-md:text-6xl w-fit"}>auxdibot</h1>
-            <p className={"secondary text-3xl max-md:text-2xl text-white text-center"}>The next Discord Bot for your server.</p>
+            <p className={"secondary text-3xl max-md:text-2xl text-white text-center flex flex-col items-center my-5"}>The next Discord Bot for your 
+            <Names/>
+            </p>
             <Analytics/>
             {status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button href={process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK} icon={<BsEnvelopePlus/>} text={"Invite Bot"}/> }
         </div>
