@@ -34,7 +34,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         }).catch(() => undefined)
     }
     if (status == "loading") return (<div {...props}>
-        <BsThreeDots className={"animate-spin text-2xl text-white"}/>
+        <BsThreeDots className={"animate-spin text-3xl text-white"}/>
     </div>)
     return (<div ref={ref} {...props}>
         <span className={"text-primary-300"}></span>
@@ -61,8 +61,8 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         </span>
 
         </span>
-        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-14 z-10 ${user && 'translate-x-6' } max-md:-translate-x-8 bg-auxdibot-gradient bg-black border border-gray-950 rounded-xl`}>
-            <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center border-b border-gray-950"}><BsShield/> Account</h1>
+        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-12 z-10 ${user && 'translate-x-6' } max-md:-translate-x-8 bg-background-300 bg-opacity-70 border border-gray-800 rounded-xl`}>
+            <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center bg-black bg-auxdibot-gradient border-b border-background-200"}><BsShield/> Account</h1>
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 
             <Link href={"/dashboard"} onClick={() => setExpanded(false)}  className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsListTask/></span>Servers</Link> : ""}
