@@ -1,4 +1,4 @@
-import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from "react";
