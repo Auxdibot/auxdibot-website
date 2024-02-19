@@ -8,7 +8,7 @@ import Start from './Start';
 export default function About() {
     
     return (
-        <section className={"w-full flex flex-col gap-80 py-60"}>
+        <section className={"w-full flex flex-col gap-60 py-40"}>
         <section className={"max-w-4xl mx-auto flex max-md:flex-col gap-10 max-md:overflow-x-hidden"}>
         <motion.h1 initial={{ transform: "translateX(4rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.7 }} className={"text-6xl text-end max-md:text-center max-md:mx-auto items-end max-md:items-center flex flex-col justify-center lowercase"}><span className={"header"}>About</span><span className={"header"}>Auxdibot</span></motion.h1>
         <motion.span initial={{ scaleY: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} whileInView={{ scaleY: 1 }} className={"flex-grow w-1 border-r-2 border-gray-400 max-md:hidden"}></motion.span>
