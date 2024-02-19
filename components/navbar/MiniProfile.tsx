@@ -8,8 +8,7 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
-import { UserBadgeIcons } from "@/lib/constants/UserBadgeIcons";
-import { UserBadge } from "@/lib/types/UserBadge";
+
 export default function MiniProfile(props: React.ComponentProps<any>) {
     const [expanded, setExpanded] = useState(false);
     const { user, status } = useSession();
@@ -61,8 +60,8 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         </span>
 
         </span>
-        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-12 z-10 ${user && 'translate-x-6' } max-md:-translate-x-8 bg-background-300 bg-opacity-70 border border-gray-800 rounded-xl`}>
-            <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center bg-black bg-auxdibot-gradient border-b border-background-200"}><BsShield/> Account</h1>
+        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-12 z-10 right-0 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl`}>
+            <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center bg-black bg-auxdibot-gradient border-b border-gray-800"}><BsShield/> Account</h1>
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 
             <Link href={"/dashboard"} onClick={() => setExpanded(false)}  className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsListTask/></span>Servers</Link> : ""}

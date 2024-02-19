@@ -50,6 +50,7 @@ export default function Masthead() {
             <Analytics/>
             {status == 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : user ? <Button icon={<BsGear/>} text={"Dashboard"} href={"/dashboard"}/> : <Button href={process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK} icon={<BsEnvelopePlus/>} text={"Invite Bot"}/> }
         </div>
+        
         </section>
         
     </main>

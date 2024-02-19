@@ -77,8 +77,8 @@ export default function MiniServer(props: React.ComponentProps<any>) {
         </span>
         </span>
         </span>
-        <div className={`absolute flex justify-center items-center flex-col ${expanded ? "scale-100" : "scale-0"} transition-all origin-top w-full select-none top-12 left-full -translate-x-full z-10 ${user && 'translate-x-6' } max-md:-translate-x-8 bg-background-300 bg-opacity-70 border border-gray-800 rounded-xl`}>
-            <h1 className={"secondary p-4 rounded-t-xl flex text-lg flex-row gap-2 items-center justify-center border-b border-background-200 bg-black bg-auxdibot-gradient w-full"}><BsDatabase/> Servers</h1>
+        <div className={`absolute flex justify-center items-center flex-col ${expanded ? "scale-100" : "scale-0"} transition-all origin-top w-full select-none top-12 z-10 max-md:-translate-x-8 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl`}>
+            <h1 className={"secondary p-4 rounded-t-xl flex text-lg flex-row gap-2 items-center justify-center border-b border-gray-800 bg-black bg-auxdibot-gradient w-full"}><BsDatabase/> Servers</h1>
             <ul className={"flex flex-col gap-3 h-48 overflow-y-scroll scrollbar p-4"}>
             {user.guilds.map((i: DiscordGuild) => {
        return <Server key={i.id} server={i}/>
