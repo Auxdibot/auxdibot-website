@@ -1,10 +1,13 @@
 import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsShieldCheck, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 export default function Features() {
+    const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
     return (
-    <div className={"grid grid-cols-3 max-lg:grid-cols-2 max-md:w-fit max-md:grid-cols-1 gap-4 max-w-8xl max-md:px-5 md:w-full"}>
-        <section className={"flex flex-col gap-4 "}>
+    <div className={"grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-4 max-w-8xl max-md:px-5 md:w-full"}>
+        <FeatureColumn>
             <Feature name={<><BsShield/> Moderation</>} description={<>
                 Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.
             </>}/>
@@ -17,8 +20,8 @@ export default function Features() {
             <Feature name={<><BsTextLeft/> Embeds</>} description={<>
                 Create fleshed out custom Discord Embeds with Auxdibot&apos;s embeds feature. Featuring an easy-to-use editor, you can create embeds with a variety of fields and colors.
             </>}/>
-        </section>
-        <section className={"flex flex-col gap-4"}>
+        </FeatureColumn>
+        <FeatureColumn reverse={!isMobile}>
         <Feature name={<><BsStar/> Starboard</>} description={<>
                 Showcase your community highlights with Auxdibot&apos;s starboard feature! When a message reaches a certain amount of reactions, it will be showcased in a starboard channel.
             </>}/>
@@ -31,8 +34,8 @@ export default function Features() {
             <Feature name={<><BsRobot/> AutoMod</>} description={<>
                 Auxdibot features a fleshed out automod system which automatically logs actions on the server and automatically deals out punishments for specific infractions. AutoMod features a vast config that can be customized to your server&apos;s needs.
             </>}/>
-        </section>
-        <section className={"flex flex-col gap-4"}>
+        </FeatureColumn>
+        <FeatureColumn>
         <Feature name={<><BsClock/> Schedules</>} description={<>
                 Schedule reminders for events, meetings, and more with Auxdibot&apos;s schedules feature. Schedules can utilize custom embeds, placeholders, timestamps, and more.
             </>}/>
@@ -46,10 +49,59 @@ export default function Features() {
                 Experience the future of server presentation with Auxdibot&apos;s cards feature. Cards are a way to present your server to the world in a unique way. Create a custom website for your server with a library of various fonts and backgrounds.
             </>}/>
             
-        </section>
+        </FeatureColumn>
 
     </div>
     )
+}
+function FeatureColumn({ children, reverse }: { children: any, reverse?: boolean}) {
+    const child1 = useRef<HTMLDivElement | null>(null);
+    const child2 = useRef<HTMLDivElement | null>(null);
+    const sectionRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const animation = child1.current?.animate([
+            { transform: "translateY(0px)" },
+            { transform: reverse ? "translateY(100%)" : "translateY(-100%)" }
+        ], {
+            duration: 30000,
+            iterations: Infinity
+        });
+        const animation2 = child2.current?.animate([
+            { transform: reverse ? "translateY(-100%)" : "translateY(100%)" },
+            { transform: "translateY(0px)" }
+        ], {
+            duration: 30000,
+            iterations: Infinity
+        });
+
+        const handleMouseEnter = () => {
+            animation?.pause();
+            animation2?.pause();
+        }
+
+        const handleMouseLeave = () => {
+            animation?.play();
+            animation2?.play();
+        }
+
+        sectionRef.current?.addEventListener('mouseenter', handleMouseEnter);
+        sectionRef.current?.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            animation?.cancel();
+            animation2?.cancel();
+            sectionRef.current?.removeEventListener('mouseenter', handleMouseEnter);
+            sectionRef.current?.removeEventListener('mouseleave', handleMouseLeave);
+        }
+    }, [])
+
+    return <section ref={sectionRef} className={"relative h-[800px] overflow-hidden flex flex-col gap-4"}>
+        <div className={"absolute z-30 bg-gradient-to-b from-black via-transparent from-5% to-95% via-50% to-black self-stretch w-full top-0 h-[800px] pointer-events-none"}/>
+        
+        <div ref={child1} className={`absolute flex flex-col gap-4 ${!reverse ? '' : 'mt-4'}`}>{children}</div>
+        <div ref={child2} className={`absolute flex flex-col gap-4 ${reverse ? '' : 'mt-4'}`}>{children}</div>
+    </section>;
 }
 function Feature({ name, description }: { name: JSX.Element, description: JSX.Element }) {
     return <motion.div viewport={{ once: true }} transition={{ duration: 1 }} whileInView={{ opacity: 1 }} initial={false} className={"relative group opacity-0"}>
@@ -58,7 +110,7 @@ function Feature({ name, description }: { name: JSX.Element, description: JSX.El
             ></div>
         <div className={"flex flex-col gap-1 max-md:w-fit bg-background-300 border p-2 py-5 rounded-2xl hover:border-gray-400 border-gray-800 transition-all hover:bg-gradient-to-br from-background-200 to-background-300 relative z-10"}>
             <h1 className={"font-montserrat text-2xl flex items-center gap-2"}>{name}</h1>
-            <p className={"font-open-sans"}>{description}</p>
+            <p className={"font-open-sans max-md:w-fit"}>{description}</p>
         </div>
     </motion.div>;
 }

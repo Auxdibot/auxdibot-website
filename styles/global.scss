@@ -16,6 +16,13 @@
         --color-primary-500: 243, 139, 44;
         --color-primary-600: 242, 142, 39;
     }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none; 
+    }
     .emoji {
         width: 1.5rem;
         height: fit-content;
