@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 export default function Features() {
-    const isMobile = useMediaQuery({ query: "(max-width: 768px)" })
+    const isMobile = useMediaQuery({ query: "(max-width: 1024px)" })
     return (
-    <div className={"grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-4 max-w-8xl max-md:px-5 md:w-full"}>
+    <div className={"grid grid-cols-3 max-lg:grid-cols-1 gap-4 max-w-7xl mx-auto lg:w-full relative"}>
+
+        
         <FeatureColumn>
             <Feature name={<><BsShield/> Moderation</>} description={<>
                 Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.
@@ -94,11 +96,10 @@ function FeatureColumn({ children, reverse }: { children: any, reverse?: boolean
             sectionRef.current?.removeEventListener('mouseenter', handleMouseEnter);
             sectionRef.current?.removeEventListener('mouseleave', handleMouseLeave);
         }
-    }, [])
+    }, [reverse])
 
-    return <section ref={sectionRef} className={"relative h-[800px] overflow-hidden flex flex-col gap-4"}>
-        <div className={"absolute z-30 bg-gradient-to-b from-black via-transparent from-5% to-95% via-50% to-black self-stretch w-full top-0 h-[800px] pointer-events-none"}/>
-        
+    return <section ref={sectionRef} className={"relative h-[800px] flex flex-col gap-4 overflow-visible max-lg:overflow-hidden"}>
+        <div className={"absolute z-30 bg-gradient-to-b from-black via-transparent from-5% to-95% via-50% to-black self-stretch w-full top-0 h-[800px] pointer-events-none lg:hidden"}/>
         <div ref={child1} className={`absolute flex flex-col gap-4 ${!reverse ? '' : 'mt-4'}`}>{children}</div>
         <div ref={child2} className={`absolute flex flex-col gap-4 ${reverse ? '' : 'mt-4'}`}>{children}</div>
     </section>;
@@ -106,11 +107,11 @@ function FeatureColumn({ children, reverse }: { children: any, reverse?: boolean
 function Feature({ name, description }: { name: JSX.Element, description: JSX.Element }) {
     return <motion.div viewport={{ once: true }} transition={{ duration: 1 }} whileInView={{ opacity: 1 }} initial={false} className={"relative group opacity-0"}>
         <div
-            className="absolute lg:group-hover:scale-105 group-hover:opacity-30 -inset-1 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur-2xl"
+            className="absolute lg:group-hover:scale-105 group-hover:opacity-30 -inset-1 rounded-lg bg-gradient-to-tl z-10 from-orange-400 to-red-500 opacity-0 blur-2xl"
             ></div>
-        <div className={"flex flex-col gap-1 max-md:w-fit bg-background-300 border p-2 py-5 rounded-2xl hover:border-gray-400 border-gray-800 transition-all hover:bg-gradient-to-br from-background-200 to-background-300 relative z-10"}>
+        <div className={"flex flex-col gap-1 max-lg:w-fit bg-background-300 border p-2 py-5 rounded-2xl hover:border-gray-400 border-gray-800 transition-all hover:bg-gradient-to-br from-background-200 to-background-300 relative z-20"}>
             <h1 className={"font-montserrat text-2xl flex items-center gap-2"}>{name}</h1>
-            <p className={"font-open-sans max-md:w-fit"}>{description}</p>
+            <p className={"font-open-sans max-lg:w-fit"}>{description}</p>
         </div>
     </motion.div>;
 }
