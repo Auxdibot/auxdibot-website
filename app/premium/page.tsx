@@ -5,7 +5,7 @@ import { PerspectiveCamera, PresentationControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { BsArrowDownShort } from "react-icons/bs";
-import { PremiumBenefits } from "../../../components/premium/PremiumBenefits";
+import { PremiumBenefits } from "../../components/premium/PremiumBenefits";
 export default function PremiumPage() {
     return (
     <main className={'flex flex-col items-center justify-center bg-black w-full min-h-screen'}>
