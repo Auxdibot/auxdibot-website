@@ -100,8 +100,8 @@ function FeatureColumn({ children, reverse }: { children: any, reverse?: boolean
 
     return <section ref={sectionRef} className={"relative h-[800px] flex flex-col gap-4 overflow-visible max-lg:overflow-hidden"}>
         <div className={"absolute z-30 bg-gradient-to-b from-black via-transparent from-5% to-95% via-50% to-black self-stretch w-full top-0 h-[800px] pointer-events-none lg:hidden"}/>
-        <div ref={child1} className={`absolute flex flex-col gap-4 ${!reverse ? '' : 'mt-4'}`}>{children}</div>
-        <div ref={child2} className={`absolute flex flex-col gap-4 ${reverse ? '' : 'mt-4'}`}>{children}</div>
+        <div ref={child1} className={`absolute flex flex-col gap-4 ${reverse ? 'mt-4' : ''}`}>{children}</div>
+        <div ref={child2} className={`absolute flex flex-col gap-4 ${!reverse ? 'mt-4' : ''}`}>{children}</div>
     </section>;
 }
 function Feature({ name, description }: { name: JSX.Element, description: JSX.Element }) {
