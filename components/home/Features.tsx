@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 export default function Features() {
-    const isMobile = useMediaQuery({ query: "(max-width: 1024px)" })
+    const { valueOf: isMobile } = useMediaQuery({ query: "(max-width: 1024px)" })
     return (
     <div className={"grid grid-cols-3 max-lg:grid-cols-1 gap-4 max-w-7xl mx-auto lg:w-full relative"}>
 
