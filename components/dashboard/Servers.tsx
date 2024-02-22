@@ -37,15 +37,8 @@ export function Server({ server }: ServerProps) {
             className="absolute group-hover:opacity-50 -inset-0.5 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur transition-all"
         ></div>
         <div className={"flex bg-background-300 bg-opacity-60 flex-col text-center justify-between pb-5 rounded-xl h-full border border-background-200 w-full max-w-xs gap-2 relative z-10"}>
-        <div className={"h-32 w-full relative"}>
-        {server.banner ? <Image
-         src={`https://cdn.discordapp.com/icons/${server.id}/${server.banner}.png`}
-         alt={server.name + " icon"}
-         width={undefined}
-         height={undefined}
-         quality="100"
-         className={`object-cover ${!data ? "grayscale" : ""}`}
-        />: <span className={`object-cover h-full absolute top-0 w-full text-3xl font-roboto text-gray-100 items-center flex justify-center bg-discord-bg transition-all cursor-pointer rounded-t-xl duration-300 ${!data ? "grayscale" : ""}`}>{acronym}</span>}
+        <div className={"h-32 w-full relative bg-contain bg-no-repeat rounded-t-xl"} style={{ backgroundImage: `url("https://cdn.discordapp.com/icons/${server.id}/${server.banner}.png")` }}>
+        {server.banner ? '' : <span className={`object-cover h-full absolute top-0 w-full text-3xl font-roboto text-gray-100 items-center flex justify-center bg-discord-bg transition-all cursor-pointer rounded-t-xl duration-300 ${!data ? "grayscale" : ""}`}>{acronym}</span>}
         </div>
         <div className={"flex flex-row items-center justify-between w-full flex-1 px-2"}>
         <div className={"relative"}>
