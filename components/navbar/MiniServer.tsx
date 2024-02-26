@@ -54,7 +54,7 @@ export default function MiniServer(props: React.ComponentProps<any>) {
     if (status == "loading") return (<div {...props}>
         <BsThreeDots className={"animate-spin text-3xl text-white"}/>
     </div>)
-
+    if (!user?.guilds) return <></>;
     return (<div ref={ref} {...props}>
         <span className={"text-primary-300"}></span>
         <span className={`flex flex-row gap-2`}>
@@ -80,7 +80,7 @@ export default function MiniServer(props: React.ComponentProps<any>) {
         <div className={`absolute flex justify-center items-center flex-col ${expanded ? "scale-100" : "scale-0"} transition-all origin-top w-full select-none top-12 z-10 max-md:-translate-x-8 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl`}>
             <h1 className={"secondary p-4 rounded-t-xl flex text-lg flex-row gap-2 items-center justify-center border-b border-gray-800 bg-black bg-auxdibot-gradient w-full"}><BsDatabase/> Servers</h1>
             <ul className={"flex flex-col gap-3 h-48 overflow-y-scroll scrollbar p-4"}>
-            {user.guilds.map((i: DiscordGuild) => {
+            {user?.guilds?.map((i: DiscordGuild) => {
        return <Server key={i.id} server={i}/>
     })}
             </ul>

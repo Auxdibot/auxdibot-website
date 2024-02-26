@@ -25,7 +25,7 @@ export default function LayoutNavbar({ preventCollapse, premiumIcon, serverID }:
             <Link href={"/premium"} className={"flex gap-2 items-center max-sm:text-md text-xl group relative before:hover-underline before:bg-gradient-to-br before:from-yellow-200 before:to-yellow-600 hover:before:scale-100"}><BsCurrencyDollar className={"group-hover:scale-110 group-hover:text-yellow-500 origin-center transition-all"}/> <span className={"max-md:hidden tracking-wide"}>premium</span></Link>
         </div>
         <span className={'flex items-center gap-2 ml-auto'}>
-        {serverID && <MiniServer serverID={serverID} className={"flex ml-auto justify-center items-center relative gap-2 max-md:hidden min-w-[350px]"}/>}
+        {serverID && <MiniServer serverID={serverID} className={"flex ml-auto justify-center items-center relative gap-2 max-lg:hidden min-w-[350px]"}/>}
         <MiniProfile className={"flex ml-auto justify-center items-center relative gap-2"}/>
         </span>
     </nav>
