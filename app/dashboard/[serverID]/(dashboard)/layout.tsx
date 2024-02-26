@@ -1,4 +1,7 @@
+"use client";
+
 import DashboardProviders from '@/components/dashboard/DashboardProviders';
+import { Toaster } from '@/components/ui/toaster';
 import '@/styles/global.scss'
 
 export default function DashboardLayout({
@@ -8,5 +11,8 @@ export default function DashboardLayout({
   params: { serverID: string }
 }) {
   
-  return <><DashboardProviders serverID={params.serverID}>{children}</DashboardProviders></>;
+  return <><DashboardProviders serverID={params.serverID}>
+    {children}
+    <Toaster/>
+    </DashboardProviders></>;
 }
