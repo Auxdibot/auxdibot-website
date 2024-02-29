@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { User } from './user';
+import { User } from '@/components/ui/user';
 import { LogType } from '@/lib/types/LogType';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 
@@ -33,7 +33,7 @@ export const columns: ColumnDef<LogType>[] = [
       ),
       cell: ({ row }) => {
         const date = new Date(row.original.date_unix);
-        return date.toLocaleString();
+        return date.toLocaleDateString();
       }
     },
   ]

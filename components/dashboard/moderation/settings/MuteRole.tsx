@@ -1,20 +1,22 @@
 "use client";
 
 import { BsCheckLg, BsMicMute } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import Roles from "@/components/input/Roles";
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
 export default function MuteRole({ server }: { server: { readonly serverID: string, readonly mute_role: string }}) {
     let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
-    const [role, setRole] = useState<string | null>(server.mute_role);
-    const actionContext = useContext(DashboardActionContext);
+    const [role, setRole] = useState<string | undefined>(server.mute_role ?? undefined);
+    const { toast } = useToast();
     const [success, setSuccess] = useState(false);
-    function onMuteRoleChange(e: { role: string | null }) {
+    function onMuteRoleChange(e: { role?: string }) {
         if (success) setSuccess(false);
+        if (e.role == 'null') return setRole(undefined);
 
-        setRole(e.role || null);
+        setRole(e.role || undefined);
     }
     function setMuteRole() {
         if (!server) return;
@@ -22,28 +24,33 @@ export default function MuteRole({ server }: { server: { readonly serverID: stri
         body.append("new_mute_role", role || '');
         fetch(`/api/v1/servers/${server.serverID}/moderation/mute_role`, { method: "POST", body }).then(async (data) => {
             
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                setSuccess(true)
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated mute role to: ${roles.find((r: { id: string }) => role == r.id)?.name || "None. Muting will now timeout a user on Discord."}`, success: true });
-            } else {
-                setRole('');
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({
+                    title: "Failed to set mute role",
+                    description: json['error'] || "Couldn't find error.",
+                    status: "error",
+                })
+                return;
             }
+            toast({
+                title: "Mute Role Updated",
+                description: role ? `The mute role has been updated to @${roles?.find((i: { id: string }) => i.id === role)?.name ?? "Unknown"}.` : "Mute role is now disabled for this server. Auxdibot will utilize Discord's timeout system for mutes.",
+                status: "success",
+            })
+            setSuccess(true)
     
         }).catch(() => {});
     }
     if (!roles) return <></>;
 
-    return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
-    <h3 className={"text-2xl font-open-sans text-gray-300 text-center flex flex-col"}>Set Mute Role</h3>
+    return <div className={"flex flex-col gap-3 w-fit mx-auto"}>
+    <h3 className={"text-2xl font-open-sans text-gray-300 text-center flex flex-col"}>Mute Role</h3>
     
     <span className={"flex flex-row max-md:flex-col gap-2"}>
-        <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={(e) => onMuteRoleChange(e)} value={role}/></span>
-        <button onClick={() => setMuteRole()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsMicMute/> Change Mute Role</>) }
-        </button></span>
+        <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={onMuteRoleChange} value={role}/></span>
+        <Button onClick={() => setMuteRole()} className={`flex gap-1 items-center w-fit mx-auto`} variant={"outline"} type="submit">
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsMicMute/> Update</>) }
+        </Button></span>
     </div>
 }

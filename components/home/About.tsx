@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Features from './Features';
+import Features from './features/Features';
 import Start from './Start';
 import { BsDiscord, BsGithub } from 'react-icons/bs';
 

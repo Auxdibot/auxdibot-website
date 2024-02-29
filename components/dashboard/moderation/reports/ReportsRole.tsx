@@ -1,20 +1,22 @@
 "use client";
 
-import { BsCheckLg, BsMegaphone } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { BsAt, BsCheckLg, BsMegaphone } from "react-icons/bs";
+import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import Roles from "@/components/input/Roles";
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
 export default function ReportsRole({ server }: { server: { readonly serverID: string, readonly report_role: string }}) {
     let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
-    const [role, setRole] = useState<string | null>(server.report_role);
-    const actionContext = useContext(DashboardActionContext);
+    const [role, setRole] = useState<string | undefined>(server.report_role ?? undefined);
+    const { toast } = useToast();
     const [success, setSuccess] = useState(false);
-    function onReportsRoleChange(e: { role: string | null }) {
+    function onReportsRoleChange(e: { role?: string }) {
         if (success) setSuccess(false);
-
-        setRole(e.role || null);
+        if (e.role == 'null') return setRole(undefined);
+        
+        setRole(e.role ?? undefined);
     }
     function setReportsRole() {
         if (!server) return;
@@ -22,29 +24,34 @@ export default function ReportsRole({ server }: { server: { readonly serverID: s
         body.append("new_reports_role", role || '');
         fetch(`/api/v1/servers/${server.serverID}/moderation/reports/role`, { method: "POST", body }).then(async (data) => {
             
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                setSuccess(true)
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated reports role to: ${roles.find((r: { id: string }) => role == r.id)?.name || "None. No role will be pinged when a report is created."}`, success: true });
-            } else {
-                setRole('');
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({
+                    title: "Failed to set reports role",
+                    description: json['error'] || "Couldn't find error.",
+                    status: "error",
+                })
+                return;
             }
+            setSuccess(true);
+            toast({
+                title: "Reports Role Updated",
+                description: role ? `The reports role has been updated to @${roles?.find((i: { id: string }) => i.id === role)?.name ?? "Unknown"}.` : "Reports role is now disabled for this server.",
+                status: "success",
+            })
     
         }).catch(() => {});
     }
     if (!roles) return <></>;
 
-    return <div className={"flex flex-col gap-3 w-fit mx-auto p-4"}>
-    <h3 className={"text-2xl font-open-sans text-gray-300 text-center flex flex-col"}>Set Reports Role</h3>
+    return <div className={"flex flex-col md:items-start flex-1 flex-shrink-0 gap-3 md:w-fit p-4"}>
+    <h3 className={"text-xl mx-auto font-open-sans text-gray-300 text-center flex flex-col"}>Reports Role</h3>
     
-    <span className={"flex flex-row max-md:flex-col gap-2"}>
-        <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={(e) => onReportsRoleChange(e)} value={role}/></span>
-        <button onClick={() => setReportsRole()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsMegaphone/> Change Reports Role</>) }
-        </button>
+    <span className={"flex flex-col justify-center items-center mx-auto max-md:flex-col gap-2"}>
+        <span className={"mx-auto"}><Roles serverID={server.serverID} onChange={onReportsRoleChange} value={role}/></span>
+        <Button onClick={setReportsRole} className={`flex items-center gap-2 w-fit mx-auto`} variant={"outline"} type="submit">
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsAt/> Update</>) }
+        </Button>
         </span>
     </div>
 }
