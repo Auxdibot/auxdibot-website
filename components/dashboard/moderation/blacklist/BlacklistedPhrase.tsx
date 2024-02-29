@@ -32,7 +32,7 @@ export default function BlacklistedPhrase({ phrase, serverID, index }: { readonl
     return <li className={"py-2"}>
         <div className={"flex flex-row text-lg items-center font-open-sans gap-2"}>
         
-        <span className={"text-center text-base font-open-sans gap-1 bg-gray-900/70 border-gray-800/50 border px-1 p-0.5 rounded-2xl w-32 hover:w-full hover:max-w-[250px] text-ellipsis whitespace-nowrap overflow-hidden"}>{phrase}</span>
+        <span className={"text-center text-base font-open-sans gap-1 bg-gray-900/70 border-gray-800/50 border px-1 p-0.5 rounded-2xl w-32 hover:w-full hover:min-w-[128px] hover:max-w-[250px] text-ellipsis whitespace-nowrap overflow-hidden"}>{phrase}</span>
         <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border border-gray-700 text-gray-600 rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deleteException()}><BsTrash/></button></span>
     </div>
         </li>;

@@ -33,7 +33,7 @@ export const columns: ColumnDef<LogType>[] = [
       ),
       cell: ({ row }) => {
         const date = new Date(row.original.date_unix);
-        return date.toLocaleDateString();
+        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
       }
     },
   ]

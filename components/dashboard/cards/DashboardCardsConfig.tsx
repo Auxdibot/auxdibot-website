@@ -1,25 +1,28 @@
 "use client";
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { BsCardImage, BsDiscord, BsEye, BsMoonStars, BsPlus, BsSun, BsTextLeft, BsX} from 'react-icons/bs';
+import { BsCardImage, BsEye, BsMoonStars, BsPlus, BsSun, BsX} from 'react-icons/bs';
 import { CardData } from '@/lib/types/CardData';
-import ColorPicker from '@/components/input/ColorPicker';
+import ColorPicker from '@/components/ui/color-picker';
 import { CardFonts } from '@/lib/constants/CardFonts';
 import { CardFont } from '@/lib/types/CardFont';
 import Channels from '@/components/input/Channels';
-import TextBox from '@/components/input/TextBox';
-import { useContext } from 'react';
-import DashboardActionContext from '@/context/DashboardActionContext';
-import Link from 'next/link';
+
 import { useQuery, useQueryClient } from 'react-query';
 import CardInfo from './CardInfo';
 import { GradientTemplates } from '@/lib/constants/GradientTemplates';
 import { CardGradients } from '@/lib/types/CardGradients';
 import { testInvite } from '@/lib/testInvite';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+
 
 type CardBody = Omit<CardData, 'rules' | 'channel'> & { rulesField: { rule: string }[] } & { channelID: string };
 export default function DashboardCardsConfig({ id }: { id: string }) {
-    const { register, handleSubmit, control, getValues, watch, reset } = useForm<CardBody>();
-    const actionContext = useContext(DashboardActionContext);
+    const { handleSubmit, control, getValues, watch } = useForm<CardBody>();
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     const { data: card } = useQuery<CardData | { error: string } | undefined>([id, 'card'], async () => await fetch(`/api/v1/cards/${id}`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
@@ -48,20 +51,16 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         body.append('text_font', data?.text_font?.toString() || "");
         body.append('invite_url', data?.invite_url?.toString() || "");
         fetch(`/api/v1/servers/${id}/updateCard`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries([id, 'card'])
-                if (actionContext)
-                    actionContext.setAction({ status: <>Your card has been updated. Changes will be live at <Link className={"text-blue-500 hover:text-blue-300"} href={`${process.env.NEXT_PUBLIC_URL}/cards/${id}`}>{`${process.env.NEXT_PUBLIC_URL}/cards/${id}`}</Link></>, success: true })
-                reset();
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: 'Failed to update card', description: json?.error ?? 'An error occurred while updating the card.', status: 'error' })
+                return;
             }
+            toast({ title: 'Updated Card', description: `Your card has been updated.`, status: 'success' })
+            queryClient.invalidateQueries([id, 'card']);
         }).catch(() => {})
     }
-    const header = watch('header_font'),
-    text = watch('text_font'),
+    const text = watch('text_font'),
     color1 = watch('background.color1'),
     color2 = watch('background.color2'),
     gradient = watch('background.gradient'),
@@ -70,13 +69,13 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
         <h1 className={"header text-6xl max-md:text-5xl"}>cards</h1>
-        <span className={"flex flex-row max-md:flex-col gap-10 w-full"}>
-        <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create/Edit Card</h2>
+        <span className={"flex flex-row max-xl:flex-col gap-10 w-full"}>
+        <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create/Edit Card</h2>
 
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <h3 className={"font-montserrat text-2xl mx-auto"}>Card Theme</h3>
-        <div className={"flex max-md:flex-col max-md:gap-8 max-md:my-2 md:justify-between max-md:items-center"}>
+        <section className={"flex max-md:flex-col max-md:gap-8 max-md:my-2 md:justify-between max-md:items-center"}>
         <span className={"flex flex-col items-center flex-1 justify-between"}>
         <label className={"font-montserrat text-xl"}>Card Scheme</label>
         <Controller control={control} name={'dark'} render={({ field }) => {
@@ -89,48 +88,86 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         <span className={"flex flex-col items-center flex-1 justify-between"}>
         <label className={"font-montserrat text-xl"}>Card Gradient</label>
         <span className={"flex gap-2"}>
-        <select defaultValue={"background"} className={"w-fit rounded-xl text-lg font-open-sans h-8"} {...register("background.gradient", { required: true })}>
-            <option value={'BACKGROUND'}>Background Gradient</option>
-            <option value={'LINEAR'}>Linear Gradient</option>
-            <option value={'RADIAL'}>Radial Gradient</option>
-        </select>
-        <div className={`h-8 w-8 ${dark ? "bg-black" : "bg-white"} rounded-md border border-gray-500`} style={{ backgroundImage: (GradientTemplates[gradient ?? CardGradients.BACKGROUND] ?? GradientTemplates['BACKGROUND'])('#' + (color1 ?? '000000'), '#' + (color2 ?? '000000'))}}/>
+        <Controller name='background.gradient' control={control} render={({ field }) => {
+            return <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                <SelectTrigger>
+                    <SelectValue placeholder={'Select a gradient'} />
+                </SelectTrigger>
+                <SelectContent>
+                <SelectItem value={'BACKGROUND'}>Background Gradient</SelectItem>
+                <SelectItem value={'LINEAR'}>Linear Gradient</SelectItem>
+                <SelectItem value={'RADIAL'}>Radial Gradient</SelectItem>
+                </SelectContent>
+            </Select>;
+        }}/>
+        
+
         </span>
         </span>
-        </div>
-        <span className={"flex h-full flex-row md:justify-between max-md:flex-col gap-2"}>
+        </section>
+        <section className={"flex h-full flex-row md:justify-between max-md:flex-col gap-2 my-5"}>
         <div className={"flex flex-col h-fit flex-1 items-center"}>
         <label className={"text-xl font-montserrat"}>Primary Color</label>
         <Controller control={control} name={"background.color1"} render={({ field }) => {
-            return <ColorPicker md value={field?.value ?? ''} string onChange={field.onChange}/>
+            return <ColorPicker value={field?.value ?? ''} string onChange={field.onChange}/>
         }}/> 
         </div>
         <div className={"flex flex-col h-fit flex-1 justify-center items-center"}>
         <label className={"text-xl font-montserrat"}>Secondary Color</label>
         <Controller control={control} name={"background.color2"} render={({ field }) => {
-        return <ColorPicker md value={field?.value ?? ''} string onChange={field.onChange}/>
+        return <ColorPicker value={field?.value ?? ''} string onChange={field.onChange}/>
         }}/>
         </div>
-        </span>
+        </section>
+        <h3 className={"font-montserrat text-2xl mx-auto"}>Gradient Preview</h3>
+        <section className={"px-2"}>
+        <div className={`h-56 w-full ${dark ? "bg-black" : "bg-white"} rounded-md border border-gray-800`} style={{ backgroundImage: (GradientTemplates[gradient ?? CardGradients.BACKGROUND] ?? GradientTemplates['BACKGROUND'])('#' + (color1 ?? '000000'), '#' + (color2 ?? '000000'))}}/>
+        </section>
+        
         <h3 className={"font-montserrat text-2xl mx-auto"}>Card Text</h3>
         <span className={"flex h-full flex-row md:justify-between max-md:flex-col max-md:gap-8 max-md:my-2 gap-2"}>
         <div className={"flex flex-col h-fit flex-1 items-center"}>
         <label className={"text-xl font-montserrat"}>Header Font</label>
-        <select defaultValue={"BAUHAUS_93"} className={`w-fit rounded-xl text-lg h-8 font-${CardFonts[header as CardFont]}`} {...register("header_font")}>
-            {Object.keys(CardFonts).map((i) => <option value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</option>)}
-        </select>
+        <Controller name='header_font' control={control} render={({ field }) => {
+            return <><Select value={field.value?.toString()} onValueChange={field.onChange}>
+                <SelectTrigger className={`font-${CardFonts[field.value as CardFont]} w-fit`}>
+                    <SelectValue placeholder={'Select a gradient'} />
+                </SelectTrigger>
+                <SelectContent>
+            {Object.keys(CardFonts).map((i) => <SelectItem value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</SelectItem>)}
+            </SelectContent>
+            </Select>
+            <h1 className={`font-${CardFonts[field.value as CardFont]} text-center text-4xl border p-2 rounded-2xl border-gray-800 my-5`}>Preview Text</h1>
+            </>;
+        }}/>
+        
         </div>
         <div className={"flex flex-col h-fit flex-1 justify-center items-center"}>
-        <label className={"text-xl font-montserrat"}>Text Font</label>
-        <select defaultValue={"ROBOTO"} className={`w-fit rounded-xl text-lg h-8 font-${CardFonts[text as CardFont]}`} {...register("text_font")}>
-            {Object.keys(CardFonts).map((i) => <option value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</option>)}
-        </select>
+        <label className={"text-xl font-montserrat text-left"}>Text Font</label>
+        <Controller name='text_font' control={control} render={({ field }) => {
+            return <><Select value={field.value?.toString()} onValueChange={field.onChange}>
+                <SelectTrigger className={`font-${CardFonts[field.value as CardFont]} w-fit`}>
+                    <SelectValue placeholder={'Select a gradient'} />
+                </SelectTrigger>
+                <SelectContent>
+            {Object.keys(CardFonts).map((i) => <SelectItem value={i} key={i} className={`font-${CardFonts[i as CardFont]}`}>{i.split('_').map((i) => i[0].toLocaleUpperCase() + i.slice(1).toLocaleLowerCase()).join(' ')}</SelectItem>)}
+            </SelectContent>
+            </Select>
+            <h1 className={`font-${CardFonts[field.value as CardFont]} text-center text-4xl border p-2 rounded-2xl border-gray-800 my-5`}>Preview Text</h1>
+            </>;
+        }}/>
         </div>
         </span>
         
         
-        <label className={"text-xl font-montserrat mx-auto"}>Card Description</label>
-        <textarea className={`font-${CardFonts[text as CardFont] ?? 'open-sans'} rounded-xl p-1`} maxLength={500} required={false}  {...register("description")}/>
+        <label className={"text-xl font-montserrat"}>Card Description</label>
+        <Controller control={control} name={'description'} render={({ field }) => {
+            return <>
+                    <Textarea value={field.value} onChange={field.onChange} className={`font-${CardFonts[text as CardFont] ?? 'open-sans'} rounded-xl p-1 min-h-[100px] max-h-[200px]`} maxLength={500} required={false}/>
+                    <span className={"text-left w-full text-gray-400 pl-2 font-open-sans text-xs"}>{field.value?.length || 0}/500</span>
+                   </>
+            } }/>
+        
         <span className={"flex h-full flex-row md:justify-between max-md:flex-col gap-2"}>
         <div className={"flex flex-col h-fit max-md:gap-2 flex-1 items-center"}>
         <label className={"text-xl font-montserrat"}>Featured Channel</label>
@@ -142,7 +179,7 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         <label className={"text-xl font-montserrat"}>Invite URL</label>
         <Controller name={`invite_url`} control={control} render={({ field }) => {
                     const tested = testInvite(field.value ?? '');
-                    return  <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><TextBox className={"w-56 text-sm"} Icon={BsDiscord} maxLength={60} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
+                    return  <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><Input className={"w-56 text-sm"} maxLength={60} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/></span>
         } }/>
         </div>
         </span>
@@ -153,22 +190,22 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
         <div className={"flex flex-col gap-4"}>
             {rules.map((item, index) => <li key={item.id} className={"flex w-fit mx-auto gap-2 items-center"}>
                 <Controller name={`rulesField.${index}.rule`} control={control} render={({ field }) => {
-                    return <span><TextBox Icon={BsTextLeft} value={field.value} maxLength={40} onChange={(e) => field.onChange(e.currentTarget.value)} /></span>
+                    return <span className={"flex items-center gap-2"}><span className={'text-xl font-bold'}>#{index+1}</span> <Input value={field.value} maxLength={40} onChange={(e) => field.onChange(e.currentTarget.value)} /></span>
                 } }/>
                 <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer mx-auto"} onClick={() => remove(index)}><BsX/></span>
             </li>)}
         </div>
-        <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
+        <Button className={`flex flex-row gap-2 items-center w-fit mx-auto my-5`} variant={'default'} type="submit">
             <BsCardImage/> Create/Edit Card
-        </button>
+        </Button>
     </form>
     
     </div>
     <div className={"flex flex-col gap-20 h-fit max-w-full w-fit"}>
-    <div className={"bg-gray-800 flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto pb-4"}>
-        <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Card Preview</h2>
-        <p className={"text-md font-open-sans text-center p-2"}>You can go to your card preview link by clicking the button down below. This will display a preview version of your Card settings for you to look at and share with other Administrators on your server.</p>
-        <span className={`secondary text-xl mx-auto hover-gradient cursor-pointer border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} onClick={createLink}><BsEye/> Open Preview</span>
+    <div className={"flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto pb-4"}>
+        <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Card Preview</h2>
+        <p className={"text-md font-open-sans text-gray-400 italic text-base text-center p-2"}>You can go to your card preview link by clicking the button down below. This will display a preview version of your Card settings for you to look at and share with other Administrators on your server.</p>
+        <Button variant={'outline'} className={`flex flex-row gap-2 mx-auto w-fit items-center`} onClick={createLink}><BsEye/> Open Preview</Button>
     </div>
     {card && !('error' in card) && <CardInfo server={{  name: card?.server?.name, id: id }}/>}
     </div>
