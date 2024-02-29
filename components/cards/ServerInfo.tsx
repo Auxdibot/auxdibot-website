@@ -44,7 +44,7 @@ export default function ServerInfo({ data, serverID }: { readonly data: CardData
             <span onClick={copy} className={"text-xl group rounded-2xl w-fit relative cursor-pointer"} >
                 <div className={"absolute -inset-0 rounded-2xl blur-lg z-0 opacity-0 group-hover:opacity-100 select-none transition-all"} style={{ backgroundImage: `linear-gradient(135deg, ${data?.background?.color1 ?? 'transparent'}, ${data?.background?.color2 ?? 'transparent'})`}}/>
                 <span className={"flex relative flex-row gap-2 rounded-2xl p-1 items-center z-10 origin-left transition-all"}>
-                    <span className={`absolute w-max translate-x-10 ${data?.dark ? "bg-gray-800" : "bg-gray-200"} border border-gray-400 group-hover:scale-100 group-focus:scale-100 scale-0 rounded-tl-2xl rounded-md px-2 rounded-bl-2xl transition-all origin-left   `}> {copied ? "Copied!" : "Copy Link"}</span>
+                    <span className={`absolute w-max translate-x-10 ${data?.dark ? "bg-gray-950" : "bg-gray-200"} border border-gray-800 group-hover:scale-100 group-focus:scale-100 scale-0 rounded-tl-2xl rounded-md px-2 rounded-bl-2xl transition-all origin-left   `}> {copied ? "Copied!" : "Copy Link"}</span>
                     {copied ? <BsCheck/> : <BsShare/>}
                 </span>
             </span>

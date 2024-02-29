@@ -1,7 +1,7 @@
 import { APIEmbed } from "discord-api-types/v10";
 import { Control, Controller, UseFieldArrayAppend, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { BsImage, BsListTask, BsPerson, BsPlus, BsTextCenter, BsTextarea, BsX } from "react-icons/bs";
-import ColorPicker from "./ColorPicker";
+import ColorPicker from "../ui/color-picker";
 
 interface EmbedSettingsProps {
     readonly value: APIEmbed;
