@@ -2,72 +2,63 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { PunishmentType } from "@/lib/types/PunishmentType";
-import NumberBox from "@/components/input/NumberBox";
 import { BsCheckLg, BsExclamationTriangle } from "react-icons/bs";
 import PunishmentSelect from "@/components/input/PunishmentSelect";
-import { useContext, useMemo, useState } from "react";
-import DashboardActionContext from "@/context/DashboardActionContext";
+import { useMemo, useState } from "react";
 import { useQueryClient } from "react-query";
+import { useToast } from "@/components/ui/use-toast";
+import { PunishmentNames } from "@/lib/constants/PunishmentNames";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 type ThresholdFormBody = { punishment: PunishmentType | null, warns: number };
 
 export default function WarnThreshold({ server }: { server: { readonly serverID: string, readonly automod_threshold_punishment: PunishmentType; readonly automod_punish_threshold_warns: number }}) {
-    const { control, reset, handleSubmit } = useForm<ThresholdFormBody>({ defaultValues: useMemo(() => ({ 
+    const { control, handleSubmit } = useForm<ThresholdFormBody>({ defaultValues: useMemo(() => ({ 
         warns: server?.automod_punish_threshold_warns ?? 0, punishment: server.automod_threshold_punishment ?? 'WARN' 
     }), [ server.automod_punish_threshold_warns, server.automod_threshold_punishment ]) });
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     function onSubmit(data: ThresholdFormBody) {
         let body = new URLSearchParams();
         body.append('punishment', data.punishment ?? '');
         body.append('warns', data.warns.toString() ?? '')
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/threshold`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries(['data_moderation', server.serverID]);
-                setSuccess(true);
-                if (actionContext) 
-                    actionContext.setAction({ status: `Successfully updated the warns threshold for this server.`, success: true })
-
-            } else {
-                reset();
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+        fetch(`/api/v1/servers/${server.serverID}/moderation/threshold`, { method: 'POST', body }).then(async (res) => {
+            const json = await res.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: "Failed to update warns threshold", description: json['error'] ?? "An error occured", status: "error" })
+                return
             }
+            setSuccess(true);
+            queryClient.invalidateQueries(["data_moderation", server.serverID]);
+            toast({
+                title: "Warns Threshold Updated",
+                description: `The warns threshold has been updated. The user will receive a ${PunishmentNames[data.punishment ?? 'WARN']?.name} after receiving ${data.warns} warns.`,
+                status: "success"
+            })
         }).catch(() => {})
     }
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full flex flex-col max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Warns Threshold</h2>
-    <section className={"my-2 flex flex-col justify-center h-full"}>
+    return <section className={"my-2 flex flex-col justify-center h-full"}>
         <span className={"text-sm text-gray-400 italic font-open-sans block text-center"}>Users will receive the punishment you specify here after receiving the amount of warns you&apos;ve specified here.</span>
-    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-4"}>
-        <div className={"flex flex-row justify-center flex-1 w-full py-2 gap-10"}>
-        <div className={"self-stretch "}>
-        <section className={"flex flex-col items-center justify-between gap-2"}>
-            <span className={"text-xl font-open-sans my-3 text-center"}>Punishment</span>
-            <span className={"flex-1 flex items-center"}><Controller control={control} name={'punishment'} render={({ field }) => {
-            return <PunishmentSelect onChange={(e) => { setSuccess(false); field.onChange(e.type) }} value={field.value} />
-            } }/></span>
-        </section>
-        </div>
-         
-        <div className={" self-stretch"}>
-        <section className={"flex flex-col items-center justify-between gap-2"}>
-            <span className={"text-xl font-open-sans my-3 text-center"}>Warn Count</span>
-            <span className={"flex-1 flex items-center"}><Controller control={control} name={'warns'} render={({ field }) => {
-            return <NumberBox className={"w-10"} max={999} Icon={BsExclamationTriangle}  onChange={(e) => { setSuccess(false); field.onChange(e)}} value={field.value} />
-            } }/></span>
-        </section>
-        </div>
-
+    <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-2"}>
+        <div className={"flex flex-row justify-center items-center font-open-sans text-lg max-sm:text-base bg-gray-900/70 my-2 mx-2 rounded-2xl"}>
+        <span className={'bg-gray-950 self-stretch w-full'}><Controller control={control} name={'punishment'} render={({ field }) => {
+            return <PunishmentSelect disable={['WARN', 'DELETE_MESSAGE']} className={'rounded-none rounded-l-2xl'} onChange={(e) => { setSuccess(false); field.onChange(e.type) }} value={field.value} />
+            } }/>
+            </span>
+            <span className={"border-y border-gray-800 px-2 self-stretch flex items-center"}>every</span>
+            <span className={'bg-gray-950 self-stretch w-full'}><Controller control={control} name={'warns'} render={({ field }) => {
+            return <Input className={'rounded-none'} max={999} min={0} type={'number'} onChange={(e) => { setSuccess(false); field.onChange(e)}} value={field.value} />
+            } }/>
+            </span>
+            <span className={"border border-l-0 rounded-r-2xl border-gray-800 px-2 self-stretch flex items-center"}>warns</span>
         </div>
         
-        <button type='submit' className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black  hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`}>
-        {success ? (<><BsCheckLg/> Updated!</>) : (<><BsExclamationTriangle/> Change Warns Threshold</>) }
-        </button>
+        <Button type='submit' variant={"outline"} className={`flex items-center gap-2 w-fit mx-auto`}>
+        {success ? (<><BsCheckLg/> Updated!</>) : (<><BsExclamationTriangle/> Update</>) }
+        </Button>
     </form>
-    </section>
-    </div>;
+    </section>;
 }
