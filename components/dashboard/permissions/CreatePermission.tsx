@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 import { useContext, useState } from 'react';
 import { BsCheck, BsDiscord, BsPeople, BsShield, BsShieldCheck, BsX } from 'react-icons/bs';
 import DashboardActionContext from '@/context/DashboardActionContext';
-import Roles from '@/components/input/Roles';
+import Roles from '@/components/ui/roles';
 import TextBox from '@/components/input/TextBox';
 type PermissionBody = { allowed: boolean, permission: string, user?: string, role?: string };
 export default function CreatePermission({ serverID }: { serverID: string }) {

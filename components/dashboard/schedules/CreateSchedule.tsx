@@ -8,7 +8,7 @@ import { BsCalendar, BsChatLeftDots, BsClock, BsMegaphone, BsRepeat, BsTextLeft 
 import "react-datepicker/dist/react-datepicker.css"; 
 import DashboardActionContext from '@/context/DashboardActionContext';
 import DatePicker from 'react-datepicker';
-import Channels from '@/components/input/Channels';
+import Channels from '@/components/ui/channels';
 import NumberBox from '@/components/input/NumberBox';
 import EmbedSettings from '@/components/input/EmbedSettings';
 import TimestampBox from '@/components/input/TimestampBox';

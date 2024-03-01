@@ -1,39 +1,20 @@
 import { BsHash, BsX } from "react-icons/bs";
 import { useQuery } from "react-query";
-import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue  } from "../ui/select";
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue  } from "./select";
+import { ChannelsType } from "../../lib/types/ChannelsType";
+import { sortChannels } from "@/lib/sortChannels";
 interface ChannelsInputProps {
     readonly serverID: string;
     readonly onChange: (e: { channel: string | undefined }) => void;
     readonly required?: boolean;
     readonly value?: string;
 }
-type ChannelsType = {
-    id: string;
-    name: string;
-    type: number;
-    parentId: string | null;
-    rawPosition: number;
-}
 export default function Channels({ serverID, onChange, value, required }: ChannelsInputProps) {
     let { data: channels } = useQuery<ChannelsType[]>(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     if (!channels || 'error' in channels ) return <></>;
-    const data = channels.filter((i) => [0,5].includes(i.type)).reduce((acc: (ChannelsType & { children: ChannelsType[]})[], i) => {
-      const parent = acc.find((c) => i.parentId ? c.id === i.parentId : c.id === "");
-        if (!parent) {
-          if (!i.parentId)  {
-            acc.push({ id: "", name: "", parentId: "", type: 4, rawPosition: -1, children: [i] });
-          } else {
-          const dataParent = channels?.find((c) => c.id === i.parentId);
-          if (dataParent) acc.push({ ...dataParent, children: [i] });
-          }
-        } else {
-          parent.children.push(i);
-        }
-
-        return acc;
-    }, []);
+    const data = sortChannels(channels);
 
     return (<span>
             <Select required={required} value={value} onValueChange={(i) => onChange({ channel: i ?? '' })}>

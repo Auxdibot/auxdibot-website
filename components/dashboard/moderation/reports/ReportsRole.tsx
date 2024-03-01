@@ -3,7 +3,7 @@
 import { BsAt, BsCheckLg, BsMegaphone } from "react-icons/bs";
 import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import Roles from "@/components/input/Roles";
+import Roles from "@/components/ui/roles";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 export default function ReportsRole({ server }: { server: { readonly serverID: string, readonly report_role: string }}) {

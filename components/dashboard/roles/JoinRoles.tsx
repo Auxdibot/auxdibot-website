@@ -5,7 +5,7 @@ import { BsDoorOpen } from "react-icons/bs";
 import { useContext } from "react";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { useQueryClient } from "react-query";
-import Roles from "@/components/input/Roles";
+import Roles from "@/components/ui/roles";
 import JoinRole from "./JoinRole";
 
 type JoinRolesBody = { role: string };

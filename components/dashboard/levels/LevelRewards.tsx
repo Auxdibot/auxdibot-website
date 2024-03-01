@@ -1,7 +1,7 @@
 "use client";
 
 import NumberBox from "@/components/input/NumberBox";
-import Roles from "@/components/input/Roles";
+import Roles from "@/components/ui/roles";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { Suspense, useContext, useState } from 'react';
 import { Controller, useForm } from "react-hook-form";

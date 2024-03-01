@@ -1,17 +1,24 @@
 "use client";
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { useContext, useState } from 'react';
-import { BsBell, BsChatLeftDots, BsLink, BsMegaphone, BsQuestion, BsRss, BsTwitch, BsWifi, BsX, BsYoutube } from 'react-icons/bs';
-import DashboardActionContext from '@/context/DashboardActionContext';
+
+import { BsBell, BsChatLeftDots, BsLink, BsMegaphone, BsQuestion, BsRss, BsTextLeft, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
+
 import { APIEmbed } from 'discord-api-types/v10';
 import MockEmbed from '@/components/MockEmbed';
 import EmbedSettings from '@/components/input/EmbedSettings';
-import SelectElement from '@/components/input/SelectElement';
-import TextBox from '@/components/input/TextBox';
-import Channels from '@/components/input/Channels';
+import Channels from '@/components/ui/channels';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { NotificationNames } from '@/lib/constants/NotificationNames';
+import { Input } from '@/components/ui/input';
+import { TextareaMessage } from '@/components/ui/textarea-message';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
+import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 type NotificationBody = { type: string, topic: string, embed: APIEmbed, message: string, channel: string };
-const NotificationIcons = {
+const NotificationSelect = {
     'YOUTUBE': <><BsYoutube/> YouTube Handle</>,
     'TWITCH': <><BsTwitch/> Twitch Username</>,
     'RSS': <><BsRss/> RSS Feed URL</>
@@ -24,16 +31,13 @@ const FeedPlaceholders: { [key: string]: string } = {
 
 }
 export default function CreateNotification({ serverID }: { serverID: string }) {
-    const { handleSubmit, reset, control, register, watch } = useForm<NotificationBody>();
+    const { handleSubmit, reset, control, register, watch } = useForm<NotificationBody>({ defaultValues: { type: 'YOUTUBE', embed: { fields: [] }, channel: '', topic: '', message: '' }});
     const { append, remove } = useFieldArray({ name: 'embed.fields', control: control, rules: { maxLength: 25 } });
     const queryClient = useQueryClient();
-
-    const [embedExpand, setEmbedExpand] = useState(false);
-
     const embed = watch("embed");
     const type = watch("type");
-    const actionContext = useContext(DashboardActionContext);
-
+    const { toast } = useToast();
+    console.log(embed);         
     function onSubmit(data: NotificationBody) {
         let body = new URLSearchParams();
         body.append('channelID', data.channel);
@@ -42,22 +46,21 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         body.append('message', data.message);
         
         fetch(`/api/v1/servers/${serverID}/notifications`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries(['data_notifications', serverID]);
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully created a new notification.`, success: true })
-                reset();
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: "Failed to create notification", description: json['error'] ?? "An error occured", status: "error" })
+                return
             }
+            queryClient.invalidateQueries(["data_notifications", serverID])
+            toast({ title: "Notification Created", description: `Notification was created.`, status: "success" })
+            reset();
+
         }).catch(() => {})
     }
     return <>
-    <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Notification Feed</h2>
-    <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
+    <div className={"flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Notification Feed</h2>
+    <p className={"text-gray-400 font-open-sans md:ml-4 max-md:w-full max-md:text-center text-base italic"}><span className={"text-red-500"}>*</span> = required field</p>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
@@ -68,39 +71,53 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsWifi/> Type:</span>
             <Controller name={"type"} control={control} render={({ field }) => {
-            return <SelectElement onChange={field.onChange} value={field.value} required options={[
-                { icon: <BsYoutube/>, name: 'YouTube', value: 'YOUTUBE' },
-                { icon: <BsTwitch/>, name: 'Twitch', value: 'TWITCH' },
-                { icon: <BsRss/>, name: 'RSS Feed', value: 'RSS' },
-            ]}/>
+            return <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger className={'w-fit'}>
+                    <SelectValue placeholder={'Select a feed type'} />
+                </SelectTrigger>
+                <SelectContent>
+                    {Object.keys(NotificationNames).map((i) => <SelectItem className={'group'} key={i} value={i}><span className={"flex items-center gap-2 group-hover:gap-3 px-2 transition-all"}>{NotificationNames[i as keyof typeof NotificationNames]}</span></SelectItem>)}
+
+                </SelectContent>
+            </Select>
             }}/>
         </label>
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
-            <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> {NotificationIcons[type as keyof typeof NotificationIcons] ?? <><BsLink/> Topic</>}:</span>
-            <Controller name={"topic"} control={control} render={({ field }) => {
-            return <TextBox value={field.value} onChange={field.onChange} Icon={type == 'YOUTUBE' ? BsYoutube : type == 'RSS' ? BsRss : type == 'TWITCH' ? BsTwitch : BsLink}/>
-            }}/>
+            <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> {NotificationSelect[type as keyof typeof NotificationSelect] ?? <><BsLink/> Topic</>}:</span>
+            <Input className='w-fit' {...register('topic', { required: true })}/>
         </label>
         {<FeedPlaceholdersList/>}
-        <label className={"flex flex-col gap-2 max-md:items-center font-open-sans text-xl"}>
+        <section className={"flex flex-col gap-2 max-md:items-center w-full font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
-            <textarea className={"rounded-md font-roboto text-lg w-full"} cols={2} {...register("message")}/>
-        </label>
-        <section className={"my-4 w-full flex flex-col max-lg:justify-center max-lg:items-center"}>
+            <Controller name={'message'} control={control} render={({ field }) => (
+                <TextareaMessage wrapperClass={'w-full'} maxLength={2000} serverID={serverID} {...field}/>
+            )}></Controller>
+        </section>
+        <section className={"w-full flex flex-col max-md:justify-center max-md:items-center"}>
+        <span className={'flex max-md:flex-col gap-5 mb-5 justify-between items-center'}>
+        <Dialog>
+        <DialogTrigger asChild>
+            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
+        </DialogTrigger>
+        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
         <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings addField={append} register={register} removeField={remove} control={control} value={field.value} />
+                <EmbedSettings serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
         )}></Controller>
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 max-md:mx-auto"}><span className={"border text-white rounded-2xl w-fit p-2 hover-gradient transition-all hover:text-black hover:border-black text-xl cursor-pointer"} onClick={() => setEmbedExpand(!embedExpand)}><BsChatLeftDots/></span> View Embed</span>
-        <span className={embedExpand ? "" : "hidden"}>
+        </DialogContent>
+        </Dialog>
+        <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'default'} type="submit">
+            <BsBell/> Create Notification
+        </Button>
+        </span>
+        
+        <span className={'px-2'}>
         {embed ? <MockEmbed embed={JSON.parse(Object.keys(FeedPlaceholders).reduce((acc: string, i) => acc.replace(i, FeedPlaceholders[i]), JSON.stringify(embed)))}/> : ""}
         </span>
         
         </section>
         
         
-        <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            <BsBell/> Create Notification
-        </button>
+       
     </form>
     
     </div>
@@ -109,17 +126,33 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
     
 }
 function FeedPlaceholdersList() {
-    const [placeholders, viewPlaceholders] = useState(false);
+
     return <span className={'text-xl max-md:text-base font-open-sans flex items-center gap-2 justify-center mt-4'}>
         <span>Placeholders are supported</span>
-        <span className={'rounded-2xl border cursor-pointer hover:hover-gradient hover:text-black hover:border-black transition-all'} onClick={() => viewPlaceholders(true)}><BsQuestion /></span>
-        {placeholders && <div className={"fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-50 flex z-50 justify-center items-center"}>
-            <div className={"bg-auxdibot-masthead bg-black border-2 border-slate-800 rounded-2xl max-w-lg items-center flex flex-col text-center p-5 gap-5 max-md:gap-3"}>
-                <h1 className={"text-3xl font-montserrat flex max-md:flex-col-reverse items-center gap-2"}>Placeholders <span className={'rounded-2xl border cursor-pointer hover:hover-gradient hover:text-black hover:border-black transition-all'} onClick={() => viewPlaceholders(false)}><BsX /></span></h1>
-                <span>When you include a placeholder in your message or embed content, Auxdibot will automatically fill it in with the data required.</span>
-                {Object.keys(FeedPlaceholders).map((i) => <div className={"flex flex-row gap-2"} key={i}><span>{i}</span> - <span>{FeedPlaceholders[i]}</span></div>)}
-            </div>
+        <AlertDialog>
+        <AlertDialogTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+                <BsQuestion className={'text-2xl'}/>
+            </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+                <AlertDialogTitle className={'font-montserrat text-xl'}>Placeholders</AlertDialogTitle>
+                <AlertDialogDescription>When you include a placeholder in your message or embed content, Auxdibot will automatically fill it in with the data required.
+                    <br/>
+                    <ul className={'list-disc pl-5 my-2'}>
+                    {Object.keys(FeedPlaceholders).map((i) => <li key={i}><span className={'font-bold'}>{i}</span> - {FeedPlaceholders[i]}</li>)}
+                    </ul>
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogAction variant={'outline'} className={'w-fit '}>
+                    Okay
+                </AlertDialogAction>
+            </AlertDialogFooter>
+            
+        </AlertDialogContent>
+        </AlertDialog>
 
-        </div>}
     </span>;
 }

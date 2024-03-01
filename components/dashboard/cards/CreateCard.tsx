@@ -4,7 +4,7 @@ import { BsCardImage, BsMoonStars, BsPlus, BsSun, BsX } from 'react-icons/bs';
 import ColorPicker from '@/components/ui/color-picker';
 import { CardFonts } from '@/lib/constants/CardFonts';
 import { CardFont } from '@/lib/types/CardFont';
-import Channels from '@/components/input/Channels';
+import Channels from '@/components/ui/channels';
 import { useQueryClient } from 'react-query';
 import { GradientTemplates } from '@/lib/constants/GradientTemplates';
 import { CardGradients } from '@/lib/types/CardGradients';

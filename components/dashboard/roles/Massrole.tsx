@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { useQuery } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
 import { Controller, useForm } from "react-hook-form";
-import Roles from "@/components/input/Roles";
+import Roles from "@/components/ui/roles";
 
 type MassroleBody = { roleID: string, give: boolean }
 export default function Massrole({ serverID }: { serverID: string }) {

@@ -4,7 +4,7 @@ import { BsCheckLg, BsQuestionCircle } from "react-icons/bs";
 import { useContext, useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-import Channels from "@/components/input/Channels";
+import Channels from "@/components/ui/channels";
 export default function SuggestionsChannel({ server }: { server: { serverID: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
