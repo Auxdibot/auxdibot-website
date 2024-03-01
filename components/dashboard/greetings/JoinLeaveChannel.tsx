@@ -5,7 +5,7 @@ import { PiHandWavingLight } from "react-icons/pi";
 import { useContext, useState } from 'react'; 
 import { useQuery } from "react-query";
 import DashboardActionContext from "@/context/DashboardActionContext";
-import Channels from "@/components/input/Channels";
+import Channels from "@/components/ui/channels";
 export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));

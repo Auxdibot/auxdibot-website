@@ -1,6 +1,6 @@
 import { BsAt, BsX } from "react-icons/bs";
 import { useQuery } from "react-query";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 interface RolesInputProps {
     readonly serverID: string;
     readonly onChange: (e: { role?: string }) => void;

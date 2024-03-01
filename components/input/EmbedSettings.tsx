@@ -1,7 +1,11 @@
 import { APIEmbed } from "discord-api-types/v10";
 import { Control, Controller, UseFieldArrayAppend, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
-import { BsImage, BsListTask, BsPerson, BsPlus, BsTextCenter, BsTextarea, BsX } from "react-icons/bs";
+import { BsEyedropper, BsImage, BsListTask, BsPerson, BsPlus, BsTextCenter, BsTextLeft, BsTextarea, BsTrash } from "react-icons/bs";
 import ColorPicker from "../ui/color-picker";
+import { Input } from "../ui/input";
+import { TextareaMessage } from "../ui/textarea-message";
+import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
 
 interface EmbedSettingsProps {
     readonly value: APIEmbed;
@@ -9,49 +13,73 @@ interface EmbedSettingsProps {
     readonly control: Control<any & { embed: APIEmbed}>;
     readonly addField: UseFieldArrayAppend<any, "embed.fields">;
     readonly removeField: UseFieldArrayRemove;
+    readonly serverID?: string;
 }
-export default function EmbedSettings({ value, register, control, addField, removeField }: EmbedSettingsProps) {
+export default function EmbedSettings({ value, register, control, addField, removeField, serverID }: EmbedSettingsProps) {
     
-    return (<div>
+    return (<div className={'max-md:px-2'}>
+        <h1 className={'font-montserrat text-2xl flex items-center gap-2'}><BsTextLeft/> Embed Settings</h1>
         <section className={"my-5 flex flex-col gap-2"}>
-        <span className={"max-md:mx-auto"}><Controller control={control} name={"embed.color"} render={({ field }) => {
-        return <ColorPicker value={field.value?.toString(16).padStart(6, '0')} onChange={field.onChange}/>
-        }}/> </span>
-        <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(leave empty for no color)</span>
-        <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsPerson/> Author</span>
-        <span className={"grid w-full grid-cols-3 gap-3"}>
-        <input placeholder='Author Name' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} maxLength={256} type="text" {...register("embed.author.name", { maxLength: 256 })}/>
-        <input placeholder='Author URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.author.url")}/>
-        <input placeholder='Author Icon URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.author.icon_url")}/>
-        </span>
-        
-        <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsTextCenter/> Title</span>
-        <span className={"grid w-full grid-cols-3 gap-3"}>
-        <input placeholder='Embed Title' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} maxLength={256} type="text" {...register("embed.title", { maxLength: 256 })}/>
-        <input placeholder='Embed URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.url")}/>
-        <input placeholder='Embed Thumbnail URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.thumbnail.url")}/>
-        </span>
-        <textarea placeholder='Embed description here...' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} maxLength={4096} {...register("embed.description", { maxLength: 4096 })}/>
-        <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsListTask/> Fields</span>
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 justify-center"}><span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => (value?.fields?.length || 0) < 25 ? addField({ name: "", value: "" }, { shouldFocus: false }) : {}}><BsPlus/></span> Add Field</span>
-        <ul className={"flex flex-col gap-2 my-3"}>
-            {value?.fields?.map((_item, index) => <li key={index} className={"flex flex-col gap-2"}>
-                <input className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md w-fit mx-auto"} placeholder='Field Name' maxLength={256} type="text" {...register(`embed.fields.${index}.name`, { maxLength: 256 })}/>
-                <textarea className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} placeholder='Field content here...' maxLength={1024} {...register(`embed.fields.${index}.value`, { maxLength: 1024 })}/>
-                <label className={"mx-auto text-md font-roboto flex flex-row gap-2 items-center"}>Inline? <input type="checkbox" {...register(`embed.fields.${index}.inline`)}/></label>
-                <span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer mx-auto"} onClick={() => removeField(index)}><BsX/></span>
-            </li>) || ""}
-        </ul>
-        
-        <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsTextarea/> Footer</span>
-        <span className={"grid w-full grid-cols-3 gap-3"}>
-        <input placeholder='Footer text' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md col-span-2"} type="text" {...register("embed.footer.text", { maxLength: 2048 })}/>
-        <input placeholder='Footer icon URL' className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md"} type="url" {...register("embed.footer.icon_url")}/>
-        </span>
-        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans text-xl my-5"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsImage/> Embed Image:</span>
-            <input className={"placeholder:text-gray-500 px-1 rounded-md font-roboto text-md col-span-2"} type="url" {...register("embed.image.url")}/>
+
+<span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsPerson/> Author</span>
+<span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
+<Input placeholder='Author Name' maxLength={256} type="text" {...register("embed.author.name", { maxLength: 256 })}/>
+<Input placeholder='Author URL' type="url" {...register("embed.author.url")}/>
+<Input placeholder='Author Icon URL' type="url" {...register("embed.author.icon_url")}/>
+</span>
+
+<span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsTextCenter/> Title</span>
+<span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
+<Input placeholder='Embed Title' maxLength={256} type="text" {...register("embed.title", { maxLength: 256 })}/>
+<Input placeholder='Embed URL' type="url" {...register("embed.url")}/>
+<Input placeholder='Embed Thumbnail URL' type="url" {...register("embed.thumbnail.url")}/>
+</span>
+<Controller control={control} name={"embed.description"} render={({ field }) => {
+    return <TextareaMessage serverID={serverID} placeholder='Embed description here...' className={"placeholder:text-gray-500 rounded-md font-roboto text-md"} maxLength={4096} {...field}/>
+}
+}/>
+<span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsListTask/> Fields</span>
+<span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 my-3 justify-center"}><span className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => (value?.fields?.length || 0) < 25 ? addField({ name: "", value: "" }, { shouldFocus: false }) : {}}><BsPlus/></span> Add Field</span>
+<ul className={"flex flex-col gap-2 my-3"}>
+    {value?.fields?.map((_item, index) => <li key={index} className={"flex flex-col gap-2"}>
+        <h3 className={'font-montserrat mx-auto'}>Field #{index+1}</h3>
+        <span className={'flex items-center gap-5 mx-auto max-md:flex-col'}>
+        <label className={"text-md justify-center font-open-sans flex flex-row gap-2 items-center flex-1"}>Inline? 
+        <Controller name={`embed.fields.${index}.inline`} control={control} render={({ field }) => {
+            return <Checkbox onCheckedChange={(e) => field.onChange(!!e.valueOf())} value={field.value}/>
+        }}/>
         </label>
-        </section>
-    </div>)
+        <Input placeholder='Field Name' maxLength={256} type="text" className={'flex-1 min-w-[200px]'} {...register(`embed.fields.${index}.name`, { maxLength: 256 })}/>
+
+        <span className={'flex-1'}><Button className={'gap-1'} type="button" onClick={() => removeField(index)} variant={'destructive'}><BsTrash/> Delete</Button></span>
+        </span>
+        <Controller control={control} name={`embed.fields.${index}.value`} render={({ field }) => {
+    return <TextareaMessage serverID={serverID} placeholder='Embed field description here...' maxLength={1024} {...field}/>
+     }
+        }/>
+    </li>) || ""}
+</ul>
+
+<span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsTextarea/> Footer</span>
+<span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
+<Input placeholder='Footer text' type="text" className={'sm:col-span-2'} maxLength={2048} {...register("embed.footer.text", { maxLength: 2048 })}/>
+<Input placeholder='Footer Icon URL' type="url" {...register("embed.footer.icon_url")}/>
+</span>
+<span className={"flex max-md:flex-col max-md:gap-5 w-full justify-center mx-auto max-w-2xl my-5"}>
+<section className={"flex flex-col self-stretch justify-between items-center gap-2 font-montserrat text-xl flex-1 mx-auto"}>
+    <label className={"flex flex-row gap-2 text-lg items-center"}><BsImage/> Embed Image:</label>
+    <Input type="url" {...register("embed.image.url")}/>
+</section>
+<section className={'flex-1 flex items-center  flex-col'}>
+<label className={"flex gap-2 items-center font-montserrat text-lg text-left"}><BsEyedropper/> Embed Color:</label>
+<span className={"max-md:mx-auto self-center"}><Controller control={control} name={"embed.color"} render={({ field }) => {
+return <ColorPicker value={field.value?.toString(16).padStart(6, '0')} onChange={field.onChange}/>
+}}/> </span>
+</section>
+
+</span>
+
+
+</section>
+</div>)
 }
