@@ -1,6 +1,6 @@
 "use client";
 
-import DashboardCardsConfig from "@/components/dashboard/cards/DashboardCardsConfig";
+import DashboardCardsConfig from '@/components/dashboard/cards/DashboardCardsConfig';
 import DashboardSidebarContext from "@/context/DashboardSidebarContext";
 import { useContext } from 'react';
 
