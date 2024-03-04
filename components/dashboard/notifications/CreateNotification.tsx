@@ -2,7 +2,7 @@
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 
-import { BsBell, BsChatLeftDots, BsLink, BsMegaphone, BsQuestion, BsRss, BsTextLeft, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
+import { BsBell, BsChatLeftDots, BsEye, BsLink, BsMegaphone, BsRss, BsTextLeft, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
 
 import { APIEmbed } from 'discord-api-types/v10';
 import MockEmbed from '@/components/MockEmbed';
@@ -15,8 +15,7 @@ import { TextareaMessage } from '@/components/ui/textarea-message';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Separator } from '@/components/ui/separator';
 type NotificationBody = { type: string, topic: string, embed: APIEmbed, message: string, channel: string };
 const NotificationSelect = {
     'YOUTUBE': <><BsYoutube/> YouTube Handle</>,
@@ -86,31 +85,32 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> {NotificationSelect[type as keyof typeof NotificationSelect] ?? <><BsLink/> Topic</>}:</span>
             <Input className='w-fit' {...register('topic', { required: true })}/>
         </label>
-        {<FeedPlaceholdersList/>}
+
         <section className={"flex flex-col gap-2 max-md:items-center w-full font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
             <Controller name={'message'} control={control} render={({ field }) => (
-                <TextareaMessage wrapperClass={'w-full'} maxLength={2000} serverID={serverID} {...field}/>
+                <TextareaMessage placeholderContext={['feed']} wrapperClass={'w-full'} maxLength={2000} serverID={serverID} {...field}/>
             )}></Controller>
         </section>
         <section className={"w-full flex flex-col max-md:justify-center max-md:items-center"}>
-        <span className={'flex max-md:flex-col gap-5 mb-5 justify-between items-center'}>
+        <span className={'flex max-md:flex-col gap-5 justify-between items-center'}>
         <Dialog>
         <DialogTrigger asChild>
             <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
         </DialogTrigger>
         <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
         <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
+                <EmbedSettings placeholderContext={['feed']} serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
         )}></Controller>
         </DialogContent>
         </Dialog>
-        <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'default'} type="submit">
+        <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
             <BsBell/> Create Notification
         </Button>
         </span>
-        
-        <span className={'px-2'}>
+        <Separator className={'my-2'} />
+        <span className={'max-md:px-2'}>
+        <h1 className={'font-montserrat text-xl flex items-center gap-2 my-2'}><BsEye/> Embed Preview</h1>
         {embed ? <MockEmbed embed={JSON.parse(Object.keys(FeedPlaceholders).reduce((acc: string, i) => acc.replace(i, FeedPlaceholders[i]), JSON.stringify(embed)))}/> : ""}
         </span>
         
@@ -124,35 +124,4 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
     </>;
 
     
-}
-function FeedPlaceholdersList() {
-
-    return <span className={'text-xl max-md:text-base font-open-sans flex items-center gap-2 justify-center mt-4'}>
-        <span>Placeholders are supported</span>
-        <AlertDialog>
-        <AlertDialogTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-                <BsQuestion className={'text-2xl'}/>
-            </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-            <AlertDialogHeader>
-                <AlertDialogTitle className={'font-montserrat text-xl'}>Placeholders</AlertDialogTitle>
-                <AlertDialogDescription>When you include a placeholder in your message or embed content, Auxdibot will automatically fill it in with the data required.
-                    <br/>
-                    <ul className={'list-disc pl-5 my-2'}>
-                    {Object.keys(FeedPlaceholders).map((i) => <li key={i}><span className={'font-bold'}>{i}</span> - {FeedPlaceholders[i]}</li>)}
-                    </ul>
-                </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-                <AlertDialogAction variant={'outline'} className={'w-fit '}>
-                    Okay
-                </AlertDialogAction>
-            </AlertDialogFooter>
-            
-        </AlertDialogContent>
-        </AlertDialog>
-
-    </span>;
 }

@@ -8,6 +8,8 @@ import Channels from '@/components/ui/channels';
 import { TextareaMessage } from '@/components/ui/textarea-message';
 import { useToast } from '@/components/ui/use-toast';
 import { useQuery } from 'react-query';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 type EmbedBody = { message: string; channel: string; embed: APIEmbed; }
 export default function DashboardEmbedsConfig({ id }: { id: string }) {
@@ -23,7 +25,6 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     const { toast } = useToast();
     function onSubmit(data: EmbedBody) {
         let body = new URLSearchParams();
-        console.log(data.embed);
         body.append('channel', data.channel || '');
         body.append('message', data.message || '');
         if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
@@ -48,7 +49,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         <span className={"flex flex-row max-xl:flex-col gap-10 w-full"}>
         <div className={"flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
     <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Embed</h2>
-    <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
+    <p className={"text-gray-400 font-open-sans md:ml-4 max-md:w-full max-md:text-center text-base italic"}><span className={"text-red-500"}>*</span> = required field</p>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
@@ -58,21 +59,26 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         <section className={"flex flex-col gap-2 w-full max-md:items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsChatLeftDots/> Message:</span>
             <Controller name={'message'} control={control} render={({ field }) => (
-                <TextareaMessage className={'w-full'} serverID={id} {...field}/>
+                <TextareaMessage maxLength={2000} wrapperClass={'w-full'} serverID={id} {...field}/>
             )}/>
         </section>
-        
-        <span className={"flex flex-row gap-2 items-center mx-auto font-open-sans text-xl"}><BsTextLeft/> Embed Settings</span>
-        <span className={"text text-gray-500 italic text-sm text-center"}>(lexve empty for no embed)</span>
+        <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
+        <Dialog>
+        <DialogTrigger asChild>
+            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
+        </DialogTrigger>
+        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
         <Controller name={'embed'} control={control} render={({ field }) => {
-            console.log(' embed');
-            console.log(field.value);
-            console.log(' embed');
             return <EmbedSettings  serverID={id}  control={control} addField={append} register={register} removeField={remove} value={({...field.value, fields})} />;
         }}/>
-        <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            <BsBroadcast/> Send Embed
-        </button>
+        </DialogContent>
+        </Dialog>
+
+        <Button variant={'outline'} className={`flex flex-row gap-2 items-center`} type="submit">
+            <BsBroadcast/> Send Message
+        </Button>
+        </section>
+        
     </form>
     
     </div>

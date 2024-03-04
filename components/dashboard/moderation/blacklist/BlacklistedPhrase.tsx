@@ -22,7 +22,7 @@ export default function BlacklistedPhrase({ phrase, serverID, index }: { readonl
             }
             toast({
                 title: "Phrase Deleted",
-                description: `The phrase has been deleted from the blacklist.`,
+                description: `The phrase "${phrase}" has been deleted from the blacklist.`,
                 status: "success",
             })
             queryClient.invalidateQueries(['data_moderation', serverID]);
