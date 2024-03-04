@@ -23,10 +23,10 @@ const NotificationSelect = {
     'RSS': <><BsRss/> RSS Feed URL</>
 }
 const FeedPlaceholders: { [key: string]: string } = {
-    '%feed_link%': '[[ LINK TO CONTENT ]]',
-    '%feed_author%': '[[ CONTENT AUTHOR ]]',
-    '%feed_title%': '[[ CONTENT TITLE ]]',
-    '%feed_content%': '[[ FEED CONTENT ]]'
+    '{%feed_link%}': '[[ LINK TO CONTENT ]]',
+    '{%feed_author%}': '[[ CONTENT AUTHOR ]]',
+    '{%feed_title%}': '[[ CONTENT TITLE ]]',
+    '{%feed_content%}': '[[ FEED CONTENT ]]'
 
 }
 export default function CreateNotification({ serverID }: { serverID: string }) {
@@ -43,7 +43,9 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         body.append('type', data.type);
         body.append('topicURL', data.topic);
         body.append('message', data.message);
-        
+        if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
+            body.append('embed', JSON.stringify(data.embed));
+        }
         fetch(`/api/v1/servers/${serverID}/notifications`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {

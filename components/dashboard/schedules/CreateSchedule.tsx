@@ -1,20 +1,25 @@
 "use client";
 import MockEmbed from '@/components/MockEmbed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
-import { useContext, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsCalendar, BsChatLeftDots, BsClock, BsMegaphone, BsRepeat, BsTextLeft } from 'react-icons/bs';
+import { BsBell, BsCalendar, BsChatLeftDots, BsClock, BsEye, BsMegaphone, BsRepeat, BsTextLeft } from 'react-icons/bs';
 import "react-datepicker/dist/react-datepicker.css"; 
-import DashboardActionContext from '@/context/DashboardActionContext';
-import DatePicker from 'react-datepicker';
 import Channels from '@/components/ui/channels';
-import NumberBox from '@/components/input/NumberBox';
+
 import EmbedSettings from '@/components/input/EmbedSettings';
 import TimestampBox from '@/components/input/TimestampBox';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { TextareaMessage } from '@/components/ui/textarea-message';
+import { DatePicker } from '@/components/ui/date-picker';
+import { useToast } from '@/components/ui/use-toast';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
-    const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>();
+    const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>({ defaultValues: { embed: { fields: [] }, channel: '', duration: '', message: '', times_to_run: 0 }});
+    const { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -23,8 +28,8 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         }
     });
     const queryClient = useQueryClient();
-    const [embedExpand, setEmbedExpand] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+
+    const { toast } = useToast();
     function onSubmit(data: ScheduleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel);
@@ -35,24 +40,23 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
             body.append('embed', JSON.stringify(data.embed));
         }
         body.append('times_to_run', data.times_to_run?.toString() || "")
-        fetch(`/api/v1/servers/${serverID}/schedules`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries(['data_schedules', serverID]);
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully created a new schedule.`, success: true })
-                reset({ embed: undefined, duration: "", times_to_run: 0, channel: undefined, message: '', start_date: undefined });
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+        fetch(`/api/v1/servers/${serverID}/schedules`, { method: 'POST', body }).then(async (res) => {
+            const json = await res.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: "Failed to create schedule", description: json['error'] ?? "An error occured", status: "error" })
+                return
             }
+            toast({ title: "Schedule Created", description: `Scheduled a message in #${channels.find((i: { id: string, name: string }) => i.id == data.channel)?.name ?? 'Unknown'}`, status: "success" })
+        
+            queryClient.invalidateQueries(['data_schedules', serverID]);
+            reset();
         }).catch(() => {})
     }
     const embed = watch("embed");
     return <>
-    <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Schedule</h2>
-    <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
+    <div className={"flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Schedule</h2>
+    <p className={"text-gray-400 font-open-sans md:ml-4 max-md:w-full max-md:text-center text-base italic"}><span className={"text-red-500"}>*</span> = required field</p>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <span className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
@@ -63,45 +67,52 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
         
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span><BsClock/> Duration:</span>
-            <Controller name={'duration'} control={control} render={({ field }) => <TimestampBox onChange={field.onChange} value={field.value} /> }></Controller>
+            <Controller name={'duration'} control={control} render={({ field }) => <TimestampBox className={'w-48 border rounded-md border-gray-800'} onChange={field.onChange} value={field.value} /> }></Controller>
             
         </label>
-        <span className={"text text-gray-500 italic text-sm max-md:text-center"}>(ex. 5m for 5 minutes, 5M for 5 months, 2w for 2 weeks, and 1d for 1 day.)</span>
-        <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans text-xl"}>
-            <span className={"flex flex-row gap-2 items-center"}><BsCalendar/> Start Date (optional):</span>
+
+        <label className={"flex flex-row max-md:flex-col  gap-2 items-center font-open-sans text-xl"}>
+            <span className={"flex flex-row gap-2 items-center"}><BsCalendar/> Start Date:</span>
             <Controller name={'start_date'} control={control} render={({ field }) => (
-                <DatePicker dateFormat="MMM d, yyyy h:mm aa" weekDayClassName={() => {
-                    return "!bg-gray-700 !text-white"
-                }} dayClassName={() => {
-                    return "hover:!bg-gray-600 !text-white";
-                }} calendarClassName={"!bg-gray-600 !border !border-slate-500 !font-roboto !text-white !border header-styles"} selected={field.value} calendarStartDay={new Date().getDay()} showTimeInput onChange={field.onChange}  className={"rounded-md bg-gray-600 border border-slate-500 font-roboto w-fit text-lg"} allowSameDay/>
+                <DatePicker className={'w-fit'} value={field.value} onChange={field.onChange}/>
         )}></Controller>
             
         </label>
         <label className={"flex flex-row max-md:flex-col gap-2 items-center font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsRepeat/> Times to run:</span>
             <Controller name={'times_to_run'} control={control} render={({ field }) => (
-                <NumberBox Icon={BsRepeat} value={field.value} max={999} min={0} onChange={field.onChange}/>
+                <Input className={'w-16'} type='number' value={field.value} max={999} min={0} onChange={field.onChange}/>
         )}></Controller>
 
         </label>
         <label className={"flex flex-col gap-2 max-md:items-center font-open-sans text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
-            <textarea className={"rounded-md font-roboto text-lg w-full"} cols={2} {...register("message")}/>
+            <Controller name={'message'} control={control} render={({ field }) => (
+                <TextareaMessage placeholderContext={['schedule']} wrapperClass={'w-full'} maxLength={2000} serverID={serverID} {...field}/>
+            )}></Controller>
         </label>
-        
-        <span className={"flex flex-row gap-2 items-center mx-auto font-open-sans text-xl"}><BsTextLeft/> Embed Settings</span>
-        <span className={"text text-gray-500 italic text-sm text-center"}>(leave empty for no embed)</span>
+        <span className={'flex max-md:flex-col gap-5 justify-between items-center'}>
+        <Dialog>
+        <DialogTrigger asChild>
+            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
+        </DialogTrigger>
+        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
         <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings addField={append} register={register} removeField={remove} control={control} value={field.value} />
+                <EmbedSettings placeholderContext={['feed']} serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
         )}></Controller>
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2 max-md:mx-auto"}><span className={"border text-white rounded-2xl w-fit p-2 hover-gradient transition-all hover:text-black hover:border-black text-xl cursor-pointer"} onClick={() => setEmbedExpand(!embedExpand)}><BsChatLeftDots/></span> View Embed</span>
-        <span className={embedExpand ? "" : "hidden"}>
+        </DialogContent>
+        </Dialog>
+        <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
+            <BsBell/> Create Schedule
+        </Button>
+        </span>
+        <Separator className={'my-2'} />
+        <span className={'max-md:px-2'}>
+        <h1 className={'font-montserrat text-xl flex items-center gap-2 my-2'}><BsEye/> Embed Preview</h1>
         {embed ? <MockEmbed embed={embed}/> : ""}
         </span>
-        <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            <BsClock/> Submit Schedule
-        </button>
+
+
     </form>
     
     </div>

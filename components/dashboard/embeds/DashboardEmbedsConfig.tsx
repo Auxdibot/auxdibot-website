@@ -84,7 +84,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
     </div>
     <div className={"flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
         <h2 className={" secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Embed Preview</h2>
-        <span className={"md:p-5 w-full flex justify-center"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
+        <span className={"md:p-5 w-full flex justify-center my-2"}>{embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? <MockEmbed embed={embed}/> : ""}</span>
     </div>
         </span>
         </div>
