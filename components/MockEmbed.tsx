@@ -44,7 +44,7 @@ export default function MockEmbed({ embed }: { embed: APIEmbed }) {
 }
 export function MockEmbedTitle({ title, url }: { title: string, url?: string }) {
     let titleSpan = <span className={"font-semibold text-lg break-words whitespace-pre-line text-roboto"}>{title || ""}</span>;
-    return (url ? <Link className={"hover:underline underline-offset-1 text-sky-400"} href={url}>{titleSpan}</Link> : titleSpan)
+    return (url ? <Link className={"hover:underline underline-offset-1 text-sky-400"} target={'_blank'} href={url}>{titleSpan}</Link> : titleSpan)
 }
 export function MockEmbedAuthor({ author }: { author: APIEmbedAuthor }) {
     let authorSpan = <span className={"break-words whitespace-pre-line text-sm font-bold text-roboto"}>{ author.icon_url ? 
@@ -56,7 +56,7 @@ export function MockEmbedAuthor({ author }: { author: APIEmbedAuthor }) {
         width={24}
         height={24}
         /> : ""}{author.name || ""}</span>;
-    return (author.url ? <Link className={"hover:underline"} href={author.url}>{authorSpan}</Link> : authorSpan)
+    return (author.url ? <Link className={"hover:underline"} target={'_blank'} href={author.url}>{authorSpan}</Link> : authorSpan)
 }
 export function MockEmbedFooter({ footer }: { footer: APIEmbedFooter }) {
     return (<span className={"flex flex-row gap-2 items-center break-words whitespace-pre-line text-xs font-medium font-roboto"}>{ footer.icon_url ? 

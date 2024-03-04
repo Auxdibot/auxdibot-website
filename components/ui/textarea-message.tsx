@@ -3,7 +3,7 @@ import * as React from "react"
 
 import { Textarea } from "./textarea"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./dropdown-menu";
-import { BsAt, BsClock, BsHash, BsPlus } from "react-icons/bs";
+import { BsAt, BsClock, BsEmojiSmile, BsHash, BsPercent, BsPlus } from "react-icons/bs";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 import { useQuery } from "react-query";
@@ -14,24 +14,29 @@ import { useMediaQuery } from "react-responsive";
 import { Drawer, DrawerContent, DrawerTrigger } from "./drawer";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "./command";
 import { APIRole } from "discord-api-types/v10";
+import { EmojiList } from "../input/EmojiList";
+import ServerEmojiBody from "@/lib/types/ServerEmojis";
 
 
 export interface TextareaMessageProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     readonly serverID?: string;
     readonly wrapperClass?: string;
-
+    readonly placeholderContext?: string | string[];
   }
 
-function TextareaMessage({ className, serverID, wrapperClass, ...props }: TextareaMessageProps) {
+function TextareaMessage({ className, serverID, wrapperClass, placeholderContext, ...props }: TextareaMessageProps) {
   const { data: channelsRes } = useQuery(["channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
   const { data: roles } = useQuery<APIRole[]>(["roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: placeholdersRes } = useQuery<{placeholders: {[k: string]: { context: string | null, description?: string }} }>(["placeholders", serverID], async () => await fetch(`/api/v1/placeholders?${Array.isArray(placeholderContext) ? placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${placeholderContext ?? 'null'}`}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  
   const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
   
 
 
   const channels = !channelsRes || channelsRes['error'] ? [] : sortChannels(channelsRes);
-
+  const placeholders = placeholdersRes?.placeholders ? Object.keys(placeholdersRes.placeholders) : [];
   function addText(text: string) {
     if (props.onChange) {
       props.onChange({ target: { value: (props.value ?? '') + text } } as any);
@@ -51,10 +56,12 @@ function TextareaMessage({ className, serverID, wrapperClass, ...props }: Textar
             <BsPlus />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className={'overflow-visible'}>
           <DropdownMenuLabel>Chat Components</DropdownMenuLabel>
           <DropdownMenuSeparator/> 
           <DropdownMenuGroup className={"flex flex-col items-start"}>
+
+
               {isDesktop ? <DropdownMenuSub>
                 <DropdownMenuSubTrigger className={'w-full gap-1'}>
                   <BsHash/> Channels
@@ -103,6 +110,8 @@ function TextareaMessage({ className, serverID, wrapperClass, ...props }: Textar
               </Command>
               </DrawerContent>
             </Drawer>)}
+
+
             {isDesktop ? <DropdownMenuSub>
                 <DropdownMenuSubTrigger className={'w-full gap-1'}>
                   <BsAt/> Roles
@@ -143,6 +152,69 @@ function TextareaMessage({ className, serverID, wrapperClass, ...props }: Textar
               </Command>
               </DrawerContent>
             </Drawer>)}
+
+
+            {isDesktop ? <DropdownMenuSub>
+                <DropdownMenuSubTrigger className={'w-full gap-1'}>
+                  <BsPercent/> Placeholders
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                  <ScrollArea className={'h-60  '}>
+                  <div className={' pr-6'}>
+                  {placeholders?.map && placeholders?.map((i: string) => <DropdownMenuItem className={'gap-2 items-center flex'} key={i} onClick={() => addText(`{%${i}%}`)}>{i.split('_').map((i) => i[0].toUpperCase() + i.slice(1).toLowerCase()).join(' ')}</DropdownMenuItem>)}
+                  </div>
+                  </ScrollArea>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub> :
+              (<Drawer>
+              <DrawerTrigger asChild>
+              <Button className={'w-full p-0 justify-start pl-2 gap-1'} variant={'link'}>
+                  <BsPercent/> Placeholders
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="w-full p-0">
+              <Command>
+              <CommandInput placeholder="Search placeholders..." />
+              <CommandEmpty>No placeholders found.</CommandEmpty>
+              <CommandGroup className={"max-h-[300px]"}>
+              {placeholders?.map && placeholders.map((i: string) => <CommandItem
+                    key={i}
+                    value={i}
+                    className={"flex items-center gap-2 hover:bg-gray-800 transition-all rounded-md cursor-pointer"}
+                      onSelect={() => {
+                          addText(`{%${i}%}`);
+                      }}
+                    >
+                    {i.split('_').map((i) => i[0].toUpperCase() + i.slice(1).toLowerCase()).join(' ')}
+                    </CommandItem>)}
+                      
+    </CommandGroup>
+              </Command>
+              </DrawerContent>
+            </Drawer>)}
+            {isDesktop ?  <DropdownMenuSub>
+                <DropdownMenuSubTrigger className={'w-full gap-1 overflow-visible'}>
+                  <BsEmojiSmile/> Emojis
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className={'overflow-visible'}>
+                  <EmojiList parseServerEmojis serverEmojis={serverEmojis} change={(e) => addText(e ?? '')}/>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub> :
+              (<Drawer>
+                <DrawerTrigger asChild>
+                <Button className={'w-full p-0 justify-start pl-2 gap-1'} variant={'link'}>
+                    <BsEmojiSmile/> Emojis
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent className="w-full p-0">
+                  <EmojiList parseServerEmojis serverEmojis={serverEmojis} change={(e) => addText(e ?? '')}/>
+                </DrawerContent>
+              </Drawer>)}
+
           </DropdownMenuGroup>
           <DropdownMenuSeparator/>
           <DropdownMenuItem className={'gap-2'} onClick={() => addText(`<t:${Math.round(Date.now()/1000)}>`)}><BsClock/> Add Current Time</DropdownMenuItem>

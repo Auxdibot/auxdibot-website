@@ -14,8 +14,9 @@ interface EmbedSettingsProps {
     readonly addField: UseFieldArrayAppend<any, "embed.fields">;
     readonly removeField: UseFieldArrayRemove;
     readonly serverID?: string;
+    readonly placeholderContext?: string | string[];
 }
-export default function EmbedSettings({ value, register, control, addField, removeField, serverID }: EmbedSettingsProps) {
+export default function EmbedSettings({ value, register, control, addField, removeField, serverID, placeholderContext }: EmbedSettingsProps) {
     
     return (<div className={'max-md:px-2'}>
         <h1 className={'font-montserrat text-2xl flex items-center gap-2'}><BsTextLeft/> Embed Settings</h1>
@@ -35,7 +36,7 @@ export default function EmbedSettings({ value, register, control, addField, remo
 <Input placeholder='Embed Thumbnail URL' type="url" {...register("embed.thumbnail.url")}/>
 </span>
 <Controller control={control} name={"embed.description"} render={({ field }) => {
-    return <TextareaMessage serverID={serverID} placeholder='Embed description here...' className={"placeholder:text-gray-500 rounded-md font-roboto text-md"} maxLength={4096} {...field}/>
+    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed description here...' className={"placeholder:text-gray-500 rounded-md font-roboto text-md"} maxLength={4096} {...field}/>
 }
 }/>
 <span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsListTask/> Fields</span>
@@ -54,7 +55,7 @@ export default function EmbedSettings({ value, register, control, addField, remo
         <span className={'flex-1'}><Button className={'gap-1'} type="button" onClick={() => removeField(index)} variant={'destructive'}><BsTrash/> Delete</Button></span>
         </span>
         <Controller control={control} name={`embed.fields.${index}.value`} render={({ field }) => {
-    return <TextareaMessage serverID={serverID} placeholder='Embed field description here...' maxLength={1024} {...field}/>
+    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed field description here...' maxLength={1024} {...field}/>
      }
         }/>
     </li>) || ""}
