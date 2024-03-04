@@ -10,7 +10,10 @@ import { useQueryClient } from 'react-query';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
-import { BsTrash } from 'react-icons/bs';
+import { BsEye, BsTrash } from 'react-icons/bs';
+import MockEmbed from '@/components/MockEmbed';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useState } from 'react';
 
 
 export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (serverID) => [
@@ -62,7 +65,9 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (ser
             toast({ title: "Notification Deleted", description: `Notification #${row.original.index+1} was deleted.`, status: "success" })
         })
         }
+        const [embed, setOpenEmbed] = useState(false);
         return (
+          <>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
@@ -73,14 +78,24 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (ser
             <DropdownMenuContent className={'max-w-xs'} align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                className={"hover:!text-red-500 flex items-center gap-1 transition-all cursor-pointer w-fit"}
+                className={"hover:!text-red-500 flex items-center gap-1 transition-all cursor-pointer"}
                 onClick={() => deleteNotification()}
               >
                 <BsTrash/> Delete Notification
               </DropdownMenuItem>
-
+              <DropdownMenuItem onClick={() => setOpenEmbed(true)} className={"flex items-center gap-1 transition-all cursor-pointer"}>
+              <BsEye/> View Embed
+            </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Dialog open={embed} onOpenChange={(e) => setOpenEmbed(e)}>
+
+          <DialogContent>
+              <h2 className={"text-xl font-montserrat flex items-center gap-2"}><BsEye/> Embed Preview</h2>
+              <MockEmbed embed={row.original.message.embed}/>
+          </DialogContent>
+        </Dialog>
+        </>
         )
       }
       

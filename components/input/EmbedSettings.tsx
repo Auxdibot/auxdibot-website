@@ -44,16 +44,15 @@ export default function EmbedSettings({ value, register, control, addField, remo
 <ul className={"flex flex-col gap-2 my-3"}>
     {value?.fields?.map((_item, index) => <li key={index} className={"flex flex-col gap-2"}>
         <h3 className={'font-montserrat mx-auto'}>Field #{index+1}</h3>
-        <span className={'flex items-center gap-5 mx-auto max-md:flex-col'}>
-        <label className={"text-md justify-center font-open-sans flex flex-row gap-2 items-center flex-1"}>Inline? 
+        <span className={'w-fit mx-auto flex gap-5'}>
+            <Button className={'gap-1'} type="button" onClick={() => removeField(index)} variant={'destructive'}><BsTrash/> Delete</Button>
+            <label className={"text-md justify-center font-open-sans flex flex-row gap-2 items-center flex-1"}>Inline? 
         <Controller name={`embed.fields.${index}.inline`} control={control} render={({ field }) => {
             return <Checkbox onCheckedChange={(e) => field.onChange(!!e.valueOf())} value={field.value}/>
         }}/>
         </label>
-        <Input placeholder='Field Name' maxLength={256} type="text" className={'flex-1 min-w-[200px]'} {...register(`embed.fields.${index}.name`, { maxLength: 256 })}/>
-
-        <span className={'flex-1'}><Button className={'gap-1'} type="button" onClick={() => removeField(index)} variant={'destructive'}><BsTrash/> Delete</Button></span>
         </span>
+        <Input placeholder='Field Name' maxLength={256} type="text" className={'flex-1 min-w-[200px] w-fit mx-auto'} {...register(`embed.fields.${index}.name`, { maxLength: 256 })}/>    
         <Controller control={control} name={`embed.fields.${index}.value`} render={({ field }) => {
     return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed field description here...' maxLength={1024} {...field}/>
      }
