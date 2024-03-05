@@ -36,7 +36,7 @@ export default function EmbedSettings({ value, register, control, addField, remo
 <Input placeholder='Embed Thumbnail URL' type="url" {...register("embed.thumbnail.url")}/>
 </span>
 <Controller control={control} name={"embed.description"} render={({ field }) => {
-    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed description here...' className={"placeholder:text-gray-500 rounded-md font-roboto text-md"} maxLength={4096} {...field}/>
+    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed description here...' className={"font-open-sans text-sm"} maxLength={4096} {...field}/>
 }
 }/>
 <span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsListTask/> Fields</span>
@@ -54,7 +54,7 @@ export default function EmbedSettings({ value, register, control, addField, remo
         </span>
         <Input placeholder='Field Name' maxLength={256} type="text" className={'flex-1 min-w-[200px] w-fit mx-auto'} {...register(`embed.fields.${index}.name`, { maxLength: 256 })}/>    
         <Controller control={control} name={`embed.fields.${index}.value`} render={({ field }) => {
-    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed field description here...' maxLength={1024} {...field}/>
+    return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed field description here...' className={"font-open-sans text-sm"} maxLength={1024} {...field}/>
      }
         }/>
     </li>) || ""}

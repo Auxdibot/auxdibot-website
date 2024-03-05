@@ -21,7 +21,7 @@ interface EmojiListProps {
 export function EmojiList({ serverEmojis, change, parseServerEmojis }: EmojiListProps) {
     const [category, setCategory] = useState(0);
     return <div className={`h-auto flex md:flex-col max-md:py-2`}>
-    <span className={"flex max-md:flex-col max-md:h-fit md:self-stretch items-center md:pr-6 justify-between"}>
+    <span className={"flex max-md:flex-col max-md:h-fit md:self-stretch w-fit items-center md:pr-6 justify-between"}>
       <span onClick={() => setCategory(0)} className={"cursor-pointer max-md:border-b max-md:border-r-0 border-r max-md:py-0.5"}><Category icon={<BsEmojiSmile/>} name={'Smileys'}/></span>
       <span onClick={() => setCategory(1)} className={"cursor-pointer max-md:border-b max-md:border-r-0 border-r max-md:py-0.5"}><Category icon={<BsPerson/>} name={'People'}/></span>
       <span onClick={() => setCategory(2)} className={"cursor-pointer max-md:border-b max-md:border-r-0 border-r max-md:py-0.5"}><Category icon={<PiDog/>} name={'Nature'}/></span>
