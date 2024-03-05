@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Features from './features/Features';
 import Start from './Start';
 import { BsDiscord, BsGithub } from 'react-icons/bs';
+import { Preview } from './Preview';
 
 export default function About() {
     
@@ -34,6 +35,7 @@ export default function About() {
         </span>
         
         </section>
+        <Preview/>
         <Start/>
         <section className={"max-w-4xl mx-auto flex flex-col gap-10 text-center"}>
         <span className={"flex gap-2 text-6xl max-md:text-5xl justify-center"}>
