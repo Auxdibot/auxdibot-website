@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import SuggestionsUpdateChannel from "./SuggestionsUpdateChannel";
 import SuggestionsAutoDelete from "./SuggestionsAutoDelete";
 import SuggestionsDiscussionThreads from "./SuggestionsDiscussionThreads";
+import { Separator } from "@/components/ui/separator";
 
 export default function SuggestionsSettings({ server }: { server: { 
     data: {
@@ -19,12 +20,13 @@ export default function SuggestionsSettings({ server }: { server: {
 
     
     return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Suggestions Settings</h2>
+    <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Suggestions Settings</h2>
     <div className={"flex flex-col gap-4"}>
     <Suspense fallback={null}>
         { server ? <>
             <SuggestionsChannel server={server.data}/>
+            <Separator className={'my-4 max-w-xs mx-auto'}/>
             <SuggestionsUpdateChannel server={server.data}/>
             <div className={"flex flex-row max-xl:flex-col xl:justify-between w-fit mx-auto p-4 gap-10 text"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><SuggestionsAutoDelete server={server} /> Auto Delete</span>

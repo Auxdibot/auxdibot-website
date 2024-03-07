@@ -47,7 +47,7 @@ export default function EmojiPicker({ serverID, onChange, value }: EmojiInputPro
     const serverEmojiValue = serverEmojis?.emojis.find((i) => i.id == value);
     const emojiValue = value ? emojis.find((i) => i.emojis.find((emoji) => emoji.emoji == value))?.emojis.find((emoji) => emoji.emoji == value) : undefined;
     return (<span className={"relative flex items-center"} ref={inputRef}>
-            <span onClick={() => setCollapsed(!collapsed)}  className={"flex items-center gap-1 group cursor-pointer bg-gray-700 p-1 rounded-lg font-open-sans select-none"}>
+            <span onClick={() => setCollapsed(!collapsed)}  className={"flex items-center gap-1 group cursor-pointer bg-gray-950 border border-gray-800 p-1 rounded-md font-open-sans select-none"}>
             {value ? serverEmojiValue ? 
               <Image alt={serverEmojiValue.name} width={24} height={24} quality={100} draggable="false" loading="lazy" src={serverEmojiValue.image}/> 
               : <Twemoji>{emojiValue?.hexcode.toLowerCase() ?? value}</Twemoji> 
@@ -56,7 +56,7 @@ export default function EmojiPicker({ serverID, onChange, value }: EmojiInputPro
             <span>
                 <BsArrowDownShort className={"transition-all group-hover:translate-y-1"}/></span>
             </span>
-            {!collapsed && <EmojiList serverEmojis={serverEmojis} change={change}/>}
+            {!collapsed && <span className={'absolute top-12 bg-gray-950 border-gray-800 border rounded-md p-1'}><EmojiList serverEmojis={serverEmojis} change={change}/></span>}
             
             </span>);
 }

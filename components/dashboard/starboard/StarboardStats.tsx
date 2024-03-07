@@ -33,13 +33,13 @@ export default function StarboardStats({ server }: { server: {
                 }, incTimeStarredMessages);
     }, [server]);
     return <>
-    <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Total Starboard Stats</h2>
+    <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Total Starboard Stats</h2>
     <div className={"flex flex-col gap-4 my-4"}>
     <Suspense fallback={null}>
         { server ? <>
-            <span className={"flex gap-2 secondary text-2xl w-full max-md:flex-col max-md:items-center justify-center"}><BsChatDots/> <span><code>{parseInt(messagesState).toLocaleString()}</code> starred message{ parseInt(messagesState) != 1 ? "s" : ""}.</span></span>
-        <span className={"flex gap-2 secondary text-2xl w-full max-md:flex-col max-md:items-center justify-center"}><BsStar/> <span><code>{parseInt(starsState).toLocaleString()}</code> star{ parseInt(starsState) != 1 ? "s" : ""}.</span></span>
+            <span className={"flex gap-2 secondary text-2xl w-full max-md:flex-col max-md:items-center justify-center"}><BsChatDots/> <span>{parseInt(messagesState).toLocaleString()} starred message{ parseInt(messagesState) != 1 ? "s" : ""}.</span></span>
+        <span className={"flex gap-2 secondary text-2xl w-full max-md:flex-col max-md:items-center justify-center"}><BsStar/> <span>{parseInt(starsState).toLocaleString()} star{ parseInt(starsState) != 1 ? "s" : ""}.</span></span>
         </> : "" }
 
     </Suspense>

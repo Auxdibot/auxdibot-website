@@ -11,7 +11,7 @@ export default function DashboardSuggestionsConfig({ id }: { id: string }) {
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
         <h1 className={"header text-6xl max-md:text-5xl"}>suggestions</h1>
-        <span className={"grid grid-cols-2 max-md:grid-cols-1 gap-10"}>
+        <span className={"grid grid-cols-2 max-lg:grid-cols-1 gap-10"}>
             <Suspense fallback={null}>
                 <SuggestionsSettings server={suggestions}/>
                 <SuggestionsReactions server={suggestions?.data}/>
