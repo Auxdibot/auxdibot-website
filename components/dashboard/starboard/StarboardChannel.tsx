@@ -1,18 +1,19 @@
 "use client";
 
 import { BsCheckLg, BsStar } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import Channels from "@/components/ui/channels";
-export default function StarboardChannel({ server }: { server: { serverID: string }}) {
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+export default function StarboardChannel({ server }: { server: { serverID: string, starboard_channel?: string  }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const [channel, setChannel] = useState("");
+    const [channel, setChannel] = useState(server?.starboard_channel ?? "");
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
-    function onStarboardChannelChange(e: { channel: string | null }) {
+    function onStarboardChannelChange(e: { channel: string | undefined }) {
         if (success) setSuccess(false);
         setChannel(e.channel || '');
     }
@@ -20,12 +21,16 @@ export default function StarboardChannel({ server }: { server: { serverID: strin
         if (!server) return;
         const body = new URLSearchParams();
         body.append("starboard_channel", channel || '');
-        fetch(`/api/v1/servers/${server.serverID}/starboard/channel`, { method: "POST", body }).then(() => {
-            queryClient.invalidateQueries(["data_starboard", server.serverID])
+        fetch(`/api/v1/servers/${server.serverID}/starboard/channel`, { method: "POST", body }).then(async (res) => {
+            
+            const json = await res.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: "Failed to update starboard", description: json['error'] ?? "An error occured", status: "error" })
+                return
+            }
+            toast({ title: "Starboard Updated", description: `Starboard channel has been updated to #${channels.find((i: { id: string, name: string }) => i.id == channel)?.name ?? 'Unknown'}.`, status: "success" })
             setSuccess(true)
-            setChannel("");
-            if (actionContext)
-                actionContext.setAction({ status: `Successfully updated starboard channel to: #${channels.find((c: { id: string }) => channel == c.id)?.name || "None. Starboard is disabled."}`, success: true });
+            queryClient.invalidateQueries(["data_starboard", server.serverID])
         }).catch(() => {     
         });
     }
@@ -36,8 +41,8 @@ export default function StarboardChannel({ server }: { server: { serverID: strin
     
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <Channels serverID={server.serverID} value={channel} onChange={onStarboardChannelChange}/>
-        <button onClick={() => setStarboardChannel()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
+        <Button onClick={() => setStarboardChannel()} className={`flex flex-row gap-2 items-center w-fit max-xl:mx-auto`} variant={'outline'} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStar/> Change Channel</>) }
-        </button></span>
+        </Button></span>
     </div>
 }

@@ -62,7 +62,9 @@ export function Preview() {
                 <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border border-gray-700 text-gray-600 rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => reset({ embed: { fields: [] }})}><BsTrash/></button></span>
             </span>
             </div>
-            <span className="flex items-center justify-center flex-1">{!embed || (!embed.author?.name && !embed.title && !embed.description && (!embed.fields || embed.fields.length == 0) && !embed.footer?.text) ? <span className={'text-gray-500 font-open-sans text-xl italic'}>Click &quot;Edit Embed&quot; to start creating!</span> : <MockEmbed embed={embed}/>}</span>
+            <span className="flex items-center justify-center flex-1 relative">
+                <div className={'absolute -inset-1 bg-gradient-to-br from-primary-100 to-primary-600 blur-3xl opacity-70'}/>
+                {!embed || (!embed.author?.name && !embed.title && !embed.description && (!embed.fields || embed.fields.length == 0) && !embed.footer?.text) ? <span className={'text-gray-500 font-open-sans text-xl italic'}>Click &quot;Edit Embed&quot; to start creating!</span> : <MockEmbed embed={embed}/>}</span>
             </div>
         </div>
     )

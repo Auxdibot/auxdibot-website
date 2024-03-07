@@ -1,14 +1,15 @@
 "use client";
 
 import { BsCheckLg, BsStarFill } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQueryClient } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import EmojiPicker from "@/components/input/EmojiPicker";
-export default function StarboardReaction({ server }: { server: { serverID: string }}) {
-    const [reaction, setReaction] = useState("");
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+export default function StarboardReaction({ server }: { server: { serverID: string, starboard_reaction: string }}) {
+    const [reaction, setReaction] = useState(server?.starboard_reaction ?? "");
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     function onStarboardReactionChange(e: { emoji: string | null }) {
         if (success) setSuccess(false);
@@ -20,26 +21,25 @@ export default function StarboardReaction({ server }: { server: { serverID: stri
         const body = new URLSearchParams();
         body.append("starboard_reaction", reaction);
         fetch(`/api/v1/servers/${server.serverID}/starboard/reaction`, { method: "POST", body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
+            const json = await data.json().catch(() => undefined);
+            
+            if (!json || json['error']) {
+                toast({ title: "Failed to update starboard", description: json['error'] ?? "An error occured", status: "error" })
+                return
+            }
+            toast({ title: "Starboard Updated", description: `Starboard reaction has been updated to ${reaction}.`, status: "success" })
+            setSuccess(true);
             queryClient.invalidateQueries(["data_starboard", server.serverID])
-            
-            if (!json['error'])
-                setSuccess(true);
-            if (actionContext)
-            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully updated starboard reaction to: "${reaction}"`, success: true }) : "";
-            setReaction("");
-            
         }).catch(() => {     
         });
     }
 
     return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Starboard Reaction</span>
-    <span className={"text-gray-400 text-center mx-auto italic font-open-sans"}>Must be a valid emoji or Discord emoji ID.</span>
     <span className={"flex flex-row max-xl:flex-col justify-center items-center gap-2"}>
     <EmojiPicker serverID={server?.serverID} value={reaction} onChange={onStarboardReactionChange} />
-        <button onClick={() => setStarboardReaction()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
+        <Button onClick={() => setStarboardReaction()} className={`flex flex-row gap-2 items-center w-fit max-xl:mx-auto`} variant={'outline'} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStarFill/> Change Reaction</>) }
-        </button></span>
+        </Button></span>
     </div>
 }

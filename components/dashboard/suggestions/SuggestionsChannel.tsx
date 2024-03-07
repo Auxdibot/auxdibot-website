@@ -1,18 +1,19 @@
 "use client";
 
 import { BsCheckLg, BsQuestionCircle } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import Channels from "@/components/ui/channels";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 export default function SuggestionsChannel({ server }: { server: { serverID: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const [channel, setChannel] = useState<string | null>(null);
+    const [channel, setChannel] = useState<string | undefined>(undefined);
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
-    function onSuggestionsChannelChange(e: { channel: string | null }) {
+    function onSuggestionsChannelChange(e: { channel: string | undefined }) {
         if (success) setSuccess(false);
 
         setChannel(e.channel);
@@ -22,23 +23,23 @@ export default function SuggestionsChannel({ server }: { server: { serverID: str
         const body = new URLSearchParams();
         body.append("suggestions_channel", channel || '');
         fetch(`/api/v1/servers/${server.serverID}/suggestions/channel`, { method: "POST", body }).then(() => {
+            toast({ title: "Suggestions Channel Updated", description: channel ? `Successfully updated suggestions channel to: #${channels.find((c: { id: string }) => channel == c.id)?.name ?? "Unknown"}` : 'Successfully disabled suggestions for this server.  ', status: "success" });
             queryClient.invalidateQueries(["data_suggestions", server.serverID])
             setSuccess(true)
             setChannel("");
-            if (actionContext)
-                actionContext.setAction({ status: `Successfully updated suggestions channel to: ${channels.find((c: { id: string }) => channel == c.id)?.name || "None. Suggestions are disabled."}`, success: true });
+
         }).catch(() => {     
         });
     }
     if (!channels) return <></>;
 
-    return <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
+    return <div className={"flex flex-col gap-3 w-fit mx-auto"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Suggestions Channel</span>
     
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <Channels serverID={server.serverID} value={channel} onChange={onSuggestionsChannelChange}/>
-        <button onClick={() => setSuggestionsChannel()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsQuestionCircle/> Change Channel</>) }
-        </button></span>
+        <Button onClick={() => setSuggestionsChannel()} className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsQuestionCircle/> Update</>) }
+        </Button></span>
     </div>
 }
