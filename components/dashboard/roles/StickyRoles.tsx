@@ -24,6 +24,7 @@ export default function StickyRoles({ server }: { server: { readonly serverID: s
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to add sticky role`, description: json['error'] ? json['error'] : `An error occurred while adding the sticky role.`, status: 'error' })
+                return;
             }
             toast({ title: `Sticky Role Added`, description: `The sticky role has been added successfully.`, status: 'success' })
             reset({ role: undefined });

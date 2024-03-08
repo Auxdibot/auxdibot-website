@@ -28,6 +28,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to create permission override`, description: json['error'] ? json['error'] : `An error occurred while creating the permission override.`, status: 'error' })
+                return;
             }
             toast({ title: `Permission Override Created`, description: `The permission override has been created successfully.`, status: 'success' })
             reset({ allowed: false, permission: "", user: "" });

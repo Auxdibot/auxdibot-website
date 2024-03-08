@@ -1,15 +1,15 @@
 "use client";
-import MockEmbed from '@/components/ui/mock-embed';
+import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsBroadcast, BsChatLeftDots, BsMegaphone, BsTextLeft } from 'react-icons/bs';
-import EmbedSettings from '@/components/ui/embed-settings';
+import EmbedSettings from '@/components/ui/messages/embed-settings';
 import Channels from '@/components/ui/select/channels';
-import { TextareaMessage } from '@/components/ui/textarea-message';
+import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { useToast } from '@/components/ui/use-toast';
 import { useQuery } from 'react-query';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog/dialog';
+import { Button } from '@/components/ui/button/button';
 
 type EmbedBody = { message: string; channel: string; embed: APIEmbed; }
 export default function DashboardEmbedsConfig({ id }: { id: string }) {

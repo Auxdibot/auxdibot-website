@@ -6,7 +6,7 @@ import { BsCheckLg, BsHammer } from "react-icons/bs";
 import PunishmentSelect from "@/components/ui/select/punishment-select";
 import { useMemo, useState } from "react";
 import { useQueryClient } from "react-query";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";
 

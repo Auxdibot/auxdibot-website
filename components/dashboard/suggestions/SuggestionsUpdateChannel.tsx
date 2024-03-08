@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useQuery, useQueryClient } from "react-query";
 
 import Channels from "@/components/ui/select/channels";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function SuggestionsUpdateChannel({ server }: { server: { serverID: string, suggestions_updates_channel?: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 

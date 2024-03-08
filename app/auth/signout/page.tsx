@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/primary-button";
+import Button from "@/components/ui/button/primary-button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { BsArrowLeftCircle, BsExclamationCircle } from "react-icons/bs";
 

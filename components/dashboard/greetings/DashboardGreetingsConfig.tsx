@@ -1,11 +1,11 @@
 "use client";
-import MockEmbed from '@/components/ui/mock-embed';
+import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsTextLeft } from 'react-icons/bs';
 import { PiHandWavingLight } from 'react-icons/pi'; 
 import JoinLeaveChannel from './JoinLeaveChannel';
-import EmbedSettings from '@/components/ui/embed-settings';
+import EmbedSettings from '@/components/ui/messages/embed-settings';
 import { useToast } from '@/components/ui/use-toast';
 
 enum GreetingType {
@@ -35,6 +35,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to set greeting`, description: json['error'] ? json['error'] : `An error occurred while setting the greeting.`, status: 'error' })
+                return;
             }
             toast({ title: `Greeting Set`, description: `The ${bodyData.greeting.replace('_', ' ') } greeting has been set successfully.`, status: 'success' })
             reset({ message: "", greeting: GreetingType.JOIN, embed: { fields: [] } });

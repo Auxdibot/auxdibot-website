@@ -1,11 +1,11 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { User } from '@/components/ui/user';
-import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { DataTableColumnHeader } from '@/components/ui/data-table/data-table-column-header';
 import PunishmentData from '@/lib/types/PunishmentData';
 import { PunishmentNames } from '@/lib/constants/PunishmentNames';
 import { MoreHorizontal } from "lucide-react"
  
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button/button"
 import {
   DropdownMenu,
   DropdownMenuContent,

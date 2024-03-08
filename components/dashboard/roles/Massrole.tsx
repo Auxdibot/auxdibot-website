@@ -25,6 +25,7 @@ export default function Massrole({ serverID }: { serverID: string }) {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to finish massrole`, description: json['error'] ? json['error'] : `An error occurred while finishing the massrole process.`, status: 'error' })
+                return;
             }
             toast({ title: `Massrole ${data.give ? 'Gave' : 'Took'}`, description: `Successfully ${data.give ? 'gave' : 'took'} the role @${roles?.find((i: any) => i.id == data.roleID)?.name ?? 'Unknown'} ${data.give ? 'to' : 'from'} every user in the server.`, status: 'success' })
             reset({ roleID:  undefined, give: true });

@@ -7,7 +7,7 @@ import PunishmentSelect from "@/components/ui/select/punishment-select";
 import { useMemo, useState } from "react";
 import { useQueryClient } from "react-query";
 import { AutomodPunishment } from "@/lib/types/AutomodPunishment";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";

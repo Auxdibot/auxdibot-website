@@ -2,7 +2,7 @@
 import { useQuery } from "react-query";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../ui/primary-button";
+import Button from "../ui/button/primary-button";
 import { BsArrowUp, BsGear } from "react-icons/bs";
 import { ServerProps } from "./Servers";
 

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useQueryClient } from "react-query";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function LevelMessageXP({ server }: { server: { serverID: string }}) {
     const [messageXP, setMessageXP] = useState<number | string | undefined>("");

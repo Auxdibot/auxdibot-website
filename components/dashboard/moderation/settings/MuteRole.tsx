@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useQuery } from "react-query";
 import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 export default function MuteRole({ server }: { server: { readonly serverID: string, readonly mute_role: string }}) {
     let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))

@@ -15,6 +15,7 @@ export default function Permission({ serverID, permission }: { serverID: string,
             
             if (!json || json['error']) {
                 toast({ title: `Failed to delete permission override`, description: json['error'] ? json['error'] : `An error occurred while deleting the permission override.`, status: 'error' })
+                return;
             }
             toast({ title: `Permission Override Deleted`, description: `The permission override has been deleted successfully.`, status: 'success' })
             queryClient.invalidateQueries(["data_permissions", serverID])

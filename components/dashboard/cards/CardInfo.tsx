@@ -1,5 +1,5 @@
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 import { useState } from "react";
 import { BsCardImage, BsCheck, BsShare } from "react-icons/bs";

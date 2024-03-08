@@ -1,7 +1,7 @@
 "use client";
 
 import NotificationType from "@/lib/types/NotificationType";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table/data-table";
 import { columns } from "./table/column";
 
 export default function Notifications({ notifications, serverID }: { serverID: string, notifications?: NotificationType[] }) {

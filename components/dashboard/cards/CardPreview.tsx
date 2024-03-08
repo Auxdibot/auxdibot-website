@@ -3,7 +3,7 @@ import { BsEye } from 'react-icons/bs';
 import { CardData } from '@/lib/types/CardData';
 import { useQuery } from 'react-query';
 import CardInfo from './CardInfo';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button/button';
 
 export function CardPreview({ id, values }: { id: string, values: any }) {
     const { data: card } = useQuery<CardData | { error: string; } | undefined>([id, 'card'], async () => await fetch(`/api/v1/cards/${id}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));

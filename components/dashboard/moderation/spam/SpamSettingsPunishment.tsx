@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import { useQueryClient } from "react-query";
 import { AutomodPunishment } from "@/lib/types/AutomodPunishment";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";
 

@@ -18,6 +18,7 @@ export default function StickyRole({ roleID, serverID, index }: { readonly roleI
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to delete sticky role`, description: json['error'] ? json['error'] : `An error occurred while deleting the sticky role.`, status: 'error' })
+                return;
             }
             toast({ title: `Sticky Role Deleted`, description: `Sticky Role #${index} has been deleted successfully.`, status: 'success' })
 

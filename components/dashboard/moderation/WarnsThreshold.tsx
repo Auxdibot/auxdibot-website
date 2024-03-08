@@ -9,7 +9,7 @@ import { useQueryClient } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 
 type ThresholdFormBody = { punishment: PunishmentType | null, warns: number };
 

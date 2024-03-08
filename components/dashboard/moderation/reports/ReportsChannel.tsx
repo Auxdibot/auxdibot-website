@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Channels from "@/components/ui/select/channels";
 import { useQuery } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 export default function ReportsChannel({ server }: { server: { readonly serverID: string, readonly reports_channel: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));

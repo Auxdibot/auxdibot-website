@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select/select";
 
 export function ServerGroups() {

@@ -25,6 +25,7 @@ export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to update Join/Leave channel`, description: json['error'] ? json['error'] : `An error occurred while updating the Join/Leave channel.`, status: 'error' })
+                return;
             }
             toast({ title: `Join/Leave Channel Updated`, description: `Successfully updated the Join/Leave channel.`, status: 'success' })
             setSuccess(true)
