@@ -6,6 +6,7 @@ import { BsCheck, BsDiscord, BsPeople, BsShield, BsShieldCheck, BsX } from 'reac
 import { useToast } from '@/components/ui/use-toast';
 import Roles from '@/components/ui/select/roles';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button/button';
 
 type PermissionBody = { allowed: boolean, permission: string, user?: string, role?: string };
 export default function CreatePermission({ serverID }: { serverID: string }) {
@@ -36,22 +37,22 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         }).catch(() => {})
     }
     return <>
-    <div className={"bg-gray-800 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Permission Override</h2>
-    <span className={"text-lg font-open-sans ml-2"}><span className={"text-red-500"}>*</span> = required field</span>
+    <div className={"flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Permission Override</h2>
+    <p className={"text-gray-400 font-open-sans md:ml-4 max-md:w-full max-md:text-center text-base italic"}><span className={"text-red-500"}>*</span> = required field</p>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5"}>
         <section className={"my-4 w-full flex flex-col max-lg:justify-center max-lg:items-center"}>
         <span className={"flex flex-row max-md:flex-col gap-4"}>
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${usingRole ? "" : "hidden"}`}>
             <span className={"flex flex-row gap-2 items-center  text-xl"}><span className={"text-red-500"}>*</span> <BsPeople/> Role:</span> 
             <Controller name="role" control={control} render={({ field }) => {
-                return <Roles serverID={serverID} required value={field.value} onChange={(e) => field.onChange(e.role)} />
+                return <Roles serverID={serverID} value={field.value} onChange={(e) => field.onChange(e.role)} />
             } }/>
         </label> 
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${!usingRole ? "" : "hidden"}`}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsDiscord/> Discord User ID:</span>  
             <Controller name="user" control={control} render={({ field }) => {
-                return <Input value={field.value} onChange={field.onChange} />
+                return <Input className={'max-w-[150px]'} value={field.value} onChange={field.onChange} />
             } }/>
         </label>
         <span onClick={() => switchUsingRole()} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
@@ -64,7 +65,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><span className={"text-red-500"}>*</span> <BsShield/> Permission:</span>  
             <Controller name="permission" control={control} render={({ field }) => {
-                return <Input value={field.value} onChange={field.onChange} />
+                return <Input className={'max-w-[200px]'} value={field.value} onChange={field.onChange} />
             } }/>
             <Controller control={control} name={'allowed'} render={({ field }) => {
                 return  <span onClick={() => field.onChange(!field.value)} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
@@ -74,9 +75,9 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
             }}/>
         </label>
         
-        <button className={`secondary text-xl mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            <BsShieldCheck/> Create Permission Override
-        </button>
+        <Button className={`flex flex-row gap-2 items-center mx-auto w-fit`} variant={'outline'}  type="submit">
+            <BsShieldCheck/> Create
+        </Button>
     </form>
     
     </div>

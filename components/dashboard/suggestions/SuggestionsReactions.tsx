@@ -23,10 +23,14 @@ export function Reaction({ reaction, index, serverID }: { reaction: string, inde
         body.append("index", index.toString());
         fetch(`/api/v1/servers/${serverID}/suggestions/reactions`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().then((data) => data?.data).catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: 'Failed to delete suggestions reaction', description: json['error'] ?? "An error occured", status: "error" })
+                return;
+            }
             queryClient.invalidateQueries(["data_suggestions", serverID])
             toast({
                 title: "Reaction Deleted",
-                description: json && !json['error'] ? `Successfully deleted reaction: ${reaction}` : 'An error occurred. Please try again.',
+                description: `Successfully deleted reaction: ${reaction}`,
                 status: !json || json['error'] ? "error" : "success"
             
             })
@@ -53,13 +57,17 @@ export default function SuggestionsReactions({ server }: { server: {
         body.append("suggestion_reaction", reaction);
         fetch(`/api/v1/servers/${server.serverID}/suggestions/reactions`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
-            queryClient.invalidateQueries(["data_suggestions", server.serverID])
+            if (!json || json['error']) {
+                toast({ title: 'Failed to add suggestions reaction', description: json['error'] ?? "An error occured", status: "error" })
+                return;
+            }
             toast({
                 title: "Reaction Added",
-                description: json && !json['error'] ? `Successfully added reaction: ${reaction}` : 'An error occurred. Please try again.',
+                description: `Successfully added reaction: ${reaction}`,
                 status: !json || json['error'] ? "error" : "success"
             
             })
+            queryClient.invalidateQueries(["data_suggestions", server.serverID])
             setSuccess(true)
             setReaction("");
         }).catch(() => {     
