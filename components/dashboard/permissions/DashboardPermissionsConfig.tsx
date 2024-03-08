@@ -17,7 +17,7 @@ export default function DashboardPermissionsConfig({ id }: { id: string }) {
             <AlertTitle className={'flex items-center gap-2 text-xl'}><BsX/> Permissions Deprecation</AlertTitle>
             <AlertDescription>The Auxdibot permissions override system will be deprecated and removed in the coming updates. Your permissions will be moved to a new system, allowing you to toggle on/off certain commands and features for certain channels and groups on demand. See you there!</AlertDescription>
         </Alert>
-        <span className={"flex flex-row max-md:flex-col gap-10"}>
+        <span className={"flex flex-row max-xl:flex-col gap-10"}>
             <Suspense fallback={null}>
                 <Permissions serverID={id} permissions={permissions?.data?.permission_overrides}/>
                 <CreatePermission serverID={id} />
