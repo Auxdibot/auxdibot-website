@@ -6,10 +6,10 @@ import { useQuery, useQueryClient } from "react-query";
 import Channels from "@/components/ui/channels";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-export default function SuggestionsChannel({ server }: { server: { serverID: string }}) {
+export default function SuggestionsChannel({ server }: { server: { serverID: string, suggestions_channel: string }}) {
     let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const [channel, setChannel] = useState<string | undefined>(undefined);
+    const [channel, setChannel] = useState<string | undefined>(server?.suggestions_channel ?? undefined);
     const [success, setSuccess] = useState(false);
     const { toast } = useToast();
     const queryClient = useQueryClient();

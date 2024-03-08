@@ -1,14 +1,16 @@
 "use client";
 
 import { BsAward, BsCheckLg } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQueryClient } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
-import NumberBox from "@/components/input/NumberBox";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 export default function LevelMessageXP({ server }: { server: { serverID: string }}) {
     const [messageXP, setMessageXP] = useState<number | string | undefined>("");
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     function onMessageXPChange(e: string | number) {
         if (success) setSuccess(false);
@@ -20,12 +22,13 @@ export default function LevelMessageXP({ server }: { server: { serverID: string 
         const body = new URLSearchParams();
         body.append("message_xp", messageXP ? messageXP.toString() : '');
         fetch(`/api/v1/servers/${server.serverID}/levels/message_xp`, { method: "POST", body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: "Failed to update message XP", description: json['error'] ?? "An error occured", status: "error" })
+                return
+            }
+            toast({ title: "Message XP Updated", description: `Successfully updated message XP to ${messageXP}.`, status: "success" })
             queryClient.invalidateQueries(["data_levels", server.serverID])
-            if (!json['error'])
-                setSuccess(true);
-            if (actionContext)
-            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully updated server Message XP to: ${messageXP}`, success: true }) : "";
             setMessageXP("");
             
         }).catch(() => {     
@@ -35,9 +38,9 @@ export default function LevelMessageXP({ server }: { server: { serverID: string 
     return <div className={"flex flex-col gap-3 w-fit mx-auto p-4 border-b border-gray-700"}>
     <span className={"secondary text-xl text-center flex flex-col"}>Set Message XP</span>
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
-        <NumberBox Icon={BsAward} max={2000} value={Number(messageXP) || 0} onChange={onMessageXPChange}/> 
-        <button onClick={() => setMessageXPGiven()} className={`secondary text-md max-md:mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsAward/> Change Message XP</>) }
-        </button></span>
+        <Input max={2000} value={Number(messageXP) || 0} className={'w-32'} onChange={(e) => onMessageXPChange(e.target.value)}/> 
+        <Button onClick={() => setMessageXPGiven()} className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsAward/> Update</>) }
+        </Button></span>
     </div>
 }
