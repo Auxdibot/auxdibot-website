@@ -17,7 +17,7 @@ export default function Channels({ serverID, onChange, value, required }: Channe
     const data = sortChannels(channels);
 
     return (<span>
-            <Select required={required} value={value} onValueChange={(i) => onChange({ channel: i ?? '' })}>
+            <Select required={required} value={channels.find((c) => c.id == value) ? value : undefined} onValueChange={(i) => onChange({ channel: i ?? '' })}>
             <SelectTrigger className="flex gap-2 items-center">
             <SelectValue placeholder="Select a channel" />
             </SelectTrigger>
