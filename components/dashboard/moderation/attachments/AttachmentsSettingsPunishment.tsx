@@ -3,7 +3,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { PunishmentType } from "@/lib/types/PunishmentType";
 import { BsCheckLg, BsHammer } from "react-icons/bs";
-import PunishmentSelect from "@/components/input/PunishmentSelect";
+import PunishmentSelect from "@/components/ui/select/punishment-select";
 import { useMemo, useState } from "react";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";
 import { useQueryClient } from "react-query";

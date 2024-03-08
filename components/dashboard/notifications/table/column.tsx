@@ -11,7 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { BsEye, BsTrash } from 'react-icons/bs';
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useState } from 'react';
 

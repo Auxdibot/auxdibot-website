@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select/select";
 
 export function ServerGroups() {
     return <div className={"flex flex-col gap-2"}>

@@ -1,26 +1,24 @@
-import DashboardActionContext from "@/context/DashboardActionContext";
 import PermissionType from "@/lib/types/PermissionType";
 import Image from "next/image";
-import { useContext } from 'react'; 
+import { useToast } from "@/components/ui/use-toast";
 import { BsShieldCheck, BsShieldX, BsTrash } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 
 export default function Permission({ serverID, permission }: { serverID: string, permission: PermissionType }) {
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
 
     function deletePermission() {
         fetch(`/api/v1/servers/${serverID}/permissions/${permission.index}`, { method: "DELETE" }).then(async (data) => 
         {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_permissions", serverID])
-            if (json && json['error']) {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
-                return;
+            const json = await data.json().catch(() => undefined);
+            
+            if (!json || json['error']) {
+                toast({ title: `Failed to delete permission override`, description: json['error'] ? json['error'] : `An error occurred while deleting the permission override.`, status: 'error' })
             }
-            if (actionContext)
-                    actionContext.setAction({ status: `Successfully deleted permission #${permission.index+1}`, success: true })
+            toast({ title: `Permission Override Deleted`, description: `The permission override has been deleted successfully.`, status: 'success' })
+            queryClient.invalidateQueries(["data_permissions", serverID])
+
         })
     }
     return <span className={"flex gap-2"}>

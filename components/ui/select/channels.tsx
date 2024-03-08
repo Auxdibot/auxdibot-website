@@ -1,7 +1,7 @@
 import { BsHash, BsX } from "react-icons/bs";
 import { useQuery } from "react-query";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue  } from "./select";
-import { ChannelsType } from "../../lib/types/ChannelsType";
+import { ChannelsType } from "../../../lib/types/ChannelsType";
 import { sortChannels } from "@/lib/sortChannels";
 interface ChannelsInputProps {
     readonly serverID: string;

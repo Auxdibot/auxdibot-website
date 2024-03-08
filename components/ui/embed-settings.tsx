@@ -1,11 +1,11 @@
 import { APIEmbed } from "discord-api-types/v10";
 import { Control, Controller, UseFieldArrayAppend, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { BsEyedropper, BsImage, BsListTask, BsPerson, BsPlus, BsTextCenter, BsTextLeft, BsTextarea, BsTrash } from "react-icons/bs";
-import ColorPicker from "../ui/color-picker";
-import { Input } from "../ui/input";
-import { TextareaMessage } from "../ui/textarea-message";
-import { Checkbox } from "../ui/checkbox";
-import { Button } from "../ui/button";
+import ColorPicker from "./color-picker";
+import { Input } from "./input";
+import { TextareaMessage } from "./textarea-message";
+import { Checkbox } from "./checkbox";
+import { Button } from "./button";
 
 interface EmbedSettingsProps {
     readonly value: APIEmbed;

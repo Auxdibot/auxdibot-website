@@ -3,7 +3,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { BsTag } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
-import Roles from "@/components/ui/roles";
+import Roles from "@/components/ui/select/roles";
 import RoleException from "./RoleException";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";

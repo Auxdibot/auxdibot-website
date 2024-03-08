@@ -15,7 +15,7 @@ import { useQueryClient } from 'react-query';
 import { BsEye, BsTrash } from 'react-icons/bs';
 import ScheduleType from '@/lib/types/ScheduleType';
 import { Channel } from '@/components/ui/channel';
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useState } from 'react';
 

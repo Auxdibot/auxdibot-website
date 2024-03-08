@@ -1,9 +1,9 @@
 "use client";
 
-import { BsAt, BsCheckLg, BsMegaphone } from "react-icons/bs";
+import { BsAt, BsCheckLg } from "react-icons/bs";
 import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import Roles from "@/components/ui/roles";
+import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 export default function ReportsRole({ server }: { server: { readonly serverID: string, readonly report_role: string }}) {

@@ -3,7 +3,7 @@
 import { BsCheckLg, BsStar } from "react-icons/bs";
 import { useState } from 'react'; 
 import { useQuery, useQueryClient } from "react-query";
-import Channels from "@/components/ui/channels";
+import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function StarboardChannel({ server }: { server: { serverID: string, starboard_channel?: string  }}) {

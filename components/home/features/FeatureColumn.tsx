@@ -6,7 +6,7 @@ export function FeatureColumn({ children, reverse }: { children: any; reverse?: 
         I had to do some weird crap to get this to work, because for some reason react-responsive wasn't initializing the isMobile state properly.
     */
     const [isMobile, setMobile] = useState(global.window ? window?.innerWidth < 1024 : false);
-    const mobileQuery = useMediaQuery({ query: "(max-width: 1024px)" }, undefined, (matches) => setMobile(matches));
+    useMediaQuery({ query: "(max-width: 1024px)" }, undefined, (matches) => setMobile(matches));
     const child1 = useRef<HTMLDivElement | null>(null);
     const child2 = useRef<HTMLDivElement | null>(null);
     const sectionRef = useRef<HTMLDivElement | null>(null);

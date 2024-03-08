@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger } from "./select"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "./select/select"
 import { SelectValue } from "@radix-ui/react-select"
 import { format } from "date-fns"
 import { addDays } from "date-fns"

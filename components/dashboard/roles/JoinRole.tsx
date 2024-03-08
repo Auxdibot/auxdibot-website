@@ -1,13 +1,12 @@
-import DashboardActionContext from "@/context/DashboardActionContext";
+import { useToast } from "@/components/ui/use-toast";
 import { APIRole } from "discord-api-types/v10";
-import { useContext } from "react";
 import { BsAt, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export default function JoinRole({ roleID, serverID, index }: { readonly roleID: string, readonly serverID: string; readonly index: number; }) {
     const { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
 
     const role: APIRole | undefined = roles?.find((i: APIRole) => i.id == roleID);
@@ -18,11 +17,13 @@ export default function JoinRole({ roleID, serverID, index }: { readonly roleID:
         body.append('index', index.toString())
 
         fetch(`/api/v1/servers/${serverID}/join_roles/${roleID}`, { method: "DELETE", body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to delete join role`, description: json['error'] ? json['error'] : `An error occurred while deleting the join role.`, status: 'error' })
+            }
+            toast({ title: `Join Role Deleted`, description: `The join role has been deleted successfully.`, status: 'success' })
+            
             queryClient.invalidateQueries(["data_join_roles", serverID])
-
-            if (actionContext)
-                json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Successfully deleted join role #${index+1}`, success: true }) : ""
         })
     }
     return <li className={"flex flex-row text-lg items-center font-open-sans gap-2 "}>

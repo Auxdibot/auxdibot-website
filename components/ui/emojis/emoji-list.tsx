@@ -5,7 +5,7 @@ import { BsBuilding, BsDiscord, BsEmojiSmile, BsFlag, BsHash, BsLamp, BsPerson }
 import { MdOutlineFastfood, MdOutlineSportsBasketball } from "react-icons/md";
 import { PiDog } from "react-icons/pi";
 import { emojis } from "@/lib/constants/emojis";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "../scroll-area";
 
 function Category({ name, icon}: { name: string, icon: JSX.Element }) {
     return (<span className={"p-0.5 md:px-1.5 px-1 self-stretch flex items-center relative group"}>

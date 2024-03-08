@@ -1,18 +1,19 @@
 "use client";
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { BsCheck, BsDiscord, BsPeople, BsShield, BsShieldCheck, BsX } from 'react-icons/bs';
-import DashboardActionContext from '@/context/DashboardActionContext';
-import Roles from '@/components/ui/roles';
-import TextBox from '@/components/input/TextBox';
+import { useToast } from '@/components/ui/use-toast';
+import Roles from '@/components/ui/select/roles';
+import { Input } from '@/components/ui/input';
+
 type PermissionBody = { allowed: boolean, permission: string, user?: string, role?: string };
 export default function CreatePermission({ serverID }: { serverID: string }) {
     const { handleSubmit, reset, control, setValue } = useForm<PermissionBody>();
 
     const queryClient = useQueryClient();
     const [usingRole, setUsingRole] = useState(true);
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     function switchUsingRole() {
         setValue(usingRole ? 'role' : 'user', '');
         setUsingRole(!usingRole);
@@ -24,16 +25,13 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         body.append('user', data.user || "");
         body.append('role', data.role || "")
         fetch(`/api/v1/servers/${serverID}/permissions`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries(['data_permissions', serverID]);
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully created a new permission override.`, success: true })
-                reset({ user: '', role: '', allowed: true, permission: ''});
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to create permission override`, description: json['error'] ? json['error'] : `An error occurred while creating the permission override.`, status: 'error' })
             }
+            toast({ title: `Permission Override Created`, description: `The permission override has been created successfully.`, status: 'success' })
+            reset({ allowed: false, permission: "", user: "" });
+            queryClient.invalidateQueries(["data_permissions", serverID]);
         }).catch(() => {})
     }
     return <>
@@ -46,13 +44,13 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${usingRole ? "" : "hidden"}`}>
             <span className={"flex flex-row gap-2 items-center  text-xl"}><span className={"text-red-500"}>*</span> <BsPeople/> Role:</span> 
             <Controller name="role" control={control} render={({ field }) => {
-                return <Roles serverID={serverID} required value={field.value || null} onChange={(e) => field.onChange(e.role)} />
+                return <Roles serverID={serverID} required value={field.value} onChange={(e) => field.onChange(e.role)} />
             } }/>
         </label> 
         <label className={`flex flex-row max-lg:flex-col gap-2 items-center font-lato ${!usingRole ? "" : "hidden"}`}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsDiscord/> Discord User ID:</span>  
             <Controller name="user" control={control} render={({ field }) => {
-                return <TextBox Icon={BsDiscord} value={field.value} onChange={field.onChange} />
+                return <Input value={field.value} onChange={field.onChange} />
             } }/>
         </label>
         <span onClick={() => switchUsingRole()} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>
@@ -65,7 +63,7 @@ export default function CreatePermission({ serverID }: { serverID: string }) {
         <label className={"flex flex-row max-lg:flex-col gap-2 items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><span className={"text-red-500"}>*</span> <BsShield/> Permission:</span>  
             <Controller name="permission" control={control} render={({ field }) => {
-                return <TextBox Icon={BsShield} value={field.value} onChange={field.onChange} />
+                return <Input value={field.value} onChange={field.onChange} />
             } }/>
             <Controller control={control} name={'allowed'} render={({ field }) => {
                 return  <span onClick={() => field.onChange(!field.value)} className={"cursor-pointer flex gap-4 items-center flex-row justify-center font-open-sans text-lg"}>

@@ -1,16 +1,17 @@
 "use client";
 
-import Twemoji from "@/components/input/Twemoji";
-import DashboardActionContext from "@/context/DashboardActionContext";
+import Twemoji from "@/components/ui/emojis/twemoji";
+import { useToast } from "@/components/ui/use-toast";
+
 import { emojis } from "@/lib/constants/emojis";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
 import Image from "next/image";
-import { Suspense, useContext } from 'react';
+import { Suspense } from 'react';
 import { BsX } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: { reactions: { emoji: string }[], messageID: string }, index: number, serverID: string }) {
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined)); 
@@ -19,12 +20,13 @@ export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: 
         const body = new URLSearchParams();
         body.append("index", index.toString());
         fetch(`/api/v1/servers/${serverID}/reaction_roles`, { method: "DELETE", body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            queryClient.invalidateQueries(["data_reaction_roles", serverID])
+            const json = await data.json().catch(() => undefined);
             
-            if (actionContext)
-            json && json['error'] ? actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false }) : json ? actionContext.setAction({ status: `Removed Reaction Role #${index+1}.`, success: true }) : "";
-            
+            if (!json || json['error']) {
+                toast({ title: `Failed to delete reaction role`, description: json['error'] ? json['error'] : `An error occurred while deleting the reaction role.`, status: 'error' });
+            }
+            toast({ title: `Reaction Role Deleted`, description: `The reaction role has been deleted successfully.`, status: 'success' });
+            queryClient.invalidateQueries(["data_reaction_roles", serverID]);
         }).catch(() => {     
         });
     }
