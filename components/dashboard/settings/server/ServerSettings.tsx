@@ -1,10 +1,9 @@
 "use client";
 
-import DiscordGuild from "@/lib/types/DiscordGuild";
 import { PremiumSlider } from "./PremiumSlider";
 import { ServerGroups } from "./ServerGroups";
 
-export default function ServerSettings({ server }: { server: DiscordGuild & { data: {serverID: string, disabled_modules: string[]} } }) {
+export default function ServerSettings(/*{ server }: { server: DiscordGuild & { data: {serverID: string, disabled_modules: string[]} } }*/) {
 
     
     

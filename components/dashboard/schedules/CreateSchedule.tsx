@@ -1,14 +1,14 @@
 "use client";
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsBell, BsCalendar, BsChatLeftDots, BsClock, BsEye, BsMegaphone, BsRepeat, BsTextLeft } from 'react-icons/bs';
 import "react-datepicker/dist/react-datepicker.css"; 
-import Channels from '@/components/ui/channels';
+import Channels from '@/components/ui/select/channels';
 
-import EmbedSettings from '@/components/input/EmbedSettings';
-import TimestampBox from '@/components/input/TimestampBox';
+import EmbedSettings from '@/components/ui/embed-settings';
+import TimestampBox from '@/components/ui/timestamp-box';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { TextareaMessage } from '@/components/ui/textarea-message';

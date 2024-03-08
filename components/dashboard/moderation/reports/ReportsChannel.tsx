@@ -2,7 +2,7 @@
 
 import { BsCheckLg, BsHash } from "react-icons/bs";
 import { useState } from 'react'; 
-import Channels from "@/components/ui/channels";
+import Channels from "@/components/ui/select/channels";
 import { useQuery } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";

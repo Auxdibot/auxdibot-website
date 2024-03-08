@@ -1,17 +1,17 @@
 "use client";
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsMegaphone, BsPerson, BsPersonVcard, BsPlus, BsTag, BsTextCenter, BsTextLeft, BsX } from 'react-icons/bs';
-import DashboardActionContext from '@/context/DashboardActionContext';
-import Channels from '@/components/ui/channels';
-import TextBox from '@/components/input/TextBox';
-import Roles from '@/components/ui/roles';
-import EmbedSettings from '@/components/input/EmbedSettings';
+import Channels from '@/components/ui/select/channels';
+import Roles from '@/components/ui/select/roles';
+import EmbedSettings from '@/components/ui/embed-settings';
 import { ReactionRoleTypes } from '@/lib/types/ReactionRoleTypes';
-import EmojiPicker from '@/components/input/EmojiPicker';
+import EmojiPicker from '@/components/ui/emojis/emoji-picker';
+import { useToast } from '@/components/ui/use-toast';
+import { Input } from '@/components/ui/input';
 
 type ReactionRoleBody = { message: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed: APIEmbed; type: ReactionRoleTypes; }
 export default function CreateReactionRole({ serverID }: { serverID: string }) {
@@ -31,8 +31,10 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         }
     } as never);
     const [embedExpand, setEmbedExpand] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
+
+    const { toast } = useToast();
     const queryClient = useQueryClient();
+
     function onSubmit(data: ReactionRoleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel);
@@ -44,18 +46,16 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
             body.append('embed', JSON.stringify(data.embed));
         }
         fetch(`/api/v1/servers/${serverID}/reaction_roles`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully created a new reaction role.`, success: true })
-                reset();
-                removeReaction(fields.length);
-                queryClient.invalidateQueries(["data_reaction_roles", serverID]);
-                removeReaction(reactions.length);
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() =>  undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to create reaction role`, description: json['error'] ? json['error'] : `An error occurred while creating the reaction role.`, status: 'error' })
             }
+            toast({ title: `Reaction Role Created`, description: `The reaction role has been created successfully.`, status: 'success' })
+            reset({ message: "", title: "", channel: "", reactions: [], embed: { fields: [] } });
+            removeReaction(fields.length);
+            queryClient.invalidateQueries(["data_reaction_roles", serverID]);
+            removeReaction(reactions.length);
+            
         }).catch(() => {})
     }
     const embed = watch("embed");
@@ -84,7 +84,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsTextCenter/> Title:</span> 
             <Controller control={control} name={'title'} render={({ field }) => {
-                return <TextBox Icon={BsTextCenter} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/>;
+                return <Input value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)}/>;
             }}/>
         </label>
         

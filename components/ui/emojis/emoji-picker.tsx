@@ -5,9 +5,9 @@ import { useQuery } from "react-query";
 import { emojis } from "@/lib/constants/emojis";
 import Image from "next/image";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
-import { EmojiList } from "./EmojiList";
+import { EmojiList } from "./emoji-list";
 
-const Twemoji = React.lazy(() => import('./Twemoji'));
+const Twemoji = React.lazy(() => import('./twemoji'));
 interface EmojiInputProps {
     readonly serverID?: string;
     readonly onChange: (e: { emoji: string | null }) => void;

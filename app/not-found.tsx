@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/Button";
+import Button from "@/components/ui/primary-button";
 import Image from "next/image";
 import { BsHouse } from 'react-icons/bs';
 export default function NotFound() {

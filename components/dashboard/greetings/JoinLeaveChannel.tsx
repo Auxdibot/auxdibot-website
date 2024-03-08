@@ -2,17 +2,17 @@
 
 import { BsCheckLg } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
-import Channels from "@/components/ui/channels";
+import Channels from "@/components/ui/select/channels";
+import { useToast } from "@/components/ui/use-toast";
 export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
     let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const [channel, setChannel] = useState<string | null>("");
+    const [channel, setChannel] = useState<string | undefined>("");
     const [success, setSuccess] = useState(false);
-    const actionContext = useContext(DashboardActionContext);
-    function onJoinLeaveChannelChange(e: { channel: string | null }) {
+    const { toast } = useToast();
+    function onJoinLeaveChannelChange(e: { channel: string | undefined }) {
         if (success) setSuccess(false);
 
         setChannel(e.channel);
@@ -21,11 +21,14 @@ export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
         if (!serverID) return;
         const body = new URLSearchParams();
         body.append("channel", channel || '');
-        fetch(`/api/v1/servers/${serverID}/greetings/channel`, { method: "POST", body }).then(() => {
+        fetch(`/api/v1/servers/${serverID}/greetings/channel`, { method: "POST", body }).then(async (data) => {
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to update Join/Leave channel`, description: json['error'] ? json['error'] : `An error occurred while updating the Join/Leave channel.`, status: 'error' })
+            }
+            toast({ title: `Join/Leave Channel Updated`, description: `Successfully updated the Join/Leave channel.`, status: 'success' })
             setSuccess(true)
-            setChannel("");
-            if (actionContext)
-                actionContext.setAction({ status: `Successfully updated Join/Leave channel to:  ${channels.find((c: { id: string }) => channel == c.id)?.name || "None. Join/Leave greetings are now disabled on this server."}`, success: true });
+            setChannel(undefined);
         }).catch(() => {     
         });
     }

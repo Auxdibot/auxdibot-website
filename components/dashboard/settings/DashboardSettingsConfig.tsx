@@ -14,7 +14,7 @@ export default function DashboardSettingsConfig({ id }: { id: string }) {
         <span className={"grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-1 grid-flow-row gap-5"}>
             <DisabledModules server={settings}/>
             <AuxdibotSettings server={settings}/>
-            <ServerSettings server={settings}/>
+            <ServerSettings />
         </span>
         </div>
         

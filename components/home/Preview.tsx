@@ -1,6 +1,6 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import MockEmbed from "../MockEmbed";
-import EmbedSettings from "../input/EmbedSettings";
+import MockEmbed from "../ui/mock-embed";
+import EmbedSettings from "../ui/embed-settings";
 import { APIEmbed } from "discord-api-types/v10";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";

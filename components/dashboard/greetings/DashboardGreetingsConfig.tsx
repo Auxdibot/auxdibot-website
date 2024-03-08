@@ -1,13 +1,12 @@
 "use client";
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useContext } from 'react';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsTextLeft } from 'react-icons/bs';
 import { PiHandWavingLight } from 'react-icons/pi'; 
-import DashboardActionContext from '@/context/DashboardActionContext';
 import JoinLeaveChannel from './JoinLeaveChannel';
-import EmbedSettings from '@/components/input/EmbedSettings';
+import EmbedSettings from '@/components/ui/embed-settings';
+import { useToast } from '@/components/ui/use-toast';
 
 enum GreetingType {
     JOIN = "join",
@@ -25,7 +24,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             maxLength: 25
         }
     });
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     function onSubmit(bodyData: GreetingBody) {
         let body = new URLSearchParams();
         body.append('message', bodyData.message);
@@ -33,15 +32,13 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             body.append('embed', JSON.stringify(bodyData.embed));
         }
         fetch(`/api/v1/servers/${id}/greetings/${bodyData.greeting}`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                if (actionContext)
-                    actionContext.setAction({ status: bodyData.greeting == GreetingType.JOIN ?  `The join greeting, which is sent in the join/leave channel when a user joins, has been set.` : bodyData.greeting == GreetingType.JOIN_DM ? `The Join DM greeting, which is sent to a user with DMs open when they join, has been set.` : bodyData.greeting == GreetingType.LEAVE ? `The leaving greeting, which is sent in the join/leave channel when a user leaves, has been set.` : `Set a greeting embed.`, success: true })
-                reset();
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
+            const json = await data.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to set greeting`, description: json['error'] ? json['error'] : `An error occurred while setting the greeting.`, status: 'error' })
             }
+            toast({ title: `Greeting Set`, description: `The ${bodyData.greeting.replace('_', ' ') } greeting has been set successfully.`, status: 'success' })
+            reset({ message: "", greeting: GreetingType.JOIN, embed: { fields: [] } });
+
         }).catch(() => {})
     }
     const embed = watch("embed");

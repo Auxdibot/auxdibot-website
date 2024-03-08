@@ -3,8 +3,8 @@ import { APIEmbed, APIEmbedAuthor, APIEmbedFooter } from "discord-api-types/v10"
 import Link from "next/link";
 
 export default function MockEmbed({ embed }: { embed: APIEmbed }) {
-    if (!embed) return;
-    if (!embed.author?.name && !embed.title && !embed.description && (!embed.fields || embed.fields.length == 0) && !embed.footer?.text) return;
+    if (!embed) return <></>;
+    if (!embed.author?.name && !embed.title && !embed.description && (!embed.fields || embed.fields.length == 0) && !embed.footer?.text) return <></>;
     return (<div className={`font-sans bg-discord-embed rounded-l-md overflow-hidden rounded-r-md flex flex-col pl-4 py-3 relative pr-5 max-sm:max-w-[95vw] sm:max-w-[512px]`}>
     {embed.color ? <div className={"absolute w-1 h-full top-0 left-0"} style={{ backgroundColor: embed.color ? `#${embed.color.toString(16)}` : "black"}}></div> : ""}
     <div className={"flex flex-row justify-start"}>

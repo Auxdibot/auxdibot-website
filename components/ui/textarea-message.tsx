@@ -14,7 +14,7 @@ import { useMediaQuery } from "react-responsive";
 import { Drawer, DrawerContent, DrawerTrigger } from "./drawer";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "./command";
 import { APIRole } from "discord-api-types/v10";
-import { EmojiList } from "../input/EmojiList";
+import { EmojiList } from "./emojis/emoji-list";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
 
 

@@ -2,7 +2,7 @@ import { PunishmentNames } from "@/lib/constants/PunishmentNames";
 import { PunishmentType } from "@/lib/types/PunishmentType";
 import { useEffect, useRef, useState } from "react";
 import { BsX } from "react-icons/bs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 interface PunishmentSelectProps {
     readonly onChange: (e: { type: PunishmentType | null }) => void;
     readonly value: PunishmentType | null;

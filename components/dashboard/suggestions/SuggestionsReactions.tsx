@@ -1,7 +1,7 @@
 "use client";
 
-import EmojiPicker from "@/components/input/EmojiPicker";
-import Twemoji from "@/components/input/Twemoji";
+import EmojiPicker from "@/components/ui/emojis/emoji-picker";
+import Twemoji from "@/components/ui/emojis/twemoji";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { emojis } from "@/lib/constants/emojis";

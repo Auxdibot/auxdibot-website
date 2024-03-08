@@ -1,18 +1,18 @@
 "use client";
 
 import { BsCheckLg, BsPersonAdd, BsPersonDown, BsTag, BsX } from "react-icons/bs";
-import { useContext, useState } from 'react'; 
+import { useState } from 'react'; 
 import { useQuery } from "react-query";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import { Controller, useForm } from "react-hook-form";
-import Roles from "@/components/ui/roles";
+import Roles from "@/components/ui/select/roles";
+import { useToast } from "@/components/ui/use-toast";
 
 type MassroleBody = { roleID: string, give: boolean }
 export default function Massrole({ serverID }: { serverID: string }) {
     let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const { control, handleSubmit, reset, watch } = useForm<MassroleBody>();
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const [success, setSuccess] = useState(false);
 
     const give = watch("give");
@@ -21,11 +21,14 @@ export default function Massrole({ serverID }: { serverID: string }) {
         const body = new URLSearchParams();
         body.append("roleID", data.roleID);
         body.append("give", data.give + "");
-        fetch(`/api/v1/servers/${serverID}/massrole`, { method: "POST", body }).then(() => {
-            setSuccess(true)
-            if (actionContext)
-                actionContext.setAction({ status: `Successfully massrole ${data.give ? "gave" : "took"} ${roles.find((r: { id: string }) => data.roleID == r.id)?.name || ""}.`, success: true });
-            reset({ roleID: '', give: true });
+        fetch(`/api/v1/servers/${serverID}/massrole`, { method: "POST", body }).then(async (res) => {
+            const json = await res.json().catch(() => undefined);
+            if (!json || json['error']) {
+                toast({ title: `Failed to finish massrole`, description: json['error'] ? json['error'] : `An error occurred while finishing the massrole process.`, status: 'error' })
+            }
+            toast({ title: `Massrole ${data.give ? 'Gave' : 'Took'}`, description: `Successfully ${data.give ? 'gave' : 'took'} the role @${roles?.find((i: any) => i.id == data.roleID)?.name ?? 'Unknown'} ${data.give ? 'to' : 'from'} every user in the server.`, status: 'success' })
+            reset({ roleID:  undefined, give: true });
+            setSuccess(true);
         }).catch(() => {});
     }
     if (!roles) return <></>;

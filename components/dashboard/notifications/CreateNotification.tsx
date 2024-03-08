@@ -5,10 +5,10 @@ import { useQueryClient } from 'react-query';
 import { BsBell, BsChatLeftDots, BsEye, BsLink, BsMegaphone, BsRss, BsTextLeft, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
 
 import { APIEmbed } from 'discord-api-types/v10';
-import MockEmbed from '@/components/MockEmbed';
-import EmbedSettings from '@/components/input/EmbedSettings';
-import Channels from '@/components/ui/channels';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import MockEmbed from '@/components/ui/mock-embed';
+import EmbedSettings from '@/components/ui/embed-settings';
+import Channels from '@/components/ui/select/channels';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select/select';
 import { NotificationNames } from '@/lib/constants/NotificationNames';
 import { Input } from '@/components/ui/input';
 import { TextareaMessage } from '@/components/ui/textarea-message';

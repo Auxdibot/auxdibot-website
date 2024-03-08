@@ -2,11 +2,10 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { BsDoorOpen } from "react-icons/bs";
-import { useContext } from "react";
-import DashboardActionContext from "@/context/DashboardActionContext";
 import { useQueryClient } from "react-query";
-import Roles from "@/components/ui/roles";
+import Roles from "@/components/ui/select/roles";
 import JoinRole from "./JoinRole";
+import { useToast } from "@/components/ui/use-toast";
 
 type JoinRolesBody = { role: string };
 
@@ -15,23 +14,20 @@ export default function JoinRoles({ server }: { server: { readonly serverID: str
     
     const { control, reset, handleSubmit } = useForm<JoinRolesBody>();
     
-    const actionContext = useContext(DashboardActionContext);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
     function onSubmit(data: JoinRolesBody) {
         let body = new URLSearchParams();
         body.append('roleID', data.role ?? '');
 
         fetch(`/api/v1/servers/${server.serverID}/join_roles`, { method: 'POST', body }).then(async (data) => {
-            const json = await data.json().catch(() => actionContext ? actionContext.setAction({ status: "error receiving data!", success: false }) : {});
-            if (json && !json['error']) {
-                queryClient.invalidateQueries(['data_join_roles', server.serverID]);
-                if (actionContext)
-                    actionContext.setAction({ status: `Successfully updated the join roles for this server.`, success: true })
-                reset();
-            } else {
-                if (actionContext)
-                    actionContext.setAction({ status: `An error occurred. Error: ${json['error'] || "Couldn't find error."}`, success: false });
-            }
+            const json = await data.json().catch(() => undefined);
+           if (!json || json['error']) {
+               toast({ title: `Failed to add join role`, description: json['error'] ? json['error'] : `An error occurred while adding the join role.`, status: 'error' })
+           }
+            toast({ title: `Join Role Added`, description: `The join role has been added successfully.`, status: 'success' })
+            reset({ role: undefined });
+            queryClient.invalidateQueries(["data_join_roles", server.serverID]);
         }).catch(() => {})
     }
     return <>

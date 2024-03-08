@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Input } from "./input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select/select";
 
 
 export default function TimestampBox({ value, onChange, className }: { value: string, onChange: (...items: any[]) => any, className?: string }) {

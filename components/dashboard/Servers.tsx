@@ -3,7 +3,7 @@
 import Error from "@/app/error";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import PageLoading from "../PageLoading";
-import Button from "../Button";
+import Button from "../ui/primary-button";
 import { BsBook } from "react-icons/bs";
 import useSession from "@/lib/hooks/useSession";
 import { Server } from "./Server";

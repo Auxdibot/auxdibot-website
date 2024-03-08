@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { useQueryClient } from "react-query";
 import { AutomodSpamLimit } from "@/lib/types/AutomodSpamLimit";
 import timestampToDuration from "@/lib/timestampToDuration";
-import TimestampBox from "@/components/input/TimestampBox";
+import TimestampBox from "@/components/ui/timestamp-box";
 import { AutomodPunishment } from "@/lib/types/AutomodPunishment";
 import SpamSettingsPunishment from "./SpamSettingsPunishment";
 import { Input } from "@/components/ui/input";

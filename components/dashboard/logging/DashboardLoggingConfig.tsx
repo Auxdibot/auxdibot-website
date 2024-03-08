@@ -2,7 +2,6 @@
 import { useQuery } from "react-query"
 import Logs from "./Logs";
 import LogSettings from "./LogSettings";
-import { Suspense } from 'react';
 
 export default function DashboardLoggingConfig({ id }: { id: string }) {
     let { data: logging } = useQuery(["data_logging", id], async () => await fetch(`/api/v1/servers/${id}/log`).then(async (data) => 

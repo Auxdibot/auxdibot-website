@@ -3,12 +3,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Roles from "@/components/ui/roles";
+import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
-import DashboardActionContext from "@/context/DashboardActionContext";
-import { Suspense, useContext, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
-import { BsAt, BsAward, BsCheckLg, BsPeople, BsPlus, BsTrash, BsX } from "react-icons/bs";
+import { BsAt, BsAward, BsCheckLg, BsPeople, BsPlus, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export function Reward({ reward, role, index, serverID }: { role: { name: string, color: number }, reward: { level: number, roleID: string }, index: number, serverID: string }) {

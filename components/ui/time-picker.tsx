@@ -1,5 +1,5 @@
 import { Input } from "./input";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "./select/select";
 import { cn } from "@/lib/utils";
 
 export function TimePicker({ value, onChange, className }: { value?: Date | undefined, onChange: (...args: any[]) => void, className?: string }) {

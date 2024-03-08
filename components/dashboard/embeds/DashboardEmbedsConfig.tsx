@@ -1,10 +1,10 @@
 "use client";
-import MockEmbed from '@/components/MockEmbed';
+import MockEmbed from '@/components/ui/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
 import { BsBroadcast, BsChatLeftDots, BsMegaphone, BsTextLeft } from 'react-icons/bs';
-import EmbedSettings from '@/components/input/EmbedSettings';
-import Channels from '@/components/ui/channels';
+import EmbedSettings from '@/components/ui/embed-settings';
+import Channels from '@/components/ui/select/channels';
 import { TextareaMessage } from '@/components/ui/textarea-message';
 import { useToast } from '@/components/ui/use-toast';
 import { useQuery } from 'react-query';
