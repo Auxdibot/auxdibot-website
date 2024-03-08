@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { User } from '@/components/ui/user';
 import { LogType } from '@/lib/types/LogType';
-import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { DataTableColumnHeader } from '@/components/ui/data-table/data-table-column-header';
 
 
 

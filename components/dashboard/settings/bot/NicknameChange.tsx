@@ -5,7 +5,7 @@ import { useState } from 'react';
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import { useQueryClient } from "react-query";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function NicknameChange({ server }: { server: DiscordGuild & { data: {serverID: string, disabled_modules: string[]} } }) {
     const [nick, setNick] = useState("");

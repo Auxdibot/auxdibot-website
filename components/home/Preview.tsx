@@ -1,9 +1,9 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import MockEmbed from "../ui/mock-embed";
-import EmbedSettings from "../ui/embed-settings";
+import MockEmbed from "../ui/messages/mock-embed";
+import EmbedSettings from "../ui/messages/embed-settings";
 import { APIEmbed } from "discord-api-types/v10";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog/dialog";
+import { Button } from "../ui/button/button";
 import { BsTextLeft, BsTrash } from "react-icons/bs";
 import { motion } from 'framer-motion';
 type EmbedPreviewBody = { embed: APIEmbed }

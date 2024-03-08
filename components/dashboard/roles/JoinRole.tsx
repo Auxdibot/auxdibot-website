@@ -20,6 +20,7 @@ export default function JoinRole({ roleID, serverID, index }: { readonly roleID:
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to delete join role`, description: json['error'] ? json['error'] : `An error occurred while deleting the join role.`, status: 'error' })
+                return;
             }
             toast({ title: `Join Role Deleted`, description: `The join role has been deleted successfully.`, status: 'success' })
             

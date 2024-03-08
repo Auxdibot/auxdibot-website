@@ -1,7 +1,7 @@
 "use client";
 
 import ScheduleType from "@/lib/types/ScheduleType";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table/data-table";
 import { columns } from "./table/column";
 
 export default function Schedules({ schedules, serverID }: { serverID: string, schedules?: ScheduleType[] }) {

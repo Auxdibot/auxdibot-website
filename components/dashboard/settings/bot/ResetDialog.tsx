@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { BsTrash } from "react-icons/bs";
 import { useQueryClient } from "react-query";
-import { Button } from "@/components/ui/button";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button/button";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/dialog/alert-dialog";
 import { useToast } from "@/components/ui/use-toast";
 
 export function ResetDialog({ serverID }: { serverID: string; }) {

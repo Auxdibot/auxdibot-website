@@ -54,7 +54,7 @@ export function FeatureColumn({ children, reverse }: { children: any; reverse?: 
             sectionRef.current?.removeEventListener('mouseenter', handleMouseEnter);
             sectionRef.current?.removeEventListener('mouseleave', handleMouseLeave);
         };
-    }, [isMobile]);
+    }, [isMobile, reverse]);
 
     return <section ref={sectionRef} className={"relative h-[800px] flex flex-col gap-4 overflow-visible max-lg:overflow-hidden"}>
         <div className={"absolute z-30 bg-gradient-to-b from-black via-transparent from-5% to-95% via-50% to-black self-stretch w-full top-0 h-[800px] pointer-events-none lg:hidden"} />

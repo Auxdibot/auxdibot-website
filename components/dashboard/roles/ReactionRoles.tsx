@@ -24,6 +24,7 @@ export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: 
             
             if (!json || json['error']) {
                 toast({ title: `Failed to delete reaction role`, description: json['error'] ? json['error'] : `An error occurred while deleting the reaction role.`, status: 'error' });
+                return;
             }
             toast({ title: `Reaction Role Deleted`, description: `The reaction role has been deleted successfully.`, status: 'success' });
             queryClient.invalidateQueries(["data_reaction_roles", serverID]);

@@ -6,7 +6,7 @@ import { useQueryClient } from "react-query";
 import BlacklistedPhrase from "./BlacklistedPhrase";
 import BlacklistPunishment from "./BlacklistPunishment";
 import { PunishmentType } from "@/lib/types/PunishmentType";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { PunishmentNames } from "@/lib/constants/PunishmentNames";

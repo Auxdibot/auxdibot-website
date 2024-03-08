@@ -2,7 +2,7 @@
 
 import EmojiPicker from "@/components/ui/emojis/emoji-picker";
 import Twemoji from "@/components/ui/emojis/twemoji";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 import { emojis } from "@/lib/constants/emojis";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";

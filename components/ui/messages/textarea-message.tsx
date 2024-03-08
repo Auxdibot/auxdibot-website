@@ -1,20 +1,20 @@
 import * as React from "react"
 
 
-import { Textarea } from "./textarea"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./dropdown-menu";
+import { Textarea } from "../textarea"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../dropdown-menu";
 import { BsAt, BsClock, BsEmojiSmile, BsHash, BsPercent, BsPlus } from "react-icons/bs";
-import { Button } from "./button";
+import { Button } from "../button/button";
 import { cn } from "@/lib/utils";
 import { useQuery } from "react-query";
 import { sortChannels } from "@/lib/sortChannels";
-import { ScrollArea } from "./scroll-area";
+import { ScrollArea } from "../scroll-area";
 
 import { useMediaQuery } from "react-responsive";
-import { Drawer, DrawerContent, DrawerTrigger } from "./drawer";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "./command";
+import { Drawer, DrawerContent, DrawerTrigger } from "../drawer";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "../command";
 import { APIRole } from "discord-api-types/v10";
-import { EmojiList } from "./emojis/emoji-list";
+import { EmojiList } from "../emojis/emoji-list";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
 
 

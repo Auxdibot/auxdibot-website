@@ -1,5 +1,5 @@
 "use client";
-import MockEmbed from '@/components/ui/mock-embed';
+import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { useState } from 'react';
@@ -7,7 +7,7 @@ import { APIEmbed } from 'discord-api-types/v10';
 import { BsChatLeftDots, BsMegaphone, BsPerson, BsPersonVcard, BsPlus, BsTag, BsTextCenter, BsTextLeft, BsX } from 'react-icons/bs';
 import Channels from '@/components/ui/select/channels';
 import Roles from '@/components/ui/select/roles';
-import EmbedSettings from '@/components/ui/embed-settings';
+import EmbedSettings from '@/components/ui/messages/embed-settings';
 import { ReactionRoleTypes } from '@/lib/types/ReactionRoleTypes';
 import EmojiPicker from '@/components/ui/emojis/emoji-picker';
 import { useToast } from '@/components/ui/use-toast';

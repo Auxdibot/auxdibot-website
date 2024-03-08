@@ -6,7 +6,7 @@ import { useQueryClient } from "react-query";
 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 export default function StarboardReactionCount({ server }: { server: { serverID: string, starboard_reaction_count?: number }}) {
     const [reactionCount, setReactionCount] = useState<number | string | undefined>(server?.starboard_reaction_count ?? 0);
     const [success, setSuccess] = useState(false);

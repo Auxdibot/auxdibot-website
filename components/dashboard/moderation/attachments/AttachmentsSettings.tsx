@@ -9,7 +9,7 @@ import timestampToDuration from "@/lib/timestampToDuration";
 import TimestampBox from "@/components/ui/timestamp-box";
 import { AutomodPunishment } from "@/lib/types/AutomodPunishment";
 import AttachmentsSettingsPunishment from "./AttachmentsSettingsPunishment";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import durationToTimestamp from "@/lib/durationToTimestamp";

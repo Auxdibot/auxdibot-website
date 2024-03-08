@@ -4,7 +4,7 @@ import { BsCheckLg, BsStarFill } from "react-icons/bs";
 import { useState } from 'react'; 
 import { useQueryClient } from "react-query";
 import EmojiPicker from "@/components/ui/emojis/emoji-picker";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function StarboardReaction({ server }: { server: { serverID: string, starboard_reaction: string }}) {
     const [reaction, setReaction] = useState(server?.starboard_reaction ?? "");

@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button/button';
 import { CardBody } from './CardBody';
 
 export function CreateCard({ id, form: { control, watch, handleSubmit } }: { id: string; form: UseFormReturn<CardBody, any, undefined>; }) {

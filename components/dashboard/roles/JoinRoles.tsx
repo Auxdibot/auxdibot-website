@@ -24,6 +24,7 @@ export default function JoinRoles({ server }: { server: { readonly serverID: str
             const json = await data.json().catch(() => undefined);
            if (!json || json['error']) {
                toast({ title: `Failed to add join role`, description: json['error'] ? json['error'] : `An error occurred while adding the join role.`, status: 'error' })
+               return;
            }
             toast({ title: `Join Role Added`, description: `The join role has been added successfully.`, status: 'success' })
             reset({ role: undefined });

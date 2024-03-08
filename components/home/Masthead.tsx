@@ -2,7 +2,7 @@
 
 import Analytics from "./Analytics";
 import { BsEnvelopePlus, BsGear, BsThreeDots } from 'react-icons/bs';
-import Button from "../ui/primary-button";
+import Button from "../ui/button/primary-button";
 import useSession from "@/lib/hooks/useSession";
 import { Icon } from "./Icon";
 import { Suspense } from "react";

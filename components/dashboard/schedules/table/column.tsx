@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { DataTableColumnHeader } from '@/components/ui/data-table/data-table-column-header';
 import { MoreHorizontal } from "lucide-react"
  
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,8 +15,8 @@ import { useQueryClient } from 'react-query';
 import { BsEye, BsTrash } from 'react-icons/bs';
 import ScheduleType from '@/lib/types/ScheduleType';
 import { Channel } from '@/components/ui/channel';
-import MockEmbed from '@/components/ui/mock-embed';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import MockEmbed from '@/components/ui/messages/mock-embed';
+import { Dialog, DialogContent } from '@/components/ui/dialog/dialog';
 import { useState } from 'react';
 
 

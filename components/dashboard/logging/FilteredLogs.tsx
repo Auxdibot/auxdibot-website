@@ -5,7 +5,7 @@ import { Suspense, useState } from 'react';
 import { BsCheckLg, BsPlus } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 import { LogCombobox } from "./combobox/LogCombobox";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 import { LogFilter } from "./LogFilter";
 
