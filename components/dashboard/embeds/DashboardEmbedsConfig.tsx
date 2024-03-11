@@ -41,7 +41,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
 
         }).catch(() => {})
     }
-    console.log(fields);
+
     const embed = watch("embed");
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>

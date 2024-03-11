@@ -1,11 +1,12 @@
 "use client";
 
 import { Controller, useForm } from "react-hook-form";
-import { BsDoorOpen } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import Roles from "@/components/ui/select/roles";
 import JoinRole from "./JoinRole";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button/button";
 
 type JoinRolesBody = { role: string };
 
@@ -27,30 +28,30 @@ export default function JoinRoles({ server }: { server: { readonly serverID: str
                return;
            }
             toast({ title: `Join Role Added`, description: `The join role has been added successfully.`, status: 'success' })
-            reset({ role: undefined });
+            reset();
             queryClient.invalidateQueries(["data_join_roles", server.serverID]);
         }).catch(() => {})
     }
     return <>
-    <div className={"bg-gray-800 self-stretch shadow-2xl border-2 border-gray-800 rounded-2xl w-full flex flex-col max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Join Roles</h2>
+    <div className={"self-stretch shadow-2xl border-2 border-gray-800 rounded-2xl w-full flex flex-col max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Join Roles</h2>
     <div className={"flex flex-col h-full justify-between"}>
-    <ul className={"flex flex-col justify-center items-center my-4 gap-1"}>
-        {server.join_roles && server.join_roles.map((i, index) => <JoinRole roleID={i} serverID={server.serverID} key={i} index={index}/>)}
-    </ul>
+    {server.join_roles && server.join_roles.length > 0 ? <ul className={"flex flex-col justify-center items-center my-4 gap-1 border border-gray-800 p-2 w-fit mx-auto rounded-2xl"}>
+        {server.join_roles.map((i, index) => <JoinRole roleID={i} serverID={server.serverID} key={i} index={index}/>)} 
+    </ul> : <h2 className={"text-xl text-gray-400 font-open-sans text-center"}>No join roles found.</h2>}
+
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col items-center justify-center gap-3 py-2"}>
     <span className={"italic text-gray-500 w-fit mx-auto text-center font-open-sans"}>Join roles added to your server will be given to any member that joins your server.</span>
         <div className={"flex max-md:flex-col gap-2 justify-center flex-1 w-full md:px-20"}>
-        <section className={"flex flex-col items-center justify-between flex-1"}>
+        <section className={"flex max-md:flex-col items-center gap-2 justify-center flex-1"}>
             <Controller control={control} name={'role'} rules={{ required: true }} render={({ field }) => {
             return <Roles serverID={server.serverID} onChange={({ role }) => field.onChange(role)} required value={field.value} />
             } }/>
+             <Button type='submit' className={`flex flex-row gap-2 items-center`} variant={'outline'}>
+                <BsPlus/> Add
+            </Button>
         </section>
         </div>
-
-        <button type='submit' className={`secondary text-md max-md:mx-auto hover-gradient border-white hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`}>
-        <BsDoorOpen/> Add Join Role
-        </button>
     </form>
     </div>
     

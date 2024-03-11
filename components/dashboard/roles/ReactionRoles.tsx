@@ -1,14 +1,15 @@
 "use client";
 
+import { DataTable } from "@/components/ui/data-table/data-table";
 import Twemoji from "@/components/ui/emojis/twemoji";
 import { useToast } from "@/components/ui/use-toast";
 
 import { emojis } from "@/lib/constants/emojis";
 import ServerEmojiBody from "@/lib/types/ServerEmojis";
 import Image from "next/image";
-import { Suspense } from 'react';
 import { BsX } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
+import { columns } from "./table/column";
 
 export function ReactionRole({ reactionRole, index, serverID }: { reactionRole: { reactions: { emoji: string }[], messageID: string }, index: number, serverID: string }) {
     const { toast } = useToast();
@@ -43,13 +44,11 @@ export default function ReactionRoles({ server }: { server: {
     serverID: string, 
     reaction_roles: { reactions: { emoji: string }[], messageID: string }[], 
 }}) {
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Reaction Roles</h2>
-    <ul className={"flex flex-col gap-4 my-4 items-center"}>
-    <Suspense fallback={null}>
-        {server?.reaction_roles?.map((i, index) => <li key={index}><ReactionRole reactionRole={i} index={index} serverID={server.serverID} /></li>)}
-
-    </Suspense>
-    </ul>
+    return <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Reaction Roles</h2>
+    <div className={"p-2 max-md:max-w-[98vw]"}>
+    {server?.reaction_roles?.length ?
+    <DataTable columns={columns(server.serverID)} data={server?.reaction_roles.map((i, index) => ({...i, index}))} /> : <h2 className={"text-xl text-gray-400 font-open-sans text-center"}>No reaction roles found.</h2>}
+    </div>
     </div>;
 }

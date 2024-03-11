@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { Controller, useForm } from "react-hook-form";
 import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button/button";
 
 type MassroleBody = { roleID: string, give: boolean }
 export default function Massrole({ serverID }: { serverID: string }) {
@@ -28,17 +29,17 @@ export default function Massrole({ serverID }: { serverID: string }) {
                 return;
             }
             toast({ title: `Massrole ${data.give ? 'Gave' : 'Took'}`, description: `Successfully ${data.give ? 'gave' : 'took'} the role @${roles?.find((i: any) => i.id == data.roleID)?.name ?? 'Unknown'} ${data.give ? 'to' : 'from'} every user in the server.`, status: 'success' })
-            reset({ roleID:  undefined, give: true });
+            reset({ give: true, roleID: '' });
             setSuccess(true);
         }).catch(() => {});
     }
     if (!roles) return <></>;
 
-    return <div className={"bg-gray-800 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
-    <h2 className={"bg-gray-900 secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Massrole</h2>
-    <div className={"flex flex-col gap-3 w-fit mx-auto border-b p-4 border-gray-700"}>
+    return <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
+    <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Massrole</h2>
+    <div className={"flex flex-col gap-3 py-2 w-fit mx-auto "}>
     
-    <span className={"flex flex-col gap-2 items-center"}>
+    <span className={"flex gap-2 items-center"}>
     <Controller control={control} name={"roleID"} render={({ field }) => {
                 return <Roles serverID={serverID} onChange={(e) => {
                     setSuccess(false)
@@ -51,9 +52,10 @@ export default function Massrole({ serverID }: { serverID: string }) {
                     {field.value ? 'Give' : 'Take'}
                 </span>;
             }}/></label>
-        <button onClick={handleSubmit(setMassrole)}  className={`secondary text-md mx-auto ${success ? "bg-gradient-to-l from-green-400 to-green-600 text-black border-black" : "hover-gradient border-white"} hover:text-black hover:border-black transition-all w-fit border rounded-xl p-1 flex flex-row gap-2 items-center`} type="submit">
+        </span>
+        <Button onClick={handleSubmit(setMassrole)}  className={`flex flex-row gap-2 items-center mx-auto w-fit`} variant={'outline'} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<>{give ? <BsPersonAdd/> : <BsPersonDown/> } Massrole {give ? "Give" : "Take"}</>) }
-        </button></span>
+        </Button>
     </div>
     </div>
 }

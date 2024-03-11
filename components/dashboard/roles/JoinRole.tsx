@@ -27,9 +27,9 @@ export default function JoinRole({ roleID, serverID, index }: { readonly roleID:
             queryClient.invalidateQueries(["data_join_roles", serverID])
         })
     }
-    return <li className={"flex flex-row text-lg items-center font-open-sans gap-2 "}>
+    return <li className={"flex gap-2 items-center self-stretch justify-between font-open-sans"}>
         
-        <span className={"flex flex-row text-lg items-center font-open-sans gap-1 bg-gray-900 px-1 p-0.5 rounded-2xl"}><BsAt className={"text-xl"} style={{ fill: role.color ? '#' + role.color.toString(16) : '' }} /> {role.name}</span>
-        <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border text-white rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deleteException()}><BsTrash/></button></span>
+        <span className={"flex flex-row text-lg items-center font-open-sans gap-1 bg-gray-900/70 border-gray-800/50 px-1 p-0.5 rounded-2xl"}><BsAt className={"text-xl"} style={{ fill: role.color ? '#' + role.color.toString(16) : '' }} /> {role.name}</span>
+        <span className={"secondary text-xl flex flex-row items-center gap-2"}><button className={"border text-gray-700 border-gray-700 rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => deleteException()}><BsTrash/></button></span>
     </li>;
 }

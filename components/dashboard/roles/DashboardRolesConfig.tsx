@@ -16,7 +16,7 @@ export default function DashboardRolesConfig({ id }: { id: string }) {
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
         <h1 className={"header text-6xl max-md:text-5xl"}>roles</h1>
-        <span className={"grid grid-rows-3 max-md:grid-rows-none grid-cols-2 max-md:grid-cols-1 gap-10"}>
+        <span className={"grid grid-rows-4 max-xl:grid-rows-none grid-cols-2 max-xl:grid-cols-1 gap-10"}>
             {reactionRoles && reactionRoles?.data?.serverID ? <>
                 { reactionRoles && reactionRoles?.data?.serverID ? <CreateReactionRole serverID={id} /> : ""}
                 <div className={"flex flex-col row-span-2 gap-5"}>
