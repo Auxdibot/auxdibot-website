@@ -22,17 +22,21 @@
 
 ## About Project
 
-This is the repository housing the work-in-progress webpage for Auxdibot. It will contain a blog site, dashboard, documentation, and a home page for Auxdibot.
+This is the repository housing the webpage, dashboard and documentation for Auxdibot.
 
 ### Important Files
-
-`/prisma` - **Contains the schema prisma file for the Prisma ORM.**
 
 `/styles` - **Contains the globals.scss style file.**
 
 `/app` - **Root folder for the App Router in Next.js**
 
 `/lib` - **Utility functions and constants**
+
+`/context` - **React Contexts for sidebars**
+
+`/hooks` - **Custom React Hooks**
+
+`/Documentation` - **.md Documentation files**
 
 `/components` - **React components**
 

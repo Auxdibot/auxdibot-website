@@ -1,6 +1,6 @@
 import { BsList } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import { useRouter } from "next/navigation";
 import ModuleSlider from "./settings/bot/ModuleSlider";
 import { useQuery } from "react-query";
