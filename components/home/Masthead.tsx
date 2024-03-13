@@ -14,7 +14,7 @@ export default function Masthead() {
     const { user, status } = useSession();
     
     return (
-    <main className={"min-h-screen bg-auxdibot-masthead"}>
+    <main className={"min-h-screen bg-auxdibot-masthead w-full"}>
         
         <section className={"min-h-screen flex justify-center"}>
         <div className={"flex w-full flex-col max-md:flex-col justify-center items-center gap-2"}>
