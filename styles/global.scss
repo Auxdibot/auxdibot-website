@@ -62,13 +62,14 @@
         word-wrap: break-word;
     }
     .dashboard-sidebar-wrapper {
-        @apply flex flex-row items-center py-2 border-b-2 border-opacity-50 border-gray-700 transition-all;
+        @apply flex flex-row items-center transition-all hover:bg-gradient-to-l from-orange-400 to-red-500 pl-5;
     }
     .dashboard-sidebar-element {
-        @apply flex flex-row gap-2 font-roboto text-base max-sm:text-sm items-center ml-2 cursor-pointer transition-all;
+        @apply flex self-stretch flex-row py-2 gap-2 w-full font-roboto text-lg max-sm:text-base items-center cursor-pointer transition-all;
+
     }
     .dashboard-sidebar-selected {
-        @apply text-2xl max-md:text-sm bg-center bg-gradient-to-l from-orange-400 to-red-500;
+        @apply text-2xl gap-2 max-md:text-sm bg-center bg-gray-800;
     }
     .dashboard-sidebar-selected-text {
         @apply text-xl max-md:text-base;

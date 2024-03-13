@@ -8,7 +8,7 @@ import { useQueryClient } from "react-query";
 let ModuleIcons: { [K in typeof DisableableModules[number]]: React.ReactElement } = {
     "Messages": <BsChat/>, "Moderation": <BsHammer/>, "Permissions": <BsShieldCheck/>, "Roles": <BsPersonBadge/>, "Levels": <BsTrophy/>, "Suggestions": <BsQuestionCircle/>, "Starboard": <BsStar/>, "Greetings": <PiHandWaving/>
 }
-export default function ModuleSlider({ module, server }: { module: string, server: { data: {serverID: string, disabled_modules: string[]} } }) {
+export default function ModuleSlider({ module, server }: { module: keyof typeof ModuleIcons, server: { data: {serverID: string, disabled_modules: string[]} } }) {
     const queryClient = useQueryClient();
     const { toast} = useToast();
     function handleClick() {
@@ -36,5 +36,5 @@ export default function ModuleSlider({ module, server }: { module: string, serve
             }
         }).catch(() => undefined);
     }
-    return (<div className={"w-16 h-8 border border-gray-700 rounded-full relative px-1"} ><div onClick={() => handleClick()} className={`cursor-pointer absolute rounded-full top-1/2 bottom-1/2 -translate-y-1/2 h-7 w-7 transition-all bg-gradient-to-l flex items-center justify-center ${server.data.disabled_modules.indexOf(module) != -1 ? "from-red-500 to-red-700 -translate-x-0.5" : "translate-x-full from-green-500 to-green-700"}`}><span className={"text-white text-md opacity-60"}>{ModuleIcons[module]}</span></div></div>)
+    return (<div className={"w-16 h-8 border border-gray-700 rounded-full relative px-1 text-xl"} ><div onClick={() => handleClick()} className={`cursor-pointer absolute rounded-full top-1/2 bottom-1/2 -translate-y-1/2 h-7 w-7 transition-all bg-gradient-to-l flex items-center justify-center ${server.data.disabled_modules.indexOf(module) != -1 ? "from-red-500 to-red-700 -translate-x-0.5" : "translate-x-full from-green-500 to-green-700"}`}><span className={"text-white text-md opacity-60"}>{ModuleIcons[module]}</span></div></div>)
 }

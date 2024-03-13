@@ -7,6 +7,9 @@ import useSession from "@/lib/hooks/useSession";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import DiscordGuild from "@/lib/types/DiscordGuild";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
 
 export function Server({ server }: { server: DiscordGuild }) {
     
@@ -56,10 +59,9 @@ export default function MiniServer(props: React.ComponentProps<any>) {
     </div>)
     if (!user?.guilds) return <></>;
     return (<div ref={ref} {...props}>
-        <span className={"text-primary-300"}></span>
-        <span className={`flex flex-row gap-2`}>
-       
-        <span className={"flex items-center gap-2"}>
+        <DropdownMenu open={expanded}>
+            <DropdownMenuTrigger>
+            <span className={"flex items-center gap-2"}>
         {status == "authenticated" && server?.icon && server?.id ? <Image
             src={`https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png?size=128`}
             alt={"Discord profile icon"}
@@ -71,19 +73,23 @@ export default function MiniServer(props: React.ComponentProps<any>) {
             /> : <span className={`h-[36px] flex-shrink-0 w-[36px] font-roboto border text-gray-100 text-xs overflow-hidden items-center flex justify-center relative z-10 bg-discord-bg rounded-xl hover:bg-discord-primary transition-all cursor-pointer duration-300`}>{acronym}</span>}
         
         <span className={"flex group flex-row gap-2 items-center text-gray-200 font-montserrat tracking-wide text-lg cursor-pointer"} onClick={() => expand()}>
-        <span className={"max-md:hidden select-none text-sm"}>{server?.name}</span>
+        <span className={"max-xl:hidden select-none text-sm"}>{server?.name}</span>
         
         <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
         </span>
         </span>
-        </span>
-        <div className={`absolute flex justify-center items-center flex-col ${expanded ? "scale-100" : "scale-0"} transition-all origin-top w-full select-none top-12 z-10 max-md:-translate-x-8 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl`}>
-            <h1 className={"secondary p-4 rounded-t-xl flex text-lg flex-row gap-2 items-center justify-center border-b border-gray-800 bg-black bg-auxdibot-gradient w-full"}><BsDatabase/> Servers</h1>
-            <ul className={"flex flex-col gap-3 h-48 overflow-y-scroll scrollbar p-4"}>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className={'p-0 translate-y-2'}>
+            <h1 className={"secondary py-3 rounded-t-xl flex text-lg flex-row gap-2 items-center justify-center w-full"}><BsDatabase/> Servers</h1>
+            <Separator className={'w-full'}/>
+            <ScrollArea className={'h-48'}>
+            <ul className={"flex flex-col gap-3 p-4"}>
             {user?.guilds?.map((i: DiscordGuild) => {
        return <Server key={i.id} server={i}/>
     })}
             </ul>
-        </div>
+            </ScrollArea>
+            </DropdownMenuContent>
+        </DropdownMenu>
     </div>)
 }

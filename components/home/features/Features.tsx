@@ -1,4 +1,4 @@
-import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsStar, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { Feature } from "./Feature";
 import { FeatureColumn } from "./FeatureColumn";
@@ -36,6 +36,9 @@ export default function Features() {
             </>}/>
         </FeatureColumn>
         <FeatureColumn>
+        <Feature name={<><BsTag/> Roles</>} description={<>
+                Auxdibot comes with a variety of role management features to help you integrate roles into your server, including reaction roles, join roles, sticky roles, and more. 
+        </>}/>
         <Feature name={<><BsClock/> Schedules</>} description={<>
                 Schedule reminders for events, meetings, and more with Auxdibot&apos;s schedules feature. Schedules can utilize custom embeds, placeholders, timestamps, and more.
             </>}/>
