@@ -69,6 +69,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
     return <>
     <div className={"row-span-1 flex-1 flex-grow shadow-2xl border-2 border-gray-800 rounded-2xl w-full max-md:mx-auto"}>
     <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Create Reaction Role</h2>
+    <p className={"text-gray-400 font-open-sans md:ml-4 max-md:w-full max-md:text-center text-base italic"}><span className={"text-red-500"}>*</span> = required field</p>
     <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 md:m-5 my-5 p-1"}>
         <span className={"flex flex-row max-xl:flex-col gap-2 items-center font-open-sans"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><span className={"text-red-500"}>*</span> <BsMegaphone/> Channel:</span> 
@@ -122,7 +123,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                 return  <TextareaMessage serverID={serverID} wrapperClass={'w-full'} value={field.value} onChange={field.onChange} maxLength={2000}/>;
             }}/>
         </label>
-        <section className={'flex justify-between gap-2 items-center max-md:flex    -col'}>
+        <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
         <Dialog>
         <DialogTrigger asChild>
             <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
