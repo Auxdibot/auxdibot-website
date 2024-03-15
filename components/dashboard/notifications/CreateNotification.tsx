@@ -2,20 +2,18 @@
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 
-import { BsBell, BsChatLeftDots, BsEye, BsLink, BsMegaphone, BsRss, BsTextLeft, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
-
+import { BsBell, BsChatLeftDots, BsEye, BsLink, BsMegaphone, BsRss, BsTwitch, BsWifi, BsYoutube } from 'react-icons/bs';
 import { APIEmbed } from 'discord-api-types/v10';
 import MockEmbed from '@/components/ui/messages/mock-embed';
-import EmbedSettings from '@/components/ui/messages/embed-settings';
 import Channels from '@/components/ui/select/channels';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select/select';
 import { NotificationNames } from '@/lib/constants/NotificationNames';
 import { Input } from '@/components/ui/input';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog/dialog';
 import { Button } from '@/components/ui/button/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Separator } from '@/components/ui/separator';
+import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 type NotificationBody = { type: string, topic: string, embed: APIEmbed, message: string, channel: string };
 const NotificationSelect = {
     'YOUTUBE': <><BsYoutube/> YouTube Handle</>,
@@ -96,16 +94,8 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         </section>
         <section className={"w-full flex flex-col max-md:justify-center max-md:items-center"}>
         <span className={'flex max-md:flex-col gap-5 justify-between items-center'}>
-        <Dialog>
-        <DialogTrigger asChild>
-            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
-        </DialogTrigger>
-        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
-        <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings placeholderContext={['feed']} serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
-        )}></Controller>
-        </DialogContent>
-        </Dialog>
+        <EmbedDialog placeholderContext={['feed']} serverID={serverID} addField={append} register={register} removeField={remove} control={control} />
+
         <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
             <BsBell/> Create Notification
         </Button>

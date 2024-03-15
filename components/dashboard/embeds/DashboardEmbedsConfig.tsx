@@ -2,19 +2,20 @@
 import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsBroadcast, BsChatLeftDots, BsMegaphone, BsTextLeft } from 'react-icons/bs';
-import EmbedSettings from '@/components/ui/messages/embed-settings';
+import { BsBroadcast, BsChatLeftDots, BsMegaphone } from 'react-icons/bs';
+
 import Channels from '@/components/ui/select/channels';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { useToast } from '@/components/ui/use-toast';
 import { useQuery } from 'react-query';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog/dialog';
+
 import { Button } from '@/components/ui/button/button';
+import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 
 type EmbedBody = { message: string; channel: string; embed: APIEmbed; }
 export default function DashboardEmbedsConfig({ id }: { id: string }) {
     const { register, watch, control, handleSubmit, reset } = useForm<EmbedBody>({ defaultValues: { embed: { fields: [] }, channel: '', message: '' } });
-    const { fields, append, remove } = useFieldArray({
+    const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
         rules: {
@@ -63,16 +64,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
             )}/>
         </section>
         <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
-        <Dialog>
-        <DialogTrigger asChild>
-            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
-        </DialogTrigger>
-        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
-        <Controller name={'embed'} control={control} render={({ field }) => {
-            return <EmbedSettings  serverID={id}  control={control} addField={append} register={register} removeField={remove} value={({...field.value, fields})} />;
-        }}/>
-        </DialogContent>
-        </Dialog>
+        <EmbedDialog serverID={id} addField={append} removeField={remove} control={control} register={register} />
 
         <Button variant={'outline'} className={`flex flex-row gap-2 items-center`} type="submit">
             <BsBroadcast/> Send Message

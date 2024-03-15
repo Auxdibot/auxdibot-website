@@ -1,11 +1,10 @@
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import MockEmbed from "../ui/messages/mock-embed";
-import EmbedSettings from "../ui/messages/embed-settings";
 import { APIEmbed } from "discord-api-types/v10";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog/dialog";
-import { Button } from "../ui/button/button";
-import { BsTextLeft, BsTrash } from "react-icons/bs";
+
+import { BsTrash } from "react-icons/bs";
 import { motion } from 'framer-motion';
+import { EmbedDialog } from "../ui/dialog/embed-dialog";
 type EmbedPreviewBody = { embed: APIEmbed }
 export function Preview() {
     const { control, register, watch, reset } = useForm<EmbedPreviewBody>({
@@ -49,16 +48,8 @@ export function Preview() {
             <motion.h1 className={"header text-6xl py-2"} initial={{ transform: "translateY(-2rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.2  }}>next-gen tools</motion.h1>
             <p className={'font-open-sans text-gray-300'}>Auxdibot features an innovative dashboard with an approachable, user-friendly UI and convenience prioritized first-hand! Click &quot;Edit Embed&quot; to start creating!</p>
             <span className={'flex items-center gap-2'}>
-                <Dialog>
-        <DialogTrigger asChild>
-            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
-        </DialogTrigger>
-        <DialogContent className={'max-h-[98dvh] overflow-y-scroll'}>
-        <Controller control={control} name={"embed"} render={({ field }) => {
-                    return <EmbedSettings {...field} register={register} control={control} removeField={removeField} addField={addField} />
-                }}/>
-                </DialogContent>
-                </Dialog>
+            <EmbedDialog register={register} control={control} removeField={removeField} addField={addField}/>
+
                 <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border border-gray-700 text-gray-600 rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => reset({ embed: { fields: [] }})}><BsTrash/></button></span>
             </span>
             </div>

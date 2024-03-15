@@ -2,15 +2,14 @@
 import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsChatLeftDots, BsTextLeft } from 'react-icons/bs';
+import { BsChatLeftDots } from 'react-icons/bs';
 import { PiHandWavingLight } from 'react-icons/pi'; 
 import JoinLeaveChannel from './JoinLeaveChannel';
-import EmbedSettings from '@/components/ui/messages/embed-settings';
 import { useToast } from '@/components/ui/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select/select';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog/dialog';
 import { Button } from '@/components/ui/button/button';
+import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 
 enum GreetingType {
     JOIN = "join",
@@ -77,17 +76,8 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             }}/>
         </label>
         <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
-        <Dialog>
-        <DialogTrigger asChild>
-            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
-        </DialogTrigger>
-        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
-        <Controller name={'embed'} control={control} render={({ field }) => {
-            return <EmbedSettings  serverID={id} control={control} addField={append} register={register} removeField={remove} value={field.value} />;
-        }}/>
-        </DialogContent>
-        </Dialog>
-
+        <EmbedDialog serverID={id} control={control} addField={append} register={register} removeField={remove} />
+ 
         <Button variant={'outline'} className={`flex flex-row gap-2 items-center`} type="submit">
             <PiHandWavingLight/> Set Greeting
         </Button>

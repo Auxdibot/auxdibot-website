@@ -3,19 +3,17 @@ import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsBell, BsCalendar, BsChatLeftDots, BsClock, BsEye, BsMegaphone, BsRepeat, BsTextLeft } from 'react-icons/bs';
+import { BsBell, BsCalendar, BsChatLeftDots, BsClock, BsEye, BsMegaphone, BsRepeat } from 'react-icons/bs';
 import "react-datepicker/dist/react-datepicker.css"; 
 import Channels from '@/components/ui/select/channels';
-
-import EmbedSettings from '@/components/ui/messages/embed-settings';
 import TimestampBox from '@/components/ui/timestamp-box';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog/dialog';
 import { Button } from '@/components/ui/button/button';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { DatePicker } from '@/components/ui/date-picker';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>({ defaultValues: { embed: { fields: [] }, channel: '', duration: '', message: '', times_to_run: 0 }});
@@ -92,16 +90,8 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
             )}></Controller>
         </label>
         <span className={'flex max-md:flex-col gap-5 justify-between items-center'}>
-        <Dialog>
-        <DialogTrigger asChild>
-            <Button className={'w-fit gap-2 my-2'} variant={'secondary'}><BsTextLeft/> Edit Embed</Button>
-        </DialogTrigger>
-        <DialogContent className={'max-h-[98vh] overflow-y-scroll'}>
-        <Controller name={'embed'} control={control} render={({ field }) => (
-                <EmbedSettings placeholderContext={['feed']} serverID={serverID} addField={append} register={register} removeField={remove} control={control} value={field.value} />
-        )}></Controller>
-        </DialogContent>
-        </Dialog>
+        <EmbedDialog serverID={serverID} addField={append} register={register} removeField={remove} control={control}/>
+
         <Button className={`flex flex-row gap-2 items-center max-md:mx-auto w-fit`} variant={'outline'} type="submit">
             <BsBell/> Create Schedule
         </Button>

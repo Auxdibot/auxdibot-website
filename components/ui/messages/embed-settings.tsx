@@ -7,7 +7,7 @@ import { TextareaMessage } from "./textarea-message";
 import { Checkbox } from "../checkbox";
 import { Button } from "../button/button";
 
-interface EmbedSettingsProps {
+export interface EmbedSettingsProps {
     readonly value: APIEmbed;
     readonly register: UseFormRegister<any & { embed: APIEmbed }>;
     readonly control: Control<any & { embed: APIEmbed}>;
