@@ -125,7 +125,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         </div>
         <Tabs onValueChange={(val) => val != 'attach' ? setValue("messageID", undefined) : setValue("type", "DEFAULT")}  defaultValue='create'>
         <TabsList className={'flex mx-auto w-fit my-2'}>
-            <TabsTrigger value='create'>Create Message</TabsTrigger>
+            <TabsTrigger value='create'>Embed</TabsTrigger>
             <TabsTrigger value='attach'>Attach to Message</TabsTrigger>
         </TabsList>
         <TabsContent value='create'>
@@ -144,7 +144,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         </section>
         </TabsContent>
         <TabsContent value='attach'>
-        <section className={'flex justify-center gap-2 items-end max-md:flex-col'}>
+        <section className={'flex justify-center gap-2 items-end max-md:flex-col max-md:items-center'}>
         <span className={'flex flex-col'}>
         <label className={'secondary'}>Message ID:</label>
         <Input className={'w-fit'} {...register("messageID")} />
