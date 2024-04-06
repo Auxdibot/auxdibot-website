@@ -1,4 +1,4 @@
-import { BsBell, BsClock, BsImage, BsJournalCheck, BsPersonBadge, BsQuestion, BsRobot, BsShield, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsBell, BsClock, BsImage, BsJournalCheck, BsQuestion, BsRobot, BsShield, BsStar, BsTag, BsTextLeft, BsTrophy, BsYoutube } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { Feature } from "./Feature";
 import { FeatureColumn } from "./FeatureColumn";
@@ -11,8 +11,8 @@ export default function Features() {
             <Feature name={<><BsShield/> Moderation</>} description={<>
                 Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.
             </>}/>
-            <Feature name={<><BsBell/> Notifications</>} description={<>
-                Auxdibot&apos;s notifications allow you to subscribe to alerts from your favorite youtube channel, twitch streamer, or RSS feed! Get notified when your favorite content creator uploads a new video or goes live.
+            <Feature name={<><BsYoutube/> Notifications</>} description={<>
+                Auxdibot&apos;s notifications allow you to subscribe to alerts from your favorite YouTube channel, Twitch channel, or RSS feed! Get notified when your favorite content creator uploads a new video or goes live.
             </>}/>
             <Feature name={<><BsQuestion/> Suggestions</>} description={<>
                 Receive feedback from your server members with Auxdibot&apos;s suggestion system. Members can submit suggestions and vote on them, and moderators can respond to them with a reason and status.
@@ -44,9 +44,6 @@ export default function Features() {
             </>}/>
             <Feature name={<><PiHandWaving/> Greetings</>} description={<>
                 Greet members as they join your server with Auxdibot&apos;s greetings feature. Greetings can be customized using Auxdibot&apos;s Discord Embed creator.
-            </>}/>
-            <Feature name={<><BsPersonBadge/> Permissions</>} description={<>
-                Configure Auxdibot&apos;s permissions to your server&apos;s needs. Auxdibot features a variety of permissions for each module, and a role-based/user-based permission system.
             </>}/>
             <Feature name={<><span className={"border border-green-500 rounded-2xl p-1 text-md"}>BETA</span> <BsImage/> Cards</>} description={<>
                 Experience the future of server presentation with Auxdibot&apos;s cards feature. Cards are a way to present your server to the world in a unique way. Create a custom website for your server with a library of various fonts and backgrounds.

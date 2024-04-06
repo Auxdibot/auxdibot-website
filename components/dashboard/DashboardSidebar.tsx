@@ -6,7 +6,7 @@ import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
-import { BsArrowRight, BsBell, BsCardImage, BsChat, BsClock, BsExclamationTriangle, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsShieldCheck, BsStar, BsTag, BsTextLeft, BsTrophy } from "react-icons/bs";
+import { BsArrowRight, BsCardImage, BsChat, BsClock, BsExclamationTriangle, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsSlashLg, BsStar, BsTag, BsTextLeft, BsTrophy, BsYoutube } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
 import { ScrollArea } from "../ui/scroll-area";
@@ -35,7 +35,7 @@ enum SidebarCategories {
     LOGGING = "logging",
     MODERATION = "moderation",
     SCHEDULES = "schedules",
-    PERMISSIONS = "permissions",
+    COMMANDS = "commands",
     EMBEDS = "embeds",
     STARBOARD = "starboard",
     SUGGESTIONS = "suggestions",
@@ -70,10 +70,9 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                 <span><BsArrowRight className={`${page == SidebarCategories.LOGGING ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.LOGGING)} className={`dashboard-sidebar-element ${page == SidebarCategories.LOGGING ? "dashboard-sidebar-selected-text" : ""}`}><BsJournalBookmark/> Logging</span>
             </section>
-
-            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${page == SidebarCategories.PERMISSIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.PERMISSIONS)} className={`dashboard-sidebar-element ${page == SidebarCategories.PERMISSIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsShieldCheck/> Permissions</span>
+            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.COMMANDS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.COMMANDS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.COMMANDS)} className={`dashboard-sidebar-element ${page == SidebarCategories.COMMANDS ? "dashboard-sidebar-selected-text" : ""}`}><BsSlashLg/> Commands</span>
             </section>
             <h2 className={'font-montserrat text-lg mt-5 mb-2 flex items-center gap-2'}><BsHammer/> Utility</h2>
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.MODERATION ? "dashboard-sidebar-selected" : ""}`}>
@@ -103,7 +102,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
             </section>
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.NOTIFICATIONS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.NOTIFICATIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.NOTIFICATIONS)} className={`dashboard-sidebar-element ${page == SidebarCategories.NOTIFICATIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsBell/> Notifications</span>
+                <span onClick={() => changeCategory(SidebarCategories.NOTIFICATIONS)} className={`dashboard-sidebar-element ${page == SidebarCategories.NOTIFICATIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsYoutube/> Notifications</span>
             </section>
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.SCHEDULES ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SCHEDULES ? "scale-75" : "scale-0 hidden"}`}/></span>
