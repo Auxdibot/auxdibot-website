@@ -20,19 +20,19 @@ export default function DashboardLanding({ id }: { id: string }) {
                 <Card className={'col-span-1'}>
                     <CardContent className="flex flex-col gap-3 py-4">
                         <CardTitle className={'flex items-center justify-between text-2xl font-montserrat font-normal'}><span className={'group relative transition-all before:hover-underline before:bg-white hover:before:scale-100 before:mb-1 cursor-pointer'} onClick={() => router.push(`${id}/logging`)}>Moderation</span> <ModuleSlider module="Moderation" server={settings}/></CardTitle>
-                        <CardDescription> Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.</CardDescription>
+                        <CardDescription>Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.</CardDescription>
                     </CardContent>
-                </Card>
+                </Card> 
                 <Card className={'col-span-1'}>
                     <CardContent className="flex flex-col gap-3 py-4">
-                        <CardTitle className={'flex items-center justify-between text-2xl font-montserrat font-normal'}><span className={'group relative transition-all before:hover-underline before:bg-white hover:before:scale-100 before:mb-1 cursor-pointer'} onClick={() => router.push(`${id}/permissions`)}>Permissions</span> <ModuleSlider module="Permissions" server={settings}/></CardTitle>
-                        <CardDescription>Configure Auxdibot&apos;s permissions to your server&apos;s needs. Auxdibot features a variety of permissions for each module, and a role-based/user-based permission system. <span className={'text-gray-500 italic'}>[deprecation soon]</span></CardDescription>
-                    </CardContent>
-                </Card>
-                <Card className={'col-span-1'}>
-                    <CardContent className="flex flex-col gap-3 py-4">
-                        <CardTitle className={'flex items-center justify-between text-2xl font-montserrat font-normal'}><span className={'group relative transition-all before:hover-underline before:bg-white hover:before:scale-100 before:mb-1 cursor-pointer'} onClick={() => router.push(`${id}/embeds`)}>Messages</span> <ModuleSlider module="Messages" server={settings}/></CardTitle>
+                        <CardTitle className={'flex items-center justify-between text-2xl font-montserrat    font-normal'}><span className={'group relative transition-all before:hover-underline before:bg-white hover:before:scale-100 before:mb-1 cursor-pointer'} onClick={() => router.push(`${id}/embeds`)}>Messages</span> <ModuleSlider module="Messages" server={settings}/></CardTitle>
                         <CardDescription>Create fleshed out custom Discord Embeds with Auxdibot&apos;s embeds feature. Featuring an easy-to-use editor, you can create embeds with a variety of fields and colors.</CardDescription>
+                    </CardContent>
+                </Card>
+                <Card className={'col-span-1'}>
+                    <CardContent className="flex flex-col gap-3 py-4">
+                        <CardTitle className={'flex items-center justify-between text-2xl font-montserrat font-normal'}><span className={'group relative transition-all before:hover-underline before:bg-white hover:before:scale-100 before:mb-1 cursor-pointer'} onClick={() => router.push(`${id}/schedules`)}>Schedules</span></CardTitle>
+                        <CardDescription>Auxdibot&apos;s method of building timed messages. Administrators can schedule messages to run on an interval, with custom embed content and a custom start date.</CardDescription>
                     </CardContent>
                 </Card>
                 <Card className={'col-span-1'}>
