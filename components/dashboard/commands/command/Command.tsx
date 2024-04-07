@@ -48,7 +48,7 @@ function CommandEditMenu({ data, command, id }: CommandProps) {
             <section className={'flex flex-col flex-1 gap-1 items-center'}>
             <label className={'font-open-sans'}>Admin Only</label>
             <p className={'text-xs text-gray-400 italic w-fit text-center'}>Toggle whether users with the Administrator permission on Discord can use this command exclusively.</p>
-            <AdminOnlySlider admin_only={data?.admin_only} command={command.command} subcommand={[command.group ?? '', command.subcommand ?? ''].filter((i) => i)} id={id}/>
+            <AdminOnlySlider admin_only={data?.admin_only ?? !!!command.allowedDefault} command={command.command} subcommand={[command.group ?? '', command.subcommand ?? ''].filter((i) => i)} id={id}/>
             </section>
             </div>
             <Separator/>
@@ -86,7 +86,7 @@ function CommandEditMenu({ data, command, id }: CommandProps) {
             <Separator/>
             <section className={'flex flex-col flex-1 gap-1 items-center'}>
             <label className={'font-open-sans'}>Permission Bypass Roles</label>
-            <p className={'text-xs text-gray-400 italic w-fit text-center w-fit'}>A role that will bypass any Discord permissions when running an Auxdibot command.</p>
+            <p className={'text-xs text-gray-400 italic w-fit text-center'}>A role that will bypass any Discord permissions when running an Auxdibot command.</p>
             <PermissionBypassRoles bypass={data?.permission_bypass_roles ?? []} command={command.command} subcommand={[command.group ?? '', command.subcommand ?? ''].filter((i) => i)} id={id}/>
             </section>
         </DialogContent>

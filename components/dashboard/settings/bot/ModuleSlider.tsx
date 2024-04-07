@@ -1,12 +1,12 @@
 "use client"
 import { useToast } from "@/components/ui/use-toast";
 import DisableableModules from "@/lib/constants/DisableableModules";
-import { BsChat, BsHammer, BsPersonBadge, BsQuestionCircle, BsShieldCheck, BsStar, BsTrophy } from "react-icons/bs";
+import { BsChat, BsHammer, BsPersonBadge, BsQuestionCircle, BsStar, BsTrophy } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { useQueryClient } from "react-query";
 
 let ModuleIcons: { [K in typeof DisableableModules[number]]: React.ReactElement } = {
-    "Messages": <BsChat/>, "Moderation": <BsHammer/>, "Permissions": <BsShieldCheck/>, "Roles": <BsPersonBadge/>, "Levels": <BsTrophy/>, "Suggestions": <BsQuestionCircle/>, "Starboard": <BsStar/>, "Greetings": <PiHandWaving/>
+    "Messages": <BsChat/>, "Moderation": <BsHammer/>, "Roles": <BsPersonBadge/>, "Levels": <BsTrophy/>, "Suggestions": <BsQuestionCircle/>, "Starboard": <BsStar/>, "Greetings": <PiHandWaving/>
 }
 export default function ModuleSlider({ module, server }: { module: keyof typeof ModuleIcons, server: { data: {serverID: string, disabled_modules: string[]} } }) {
     const queryClient = useQueryClient();
