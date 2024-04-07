@@ -1,4 +1,4 @@
-import { BsBell, BsClock, BsImage, BsJournalCheck, BsQuestion, BsRobot, BsShield, BsStar, BsTag, BsTextLeft, BsTrophy, BsYoutube } from "react-icons/bs";
+import { BsClock, BsImage, BsJournalCheck, BsQuestion, BsRobot, BsShield, BsStar, BsTag, BsTextLeft, BsTrophy, BsYoutube } from "react-icons/bs";
 import { PiHandWaving } from "react-icons/pi";
 import { Feature } from "./Feature";
 import { FeatureColumn } from "./FeatureColumn";
