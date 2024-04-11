@@ -5,7 +5,7 @@
 
 Auxdibot features many commands that will allow you to view and edit Auxdibot's settings for your server.
 
-## Enabling and Disabling Modules
+## Module State
 
 If you don't like one of Auxdibot's modules or one of Auxdibot's modules is conflicting with another bot, it can be disabled and enabled using the `/modules` command. Disabling a feature will disable all Auxdibot commands attached to that module and disable any recurring actions for that module on your server.
 
