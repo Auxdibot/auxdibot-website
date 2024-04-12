@@ -1,7 +1,5 @@
 {
-    "home": "home.md",
-    "dashboard": "dashboard.md",
-    "commands": "commands.md",
-    "logging": "logging.md",
-    "moderation": "moderation.md"
+    "about": "about.md",
+    "get-started": "get-started.md",
+    "logging": "logging.md"
 }

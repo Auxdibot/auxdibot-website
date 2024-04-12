@@ -1,7 +1,7 @@
 import documentation from '@/Documentation/documentation.json';
 import { readFileSync } from 'fs';
 import Showdown from 'showdown';
-
+require('./extensions/alertsExtension');
 const converter = new Showdown.Converter({
     metadata: true,
     ghCodeBlocks: true,
@@ -9,8 +9,8 @@ const converter = new Showdown.Converter({
     tables: true,
     emoji: true,
     customizedHeaderId: true,
-    
-})
+    extensions: ['alert']
+});
 export default function fetchDocumentation(name: string): string | undefined {
     let doc: any = documentation;
     for (let i of name.split('/')) {

@@ -1,17 +1,11 @@
 ---
+
 title: Logging
-
 ---
-
-<div id="header" align="center">
-  <img src="https://bot.auxdible.me/logo.png" width=225/>
-  <h1 id="welcome">Logging</h1>
-</div>
-
-Auxdibot features a fleshed out logging system, allowing you to log any action Auxdibot recognizes to any channel.
 
 ## Log Embed
 
+-----
 When an action is logged on Auxdibot, your latest log will be updated and a log will be sent to the log channel on your server. The log channel can be changed with the command `/settings log_channel`.
 
 <p class="image">
@@ -19,16 +13,11 @@ When an action is logged on Auxdibot, your latest log will be updated and a log 
 <em>The log embed sent to the log channel, which contains additional information about the action that has occurred.</em>
 </p>
 
-## Dashboard
 
-Log settings can be viewed under the "Logging" section on the user dashboard. The latest log can be viewed on the dashboard, and the log channel can be edited from the dashboard.
-
-<p class="image">
-<img alt="Logging Dashboard" src="/docs/_assets/dashboard_logging.png" width=450/>
-<em>The dashboard settings for logging, displaying the latest log and allowing the user to change the log channel.</em>
-</p>
 
 ## Log Actions
+
+-----
 
 Auxdibot will log the following actions on your server.
 
@@ -48,8 +37,6 @@ Auxdibot will log the following actions on your server.
 | Member Server Muted | A member has been server muted on voice. |
 | Punishment Expired | A punishment has expired. |
 | Punishment Deleted | A punishment has been deleted. |
-| Permission Override Created | A permission override has been created. |
-| Permission Override Deleted | A permission override has been deleted. |
 | Channel Created | A channel has been created. |
 | Channel Deleted | A channel has been deleted. |
 | Thread Created | A thread has been created. |
@@ -79,4 +66,19 @@ Auxdibot will log the following actions on your server.
 | Scheduled Message Created | A scheduled message has been created. |
 | Scheduled Message Deleted | A scheduled message has been deleted. |
 | Level Channel Changed | The level channel has been changed. |
+| Level Reward Created | A level reward was created. |
+| Level Reward Deleted  | A level reward was deleted. |
+| Channel Locked | A channel has been locked. |
+| Channel Unlocked | A channel has been unlocked. |
+| Server Locked | The server has been locked. |
+| Server Unlocked | The server has been unlocked. |
+| Reports Channel Changed | The reports channel has been changed. |
+| Reports Role Changed | The reports role has been changed. |
+| Notification Created | A notification feed has been created. |
+| Notification Deleted | A notification feed has been deleted. |
+| Command Rules Changed | The command rules for this server have been changed. |
+| Error | A silent error has occurred. |
 
+### Filtering Log Actions
+
+Log Actions can be filtered with the `/logs filter (log)` command. When a log is filtered, it will no longer be logged to your log channel. You can unfilter the log by running the `/logs filter (log)` command again.
