@@ -1,3 +1,8 @@
+---
+title: Commands
+
+---
+
 <div id="header" align="center">
   <img src="https://bot.auxdible.me/logo.png" width=225/>
   <h1 id="welcome">Commands</h1>

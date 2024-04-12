@@ -1,3 +1,8 @@
+---
+title: Home
+
+---
+
 <div id="header" align="center">
   <img src="https://bot.auxdible.me/logo.png" width=225/>
   <div class="badges">

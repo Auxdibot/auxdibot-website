@@ -1,5 +1,5 @@
 ---
-title: Logging
+title: Moderation
 
 ---
 
