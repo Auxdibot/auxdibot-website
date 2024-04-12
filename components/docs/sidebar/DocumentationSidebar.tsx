@@ -14,7 +14,7 @@ export function DocumentationSidebar({ doc: docPage, docList }: { doc: string | 
                 <h1 className="font-montserrat text-3xl text-center">Auxdibot Documentation</h1>
             </div>
             <div className={"flex flex-col w-full"}>
-            {docList?.map((document) => document && <SidebarCategory docID={document.id}  key={document.id} selected={docPage?.toString() ?? "home"} title={document.name} />)}
+            {docList?.map((document) => document && <SidebarCategory docID={document.id}  key={document.id} selected={docPage?.toString() ?? "about"} title={document.name} />)}
             </div>
         </ScrollArea>
 

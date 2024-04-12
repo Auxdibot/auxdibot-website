@@ -85,12 +85,13 @@
         }
     }
     .doc-content {
-        @apply prose-headings:font-lato prose-h1:font-bauhaus prose-h1:lowercase prose-headings:header 
-        prose-headings:my-3 prose-h1:text-6xl prose-h2:text-4xl prose-p:my-5
-        prose-h3:text-2xl prose-code:text-gray-300 prose-code:bg-gray-800 prose-code:rounded-md prose-code:p-0.5 prose-blockquote:text-gray-400 
+        @apply prose-headings:font-lato prose-h1:font-bauhaus prose-h1:lowercase prose-h1:header
+        prose-h1:my-3 prose-h1:text-6xl prose-h2:font-raleway prose-h2:header prose-h2:font-bold prose-h2:py-1
+        prose-h2:my-3 prose-h2:text-4xl prose-p:my-5
+        prose-h3:font-raleway prose-h3:header prose-h3:font-bold prose-h3:py-1 prose-h3:my-3 prose-h3:text-2xl prose-code:text-gray-300 prose-code:bg-gray-800 prose-code:rounded-md prose-code:p-0.5 prose-blockquote:text-gray-400 
         prose-blockquote:font-semibold prose-a:text-orange-500 prose-a:no-underline prose-strong:text-gray-100
         prose-table:border prose-th:p-2 prose-th:border prose-tr:border-b prose-tr:border-gray-500 max-md:prose-tr:inline-flex max-md:prose-tr:p-2 max-md:prose-tr:w-full max-md:prose-tr:flex-col 
-        md:prose-td:border-r max-md:prose-thead:hidden prose-td:border-gray-500 prose-td:px-0.5 prose-th:border-gray-400 
+        md:prose-td:border-r prose-td:p-2 max-md:prose-thead:hidden prose-td:border-gray-500 prose-td:px-0.5 prose-th:border-gray-400 
         prose-th:font-normal prose-th:text-xl prose-table:border-gray-500 prose-ul:list-disc prose-ul:ml-8
         p-4 font-roboto;
 
@@ -106,6 +107,17 @@
         .row {
             @apply justify-center flex flex-row py-1;
         }
+    }
+    .doc-alert {
+        @apply font-open-sans w-full max-w-[600px] my-3;
+        div {
+            @apply block text-ellipsis break-words whitespace-pre-line;
+            p {
+                margin: 0 !important;
+            }
+        }
+
+
     }
 }
 @layer utilities {
