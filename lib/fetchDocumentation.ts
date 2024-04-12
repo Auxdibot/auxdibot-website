@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import Showdown from 'showdown';
 
 const converter = new Showdown.Converter({
-
+    metadata: true,
     ghCodeBlocks: true,
     parseImgDimensions: true,
     tables: true,

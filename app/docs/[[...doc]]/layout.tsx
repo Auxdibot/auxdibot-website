@@ -1,6 +1,3 @@
-import DocumentationSidebarContainer from '@/components/docs/DocumentationSidebar';
-
-
 import Providers from '@/components/Providers'
 import '@/styles/global.scss'
 import { Metadata } from 'next'
@@ -12,7 +9,6 @@ export const metadata: Metadata = defaultMetadata;
 
 export default function DocumentationLayout({
   children,
-  params
 }: {
   children: React.ReactNode,
   params: { doc: string }
@@ -23,7 +19,7 @@ export default function DocumentationLayout({
         <Providers>
           <LayoutNavbar preventCollapse />
           <div className={"flex flex-row flex-1 w-full flex-grow"}>
-          <DocumentationSidebarContainer doc={params.doc} />
+          
           {children}
           </div>
         </Providers>
