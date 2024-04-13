@@ -1,5 +1,6 @@
 {
     "about": "about.md",
     "get-started": "get-started.md",
-    "logging": "logging.md"
+    "logging": "logging.md",
+    "moderation": "moderation.md"
 }
