@@ -91,6 +91,8 @@ Auxdibot contains a suite of features that will enhance your server's experience
 
 ## Frequently Asked Questions
 
+-----
+
 ### Found a bug! How do I report it?
 
 Create an issue in [the GitHub repo of your choice](https://github.com/Auxdibot) or submit a bug report in [Auxdibot's support discord server.](https://discord.gg/tnsFW9CQEn)
@@ -101,5 +103,7 @@ Create a feature request issue [the GitHub repo of your choice](https://github.c
 
 
 ## Credits
+
+-----
 
 This project is developed solely by [Auxdible](https://github.com/Auxdible). Contact me through my Discord, `auxdible`, or by my email. Contributions accepted.
