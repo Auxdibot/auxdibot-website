@@ -17,7 +17,15 @@ When a punishment is created, it can be viewed again by running the command `/pu
 
 A ban/mute can be revoked by a moderator by running the `/punish (unmute|unban) (user)` commands.
 
+### Editing Punishment Content
 
+Administrators or members with permission can run the commands `/moderation settings (send_reason|send_moderator) (send)` to change whether the moderator who issued the punishment or the reason the moderator issued the punishment are displayed to the user.
+
+### Mute Role
+
+|!|Do not set your mute role to a role you are already utilizing. Auxdibot will automatically configure permissions for that role, and any Discord permission you may have for that role in any channel will be overwritten.|!|
+
+By default, Auxdibot utilizes Discord's Timeout system for issuing mutes to members. Permanent mutes cannot be issued if your server utilizes Discord's Timeout system. Administrators can set the mute role for your server by running the command `/moderation settings mute_role (role)`
 ### User Embed
 
 Auxdibot features a `/user` command. Moderators can run the `/user (user)` command to view information about a user. In this menu, you can view their full punishment history or issue/revoke a punishment. All punishments issued from the User Embed are permanent.
@@ -41,7 +49,9 @@ Auxdibot features a `/user` command. Moderators can run the `/user (user)` comma
 | `/punishment delete (punishment_id)`| Delete a punishment. |
 | `/punishment latest`| View the last 10 punishments. |
 | `/punishment record (user)`| View a user's punishment record. |
-| `/user [user]`| Displays an easy to use embed where you can view and edit a user's data, including punishments on their record. |
+| `/moderation settings send_reason (send)`| Change whether users are sent the reason for their punishment. |
+| `/moderation settings send_moderator (send)`| Change whether users are sent the name of the moderator that punished them. |
+| `/moderation settings mute_role [role]`| Change the role that is assigned to muted users for the server. |
 
 ## Channel Locking
 
