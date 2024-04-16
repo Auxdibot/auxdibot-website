@@ -9,5 +9,5 @@ export default function DocumentationScrollbar() {
     useMotionValueEvent(scrollY, "change", () => {
         setHookedYPosition(scrollYProgress)
     })
-    return <motion.div style={{ scaleX: hookedYPostion, width: `calc(100%${!media ? ' - 320px' : ''})` }} className={"bg-gradient-to-r w-full bottom-0 origin-center left-0 md:left-80 -translate-x-full fixed z-10 from-red-500 to-orange-400 h-4"}></motion.div>;
+    return <motion.div style={{ scaleX: hookedYPostion, width: `calc(100%${!media ? ' - 320px' : ''})` }} className={"w-full bottom-0 origin-center left-0 md:left-80 -translate-x-full fixed z-10 bg-orange-400 h-2"}></motion.div>;
 }

@@ -63,7 +63,7 @@ export function DocumentationSidebarSections() {
         };
     }, [content, intersecting]);
 
-    return <ul className={`pl-8 flex flex-col gap-2 my-2 text-lg`}>
+    return <ul className={`pl-8 flex flex-col gap-3 my-2 text-lg`}>
         {content.map(({ id, name, children }, index) => {
             return <li key={index} className={"flex flex-col w-full gap-2"}>
                 <span className={`font-open-sans flex gap-5 r w-fit pr-4`}>
@@ -73,7 +73,7 @@ export function DocumentationSidebarSections() {
                     }}>{name} </section>
                     <div className={`w-2 rounded-xl self-stretch ${inView == id ? 'bg-orange-500' : ""}`} />
                 </span>
-                {children && children.length > 0 && <ul className={`pl-4 font-roboto text-sm gap-0.5 flex flex-col`}>
+                {children && children.length > 0 && <ul className={`pl-4 font-roboto text-sm gap-1 flex flex-col`}>
                     {children?.map((child, index) => {
                         return <li className={'cursor-pointer flex gap-5 hover:font-bold'} key={index} onClick={() => {
                             contextExpanded?.setExpanded(false);
