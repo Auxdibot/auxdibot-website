@@ -1,5 +1,5 @@
 ---
-title: Automod
+title: AutoMod
 ---
 
 ## Warn Thresholds

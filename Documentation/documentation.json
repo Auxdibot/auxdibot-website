@@ -3,5 +3,7 @@
     "get-started": "get-started.md",
     "logging": "logging.md",
     "moderation": "moderation.md",
-    "automod": "automod.md"
+    "automod": "automod.md",
+    "notifications": "notifications.md",
+    "schedules": "schedules.md"
 }
