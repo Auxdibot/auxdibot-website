@@ -18,7 +18,7 @@ A schedule can be removed by running the command `/schedule remove (index)` wher
 
 | Command  | Description |
 | ------------- | ------------------- |
-| `/schedule message (channel) (interval) [times to run] [start_date] [...embed parameters]`| Schedule a message using Auxdibot. |
+| `/schedule message (channel) (interval) [times to run] [start_date] [...embed parameters]`| Schedule a message using Auxdibot. |  
 | `/schedule list` | List the schedules running on your server. |
 | `/schedule remove (index)`| Remove a schedule from your server. It will never run again after deletion. |
 | `/schedule preview [index]`| Preview a scheduled message. |
