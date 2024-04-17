@@ -6,5 +6,6 @@
     "automod": "automod.md",
     "notifications": "notifications.md",
     "schedules": "schedules.md",
-    "starboard": "starboard.md"
+    "starboard": "starboard.md",
+    "suggestions": "suggestions.md"
 }
