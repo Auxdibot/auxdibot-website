@@ -3,7 +3,7 @@
 title: Logging
 ---
 
-## Log Embed
+## Logs
 
 -----
 When an action is logged on Auxdibot, your latest log will be updated and a log will be sent to the log channel on your server. The log channel can be changed with the command `/settings log_channel`.
@@ -13,13 +13,15 @@ When an action is logged on Auxdibot, your latest log will be updated and a log 
 <em>The log embed sent to the log channel, which contains additional information about the action that has occurred.</em>
 </p>
 
+### Viewing Logs
 
+Administrators or members with permission can view the 50 latest logs on your server by running the `/logs latest` command. 
 
 ## Log Actions
 
 -----
 
-Auxdibot will log the following actions on your server.
+Auxdibot will log the following actions on your server. You can view this list at any time by running `/logs actions`.
 
 | Log Action | Action Description |
 | ------------- | ------------------- |
