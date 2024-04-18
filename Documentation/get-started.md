@@ -156,8 +156,12 @@ Join DM greetings are sent directly to the user when they join the server, if th
 
 You can modify the Join/Leave/Join DM messages at any time by running the `/(join|leave|join_dm) message [...embed parameters]` commands. See [Embeds](#embeds) for more information on Embed Parameters. Additionally, you can preview the Join/Leave/Join DM messages by running the commands `/(join|leave|join_dm) preview`
 
-### Join/Sticky Roles
+### Join Roles
 
-Join Roles are given to a user when they join the server. You can add join roles by running the command `/join_roles add (role)`.
+Join Roles allow a user to receive roles when they join your server! Administrators or members with permission can add a Join Role by running the command `/join_roles add (role)`.
 
-Sticky Roles are roles that are retained when a user leaves the server. When they join back, they will be granted the roles that they had back, if they were specified as a sticky role.
+### Sticky Roles
+
+Sticky Roles (or "Rejoin" Roles) are roles that are "stuck" to the user when they leave the server. If the user leaves the server and rejoins, the roles that they had that were added as Sticky Roles are given back to the user.
+
+Administrators or members with permission can add a Sticky Role by running the command `/sticky_roles add (role)`.

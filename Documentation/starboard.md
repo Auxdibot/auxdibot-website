@@ -12,6 +12,8 @@ Starboard messages are created in the starboard channel when a message recieves 
 
 Administrators or members with permission can set the amount of reactions a message needs to be posted to your server's starboard by running the command `/starboard reaction_count (reaction_count)`
 
+### Starboard Commands
+
 | Command  | Description |
 | ------------- | ------------------- |
 | `/starboard channel [channel]`| Set the channel where starred messages are sent. |

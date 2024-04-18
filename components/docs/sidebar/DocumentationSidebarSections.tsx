@@ -69,7 +69,7 @@ export function DocumentationSidebarSections() {
                 <span className={`font-open-sans flex gap-5 r w-fit pr-4`}>
                     <section className="relative group cursor-pointer w-fit before:hover-underline before:hover:scale-100 before:bg-white" onClick={() => {
                         contextExpanded?.setExpanded(false);
-                        window.scroll({ top: (document.getElementById(id)?.offsetTop || 0) - 100, behavior: "smooth" });
+                        window.scroll({ top: (document.getElementById(id)?.offsetTop || 0) - 25, behavior: "smooth" });
                     }}>{name} </section>
                     <div className={`w-2 rounded-xl self-stretch ${inView == id ? 'bg-orange-500' : ""}`} />
                 </span>
@@ -77,7 +77,7 @@ export function DocumentationSidebarSections() {
                     {children?.map((child, index) => {
                         return <li className={'cursor-pointer flex gap-5 hover:font-bold'} key={index} onClick={() => {
                             contextExpanded?.setExpanded(false);
-                            window.scroll({ top: (document.getElementById(child.id)?.offsetTop || 0) - 100, behavior: "smooth" });
+                            window.scroll({ top: (document.getElementById(child.id)?.offsetTop || 0) - 25, behavior: "smooth" });
                         }}>{child.name} <div className={`w-2 rounded-xl self-stretch ${inView == child.id ? 'bg-orange-500' : ""}`} /></li>;
                     })}
                 </ul>}
