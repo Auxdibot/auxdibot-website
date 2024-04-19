@@ -32,7 +32,6 @@ export default function AttachmentsSettings({ server }: { server: { readonly ser
             return;
         }
         const duration = Number(timestampToDuration(data.duration));
-        console.log(duration + " " + timestampToDuration(data.duration))
         body.append('duration', duration ? duration.toString() : '0')
 
         fetch(`/api/v1/servers/${server.serverID}/moderation/attachments/`, { method: 'POST', body }).then(async (res) => {

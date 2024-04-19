@@ -6,6 +6,10 @@ import { defaultMetadata } from '@/lib/constants/defaultMetadata';
 
 export const metadata: Metadata = defaultMetadata;
 
+export const viewport = {
+  themeColor: "#ee884b",
+  colorScheme: "dark",
+}
 
 export default function DocumentationLayout({
   children,

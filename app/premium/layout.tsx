@@ -1,6 +1,6 @@
 import Providers from '@/components/Providers'
 import '@/styles/global.scss'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import LayoutNavbar from '@/components/navbar/LayoutNavbar';
 
 export const metadata: Metadata = {
@@ -18,10 +18,12 @@ export const metadata: Metadata = {
     description: "Auxdibot premium is a paid subscription to Auxdibot, granting subscribers access to the latest beta features, increased limits, various features, swift communication with our developers, and a unique role on our server!",
     images: "/premium.png"
   },
-  themeColor: "#eab308",
 };
 
-
+export const viewport: Viewport = {
+  themeColor: "#eab308",
+  colorScheme: "dark",
+}
 export default function PremiumLayout({
   children,
 }: {

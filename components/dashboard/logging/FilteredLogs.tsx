@@ -48,8 +48,7 @@ export default function FilteredLogs({ server }: { server: {
     
     </ul>
     <div className={"flex flex-col gap-2 w-fit mx-auto"}>
-    <LogCombobox actions={actions} onChange={(str) => {
-        console.log(str); setFiltered(str)}} value={filter} />    
+    <LogCombobox actions={actions} onChange={(str) => setFiltered(str)} value={filter} />    
     </div>
     <Button onClick={() => addFilteredLog()} className={"flex gap-1 my-2 items-center w-fit mx-auto"} variant={"outline"} type="submit">
             {success ? (<><BsCheckLg/> Updated!</>) : (<><BsPlus/> Add Filtered Log</>) }

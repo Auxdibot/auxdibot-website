@@ -15,7 +15,6 @@ export default function OutputChannel({ command, subcommand, output_channel, id 
     function setOutputChannnel(channel?: string) {
         const body = new URLSearchParams();
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
-        console.log(channel)
         body.append("output_channel", channel ?? '');
         fetch(`/api/v1/servers/${id}/commands/output_channel`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);

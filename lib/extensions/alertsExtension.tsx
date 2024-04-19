@@ -19,7 +19,6 @@ Showdown.extension('alert', function (): Showdown.ShowdownExtension[] {
             type: 'lang',
             regex: /(\|[!|T]\|[^]+?\|[!|T]\|)/gi,
             replace: function (_: string, match: string) {
-                console.log(match);
                 const alert = /^\|!\|/.test(match) ? 'alert' : 'message';
                 match = match.replace(/^\|(!|T)\|/, '').replace(/\|(!|T)\|$/, '');
                 if (alert == 'alert') alerts.push(match);

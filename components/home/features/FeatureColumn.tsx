@@ -13,7 +13,6 @@ export function FeatureColumn({ children, reverse }: { children: any; reverse?: 
     let animation = useRef<Animation | undefined>(undefined);
     let animation2 = useRef<Animation | undefined>(undefined);
     useEffect(() => {
-        console.log(isMobile);
         if (isMobile == undefined) return;
         if (animation)
             animation.current?.cancel();

@@ -25,10 +25,7 @@ export default function EmojiPicker({ serverID, onChange, value }: EmojiInputPro
     const inputRef = useRef<HTMLSpanElement | null>(null);
     useEffect(() => {
         const paste = (e: globalThis.ClipboardEvent) => {
-
-
           const text = e.clipboardData?.getData('text');
-          console.log(text, emojis.find((i) => i.emojis.find((emoji) => emoji.emoji.codePointAt(0) === text?.codePointAt(0))));
           if (open && text && emojis.find((i) => i.emojis.find((emoji) => emoji.emoji.codePointAt(0) === text.codePointAt(0)))) {
 
             e.preventDefault();
