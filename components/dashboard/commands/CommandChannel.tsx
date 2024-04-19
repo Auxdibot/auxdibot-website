@@ -30,7 +30,6 @@ export default function CommandChannel({ server }: { server: { serverID: string,
             }
             queryClient.invalidateQueries(["data_command_permissions", server.serverID])
             setSuccess(true)
-            console.log(channel)
             toast({ title: "Commands Channel Updated", description: channel && channel != 'null' ? `Successfully updated commands channel to: #${channels.find((c: { id: string }) => channel == c.id)?.name ?? 'Unknown'}` : `Successfully disabled the commands channel for this server. ${server.commands_channel ? `Commands are no longer restricted to #${channels.find((c: { id: string }) => server.commands_channel == c.id)?.name}.` : ""} `, status: "success" });
             setChannel("");
             

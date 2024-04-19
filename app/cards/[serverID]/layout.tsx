@@ -1,5 +1,5 @@
 import LoadingCard from "@/components/cards/LoadingCard";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import '@/styles/global.scss'
 import { CardBadgeEmojis } from "@/lib/constants/CardBadgeEmojis";
 
@@ -16,7 +16,6 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
     if (!cardData) return {
         title: 'Card Not Found',
         description: "Couldn't find an Auxdibot card for that server.",
-        themeColor: '#000000',
         openGraph: {
             title: 'Card Not Found',
             description: "Couldn't find an Auxdibot card for that server.",
@@ -28,7 +27,6 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
         title: cardData.server.name,
         description: (cardData.description ?? "A server card created utilizing Auxdibot's card system."),
         icons: cardData.server.icon_url,
-        themeColor: cardData.primary_color ?? "#000000",
         openGraph: {
             title: `${cardData.server.name}`,
             description: (cardData.description ?? "A server card created utilizing Auxdibot's card system."),
@@ -37,6 +35,20 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
             type: 'website',
             url: 'https://bot.auxdible.me'
         }
+    }
+}
+export async function generateViewport({ params }: CardProps): Promise<Viewport> {
+    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/cards/${params.serverID}`)
+    .then((result) => result.json())
+    .then((data) => data && !data['error'] ? data : undefined)
+    .catch(() => undefined);
+    if (!cardData) return {
+        colorScheme: "dark",
+        themeColor: '#000000',
+    }
+    return {
+        colorScheme: "dark",
+        themeColor: cardData.primary_color ?? "#000000",
     }
 }
 

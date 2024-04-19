@@ -1,11 +1,15 @@
 import Providers from '@/components/Providers'
 import '@/styles/global.scss'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import { defaultMetadata } from '@/lib/constants/defaultMetadata';
-
+import { defaultViewport } from '@/lib/constants/defaultViewport';
 export const metadata: Metadata = defaultMetadata;
 
-
+export const viewport: Viewport = {
+  ...defaultViewport,
+  themeColor: "#ee884b",
+  colorScheme: "dark",
+}
 export default function RootLayout({
   children,
 }: {

@@ -32,7 +32,6 @@ export default function InvitesSettings({ server }: { server: { readonly serverI
             return;
         }
         const duration = Number(timestampToDuration(data.duration));
-        console.log(duration + " " + timestampToDuration(data.duration))
         body.append('duration', duration ? duration.toString() : '0')
 
         fetch(`/api/v1/servers/${server.serverID}/moderation/invites/`, { method: 'POST', body }).then(async (res) => {

@@ -33,8 +33,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
     const queryClient = useQueryClient();
     const embed = watch("embed");
     const type = watch("type");
-    const { toast } = useToast();
-    console.log(embed);         
+    const { toast } = useToast();    
     function onSubmit(data: NotificationBody) {
         let body = new URLSearchParams();
         body.append('channelID', data.channel);

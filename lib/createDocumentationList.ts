@@ -20,7 +20,6 @@ export function createDocumentationList() {
             return { id: key, name: (typeof metadata != 'string' ? metadata['title'] : metadata) || key };
         });
     } catch (x) {
-        console.log(x)
         return undefined;
     }
     

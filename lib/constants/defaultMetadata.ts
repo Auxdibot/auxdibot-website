@@ -3,10 +3,8 @@ import { Metadata } from "next";
 export const defaultMetadata: Metadata = {
     title: 'Auxdibot',
     description: 'The official website, blog, and dashboard for the multipurpose Discord utility bot, Auxdibot.',
-    themeColor: "#ee884b",
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL || `https://localhost:${process.env.PORT || 3000}`),
     icons: ['/logo.png', '/favicon.ico'],
-
     openGraph: {
       type: "website",
       title: "Auxdibot",
@@ -16,11 +14,5 @@ export const defaultMetadata: Metadata = {
       url: "https://bot.auxdible.me",
       images: "/logo.png"
     },
-    viewport: {
-      initialScale: 1,
-      maximumScale: 1,
-      userScalable: false,
-      width: "device-width"
-    }
     
   };

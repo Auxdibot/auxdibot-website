@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["cdn.discordapp.com", 'cdn.jsdelivr.net']
+        remotePatterns: [
+          {
+            hostname: "cdn.discordapp.com",
+          }, 
+          {
+            hostname: 'cdn.jsdelivr.net'
+          }
+        ]
     },
-    swcMinify: false,
     async rewrites() {
         return [
           {

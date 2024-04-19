@@ -8,8 +8,6 @@ import { Button } from '@/components/ui/button/button';
 export function CardPreview({ id, values }: { id: string, values: any }) {
     const { data: card } = useQuery<CardData | { error: string; } | undefined>([id, 'card'], async () => await fetch(`/api/v1/cards/${id}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     function createLink() {
-
-        console.log(values.rulesField)
         window.open(`/dashboard/${id}/cardPreview?bg_color1=${values.background?.color1 ?? '000000'}&bg_color2=${values.background?.color2 ?? '000000'}&bg_gradient=${values.background?.gradient}&description=${values.description?? ""}&dark=${values.dark ?? "false"}&header_font=${values.header_font ?? "BAUHAUS_93"}&text_font=${values.text_font ?? "ROBOTO"}&description=${values.description ?? ""}&channelID=${values.channelID}${values.rulesField.map((i: { rule: string }) => `&rules=${i.rule}`).join('')}`, "_blank", "noreferrer")
     }
     return <div className={"flex flex-col gap-20 h-fit max-w-full w-fit"}>

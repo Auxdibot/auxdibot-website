@@ -33,7 +33,6 @@ export default function SpamSettings({ server }: { server: { readonly serverID: 
             return;
         }
         const duration = Number(timestampToDuration(data.duration));
-        console.log(duration + " " + timestampToDuration(data.duration))
         body.append('duration', duration ? duration.toString() : '0')
 
         fetch(`/api/v1/servers/${server.serverID}/moderation/spam`, { method: 'POST', body }).then(async (res) => {
@@ -47,7 +46,7 @@ export default function SpamSettings({ server }: { server: { readonly serverID: 
             setSuccess(true);
             reset({ messages: json.automod_spam_limit.messages, duration: json.automod_spam_limit.duration });
 
-        }).catch((x) => { console.log(x) })
+        });
     }
     return <>
     <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full max-md:mx-auto"}>
