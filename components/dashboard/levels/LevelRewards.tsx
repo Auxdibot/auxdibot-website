@@ -31,7 +31,7 @@ export function Reward({ reward, role, index, serverID }: { role: { name: string
     }
     return (<span className={'flex gap-2 items-center self-stretch justify-between'}>
     <span className={"flex flex-row gap-2 text-xl items-center font-open-sans bg-gray-900/70 border-gray-800/50 border px-1 p-0.5 rounded-2xl w-full"}>
-        <BsAt className={"text-xl"} style={{ fill: role?.color ? '#' + role.color.toString(16) : '' }} /> {role.name} - Level {reward.level} 
+    <BsAt className={"text-xl"} style={{ fill: role?.color ? '#' + role.color.toString(16) : '' }} /> {role?.name ?? "Deleted Role"} - Level {reward.level} 
         </span>
     <span className={"border text-gray-700 border-gray-700 rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsTrash/></span>
      </span>);
