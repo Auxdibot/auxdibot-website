@@ -72,7 +72,7 @@ export default function LevelRewards({ server }: { server: {
     <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Level Rewards</h2>
     {server?.level_rewards && server.level_rewards.length > 0 ? <ul className={"flex flex-col my-4 gap-2 border border-gray-800 p-2 w-fit mx-auto rounded-2xl"}>
     <Suspense fallback={null}>
-        {server?.level_rewards?.map((i, index) => <li key={index}><Reward reward={i} role={roles.find((role: { id: string }) => i.roleID == role.id)} index={index} serverID={server.serverID} /></li>)}
+        {server?.level_rewards?.map((i, index) => <li key={index}>{roles && <Reward reward={i} role={roles.find((role: { id: string }) => i.roleID == role.id)} index={index} serverID={server.serverID} />}</li>)}
 
     </Suspense>
     
