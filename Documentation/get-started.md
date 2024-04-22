@@ -64,49 +64,6 @@ Auxdibot allows you to log actions that are performed on your server! Additional
 * `/logs filter (action)` - Toggle an Auxdibot log action. When a log action is disabled, it will not be logged to your log channel.
 * `/logs latest` - View the latest logs on your server.
 
-### Embeds
-
-|!|Features that utilize Embeds are better experienced on the Auxdibot Dashboard!
-If your Embed produces an error, which is most likely caused by malformed syntax, you will recieve a generic error message.
-|!|
-
-Embeds are utilized in Reaction Roles, Schedules, Notifications, and creating Embed messages.
-
-If you are creating an Embed using Discord slash commands, you can utilize the following parameters:
-
-| Parameter | Description |
-|-----------|-------------|
-| `color` | A color represented by a HEX code. |
-| `title`   |  The title of the embed. |
-| `description` | The description of the embed. |
-| `footer_text` | The text for the footer of the embed. |
-| `author_text` | The text for the author of the embed. |
-| `author_icon_url` | A URL pointing to the image for the author of the embed. |
-| `footer_icon_url` | A URL pointing to the image for the embed's footer. |
-| `image_url` | A URL pointing to the image for the embed. |
-| `thumbnail_url` | A URL pointing to the image for the thumbnail of the embed. (small image at the top right) |
-| `title_url` | A URL that will be used for the title, that will redirect users when clicked. |
-| `author_url` | A URL that will be used for the author, that will redirect users when clicked. |
-| `fields` | The Embed Fields for the Embed. See "Embed Fields" below for more info. |
-
-**Embed Fields**
-
-For commands that use Auxdibot's embed creation parameters, there is a `fields` parameter. For every field, use `|d|` to seperate field titles from their descriptions, and `|s|` to seperate fields. Embeds created with slash commands do not support inline fields.
-
-Fields Example
-
-`Field 1|d|Field description for Field 1...|s|Field 2|d|Field description for Field 2...`
-
-*is the equivilant to*
-
-**Field 1**
-
-Field Description for Field 1…
-
-**Field 2**
-
-Field description for Field 2…
-
 ### Mute Role
 
 By default, Auxdibot utilizes Discord's Timeout system. If administrators wish to issue permanent mutes, a mute role will need to be specified using the `/moderation settings mute_role [role]` command. You can revert to using Discord's timeout system by running the command without specifying a `role`.
@@ -131,7 +88,7 @@ You can specify a reaction role `type` to decide how users interact with your re
 | `Select Menu` | Utilize Discord Select Menus instead of reactions on the Discord Embed, allowing users to select multiple roles at one time. |
 | `Select Menu (Select One)` | Utilize Discord Select Menus instead of reactions on the Discord Embed, except the user can only have one of the roles specified. |
 
-You can utilize `/reaction_roles add (channel) (roles) [type] [...embed parameters]` to create an embed. See [Embeds](#embeds) for more information on Embed Parameters.
+You can utilize `/reaction_roles add (channel) (roles) [type] [...embed parameters]` to create an embed. See [Embeds](/docs/embeds) for more information on Embed Parameters.
 
 ### Suggestions
 
@@ -154,7 +111,7 @@ Greetings come with default embeds for when a user joins/leaves the server. You 
 
 Join DM greetings are sent directly to the user when they join the server, if their privacy settings allow it.
 
-You can modify the Join/Leave/Join DM messages at any time by running the `/(join|leave|join_dm) message [...embed parameters]` commands. See [Embeds](#embeds) for more information on Embed Parameters. Additionally, you can preview the Join/Leave/Join DM messages by running the commands `/(join|leave|join_dm) preview`
+You can modify the Join/Leave/Join DM messages at any time by running the `/(join|leave|join_dm) message [...embed parameters]` commands. See [Embeds](/docs/embeds) for more information on Embed Parameters. Additionally, you can preview the Join/Leave/Join DM messages by running the commands `/(join|leave|join_dm) preview`
 
 ### Join Roles
 
