@@ -17,7 +17,7 @@ Auxdibot's reaction roles come in various shapes and sizes. Administrators or me
 
 Administrators or members with permission can create a reaction role with a custom embed by running the command `/reaction_roles add_custom (channel) (roles) [title] [type] [...embed parameters]` .
 
-When creating a reaction role, for the `roles` parameter, you need to specify an emoji, followed by a space, followed by the role to receive when reacting with that emoji.
+When creating a reaction role, for the `roles` parameter, you need to specify an emoji, followed by a space, followed by the role to receive when reacting with that emoji. (ex. `😀 @Role1 🤖 @Role2`)
 
 **Example**: `/reaction_roles add channel:#my-channel title:My Reaction Role roles:😀 @Role1 🤖 @Role2`
 
@@ -41,7 +41,6 @@ You can specify a reaction role `type` parameter to decide how users interact wi
 | `Select Menu` | Utilize Discord Select Menus instead of reactions on the Discord Embed, allowing users to select multiple roles at one time. |
 | `Select Menu (Select One)` | Utilize Discord Select Menus instead of reactions on the Discord Embed, except the user can only have one of the roles specified. |
 
-You can utilize `/reaction_roles add (channel) (roles) [type] [...embed parameters]` to create an embed. See [Embeds](/docs/embeds) for more information on Embed Parameters.
 
 
 ### Reaction Roles Commands
