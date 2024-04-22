@@ -2,6 +2,7 @@
     "about": "about.md",
     "get-started": "get-started.md",
     "commands": "commands.md",
+    "dashboard": "dashboard.md",
     "embeds": "embeds.md",
     "logging": "logging.md",
     "roles": "roles.md",
