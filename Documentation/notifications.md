@@ -6,7 +6,7 @@ title: Notifications
 
 -----
 
-|T|If you want to see the Embed from the source you specified for your feed, you will need to include the `{%FEED_LINK%}` in the `content` of your Embed Parameters.|T|
+|T|For more information on Embed parameters, view the [Embeds](/docs/embeds) section.|T|
 
 Auxdibot features Notification Feeds, which support YouTube (video created), Twitch (stream online), and RSS feeds. When an event occurs, a formatted message is sent to a channel of your choice.
 
@@ -24,7 +24,9 @@ When a notification feed is created, every two minutes (RSS/YouTube) or every ti
 | `/notifications list`| List all Auxdibot notification feeds. |
 | `/notifications delete (index)`| Delete an Auxdibot feed. |
 
-### Placeholders
+### Notification Placeholders
+
+|T|If you want to see the Embed from the source you specified for your feed, you will need to include the `{%FEED_LINK%}` in the `content` of your Embed Parameters.|T|
 
 Notifications utilize placeholders. For example, for the author of the feed being sent (twitch channel display name, youtube username, RSS feed `<author>`), you can use the placeholder `{%FEED_AUTHOR%}` to replace `{%FEED_AUTHOR%}` with the author of the content.
 

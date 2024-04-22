@@ -11,7 +11,11 @@ Auxdibot includes Reaction Roles, a feature allowing members to add/remove roles
 
 ### Creating Reaction Roles
 
-Auxdibot's reaction roles come in various shapes and sizes. You can create a reaction role (with an automatically created embed) by using `/reaction_roles add (channel) (roles) [title] [type]`.
+|T|For more information on Embed parameters, view the [Embeds](/docs/embeds) section.|T|
+
+Auxdibot's reaction roles come in various shapes and sizes. Administrators or members with permission can create a reaction role (with an automatically created embed) by running the command `/reaction_roles add (channel) (roles) [title] [type]`.
+
+Administrators or members with permission can create a reaction role with a custom embed by running the command `/reaction_roles add_custom (channel) (roles) [title] [type] [...embed parameters]` .
 
 When creating a reaction role, for the `roles` parameter, you need to specify an emoji, followed by a space, followed by the role to receive when reacting with that emoji.
 
@@ -21,7 +25,6 @@ When creating a reaction role, for the `roles` parameter, you need to specify an
 <img alt="Reaction role image" src="/docs/_assets/reaction_role.png" width=450/>
 <em>A reaction role with the "Select Menu" type.</em>
 </p>
-
 
 ### Reaction Role Types
 
@@ -42,6 +45,8 @@ You can utilize `/reaction_roles add (channel) (roles) [type] [...embed paramete
 
 
 ### Reaction Roles Commands
+
+
 
 | Command | Description |
 | --- | --- |
