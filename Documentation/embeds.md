@@ -49,3 +49,25 @@ Field Description for Field 1…
 **Field 2**
 
 Field description for Field 2…
+
+### Editing Embeds
+
+Administrators or members with permission can edit any Embeds sent by Auxdibot using the `/embed edit (message_id) [...embed parameters]` command, where `message_id` is a valid Discord message ID.
+
+### JSON (Advanced)
+
+Discord Embed JSON is supported on Discord. Administrators or members with permission can obtain the JSON data for any Embed by running the command `/embed json (message_id)` where `message_id` is a valid Discord message ID.
+
+Administrators or members with permission can create an Embed using Discord Embed JSON by running the command `/embed create_json (channel) (json)`.
+
+### Embed Commands
+
+| Command | Description |
+| --- | --- |
+| `/embed create (channel) [...embed parameters]` | Create an embed with Auxdibot. |
+| `/embed create_json (channel) (json)` | Create an embed with Auxdibot using valid Discord Embed JSON data. |
+| `/embed edit (message_id) [...embed parameters]` | Edit an existing Embed by Auxdibot. |
+| `/embed edit_json (message_id) (json)` | Edit an existing Embed by Auxdibot using valid Discord Embed JSON data. |
+| `/embed json (message_id)` | Get the Discord Embed JSON data of any Embed on your server. |
+
+
