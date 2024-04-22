@@ -1,6 +1,7 @@
 {
     "about": "about.md",
     "get-started": "get-started.md",
+    "embeds": "embeds.md",
     "logging": "logging.md",
     "moderation": "moderation.md",
     "automod": "automod.md",
