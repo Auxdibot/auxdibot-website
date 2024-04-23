@@ -60,6 +60,12 @@ Discord Embed JSON is supported on Discord. Administrators or members with permi
 
 Administrators or members with permission can create an Embed using Discord Embed JSON by running the command `/embed create_json (channel) (json)`.
 
+### Webhook Users (Advanced)
+
+|T|You can read more about Discord Webhooks or how to obtain a Webhook URL [here](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks).|T|
+
+When running a command to create a Discord Embed (or Reaction Role!), a `webhook_url` parameter can be specified. (`https://discord.com/api/webhooks/XXXXX`) The Webhook's channel MUST match the channel Auxdibot is sending the Embed to, or you will not be able to send the Discord Embed.
+
 ### Embed Commands
 
 | Command | Description |
