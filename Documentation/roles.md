@@ -41,7 +41,11 @@ You can specify a reaction role `type` parameter to decide how users interact wi
 | `Select Menu` | Utilize Discord Select Menus instead of reactions on the Discord Embed, allowing users to select multiple roles at one time. |
 | `Select Menu (Select One)` | Utilize Discord Select Menus instead of reactions on the Discord Embed, except the user can only have one of the roles specified. |
 
+### Webhook Users (Advanced)
 
+|T|You can read more about using Webhook Users [here](/docs/embeds#webhookusersadvanced).|T|
+
+When a Webhook User is provided in the creation of a reaction role, the `Button` and `Select Menu` types are blocked from being used.
 
 ### Reaction Roles Commands
 

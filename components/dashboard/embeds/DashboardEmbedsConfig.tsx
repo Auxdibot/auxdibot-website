@@ -2,7 +2,7 @@
 import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsBroadcast, BsChatLeftDots, BsMegaphone } from 'react-icons/bs';
+import { BsBroadcast, BsChatLeftDots, BsMegaphone, BsRobot } from 'react-icons/bs';
 
 import Channels from '@/components/ui/select/channels';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
@@ -11,10 +11,12 @@ import { useQuery } from 'react-query';
 
 import { Button } from '@/components/ui/button/button';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
+import { testWebhook } from '@/lib/testWebhook';
+import { Input } from '@/components/ui/input';
 
-type EmbedBody = { message: string; channel: string; embed: APIEmbed; }
+type EmbedBody = { message: string; channel: string; webhook_url?: string; embed: APIEmbed; }
 export default function DashboardEmbedsConfig({ id }: { id: string }) {
-    const { register, watch, control, handleSubmit, reset } = useForm<EmbedBody>({ defaultValues: { embed: { fields: [] }, channel: '', message: '' } });
+    const { register, watch, control, handleSubmit, reset } = useForm<EmbedBody>({ defaultValues: { embed: { fields: [] }, channel: '', message: '', webhook_url: '' } });
     const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -28,6 +30,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         let body = new URLSearchParams();
         body.append('channel', data.channel || '');
         body.append('message', data.message || '');
+        body.append('webhook_url', data.webhook_url || '');
         if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
             body.append('embed', JSON.stringify(data.embed));
         }
@@ -57,12 +60,20 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
             <Controller name={'channel'} control={control} render={({ field }) => (
                 <Channels required serverID={id} value={field.value} onChange={(e) => field.onChange(e.channel)}  />
         )}></Controller></label>
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
+            <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsRobot/> Webhook URL:</span> 
+            <Controller name={`webhook_url`} control={control} render={({ field }) => {
+                        const tested = testWebhook(field.value ?? '');
+                        return <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><Input className={"w-64 text-sm"} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)} /></span>;
+                    }} /></label>
         <section className={"flex flex-col gap-2 w-full max-md:items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsChatLeftDots/> Message:</span>
             <Controller name={'message'} control={control} render={({ field }) => (
                 <TextareaMessage maxLength={2000} wrapperClass={'w-full'} serverID={id} {...field}/>
             )}/>
         </section>
+        
+        
         <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
         <EmbedDialog serverID={id} addField={append} removeField={remove} control={control} register={register} />
 

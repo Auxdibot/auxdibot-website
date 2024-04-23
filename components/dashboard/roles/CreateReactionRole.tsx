@@ -3,7 +3,7 @@ import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsChatLeftDots, BsEye, BsMegaphone, BsPerson, BsPersonVcard, BsPlus, BsTag, BsTextCenter, BsX } from 'react-icons/bs';
+import { BsChatLeftDots, BsEye, BsMegaphone, BsPerson, BsPersonVcard, BsPlus, BsRobot, BsTag, BsTextCenter, BsX } from 'react-icons/bs';
 import Channels from '@/components/ui/select/channels';
 import Roles from '@/components/ui/select/roles';
 
@@ -17,11 +17,12 @@ import { Button } from '@/components/ui/button/button';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
+import { testWebhook } from '@/lib/testWebhook';
 
-type ReactionRoleBody = { message?: string; title: string; channel: string; reactions: { emoji: string; roleID: string; }[]; embed?: APIEmbed; messageID?: string; type: ReactionRoleTypes; }
+type ReactionRoleBody = { message?: string; title: string; channel: string; webhook_url?: string; reactions: { emoji: string; roleID: string; }[]; embed?: APIEmbed; messageID?: string; type: ReactionRoleTypes; }
 export default function CreateReactionRole({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset, setValue } = useForm<ReactionRoleBody>({ defaultValues: {
-        message: "", title: "", channel: "", reactions: [], embed: { fields: [] }, type: "DEFAULT"
+        message: "", title: "", channel: "", reactions: [], embed: { fields: [] }, type: "DEFAULT", webhook_url: '',
     
     }});
     const { fields, append, remove } = useFieldArray({
@@ -50,6 +51,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         body.append('title', data.title ?? '');
         body.append('type', data.type ?? '');
         body.append('messageID', data.messageID ?? '');
+        body.append('webhook_url', data.webhook_url ?? '');
         if (data.embed && (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0)) {
             body.append('embed', JSON.stringify(data.embed));
         }
@@ -102,6 +104,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
             </Select>
             }/>
         </label>
+        
         <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsTextCenter/> Title:</span> 
             <Controller control={control} name={'title'} render={({ field }) => {
@@ -129,6 +132,12 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
             <TabsTrigger value='attach'>Attach to Message</TabsTrigger>
         </TabsList>
         <TabsContent value='create'>
+        <label className={"flex flex-row max-xl:flex-col gap-2 items-center"}>
+            <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsRobot/> Webhook URL:</span> 
+            <Controller name={`webhook_url`} control={control} render={({ field }) => {
+                        const tested = testWebhook(field.value ?? '');
+                        return <span className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}><Input className={"w-64 text-sm"} value={field.value} onChange={(e) => field.onChange(e.currentTarget.value)} /></span>;
+        }} /></label>
         <label className={"flex flex-col gap-2 max-md:items-center font-lato text-xl"}>
             <span className={"flex flex-row gap-2 items-center"}><BsChatLeftDots/> Message:</span>
             <Controller name={'message'} control={control} render={({ field }) => {
