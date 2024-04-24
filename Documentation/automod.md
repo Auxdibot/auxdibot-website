@@ -39,7 +39,7 @@ Administrators can set the punishment that is issued, along with the reason for 
 | ------------- | ------------------- |
 | `/moderation spam set (messages) (duration)`| Set the spam limit for this server. |
 | `/moderation spam punishment (punishment) [reason]`| Set the punishment for spam on this server. |
-| `/moderation invites set (attachments) (duration)`| Set the invites spam limit for this server. |
+| `/moderation invites set (invites) (duration)`| Set the invites spam limit for this server. |
 | `/moderation invites punishment (punishment) [reason]`| Set the punishment for invites spam on this server. |
 | `/moderation attachments set (attachments) (duration)`| Set the attachments spam limit for this server. |
 | `/moderation attachments punishment (punishment) [reason]`| Set the punishment for attachments spam on this server. |

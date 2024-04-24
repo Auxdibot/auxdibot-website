@@ -59,7 +59,7 @@ When a Webhook User is provided in the creation of a reaction role, the `Button`
 | `/reaction_roles add_message (messageID) (roles) [type]` | Add a reaction role to the server using an existing message. |
 | `/reaction_roles edit [message_id] [index] [json, overrides embed parameters] [...embed parameters]` | Edit a reaction role's embed on this server. |
 | `/reaction_roles list` | List the reaction roles on this server. |
-| `/reaction_roles remove [message_id] [index]` | Remove a reaction role from the server, deleting the message. |
+| `/reaction_roles remove (message_id|index)` | Remove a reaction role from the server, deleting the message. |
  
 ## Join Roles
 
