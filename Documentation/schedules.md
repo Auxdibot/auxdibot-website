@@ -26,5 +26,5 @@ A schedule can be removed by running the command `/schedule remove (index)` wher
 | `/schedule list` | List the schedules running on your server. |
 | `/schedule remove (index)`| Remove a schedule from your server. It will never run again after deletion. |
 | `/schedule preview [index]`| Preview a scheduled message. |
-| `/schedule edit (index) [channel] [timestamp] [times_to_run]`| Edit an existing Schedule by Auxdibot. |
+| `/schedule edit (index) [channel] [timestamp] [times_to_run] [...embed parameters]`| Edit an existing Schedule by Auxdibot. |
 

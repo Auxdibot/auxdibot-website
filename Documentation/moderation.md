@@ -42,7 +42,7 @@ Auxdibot features a `/user` command. Moderators can run the `/user (user)` comma
 | `/punish warn (user) [reason]`| Warns a user, giving them a DM warning (if they have DMs enabled) and adding a warn to their record on the server. |
 | `/punish mute (user) [reason] [duration]` | Mutes a user, making them unable to talk in the server and adding a mute to their record on the server. Default duration is permanent. |
 | `/punish kick (user) [reason]`| Kicks a user, removing them from the server and adding a kick to their record on the server. |
-| `/punish ban (user) [reason] [delete_message_days]`| Bans a user, removing them from the server and adding a ban to their record on the server. Default duration is permanent. `delete_message_days` is how many days back the user's message history should be deleted. |
+| `/punish ban (user) [reason] [duration] [delete_message_days]`| Bans a user, removing them from the server and adding a ban to their record on the server. Default duration is permanent. `delete_message_days` is how many days back the user's message history should be deleted. |
 | `/punish unmute (user)`| Unmutes a user if they are currently muted. |
 | `/punish unban (user)`| Unbans a user if they are currently banned. For banned members, use their user ID. |
 | `/punishment view (punishment_id)`| View a punishment. |
@@ -78,6 +78,7 @@ Administrators can optionally specify a role to be pinged when a report is sent 
 
 | Command  | Description |
 | ------------- | ------------------- |
+| `/report (message) [user]`| Create a report that will be sent to the moderators of the server. |
 | `/moderation reports channel [channel]`| Change the Reports Channel for this server. |
 | `/moderation reports role [role]` | Change the Reports Role for this server. |
 | `/moderation reports ban (user)`| Ban a user from making reports. |

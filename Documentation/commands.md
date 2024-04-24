@@ -2,6 +2,22 @@
 title: Commands
 ---
 
+## Command Syntax
+
+---
+
+You can view command usage in `/help all` or by viewing a command using `/help command`.
+
+| Syntax  | Syntax Description |
+| ------------- | ------------------- |
+| `(argument)`| Argument is required. |
+| `[argument]` | Argument is not required. |
+| `(argument|argument2)`| One of two arguments are required. |
+| `[...embed parameters]` | [Embed Parameters](/docs/embeds#embedparameters) are included in this command |
+
+Commands contain subcommand groups or subcommands. (ex. `/command group subcommand` or `/command subcommand`)
+
+
 ## /help
 
 ---
@@ -56,7 +72,7 @@ Administrators or members with permission can set the channel where output from 
 | Command | Description |
 | --- | --- |
 | `/commands output set (command) [channel]` | Set the channel that a command's output is broadcast to. |
-| `/commands usage channel (command)` | Set the channel where Auxdibot commands can be executed. |
+| `/commands usage channel [channel]` | Set the channel where Auxdibot commands can be executed. |
 
 ## Command Rules
 

@@ -70,8 +70,8 @@ When running a command to create a Discord Embed (or Reaction Role!), a `webhook
 
 | Command | Description |
 | --- | --- |
-| `/embed create (channel) [...embed parameters]` | Create an embed with Auxdibot. |
-| `/embed create_json (channel) (json)` | Create an embed with Auxdibot using valid Discord Embed JSON data. |
+| `/embed create (channel) [...embed parameters] [webhook_url]` | Create an embed with Auxdibot. |
+| `/embed create_json (channel) (json) [webhook_url]` | Create an embed with Auxdibot using valid Discord Embed JSON data. |
 | `/embed edit (message_id) [...embed parameters]` | Edit an existing Embed by Auxdibot. |
 | `/embed edit_json (message_id) (json)` | Edit an existing Embed by Auxdibot using valid Discord Embed JSON data. |
 | `/embed json (message_id)` | Get the Discord Embed JSON data of any Embed on your server. |
