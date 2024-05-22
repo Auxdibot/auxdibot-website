@@ -10,7 +10,7 @@ export function Server({ server }: ServerProps) {
 
     const { data } = useQuery(["server_info", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     const acronym = server?.name?.split(/[\s()]+/).filter(Boolean).map(i => i.replace(/\W/g, '')[0]).join('');
-    return (<span className="relative group">
+    return (<span className="relative min-w-[300px] group">
         <div
             className="absolute group-hover:opacity-50 -inset-0.5 rounded-lg bg-gradient-to-tl from-orange-400 to-red-500 opacity-0 blur transition-all"
         ></div>

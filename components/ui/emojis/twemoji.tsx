@@ -10,7 +10,7 @@ function Twemoji({ children, className, serverID }: { children: string, classNam
     const uniqueEmojis = {
         '👁‍🗨': 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f441-200d-1f5e8.svg',
     };
-    const unicode = children.split('-').map(i => twemoji.convert.fromCodePoint(i)).join('').replaceAll('\uFE0F', '');
+    const unicode = children?.split('-').map(i => twemoji.convert.fromCodePoint(i)).join('').replaceAll('\uFE0F', '');
      const src = Object.keys(uniqueEmojis).includes(unicode) ? 
      uniqueEmojis[unicode as keyof typeof uniqueEmojis] : 
      /^[\da-f-]+$/.test(children) ?
