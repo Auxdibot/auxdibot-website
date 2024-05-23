@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button/button";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog/dialog";
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog/dialog";
 import EmojiPicker from "@/components/ui/emojis/emoji-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { useToast } from "@/components/ui/use-toast";
 import { Plus } from "lucide-react";
 import { Controller, useForm } from "react-hook-form"
+import { useQueryClient } from "react-query";
 
 interface StarboardCreateBody {
     board_name: string;
@@ -15,9 +16,10 @@ interface StarboardCreateBody {
     count: number;
 
 }
-export function StarboardCreateDialog({ id }: { readonly id: string }) {
-    const { register, control, handleSubmit } = useForm<StarboardCreateBody>({ defaultValues: { board_name: "starboard", channelID: "", count: 5, reaction: "⭐" }});
+export function StarboardCreateDialog({ id, onChange }: { readonly id: string, onChange: (...items: any[]) => void }) {
+    const { register, control, handleSubmit, reset } = useForm<StarboardCreateBody>({ defaultValues: { board_name: "starboard", channelID: "", count: 5, reaction: "⭐" }});
     const { toast } = useToast();
+    const queryClient = useQueryClient();
     function onSubmit(data: StarboardCreateBody) {
         const body = new URLSearchParams();
         body.append("board_name", data.board_name);
@@ -31,6 +33,9 @@ export function StarboardCreateDialog({ id }: { readonly id: string }) {
                 return;
             }
             toast({ title: `Starboard Created`, description: `The starboard ${data.board_name} was created.`, status: 'success' })
+            reset();
+            queryClient.invalidateQueries(["data_starboard", id])
+            onChange(data.board_name);
         }).catch(() => { });
     }
     return <Dialog>
@@ -61,7 +66,7 @@ export function StarboardCreateDialog({ id }: { readonly id: string }) {
             <Input type='number' min={1} className='w-16' {...register("count")} required/>
         </span>
         </div>
-        <Button variant={"outline"} className="w-fit mx-auto" type="submit"><Plus/> Create</Button>
+        <DialogClose><Button variant={"outline"} className="w-fit mx-auto" type="submit"><Plus/> Create</Button></DialogClose>
         </form>
     
     </DialogContent>

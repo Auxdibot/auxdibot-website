@@ -41,7 +41,7 @@ export default function StarboardReactionCount({ id, board }: { id: string, boar
     <span className={"flex flex-row max-xl:flex-col items-center gap-2 justify-center"}>
         <Input className={'w-16'} type={'number'}  max={100} value={reactionCount == -1 ? board.count : Number(reactionCount) || 0} onChange={onStarboardReactionCountChange}/> 
         <Button onClick={() => setStarboardReactionCount()} className={`flex flex-row gap-2 items-center w-fit max-md:mx-auto`} variant={'outline'} type="submit">
-            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStars/> Update</>) }
+            {success ? (<><BsCheckLg/> Updated!</>) : (<><BsStars/> Change Count</>) }
         </Button></span>
     </div>
 }
