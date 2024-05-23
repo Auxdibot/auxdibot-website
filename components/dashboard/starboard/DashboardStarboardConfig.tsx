@@ -3,6 +3,7 @@
 import { useQuery } from "react-query";
 import StarboardBoards from "./boards/StarboardBoards";
 import { Suspense } from 'react';
+import StarboardSettings from "./settings/StarboardSettings";
 
 export default function DashboardStarboardConfig({ id }: { id: string }) {
     let { data: starboard } = useQuery(["data_starboard", id], async () => await fetch(`/api/v1/servers/${id}/starboard`).then(async (data) => 
@@ -13,7 +14,7 @@ export default function DashboardStarboardConfig({ id }: { id: string }) {
         <span className={"flex flex-row max-xl:flex-col w-full gap-10"}>
             <Suspense fallback={null}>
                 {starboard && <StarboardBoards server={starboard}/>}
-                <div className="w-full"></div>
+                {starboard && <StarboardSettings server={starboard}/>}
             </Suspense>
         </span>
         </div>
