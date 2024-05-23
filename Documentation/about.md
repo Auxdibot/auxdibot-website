@@ -24,7 +24,7 @@ title: Auxdibot
       </div>
     </div>
   <h1 id="welcome">Auxdibot</h1>
-  <em>(Updated for bot version 2.7.0)</em>
+  <em>(Updated for bot version 2.7.3)</em>
 </div>
 
 ## Auxdibot
