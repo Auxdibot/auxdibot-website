@@ -1,10 +1,9 @@
 "use client";
 import { useScroll, motion, useMotionValueEvent, MotionValue } from "framer-motion";
 import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
+
 export default function DocumentationScrollbar() {
     const { scrollY, scrollYProgress } = useScroll();
-    const media = useMediaQuery({ query: "(max-width: 768px)" });
     const [hookedYPostion, setHookedYPosition] = useState(0 as MotionValue<number> | number);
     useMotionValueEvent(scrollY, "change", () => {
         setHookedYPosition(scrollYProgress)
