@@ -10,7 +10,7 @@ Auxdibot features a robust Suggestions system, allowing administrators to gather
 
 ### Suggestions Channel
 
-Administrators or members with permission can set the channel where suggestions are output to by running the command `/suggestions channel [channel]`. When a user creates a suggestion using the `/suggestions create (suggestion)` command, their suggestion will be output to the suggestions channel for your members to vote on.
+Administrators or members with permission can set the channel where suggestions are output to by running the command `/suggestions channel [channel]`. When a user creates a suggestion using the `/suggest (suggestion)` or `/suggestions create (suggestion)` commands, their suggestion will be output to the suggestions channel for your members to vote on.
 
 <p class="image">
 <img alt="An updated suggestion" src="/docs/_assets/suggestion_message.png" width=450/>
@@ -23,7 +23,7 @@ When a suggestion is updated (approved/denied/considered/added), if an update ch
 
 ### Updating a Suggestion
 
-Administrators or members with permission can mark a suggestion as approved/denied/considered/added by running the commands `/suggestions (accept/deny/consider/add) (suggestion id)`. When a suggestion is updated, Auxdibot will send a message to your channel showcasing the current state of the suggestion, and the suggestion will be deleted (can be changed with `/suggestions auto_delete (auto_delete)`).
+Administrators or members with permission can respond to a suggestion, marking it as approved/denied/considered/added by running the command `/suggestions respond (id) (response) [reason]`. When a suggestion is updated, Auxdibot will send a message to your channel showcasing the current state of the suggestion, and the suggestion will be deleted (can be changed with `/suggestions auto_delete (auto_delete)`).
 
 <p class="image">
 <img alt="An updated suggestion" src="/docs/_assets/suggestion_update.png" width=300/>
@@ -53,6 +53,7 @@ Users can be banned from creating suggestions. Administrators or member with per
 
 | Command  | Description |
 | ------------- | ------------------- |
+| `/suggest (suggestion)` | Create a suggestion. |
 | `/suggestions create (suggestion)` | Create a suggestion. |
 | `/suggestions channel [channel]` | Change the channel where suggestions are posted. |
 | `/suggestions updates_channel [channel]` | Change the channel where updates to suggestions are posted. |
@@ -63,9 +64,5 @@ Users can be banned from creating suggestions. Administrators or member with per
 | `/suggestions discussion_threads (create_thread)` | Set whether a discussion thread is created when a suggestion is created. |
 | `/suggestions ban (user)` | Ban a user from using suggestions. |
 | `/suggestions unban (user)` | Unban a user, allowing them to use suggestions. |
-| `/suggestions delete (id)` | Delete a suggestion. |
-| `/suggestions approve (id)` | Mark a suggestion as approved. |
-| `/suggestions deny (id)` | Mark a suggestion as denied. |
-| `/suggestions consider (id)` | Mark a suggestion as considered. |
-| `/suggestions add (id)` | Mark a suggestion as added. |
+| `/suggestions respond (id) (response) [reason]` | Respond to a suggestion submitted by a user. |
 

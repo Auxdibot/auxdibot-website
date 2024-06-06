@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import SuggestionsSettings from "./SuggestionsSettings";
 import { Suspense } from 'react';
 import SuggestionsReactions from "./SuggestionsReactions";
+import Suggestions from "./Suggestions";
 
 export default function DashboardSuggestionsConfig({ id }: { id: string }) {
     let { data: suggestions } = useQuery(["data_suggestions", id], async () => await fetch(`/api/v1/servers/${id}/suggestions`).then(async (data) => 
@@ -14,7 +15,8 @@ export default function DashboardSuggestionsConfig({ id }: { id: string }) {
         <span className={"grid grid-cols-2 max-lg:grid-cols-1 gap-10"}>
             <Suspense fallback={null}>
                 <SuggestionsSettings server={suggestions}/>
-                <SuggestionsReactions server={suggestions?.data}/>
+                <SuggestionsReactions server={suggestions}/>
+                <Suggestions server={suggestions}/>
             </Suspense>
         </span>
         </div>
