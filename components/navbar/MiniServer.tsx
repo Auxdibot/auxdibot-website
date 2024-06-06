@@ -35,7 +35,10 @@ export function Server({ server }: { server: DiscordGuild }) {
         </Link>)
 }
 
-export default function MiniServer(props: React.ComponentProps<any>) {
+type MiniServerProps = React.ComponentPropsWithRef<'div'> & {
+    serverID: string;
+};
+export default function MiniServer(props: MiniServerProps) {
     const { data: server } = useQuery(["server_info", props.serverID], async () => await fetch(`/api/v1/servers/${props.serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     const acronym = server?.name?.split(/[\s()]+/).filter(Boolean).map((i: string) => i.replace(/\W/g, '')[0]).join('');
     const [expanded, setExpanded] = useState(false);
@@ -58,7 +61,7 @@ export default function MiniServer(props: React.ComponentProps<any>) {
         <BsThreeDots className={"animate-spin text-3xl text-white"}/>
     </div>)
     if (!user?.guilds) return <></>;
-    return (<div ref={ref} {...props}>
+    return (<div ref={props.ref} {...props}>
         <DropdownMenu open={expanded}>
             <DropdownMenuTrigger>
             <span className={"flex items-center gap-2"}>

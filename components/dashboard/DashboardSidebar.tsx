@@ -1,11 +1,10 @@
 "use client";
 import NotFound from "@/app/not-found";
-import DashboardSidebarContext from "@/context/DashboardSidebarContext";
 import useSession from "@/lib/hooks/useSession";
 import DiscordGuild from "@/lib/types/DiscordGuild";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState, createContext, Dispatch, SetStateAction, useContext } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, createContext, Dispatch, SetStateAction, useContext, useMemo } from "react";
 import { BsArrowRight, BsCardImage, BsChat, BsClock, BsExclamationTriangle, BsGear, BsHammer, BsJournalBookmark, BsList, BsQuestionCircle, BsSlashLg, BsStar, BsTag, BsTextLeft, BsTrophy, BsYoutube } from "react-icons/bs";
 import { PiHandWavingLight } from "react-icons/pi";
 import { useMediaQuery } from "react-responsive";
@@ -46,9 +45,10 @@ enum SidebarCategories {
 }
 export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const router = useRouter();
-    const contextPage = useContext(DashboardSidebarContext)
     const contextExpanded = useContext(ExpandedContext);
-    let page = contextPage ? contextPage.page : "home";
+    const pathname = usePathname();
+    const page = useMemo(() => pathname.split("/").pop(), [pathname]);
+    console.log(page);
     function changeCategory(category: SidebarCategories) {
         if (!server) return;
 
