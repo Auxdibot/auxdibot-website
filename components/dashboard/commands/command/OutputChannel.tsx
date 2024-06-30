@@ -7,7 +7,7 @@ export default function OutputChannel({ command, subcommand, output_channel, id 
     const queryClient = useQueryClient();
     const { toast } = useToast();
     const { data: channels } = useQuery(["data_channels", id], async () => {
-        const res = await fetch(`/api/v1/servers/${id}/channels`);
+        const res = await fetch(`/bot/v1/servers/${id}/channels`);
         return await res.json();
     }
     );
@@ -16,7 +16,7 @@ export default function OutputChannel({ command, subcommand, output_channel, id 
         const body = new URLSearchParams();
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
         body.append("output_channel", channel ?? '');
-        fetch(`/api/v1/servers/${id}/commands/output_channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${id}/commands/output_channel`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])
             if (!json || json['error']) {

@@ -13,7 +13,7 @@ export default function AdminOnlySlider({ command, subcommand, admin_only, id }:
         
        
         body.append('admin_only', (!admin_only) + "")
-        fetch(`/api/v1/servers/${id}/commands/admin_only`, { method: "POST", body }).then(async (data) => 
+        fetch(`/bot/v1/servers/${id}/commands/admin_only`, { method: "POST", body }).then(async (data) => 
         {
             const json = await data.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])

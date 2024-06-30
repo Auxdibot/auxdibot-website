@@ -26,10 +26,10 @@ export interface TextareaMessageProps
   }
 
 function TextareaMessage({ className, serverID, wrapperClass, placeholderContext, ...props }: TextareaMessageProps) {
-  const { data: channelsRes } = useQuery(["channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
-  const { data: roles } = useQuery<APIRole[]>(["roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
-  const { data: placeholdersRes } = useQuery<{placeholders: {[k: string]: { context: string | null, description?: string }} }>(["placeholders", serverID], async () => await fetch(`/api/v1/placeholders?${Array.isArray(placeholderContext) ? placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${placeholderContext ?? 'null'}`}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
-  const { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: channelsRes } = useQuery(["channels", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: roles } = useQuery<APIRole[]>(["roles", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/roles`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: placeholdersRes } = useQuery<{placeholders: {[k: string]: { context: string | null, description?: string }} }>(["placeholders", serverID], async () => await fetch(`/bot/v1/placeholders?${Array.isArray(placeholderContext) ? placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${placeholderContext ?? 'null'}`}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+  const { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/bot/v1/servers/${serverID}/emojis`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
   
   const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
   

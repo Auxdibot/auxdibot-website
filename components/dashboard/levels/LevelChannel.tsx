@@ -7,7 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function LevelChannel({ server }: { server: { serverID: string, level_channel: string}}) {
-    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>(server?.level_channel ?? undefined);
     const [success, setSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function LevelChannel({ server }: { server: { serverID: string, l
         if (!server) return;
         const body = new URLSearchParams();
         body.append("level_channel", channel == 'null' ? '' : channel ?? '');
-        fetch(`/api/v1/servers/${server.serverID}/levels/channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/levels/channel`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to update levels channel", description: json['error'] ?? "An error occured", status: "error" })

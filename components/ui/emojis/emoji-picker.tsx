@@ -20,7 +20,7 @@ type EmojiInputProps = {
 
 export default function EmojiPicker({ serverID, onChange, value, className }: EmojiInputProps) {
 
-    let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => 
+    let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/bot/v1/servers/${serverID}/emojis`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined)); 
     const [open, setOpen] = useState(true);
     const isDesktop = useMediaQuery({ query: '(min-width: 768px)' });

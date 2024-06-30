@@ -7,7 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function SuggestionsChannel({ server }: { server: { serverID: string, suggestions_channel: string }}) {
-    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>(server?.suggestions_channel ?? undefined);
     const [success, setSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function SuggestionsChannel({ server }: { server: { serverID: str
         if (!server) return;
         const body = new URLSearchParams();
         body.append("suggestions_channel", channel || '');
-        fetch(`/api/v1/servers/${server.serverID}/suggestions/channel`, { method: "POST", body }).then(() => {
+        fetch(`/bot/v1/servers/${server.serverID}/suggestions/channel`, { method: "POST", body }).then(() => {
             toast({ title: "Suggestions Channel Updated", description: channel ? `Successfully updated suggestions channel to: #${channels.find((c: { id: string }) => channel == c.id)?.name ?? "Unknown"}` : 'Successfully disabled suggestions for this server.  ', status: "success" });
             queryClient.invalidateQueries(["data_suggestions", server.serverID])
             setSuccess(true)

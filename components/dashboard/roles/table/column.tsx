@@ -43,7 +43,7 @@ export const columns: (serverID: string) => ColumnDef<{ reactions: { emoji: stri
       function deleteReactionRole() {
         const body = new URLSearchParams();
         body.append('index', row.original.index.toString())
-        fetch(`/api/v1/servers/${serverID}/reaction_roles`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/reaction_roles`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to delete reaction role", description: json['error'] ?? "An error occured", status: "error" })

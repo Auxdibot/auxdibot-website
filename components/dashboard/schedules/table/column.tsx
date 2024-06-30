@@ -65,7 +65,7 @@ export const columns: (serverID: string) => ColumnDef<ScheduleType>[] = (serverI
         const { toast } = useToast();
         const queryClient = useQueryClient();
         function deleteSchedule() {
-          fetch(`/api/v1/servers/${serverID}/schedules/${row.original.index}`, { method: "DELETE" }).then(async (data) => {
+          fetch(`/bot/v1/servers/${serverID}/schedules/${row.original.index}`, { method: "DELETE" }).then(async (data) => {
               const json = await data.json().catch(() => undefined);
               if (!json || json['error']) {
                   toast({ title: "Failed to delete schedule", description: json['error'] ?? "An error occured", status: "error" })

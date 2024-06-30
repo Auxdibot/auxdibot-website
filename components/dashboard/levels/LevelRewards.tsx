@@ -17,7 +17,7 @@ export function Reward({ reward, role, index, serverID }: { role: { name: string
         if (!serverID) return;
         const body = new URLSearchParams();
         body.append("index", index.toString());
-        fetch(`/api/v1/servers/${serverID}/levels/rewards`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/levels/rewards`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to delete level reward", description: json['error'] ?? "An error occured", status: "error" })
@@ -42,7 +42,7 @@ export default function LevelRewards({ server }: { server: {
     serverID: string, 
     level_rewards: { level: number, roleID: string }[],
 }}) {
-    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [success, setSuccess] = useState(false);
     const { handleSubmit, reset, control } = useForm<LevelRewardBody>({ defaultValues: { level: 1, roleID: "" }});
@@ -53,7 +53,7 @@ export default function LevelRewards({ server }: { server: {
         const body = new URLSearchParams();
         body.append("level", formData.level?.toString() ?? '');
         body.append("role", formData.roleID);
-        fetch(`/api/v1/servers/${server.serverID}/levels/rewards`, { method: "PATCH", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/levels/rewards`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to add level reward", description: json['error'] ?? "An error occured", status: "error" })

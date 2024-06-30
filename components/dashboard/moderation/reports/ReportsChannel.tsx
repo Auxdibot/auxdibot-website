@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button/button";
 export default function ReportsChannel({ server }: { server: { readonly serverID: string, readonly reports_channel: string }}) {
-    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>(server.reports_channel ?? undefined);
     const { toast } = useToast();
@@ -21,7 +21,7 @@ export default function ReportsChannel({ server }: { server: { readonly serverID
         if (!server) return;
         const body = new URLSearchParams();
         body.append("reports_channel", channel || '');
-        fetch(`/api/v1/servers/${server.serverID}/moderation/reports/channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/reports/channel`, { method: "POST", body }).then(async (data) => {
             
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {

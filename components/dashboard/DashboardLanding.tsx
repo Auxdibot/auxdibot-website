@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import ModuleSlider from "./settings/bot/ModuleSlider";
 import { useQuery } from "react-query";
 export default function DashboardLanding({ id }: { id: string }) {
-    const { data: settings } = useQuery(["data_settings", id], async () => await fetch(`/api/v1/servers/${id}/modules`).then(async (data) => 
+    const { data: settings } = useQuery(["data_settings", id], async () => await fetch(`/bot/v1/servers/${id}/modules`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const router = useRouter();

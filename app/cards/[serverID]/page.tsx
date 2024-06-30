@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 import { useMediaQuery } from "react-responsive";
 
 export default function ServerCardPage({ params }: { params: { serverID: string } }) {
-    const { data, status, error } = useQuery<CardData | { error: string } | undefined>([params.serverID, 'card'], async () => await fetch(`/api/v1/cards/${params.serverID}`).then(async (data) => 
+    const { data, status, error } = useQuery<CardData | { error: string } | undefined>([params.serverID, 'card'], async () => await fetch(`/bot/v1/cards/${params.serverID}`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     if ((!data && status != 'loading') || error || (data && 'error' in data)) { return <NotFound/> }

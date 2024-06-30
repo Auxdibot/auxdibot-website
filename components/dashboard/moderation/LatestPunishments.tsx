@@ -8,7 +8,7 @@ import { DataTable } from "@/components/ui/data-table/data-table";
 import { columns } from "./table/column";
 
 export default function LatestPunishments({ serverID }: { readonly serverID: string }) {
-    let { data: punishments } = useQuery<{ data: { punishments: PunishmentData[] } } | undefined>(["data_punishments", serverID], async () => await fetch(`/api/v1/servers/${serverID}/punishments?limit=5`).then(async (data) => 
+    let { data: punishments } = useQuery<{ data: { punishments: PunishmentData[] } } | undefined>(["data_punishments", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/punishments?limit=5`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     return <>
     <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl flex-1 max-md:w-full h-fit max-md:mx-auto"}>

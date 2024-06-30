@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 export async function generateMetadata({ params }: CardProps): Promise<Metadata> {
-    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/cards/${params.serverID}`)
+    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/bot/v1/cards/${params.serverID}`)
     .then((result) => result.json())
     .then((data) => data && !data['error'] ? data : undefined)
     .catch(() => undefined);
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: CardProps): Promise<Metadata>
     }
 }
 export async function generateViewport({ params }: CardProps): Promise<Viewport> {
-    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/cards/${params.serverID}`)
+    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/bot/v1/cards/${params.serverID}`)
     .then((result) => result.json())
     .then((data) => data && !data['error'] ? data : undefined)
     .catch(() => undefined);

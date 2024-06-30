@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button/button";
 
 type MassroleBody = { roleID: string, give: boolean }
 export default function Massrole({ serverID }: { serverID: string }) {
-    let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const { control, handleSubmit, reset, watch } = useForm<MassroleBody>();
     const { toast } = useToast();
@@ -22,7 +22,7 @@ export default function Massrole({ serverID }: { serverID: string }) {
         const body = new URLSearchParams();
         body.append("roleID", data.roleID);
         body.append("give", data.give + "");
-        fetch(`/api/v1/servers/${serverID}/massrole`, { method: "POST", body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${serverID}/massrole`, { method: "POST", body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to finish massrole`, description: json['error'] ? json['error'] : `An error occurred while finishing the massrole process.`, status: 'error' })

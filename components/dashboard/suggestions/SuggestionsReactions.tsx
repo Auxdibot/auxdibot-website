@@ -14,14 +14,14 @@ import { useQuery, useQueryClient } from "react-query";
 export function Reaction({ reaction, index, serverID }: { reaction: string, index: number, serverID: string }) {
 
     const queryClient = useQueryClient();
-    let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => 
+    let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/bot/v1/servers/${serverID}/emojis`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined)); 
     const { toast } = useToast();
     function deleteReaction() {
         if (!serverID) return;
         const body = new URLSearchParams();
         body.append("index", index.toString());
-        fetch(`/api/v1/servers/${serverID}/suggestions/reactions`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/suggestions/reactions`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().then((data) => data?.data).catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to delete suggestions reaction', description: json['error'] ?? "An error occured", status: "error" })
@@ -55,7 +55,7 @@ export default function SuggestionsReactions({ server }: { server: {
         if (!server) return;
         const body = new URLSearchParams();
         body.append("suggestion_reaction", reaction);
-        fetch(`/api/v1/servers/${server.serverID}/suggestions/reactions`, { method: "PATCH", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/suggestions/reactions`, { method: "PATCH", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to add suggestions reaction', description: json['error'] ?? "An error occured", status: "error" })

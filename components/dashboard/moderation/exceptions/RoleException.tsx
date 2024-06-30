@@ -4,7 +4,7 @@ import { BsAt, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export default function RoleException({ roleID, serverID, index }: { readonly roleID: string, readonly serverID: string; readonly index: number; }) {
-    const { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
+    const { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const { toast } = useToast();
     const queryClient = useQueryClient();
@@ -15,7 +15,7 @@ export default function RoleException({ roleID, serverID, index }: { readonly ro
         const body = new URLSearchParams();
         body.append('index', index.toString())
 
-        fetch(`/api/v1/servers/${serverID}/moderation/exceptions/`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/moderation/exceptions/`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({

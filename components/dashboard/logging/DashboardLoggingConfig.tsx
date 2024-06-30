@@ -4,7 +4,7 @@ import Logs from "./Logs";
 import LogSettings from "./LogSettings";
 
 export default function DashboardLoggingConfig({ id }: { id: string }) {
-    let { data: logging } = useQuery(["data_logging", id], async () => await fetch(`/api/v1/servers/${id}/log`).then(async (data) => 
+    let { data: logging } = useQuery(["data_logging", id], async () => await fetch(`/bot/v1/servers/${id}/log`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
 
     return (<main className={"bg-gray-950 flex-grow"}>

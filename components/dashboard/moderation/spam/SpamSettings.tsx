@@ -35,7 +35,7 @@ export default function SpamSettings({ server }: { server: { readonly serverID: 
         const duration = Number(timestampToDuration(data.duration));
         body.append('duration', duration ? duration.toString() : '0')
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/spam`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/spam`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update spam limit', description: json?.error ?? 'An error occurred while updating spam settings.', status: 'error' })

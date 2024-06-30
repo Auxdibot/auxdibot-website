@@ -79,7 +79,7 @@ export const columns: (serverID: string) => ColumnDef<SuggestionColumn>[] = (ser
       function deleteSuggestion() {
         const body = new URLSearchParams();
         body.append('id', row.original.suggestionID.toString())
-        fetch(`/api/v1/servers/${serverID}/suggestions`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/suggestions`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to delete suggestion", description: json['error'] ?? "An error occured", status: "error" })

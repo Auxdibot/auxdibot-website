@@ -4,7 +4,7 @@ import { memo, useState } from 'react';
 import { useQuery } from 'react-query';
 import twemoji from 'twemoji';
 function Twemoji({ children, className, serverID }: { children: string, className?: string, serverID?: string }) {
-  let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/api/v1/servers/${serverID}/emojis`).then(async (data) => 
+  let { data: serverEmojis } = useQuery<ServerEmojiBody | undefined>(["data_emojis", serverID], async () => serverID && await fetch(`/bot/v1/servers/${serverID}/emojis`).then(async (data) => 
   await data.json().catch(() => undefined)).catch(() => undefined)); 
     const [fallback, setFallback] = useState(false);
     const uniqueEmojis = {

@@ -7,7 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function StarboardChannel({ id, board }: { id: string, board: StarboardData }) {
-    let { data: channels } = useQuery(["data_channels", id], async () => await fetch(`/api/v1/servers/${id}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", id], async () => await fetch(`/bot/v1/servers/${id}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState("");
     const [success, setSuccess] = useState(false);
@@ -21,7 +21,7 @@ export default function StarboardChannel({ id, board }: { id: string, board: Sta
         const body = new URLSearchParams();
         body.append("starboard_channel", channel || '');
         body.append('board_name', board.board_name)
-        fetch(`/api/v1/servers/${id}/starboard/channel`, { method: "POST", body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/starboard/channel`, { method: "POST", body }).then(async (res) => {
             
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {

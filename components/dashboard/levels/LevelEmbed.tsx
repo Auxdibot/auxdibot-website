@@ -7,7 +7,7 @@ export default function LevelEmbed({ server }: { server: { serverID: string, lev
     const queryClient = useQueryClient();
     const { toast } = useToast();
     function handleClick() {
-        fetch(`/api/v1/servers/${server.serverID}/levels/embed`, { method: "POST" }).then(async (res) => 
+        fetch(`/bot/v1/servers/${server.serverID}/levels/embed`, { method: "POST" }).then(async (res) => 
         {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {

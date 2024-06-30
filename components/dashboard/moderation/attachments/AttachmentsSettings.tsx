@@ -34,7 +34,7 @@ export default function AttachmentsSettings({ server }: { server: { readonly ser
         const duration = Number(timestampToDuration(data.duration));
         body.append('duration', duration ? duration.toString() : '0')
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/attachments/`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/attachments/`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update attachments limit', description: json?.error ?? 'An error occurred while updating attachments settings.', status: 'error' })

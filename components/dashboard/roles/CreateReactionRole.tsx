@@ -55,7 +55,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         if (data.embed && (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0)) {
             body.append('embed', JSON.stringify(data.embed));
         }
-        fetch(`/api/v1/servers/${serverID}/reaction_roles`, { method: 'POST', body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/reaction_roles`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() =>  undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to create reaction role`, description: json['error'] ? json['error'] : `An error occurred while creating the reaction role.`, status: 'error' })

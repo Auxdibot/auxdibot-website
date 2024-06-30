@@ -15,7 +15,7 @@ export default function ModuleSlider({ module, server }: { module: keyof typeof 
         const body = new URLSearchParams();
 
         body.append('module', module);
-        fetch(`/api/v1/servers/${server.data.serverID}/modules`, { method: "PATCH", body }).then(async (data) => 
+        fetch(`/bot/v1/servers/${server.data.serverID}/modules`, { method: "PATCH", body }).then(async (data) => 
         {
             const json = await data.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_settings", server.data.serverID])

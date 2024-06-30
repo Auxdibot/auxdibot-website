@@ -8,7 +8,7 @@ import { BsTrash } from "react-icons/bs";
 
 export default function RequiredChannels({ id, command, subcommand, required }: { readonly id: string, readonly command: string, readonly subcommand?: string[], readonly required: string[] }) {
     const { data: channels } = useQuery(["data_channels", id], async () => {
-        const res = await fetch(`/api/v1/servers/${id}/channels`);
+        const res = await fetch(`/bot/v1/servers/${id}/channels`);
         return await res.json();
     });
 
@@ -20,7 +20,7 @@ export default function RequiredChannels({ id, command, subcommand, required }: 
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
         body.append('channel', channel ?? '');
 
-        fetch(`/api/v1/servers/${id}/commands/channels`, { method: 'PATCH', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/commands/channels`, { method: 'PATCH', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])
             if (!json || json['error']) {
@@ -37,7 +37,7 @@ export default function RequiredChannels({ id, command, subcommand, required }: 
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
         body.append('channel', channel ?? '');
 
-        fetch(`/api/v1/servers/${id}/commands/channels`, { method: 'DELETE', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/commands/channels`, { method: 'DELETE', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])
             if (!json || json['error']) {

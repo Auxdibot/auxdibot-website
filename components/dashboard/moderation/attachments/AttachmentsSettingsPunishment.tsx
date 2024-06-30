@@ -25,7 +25,7 @@ export default function AttachmentsSettingsPunishment({ server }: { server: { re
         let body = new URLSearchParams();
         body.append('punishment', data.punishment ?? '');
         body.append('reason', data.reason ?? '');
-        fetch(`/api/v1/servers/${server.serverID}/moderation/attachments/punishment`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/attachments/punishment`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update attachments punishment', description: json?.error ?? 'An error occurred while updating attachments punishment.', status: 'error' })

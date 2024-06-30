@@ -8,7 +8,7 @@ import Channels from "@/components/ui/select/channels";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button/button";
 export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
-    let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>("");
     const [success, setSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function JoinLeaveChannel({ serverID }: { serverID: string }) {
         if (!serverID) return;
         const body = new URLSearchParams();
         body.append("channel", channel || '');
-        fetch(`/api/v1/servers/${serverID}/greetings/channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/greetings/channel`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to update Join/Leave channel`, description: json['error'] ? json['error'] : `An error occurred while updating the Join/Leave channel.`, status: 'error' })

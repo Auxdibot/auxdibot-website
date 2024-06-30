@@ -6,7 +6,7 @@ import CommandChannel from "./CommandChannel";
 
 export function Commands({ commands, id }: { commands?: CommandType[], id: string }) {
 
-    const { data: permissions } = useQuery<{ data: { command_permissions: CommandPermissionData[], serverID: string, commands_channel?: string } }>(["data_command_permissions", id], async () => await fetch(`/api/v1/servers/${id}/commands`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+    const { data: permissions } = useQuery<{ data: { command_permissions: CommandPermissionData[], serverID: string, commands_channel?: string } }>(["data_command_permissions", id], async () => await fetch(`/bot/v1/servers/${id}/commands`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     return (<>
     {permissions?.data && <div className="mt-8 px-4 flex flex-col gap-1 max-md:items-center">
         <label className={'font-open-sans'}>Commands Channel</label>

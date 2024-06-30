@@ -27,7 +27,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         setExpanded(!expanded)
     }
     function signOut() {
-        return fetch(`/api/v1/auth/signout`).then(() => {
+        return fetch(`/bot/v1/auth/signout`).then(() => {
             setExpanded(false);
             queryClient.invalidateQueries("session");
         }).catch(() => undefined)
@@ -65,7 +65,7 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
             <ul className={"flex flex-col gap-2 p-4"}>
             {status == "authenticated" ? 
             <Link href={"/dashboard"} onClick={() => setExpanded(false)}  className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsListTask/></span>Servers</Link> : ""}
-                {status == "unauthenticated" ? <span onClick={() => router.push('/api/v1/auth/discord')} className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowRightCircle/></span>Sign in</span>
+                {status == "unauthenticated" ? <span onClick={() => router.push('/bot/v1/auth/discord')} className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowRightCircle/></span>Sign in</span>
                 : <span onClick={() => signOut()} className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowLeftCircle/></span>Sign out</span> }
             </ul>
         </div>

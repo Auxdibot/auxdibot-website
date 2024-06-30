@@ -7,11 +7,11 @@ import JoinRoles from './JoinRoles';
 import StickyRoles from './StickyRoles';
 
 export default function DashboardRolesConfig({ id }: { id: string }) {
-    const { data: reactionRoles } = useQuery(["data_reaction_roles", id], async () => await fetch(`/api/v1/servers/${id}/reaction_roles`).then(async (data) => 
+    const { data: reactionRoles } = useQuery(["data_reaction_roles", id], async () => await fetch(`/bot/v1/servers/${id}/reaction_roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const { data: joinRoles } = useQuery(["data_join_roles", id], async () => await fetch(`/api/v1/servers/${id}/join_roles`).then(async (data) => 
+    const { data: joinRoles } = useQuery(["data_join_roles", id], async () => await fetch(`/bot/v1/servers/${id}/join_roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
-    const { data: stickyRoles } = useQuery(["data_sticky_roles", id], async () => await fetch(`/api/v1/servers/${id}/sticky_roles`).then(async (data) => 
+    const { data: stickyRoles } = useQuery(["data_sticky_roles", id], async () => await fetch(`/bot/v1/servers/${id}/sticky_roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     return (<main className={"bg-gray-950 flex-grow"}>
         <div className={"animate-fadeIn flex max-md:items-center flex-col py-5 md:px-5 gap-5"}>
