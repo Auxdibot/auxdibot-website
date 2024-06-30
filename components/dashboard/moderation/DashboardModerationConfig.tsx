@@ -10,7 +10,7 @@ import AttachmentsSettings from "./attachments/AttachmentsSettings";
 import InvitesSettings from "./invites/InvitesSettings";
 
 export default function DashboardModerationConfig({ id }: { id: string }) {
-    let { data: moderation } = useQuery(["data_moderation", id], async () => await fetch(`/api/v1/servers/${id}/moderation`).then(async (data) => 
+    let { data: moderation } = useQuery(["data_moderation", id], async () => await fetch(`/bot/v1/servers/${id}/moderation`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     return (<main className={"bg-gray-950 flex-grow"}>

@@ -4,7 +4,7 @@ import { BsAt, BsTrash } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 
 export default function JoinRole({ roleID, serverID, index }: { readonly roleID: string, readonly serverID: string; readonly index: number; }) {
-    const { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
+    const { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const { toast } = useToast();
     const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ export default function JoinRole({ roleID, serverID, index }: { readonly roleID:
         const body = new URLSearchParams();
         body.append('index', index.toString())
 
-        fetch(`/api/v1/servers/${serverID}/join_roles/${roleID}`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/join_roles/${roleID}`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to delete join role`, description: json['error'] ? json['error'] : `An error occurred while deleting the join role.`, status: 'error' })

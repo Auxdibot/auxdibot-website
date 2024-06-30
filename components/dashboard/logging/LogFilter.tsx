@@ -10,7 +10,7 @@ export function LogFilter({ filtered, serverID }: { filtered: string; index: num
     function deleteReaction() {
         const body = new URLSearchParams();
         body.append("log", filtered);
-        fetch(`/api/v1/servers/${serverID}/log/filter`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/log/filter`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to remove filtered log", description: json['error'] ? json['error'] : 'An error occured.', status: "error" });

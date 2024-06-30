@@ -34,7 +34,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
         if (bodyData.embed.author?.name || bodyData.embed.description || bodyData.embed.title || bodyData.embed.footer?.text || (bodyData.embed.fields?.length || 0) > 0) {
             body.append('embed', JSON.stringify(bodyData.embed));
         }
-        fetch(`/api/v1/servers/${id}/greetings/${bodyData.greeting}`, { method: 'POST', body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${id}/greetings/${bodyData.greeting}`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to set greeting`, description: json['error'] ? json['error'] : `An error occurred while setting the greeting.`, status: 'error' })

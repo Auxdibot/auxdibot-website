@@ -13,7 +13,7 @@ import { Separator } from "../ui/separator";
 
 export function Server({ server }: { server: DiscordGuild }) {
     
-    const { data } = useQuery(["server_info", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data } = useQuery(["server_info", server.id], async () => await fetch(`/bot/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     const acronym = server?.name?.split(/[\s()]+/).filter(Boolean).map(i => i.replace(/\W/g, '')[0]).join('');
     if (!data) return <></>;
     return (<Link href={`/dashboard/${server.id}`} className={"group flex items-center gap-2 font-open-sans"}>
@@ -39,7 +39,7 @@ type MiniServerProps = React.ComponentPropsWithRef<'div'> & {
     serverID: string;
 };
 export default function MiniServer(props: MiniServerProps) {
-    const { data: server } = useQuery(["server_info", props.serverID], async () => await fetch(`/api/v1/servers/${props.serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data: server } = useQuery(["server_info", props.serverID], async () => await fetch(`/bot/v1/servers/${props.serverID}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     const acronym = server?.name?.split(/[\s()]+/).filter(Boolean).map((i: string) => i.replace(/\W/g, '')[0]).join('');
     const [expanded, setExpanded] = useState(false);
     const { user, status } = useSession();

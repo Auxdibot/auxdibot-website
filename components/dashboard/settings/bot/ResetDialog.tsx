@@ -12,7 +12,7 @@ export function ResetDialog({ serverID }: { serverID: string; }) {
   const {toast} = useToast();
   function reset() {
 
-    fetch(`/api/v1/servers/${serverID}/reset`, { method: "POST" }).then(() => {
+    fetch(`/bot/v1/servers/${serverID}/reset`, { method: "POST" }).then(() => {
       queryClient.invalidateQueries(["data_settings", serverID]);
       router.push(`/dashboard/${serverID}`);
       toast({

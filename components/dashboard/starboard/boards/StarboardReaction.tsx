@@ -20,7 +20,7 @@ export default function StarboardReaction({ id, board }: { id: string, board: St
         const body = new URLSearchParams();
         body.append("starboard_reaction", reaction);
         body.append('board_name', board.board_name);
-        fetch(`/api/v1/servers/${id}/starboard/reaction`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${id}/starboard/reaction`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             
             if (!json || json['error']) {

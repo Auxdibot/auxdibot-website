@@ -8,7 +8,7 @@ import Roles from "@/components/ui/select/roles";
 
 export default function PermissionBypassRoles({ id, command, subcommand, bypass }: { readonly id: string, readonly command: string, readonly subcommand?: string[], readonly bypass: string[] }) {
     const { data: roles } = useQuery(["data_roles", id], async () => {
-        const res = await fetch(`/api/v1/servers/${id}/roles`);
+        const res = await fetch(`/bot/v1/servers/${id}/roles`);
         return await res.json();
     });
 
@@ -20,7 +20,7 @@ export default function PermissionBypassRoles({ id, command, subcommand, bypass 
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
         body.append('role', role ?? '');
 
-        fetch(`/api/v1/servers/${id}/commands/permission_bypass_roles`, { method: 'PATCH', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/commands/permission_bypass_roles`, { method: 'PATCH', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])
             if (!json || json['error']) {
@@ -37,7 +37,7 @@ export default function PermissionBypassRoles({ id, command, subcommand, bypass 
         body.append('command', command + (subcommand ? " " + subcommand.join(" ") : ""));
         body.append('role', role ?? '');
 
-        fetch(`/api/v1/servers/${id}/commands/permission_bypass_roles`, { method: 'DELETE', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/commands/permission_bypass_roles`, { method: 'DELETE', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])
             if (!json || json['error']) {

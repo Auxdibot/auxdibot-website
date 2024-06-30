@@ -25,7 +25,7 @@ export default function WarnThreshold({ server }: { server: { readonly serverID:
         body.append('punishment', data.punishment ?? '');
         body.append('warns', data.warns.toString() ?? '')
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/threshold`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/threshold`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to update warns threshold", description: json['error'] ?? "An error occured", status: "error" })

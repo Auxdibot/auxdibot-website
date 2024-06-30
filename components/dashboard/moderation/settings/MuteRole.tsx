@@ -7,7 +7,7 @@ import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button/button";
 export default function MuteRole({ server }: { server: { readonly serverID: string, readonly mute_role: string }}) {
-    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const [role, setRole] = useState<string | undefined>(server.mute_role ?? undefined);
     const { toast } = useToast();
@@ -22,7 +22,7 @@ export default function MuteRole({ server }: { server: { readonly serverID: stri
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_mute_role", role || '');
-        fetch(`/api/v1/servers/${server.serverID}/moderation/mute_role`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/mute_role`, { method: "POST", body }).then(async (data) => {
             
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {

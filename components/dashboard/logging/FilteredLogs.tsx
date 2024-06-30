@@ -13,7 +13,7 @@ export default function FilteredLogs({ server }: { server: {
     serverID: string, 
     filtered_logs: string[],    
 }}) {
-    const { data: actions } = useQuery<string[] | undefined>(["data_actions", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/log/actions`).then(async (data) => await data.json().then((data) => data?.data?.log_actions).catch(() => undefined)).catch(() => undefined));
+    const { data: actions } = useQuery<string[] | undefined>(["data_actions", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/log/actions`).then(async (data) => await data.json().then((data) => data?.data?.log_actions).catch(() => undefined)).catch(() => undefined));
 
     const [success, setSuccess] = useState(false);
     const [filter, setFiltered] = useState("")
@@ -23,7 +23,7 @@ export default function FilteredLogs({ server }: { server: {
         if (!server) return;
         const body = new URLSearchParams();
         body.append("log", filter);
-        fetch(`/api/v1/servers/${server.serverID}/log/filter`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/log/filter`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to add filtered log", description: json['error'] ? json['error'] : 'An error occured.', status: "error" });

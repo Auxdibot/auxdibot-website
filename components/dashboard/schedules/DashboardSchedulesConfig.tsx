@@ -5,7 +5,7 @@ import Schedules from "./Schedules";
 import CreateSchedule from "./CreateSchedule";
 
 export default function DashboardSchedulesConfig({ id }: { id: string }) {
-    let { data: schedules } = useQuery(["data_schedules", id], async () => await fetch(`/api/v1/servers/${id}/schedules`).then(async (data) => 
+    let { data: schedules } = useQuery(["data_schedules", id], async () => await fetch(`/bot/v1/servers/${id}/schedules`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     return (<main className={"bg-gray-950 flex-grow"}>

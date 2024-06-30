@@ -26,7 +26,7 @@ export default function SpamSettingsPunishment({ server }: { server: { readonly 
         let body = new URLSearchParams();
         body.append('punishment', data.punishment ?? '');
         body.append('reason', data.reason ?? '');
-        fetch(`/api/v1/servers/${server.serverID}/moderation/spam/punishment`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/spam/punishment`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update spam punishment', description: json?.error ?? 'An error occurred while updating spam punishment.', status: 'error' })

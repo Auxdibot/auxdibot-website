@@ -24,7 +24,7 @@ export default function BlacklistedPhrases({ server }: { server: { readonly serv
         let body = new URLSearchParams();
         body.append('blacklisted_phrase', data.phrase ?? '');
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/blacklist`, { method: 'PATCH', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/blacklist`, { method: 'PATCH', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to add blacklisted phrase', description: json?.error ?? 'An error occurred while adding blacklisted phrase.', status: 'error' })

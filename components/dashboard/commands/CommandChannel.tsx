@@ -7,7 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function CommandChannel({ server }: { server: { serverID: string, commands_channel?: string }}) {
-    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>(server.commands_channel ?? undefined);
     const [success, setSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function CommandChannel({ server }: { server: { serverID: string,
         if (!server) return;
         const body = new URLSearchParams();
         body.append("channel", channel ?? '');
-        fetch(`/api/v1/servers/${server.serverID}/commands/channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/commands/channel`, { method: "POST", body }).then(async (data) => {
             let json = await data.json();
             if (data.ok == false) {
                 toast({ title: "Failed to update commands channel", description: json['error'] ? json['error'] : 'An error occured.', status: "error" });

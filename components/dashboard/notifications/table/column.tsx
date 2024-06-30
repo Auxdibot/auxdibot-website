@@ -55,7 +55,7 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (ser
       const { toast } = useToast();
       const queryClient = useQueryClient();
       function deleteNotification() {
-        fetch(`/api/v1/servers/${serverID}/notifications/${row.original.index}`, { method: "DELETE" }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/notifications/${row.original.index}`, { method: "DELETE" }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to delete notification", description: json['error'] ?? "An error occured", status: "error" })

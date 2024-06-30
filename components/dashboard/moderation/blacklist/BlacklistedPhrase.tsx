@@ -10,7 +10,7 @@ export default function BlacklistedPhrase({ phrase, serverID, index }: { readonl
         const body = new URLSearchParams();
         body.append('index', index.toString())
 
-        fetch(`/api/v1/servers/${serverID}/moderation/blacklist/`, { method: "DELETE", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${serverID}/moderation/blacklist/`, { method: "DELETE", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({

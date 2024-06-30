@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { useQuery } from "react-query";
 
 export default function LoadingCard({ serverID }: { readonly serverID: string }) {
-    const { status } = useQuery<CardData | { error: string } | undefined>([serverID, 'card'], async () => await fetch(`/api/v1/cards/${serverID}`).then(async (data) => 
+    const { status } = useQuery<CardData | { error: string } | undefined>([serverID, 'card'], async () => await fetch(`/bot/v1/cards/${serverID}`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     if (status != 'loading') return <></>;
     return (<main className={"fixed top-0 h-screen w-screen gap-4 flex flex-col items-center justify-center"}>

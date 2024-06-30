@@ -21,7 +21,7 @@ export default function NicknameChange({ server }: { server: DiscordGuild & { da
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_nickname", nick);
-        fetch(`/api/v1/servers/${server.id}/nick`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.id}/nick`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_settings", server.id]);
             if (!json || json['error']) {

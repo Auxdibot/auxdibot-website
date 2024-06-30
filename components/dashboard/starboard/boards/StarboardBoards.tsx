@@ -27,7 +27,7 @@ export default function StarboardBoards({ server }: { server: {
     function deleteBoard() {
         console.log(board);
         if (!board) return;
-        fetch(`/api/v1/servers/${server.data.serverID}/starboard/boards`, { method: "DELETE", body: new URLSearchParams({ board_name: board }) }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.data.serverID}/starboard/boards`, { method: "DELETE", body: new URLSearchParams({ board_name: board }) }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to delete board", description: json['error'] ?? "An error occured", status: "error" })

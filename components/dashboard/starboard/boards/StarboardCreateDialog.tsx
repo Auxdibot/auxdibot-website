@@ -26,7 +26,7 @@ export function StarboardCreateDialog({ id, onChange }: { readonly id: string, o
         body.append("channelID", data.channelID);
         body.append("reaction", data.reaction);
         body.append("reaction_count", data.count.toString());
-        fetch(`/api/v1/servers/${id}/starboard/boards`, { method: "POST", body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/starboard/boards`, { method: "POST", body }).then(async (res) => {
             const json = await res.json().catch(() =>  undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to create new starboard`, description: json['error'] ? json['error'] : `An error occurred while creating the starboard.`, status: 'error' })

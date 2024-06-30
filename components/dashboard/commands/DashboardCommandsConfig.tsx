@@ -10,7 +10,7 @@ export function DashboardCommandsConfig({ id }: { id: string }) {
     const [commandModule, setCommandModule] = useState('general');
     const [commandSearch, setCommandSearch] = useState('subcommand'); 
     const isSmall = useMediaQuery({ query: "(max-width: 1340px)" });
-    const { data: commands_list } = useQuery(["data_commands_list", commandModule, commandSearch], async () => await fetch(`/api/v1/commands_list?module=${commandModule}&search=${commandSearch}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+    const { data: commands_list } = useQuery(["data_commands_list", commandModule, commandSearch], async () => await fetch(`/bot/v1/commands_list?module=${commandModule}&search=${commandSearch}`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     return (<main className={"bg-gray-950 flex-grow"}>
     <div className={"animate-fadeIn flex max-lg:items-center flex-col py-5 md:px-5 gap-5"}>
     <h1 className={"header text-6xl max-lg:text-5xl"}>commands</h1>

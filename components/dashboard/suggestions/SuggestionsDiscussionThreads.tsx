@@ -8,7 +8,7 @@ export default function SuggestionsDiscussionThreads({ server }: { server: {  se
     const queryClient = useQueryClient();
     const { toast } = useToast();
     function handleClick() {
-        fetch(`/api/v1/servers/${server.serverID}/suggestions/discussion_threads`, { method: "POST" }).then(async (data) => 
+        fetch(`/bot/v1/servers/${server.serverID}/suggestions/discussion_threads`, { method: "POST" }).then(async (data) => 
         {
             const json = await data.json().then((data) => data?.data).catch(() => undefined);
             toast({

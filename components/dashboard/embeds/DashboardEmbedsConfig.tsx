@@ -24,7 +24,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
             maxLength: 25,
         }
     });
-    const { data: channels } = useQuery(["data_channels", id], async () => await fetch(`/api/v1/servers/${id}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+    const { data: channels } = useQuery(["data_channels", id], async () => await fetch(`/bot/v1/servers/${id}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     const { toast } = useToast();
     function onSubmit(data: EmbedBody) {
         let body = new URLSearchParams();
@@ -34,7 +34,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
         if (data.embed.author?.name || data.embed.description || data.embed.title || data.embed.footer?.text || (data.embed.fields?.length || 0) > 0) {
             body.append('embed', JSON.stringify(data.embed));
         }
-        fetch(`/api/v1/servers/${id}/embeds`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${id}/embeds`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to create embed", description: json['error'] ?? "An error occured", status: "error" })

@@ -7,7 +7,7 @@ import Channels from "@/components/ui/select/channels";
 import { Button } from "@/components/ui/button/button";
 import { useToast } from "@/components/ui/use-toast";
 export default function LogChannel({ server }: { server: { serverID: string, log_channel: string }}) {
-    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery(["data_channels", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     const [channel, setChannel] = useState<string | undefined>("");
     const [success, setSuccess] = useState(false);
@@ -22,7 +22,7 @@ export default function LogChannel({ server }: { server: { serverID: string, log
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_log_channel", channel ?? '');
-        fetch(`/api/v1/servers/${server.serverID}/log_channel`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/log_channel`, { method: "POST", body }).then(async (data) => {
             let json = await data.json();
             if (data.ok == false) {
                 toast({ title: "Failed to update log channel", description: json['error'] ? json['error'] : 'An error occured.', status: "error" });

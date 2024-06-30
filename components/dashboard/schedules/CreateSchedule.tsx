@@ -17,7 +17,7 @@ import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 type ScheduleBody = { times_to_run: number; message: string; channel: string; duration: string; embed: APIEmbed; start_date?: Date; }
 export default function CreateSchedule({ serverID }: { serverID: string }) {
     const { register, watch, control, handleSubmit, reset } = useForm<ScheduleBody>({ defaultValues: { embed: { fields: [] }, channel: '', duration: '', message: '', times_to_run: 0 }});
-    const { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
+    const { data: channels } = useQuery(["data_channels", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/channels`).then(async (data) => await data.json().catch(() => undefined)).catch(() => undefined));
     const { append, remove } = useFieldArray({
         name: "embed.fields",
         control,
@@ -38,7 +38,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
             body.append('embed', JSON.stringify(data.embed));
         }
         body.append('times_to_run', data.times_to_run?.toString() || "")
-        fetch(`/api/v1/servers/${serverID}/schedules`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${serverID}/schedules`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to create schedule", description: json['error'] ?? "An error occured", status: "error" })

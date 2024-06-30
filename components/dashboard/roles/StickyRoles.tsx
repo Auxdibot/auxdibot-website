@@ -21,7 +21,7 @@ export default function StickyRoles({ server }: { server: { readonly serverID: s
         let body = new URLSearchParams();
         body.append('roleID', data.role ?? '');
 
-        fetch(`/api/v1/servers/${server.serverID}/sticky_roles`, { method: 'POST', body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/sticky_roles`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: `Failed to add sticky role`, description: json['error'] ? json['error'] : `An error occurred while adding the sticky role.`, status: 'error' })

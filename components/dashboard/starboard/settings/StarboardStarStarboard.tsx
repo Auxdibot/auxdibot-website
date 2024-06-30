@@ -7,7 +7,7 @@ export default function StarboardStarStarboard({ server }: { server: { data: { s
     const queryClient = useQueryClient();
     const { toast } = useToast();
     function handleClick() {
-        fetch(`/api/v1/servers/${server.data.serverID}/starboard/starboard_star`, { method: "POST" }).then(async (data) => 
+        fetch(`/bot/v1/servers/${server.data.serverID}/starboard/starboard_star`, { method: "POST" }).then(async (data) => 
         {
             const json = await data.json().then((data) => data?.data).catch(() => undefined);
             toast({

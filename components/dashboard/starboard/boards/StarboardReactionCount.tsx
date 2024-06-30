@@ -21,7 +21,7 @@ export default function StarboardReactionCount({ id, board }: { id: string, boar
         const body = new URLSearchParams();
         body.append("reaction_count", reactionCount ? reactionCount.toString() : "");
         body.append('board_name', board.board_name);
-        fetch(`/api/v1/servers/${id}/starboard/reaction_count`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${id}/starboard/reaction_count`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             
             if (!json || json['error']) {

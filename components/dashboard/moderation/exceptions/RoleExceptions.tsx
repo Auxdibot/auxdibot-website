@@ -12,7 +12,7 @@ type RoleExceptionsBody = { role: string };
 
 export default function RoleExceptions({ server }: { server: { readonly serverID: string, readonly automod_role_exceptions: string[] }}) {
     const { data: roles } = useQuery(['data', server.serverID, 'roles'], async () => {
-        const res = await fetch(`/api/v1/servers/${server.serverID}/roles`);
+        const res = await fetch(`/bot/v1/servers/${server.serverID}/roles`);
         return await res.json();
     }, { enabled: !!server.serverID });
 
@@ -23,7 +23,7 @@ export default function RoleExceptions({ server }: { server: { readonly serverID
         let body = new URLSearchParams();
         body.append('role', data.role ?? '');
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/exceptions`, { method: 'PATCH', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/exceptions`, { method: 'PATCH', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to add role exception', description: json?.error ?? 'An error occurred while adding role exception.', status: 'error' })

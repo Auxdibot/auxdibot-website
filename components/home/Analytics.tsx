@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { BsPerson, BsPeople, BsThreeDots } from 'react-icons/bs';
 export default function Analytics() {
-    let { data: analytics, status } = useQuery(["analytics"], async () => await fetch("/api/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
+    let { data: analytics, status } = useQuery(["analytics"], async () => await fetch("/bot/v1/analytics").then(async (data) => await data.json().catch(() => {})).catch(() => {}));
     let [serverState, setServerState] = useState("0");
     let [memberState, setMemberState] = useState("0");
     useEffect(() => {

@@ -7,7 +7,7 @@ export default function SuggestionsAutoDelete({ server }: { server:  { serverID:
     const queryClient = useQueryClient();
     const { toast } = useToast();
     function handleClick() {
-        fetch(`/api/v1/servers/${server.serverID}/suggestions/auto_delete`, { method: "POST" }).then(async (data) => 
+        fetch(`/bot/v1/servers/${server.serverID}/suggestions/auto_delete`, { method: "POST" }).then(async (data) => 
         {
             const json = await data.json().then((data) => data?.data).catch(() => undefined);
             toast({

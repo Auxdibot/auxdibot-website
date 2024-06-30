@@ -21,7 +21,7 @@ export default function LevelMessageXP({ server }: { server: { serverID: string 
         if (!server) return;
         const body = new URLSearchParams();
         body.append("message_xp", messageXP ? messageXP.toString() : '');
-        fetch(`/api/v1/servers/${server.serverID}/levels/message_xp`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/levels/message_xp`, { method: "POST", body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: "Failed to update message XP", description: json['error'] ?? "An error occured", status: "error" })

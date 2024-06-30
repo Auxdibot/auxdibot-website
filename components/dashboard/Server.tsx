@@ -8,7 +8,7 @@ import { ServerProps } from "./Servers";
 
 export function Server({ server }: ServerProps) {
 
-    const { data } = useQuery(["server_info", server.id], async () => await fetch(`/api/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
+    const { data } = useQuery(["server_info", server.id], async () => await fetch(`/bot/v1/servers/${server.id}`).then(async (i) => await i.json().catch(() => undefined)).catch(() => undefined));
     const acronym = server?.name?.split(/[\s()]+/).filter(Boolean).map(i => i.replace(/\W/g, '')[0]).join('');
     return (<span className="relative min-w-[300px] group">
         <div

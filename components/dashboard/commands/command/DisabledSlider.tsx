@@ -13,7 +13,7 @@ export default function DisabledSlider({ command, subcommand, disabled, id }: { 
         
        
         body.append('disabled', (!disabled) + "")
-        fetch(`/api/v1/servers/${id}/commands/disable`, { method: "POST", body }).then(async (data) => 
+        fetch(`/bot/v1/servers/${id}/commands/disable`, { method: "POST", body }).then(async (data) => 
         {
             const json = await data.json().catch(() => undefined);
             queryClient.invalidateQueries(["data_command_permissions", id])

@@ -40,7 +40,7 @@ export function CreateCard({ id, form: { control, watch, handleSubmit } }: { id:
         body.append('header_font', data?.header_font?.toString() || "");
         body.append('text_font', data?.text_font?.toString() || "");
         body.append('invite_url', data?.invite_url?.toString() || "");
-        fetch(`/api/v1/servers/${id}/updateCard`, { method: 'POST', body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${id}/updateCard`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update card', description: json?.error ?? 'An error occurred while updating the card.', status: 'error' });

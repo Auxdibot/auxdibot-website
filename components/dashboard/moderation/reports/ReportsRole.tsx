@@ -7,7 +7,7 @@ import Roles from "@/components/ui/select/roles";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button/button";
 export default function ReportsRole({ server }: { server: { readonly serverID: string, readonly report_role: string }}) {
-    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/api/v1/servers/${server.serverID}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", server.serverID], async () => await fetch(`/bot/v1/servers/${server.serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     const [role, setRole] = useState<string | undefined>(server.report_role ?? undefined);
     const { toast } = useToast();
@@ -22,7 +22,7 @@ export default function ReportsRole({ server }: { server: { readonly serverID: s
         if (!server) return;
         const body = new URLSearchParams();
         body.append("new_reports_role", role || '');
-        fetch(`/api/v1/servers/${server.serverID}/moderation/reports/role`, { method: "POST", body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/reports/role`, { method: "POST", body }).then(async (data) => {
             
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {

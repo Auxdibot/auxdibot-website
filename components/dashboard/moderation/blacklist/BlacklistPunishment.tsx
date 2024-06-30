@@ -23,7 +23,7 @@ export default function BlacklistPunishment({ server }: { server: { readonly ser
         let body = new URLSearchParams();
         body.append('punishment', data.punishment ?? '');
 
-        fetch(`/api/v1/servers/${server.serverID}/moderation/blacklist/punishment`, { method: 'POST', body }).then(async (res) => {
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/blacklist/punishment`, { method: 'POST', body }).then(async (res) => {
             const json = await res.json().catch(() => undefined);
             if (!json || json['error']) {
                 toast({ title: 'Failed to update blacklist punishment', description: json?.error ?? 'An error occurred while updating blacklist punishment.', status: 'error' })

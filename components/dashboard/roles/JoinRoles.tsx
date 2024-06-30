@@ -21,7 +21,7 @@ export default function JoinRoles({ server }: { server: { readonly serverID: str
         let body = new URLSearchParams();
         body.append('roleID', data.role ?? '');
 
-        fetch(`/api/v1/servers/${server.serverID}/join_roles`, { method: 'POST', body }).then(async (data) => {
+        fetch(`/bot/v1/servers/${server.serverID}/join_roles`, { method: 'POST', body }).then(async (data) => {
             const json = await data.json().catch(() => undefined);
            if (!json || json['error']) {
                toast({ title: `Failed to add join role`, description: json['error'] ? json['error'] : `An error occurred while adding the join role.`, status: 'error' })

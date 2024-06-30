@@ -5,7 +5,7 @@ import CreateNotification from "./CreateNotification";
 import Notifications from "./Notifications";
 
 export default function DashboardNotificationsConfig({ id }: { id: string }) {
-    let { data: notifications } = useQuery(["data_notifications", id], async () => await fetch(`/api/v1/servers/${id}/notifications`).then(async (data) => 
+    let { data: notifications } = useQuery(["data_notifications", id], async () => await fetch(`/bot/v1/servers/${id}/notifications`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     return (<main className={"bg-gray-950 flex-grow"}>

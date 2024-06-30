@@ -10,7 +10,7 @@ interface ChannelsInputProps {
     readonly value?: string;
 }
 export default function Channels({ serverID, onChange, value, required }: ChannelsInputProps) {
-    let { data: channels } = useQuery<ChannelsType[]>(["data_channels", serverID], async () => await fetch(`/api/v1/servers/${serverID}/channels`).then(async (data) => 
+    let { data: channels } = useQuery<ChannelsType[]>(["data_channels", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/channels`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
 
     if (!channels || 'error' in channels ) return <></>;

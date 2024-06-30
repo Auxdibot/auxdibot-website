@@ -5,7 +5,7 @@ import AuxdibotSettings from "./bot/AuxdibotSettings";
 import ServerSettings from "./server/ServerSettings";
 
 export default function DashboardSettingsConfig({ id }: { id: string }) {
-    let { data: settings } = useQuery(["data_settings", id], async () => await fetch(`/api/v1/servers/${id}/modules`).then(async (data) => 
+    let { data: settings } = useQuery(["data_settings", id], async () => await fetch(`/bot/v1/servers/${id}/modules`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined))
     
     return (<main className={"bg-gray-950 flex-grow"}>

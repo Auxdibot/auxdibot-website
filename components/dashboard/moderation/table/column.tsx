@@ -68,7 +68,7 @@ export const columns: (serverID: string) => ColumnDef<PunishmentData>[] = (serve
         const { toast } = useToast();
         const queryClient = useQueryClient();
         function deletePunishment() {
-          fetch(`/api/v1/servers/${serverID}/punishments/${row.original.punishmentID}`, { method: "DELETE" }).then(async (data) => {
+          fetch(`/bot/v1/servers/${serverID}/punishments/${row.original.punishmentID}`, { method: "DELETE" }).then(async (data) => {
               const json = await data.json().catch(() => undefined);
               if (!json || json['error']) {
                   toast({ title: "Failed to delete punishment", description: json['error'] ?? "An error occured", status: "error" })

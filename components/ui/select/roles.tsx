@@ -8,7 +8,7 @@ interface RolesInputProps {
     readonly required?: boolean;
 }
 export default function Roles({ serverID, onChange, value, required }: RolesInputProps) {
-    let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/api/v1/servers/${serverID}/roles`).then(async (data) => 
+    let { data: roles } = useQuery(["data_roles", serverID], async () => await fetch(`/bot/v1/servers/${serverID}/roles`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     if (!roles || roles['error']) return <></>;
 

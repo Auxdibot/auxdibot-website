@@ -8,7 +8,7 @@ export default function PunishmentsSendReason({ server }: { server: { serverID: 
     const queryClient = useQueryClient();
     const { toast } = useToast();
     function handleClick() {
-        fetch(`/api/v1/servers/${server.serverID}/moderation/send_reason`, { method: "POST" }).then(async (data) => 
+        fetch(`/bot/v1/servers/${server.serverID}/moderation/send_reason`, { method: "POST" }).then(async (data) => 
         {
             const json = await data.json().catch(() => undefined);
             if (!json || json['error']) {
