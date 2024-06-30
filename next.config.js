@@ -14,7 +14,7 @@ const nextConfig = {
         return [
           {
             source: '/api/v1/:path*',
-            destination: 'http://localhost:1080/:path*' // Proxy to Backend
+            destination: `${process.env.PROXY_URL}/:path*` // Proxy to Backend
           }
         ]
     }
