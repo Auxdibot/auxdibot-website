@@ -1,6 +1,5 @@
-import documentation from '@/Documentation/documentation.json';
-import { readFileSync } from 'fs';
 import Showdown from 'showdown';
+import { getDocumentationContent } from './storage/s3';
 require('./extensions/alertsExtension');
 const converter = new Showdown.Converter({
     metadata: true,
@@ -11,17 +10,11 @@ const converter = new Showdown.Converter({
     customizedHeaderId: true,
     extensions: ['alert']
 });
-export default function fetchDocumentation(name: string): string | undefined {
-    let doc: any = documentation;
-    for (let i of name.split('/')) {
-        if (typeof doc == 'object' && i in doc) {
-            doc = doc[i];
-        }
-    }
-    if (typeof doc != 'string' || !doc.endsWith('.md')) return undefined;
+export default async function fetchDocumentation(name: string): Promise<string | undefined> {
+
     try {
-        const markdown = readFileSync(`Documentation/${doc}`, 'utf8');
-        return converter.makeHtml(markdown);
+        const content = (await getDocumentationContent(name))?.content || "";
+        return converter.makeHtml(content);
     } catch (x) {
         return undefined;
     }

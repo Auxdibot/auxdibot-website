@@ -17,7 +17,7 @@ const nextConfig = {
             destination: `${process.env.PROXY_URL}/:path*` // Proxy to Backend
           }
         ]
-    }
+    },
 }
 
 module.exports = nextConfig

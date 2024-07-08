@@ -6,7 +6,7 @@ import { DocumentationSidebar } from "./DocumentationSidebar";
 export const ExpandedContext = createContext<{ expanded: boolean, setExpanded: Dispatch<SetStateAction<boolean>> } | null>(null);
 
 
-export default function DocumentationSidebarContainer({ doc, docList }: { doc: string | string[] | undefined, docList: ({ id: string; name: string; } | undefined)[]}) {
+export default function DocumentationSidebarContainer({ doc, docList }: { doc: string | string[] | undefined, docList: { id: string, title: string }[]} ) {
     let [expanded, setExpanded] = useState(false);
     const ref = createRef<HTMLDivElement>();
     useEffect(() => {

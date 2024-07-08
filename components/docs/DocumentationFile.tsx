@@ -1,21 +1,21 @@
-import { createDocumentationList } from "@/lib/createDocumentationList";
 import fetchDocumentation from "@/lib/fetchDocumentation";
 import React from "react";
 import DocumentationSidebarContainer from "./sidebar/DocumentationSidebarContainer";
 import DocumentationScrollbar from "./DocumentationScrollbar";
+import { fetchDocumentationList } from "@/lib/storage/s3";
 
 interface DocumentationFileProps {
     readonly doc: string | string[] | undefined;
 }
 
-export function DocumentationFile({
+export async function DocumentationFile({
   doc
 }: DocumentationFileProps) {
-  const docFile = fetchDocumentation((typeof doc == 'object' ? doc.join('/') : doc?.toString()) || 'about');
-  const docList = createDocumentationList();
+  const docFile = await fetchDocumentation((typeof doc == 'object' ? doc.join('/') : doc?.toString()) || 'about');
+  const documentation = await fetchDocumentationList();
   
   return <>
-  {docList && <DocumentationSidebarContainer docList={docList.filter((i) => i != undefined)} doc={doc} />}
+  <DocumentationSidebarContainer docList={documentation} doc={doc} />
   <main className={"bg-gray-950 relative flex-grow max-w-full"}>
     {/* For tailwind to include doc-alert instead of treeshaking it */}
     <div className="hidden doc-alert"/>
