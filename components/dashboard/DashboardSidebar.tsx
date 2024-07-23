@@ -75,23 +75,23 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                 <span onClick={() => changeCategory(SidebarCategories.COMMANDS)} className={`dashboard-sidebar-element ${page == SidebarCategories.COMMANDS ? "dashboard-sidebar-selected-text" : ""}`}><BsSlashLg/> Commands</span>
             </section>
             <h2 className={'font-montserrat text-lg mt-5 mb-2 flex items-center gap-2'}><BsHammer/> Utility</h2>
-            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${page == SidebarCategories.STARBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.STARBOARD)} className={`dashboard-sidebar-element ${page == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsStar/> <span className={"bg-blue-500 rounded-2xl text-sm px-1"}>UPDATE</span> Starboard</span>
+            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.LEVELS ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.LEVELS ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.LEVELS)} className={`dashboard-sidebar-element ${page == SidebarCategories.LEVELS ? "dashboard-sidebar-selected-text" : ""}`}><BsTrophy/> <span className={"bg-blue-500 rounded-2xl text-sm px-1"}>UPDATE</span> Levels</span>
             </section>
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.MODERATION ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.MODERATION ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.MODERATION)} className={`dashboard-sidebar-element ${page == SidebarCategories.MODERATION ? "dashboard-sidebar-selected-text" : ""}`}><BsHammer/> Moderation</span>
             </section>
-            
+            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected" : ""}`}>
+                <span><BsArrowRight className={`${page == SidebarCategories.STARBOARD ? "scale-75" : "scale-0 hidden"}`}/></span>
+                <span onClick={() => changeCategory(SidebarCategories.STARBOARD)} className={`dashboard-sidebar-element ${page == SidebarCategories.STARBOARD ? "dashboard-sidebar-selected-text" : ""}`}><BsStar/> Starboard</span>
+            </section>
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.SUGGESTIONS ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.SUGGESTIONS)} className={`dashboard-sidebar-element ${page == SidebarCategories.SUGGESTIONS ? "dashboard-sidebar-selected-text" : ""}`}><BsQuestionCircle/> Suggestions</span>
             </section>
-            <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.LEVELS ? "dashboard-sidebar-selected" : ""}`}>
-                <span><BsArrowRight className={`${page == SidebarCategories.LEVELS ? "scale-75" : "scale-0 hidden"}`}/></span>
-                <span onClick={() => changeCategory(SidebarCategories.LEVELS)} className={`dashboard-sidebar-element ${page == SidebarCategories.LEVELS ? "dashboard-sidebar-selected-text" : ""}`}><BsTrophy/> Levels</span>
-            </section>
+            
             <section className={`dashboard-sidebar-wrapper ${page == SidebarCategories.ROLES ? "dashboard-sidebar-selected" : ""}`}>
                 <span><BsArrowRight className={`${page == SidebarCategories.ROLES ? "scale-75" : "scale-0 hidden"}`}/></span>
                 <span onClick={() => changeCategory(SidebarCategories.ROLES)} className={`dashboard-sidebar-element ${page == SidebarCategories.ROLES ? "dashboard-sidebar-selected-text" : ""}`}><BsTag/> Roles</span>
