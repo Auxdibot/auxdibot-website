@@ -9,7 +9,7 @@ export default function CardInfo({ server }: { server: { name: string, id: strin
 
     const [copied, setCopied] = useState(false);
     function copy() {
-        navigator.clipboard?.writeText(`${process.env.NEXT_PUBLIC_URL}/cards/${server.id}`)
+        navigator.clipboard?.writeText(`${process.env.NEXT_PUBLIC_SITE_URL}/cards/${server.id}`)
         setCopied(true);
         setTimeout(() => setCopied(false), 2000)
     }
@@ -19,10 +19,10 @@ export default function CardInfo({ server }: { server: { name: string, id: strin
     <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Card Info</h2>
     <div className={"flex flex-col justify-center items-center gap-4 py-5"}>
     <h3 className={"text-xl font-montserrat"}>Card URL</h3>
-    <span><Link className={"bg-gray-900 text-base max-sm:hidden font-open-sans p-1 rounded-xl text-wrap overflow-hidden"} href={`${process.env.NEXT_PUBLIC_URL}/cards/${server.id}`}>{`${process.env.NEXT_PUBLIC_URL}/cards/${server.id}`}</Link> 
+    <span><Link className={"bg-gray-900 text-base max-sm:hidden font-open-sans p-1 rounded-xl text-wrap overflow-hidden"} href={`${process.env.NEXT_PUBLIC_SITE_URL}/cards/${server.id}`}>{`${process.env.NEXT_PUBLIC_SITE_URL}/cards/${server.id}`}</Link> 
     </span>
     <span className={'flex gap-2 items-center'}>
-    <Link href={`${process.env.NEXT_PUBLIC_URL}/cards/${server.id}`} target="_blank" type="submit">
+    <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/cards/${server.id}`} target="_blank" type="submit">
         <Button className={"flex flex-row gap-2 items-center"} variant={'outline'}><BsCardImage/> View Card</Button>
     </Link>
     <span onClick={copy} className={"text-base group rounded-2xl w-fit relative cursor-pointer"} >

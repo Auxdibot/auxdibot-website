@@ -2,6 +2,7 @@ import Providers from '@/components/Providers'
 import '@/styles/global.scss'
 import { Metadata, Viewport } from 'next'
 import LayoutNavbar from '@/components/navbar/LayoutNavbar';
+import fonts from '../fonts';
 
 export const metadata: Metadata = {
   title: "Auxdibot Premium",
@@ -30,7 +31,7 @@ export default function PremiumLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={"dark"} style={{ colorScheme: "dark" }}>
+    <html lang="en" className={`dark ${Object.keys(fonts).map((i) => fonts[i as keyof typeof fonts].variable).join(' ')}`} style={{ colorScheme: "dark" }}>
       <body className={"flex flex-col min-h-screen text-white"}>
         <Providers>
           <LayoutNavbar premiumIcon />

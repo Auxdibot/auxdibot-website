@@ -1,9 +1,9 @@
 "use client";
 
 import NotFound from "@/app/not-found";
-import LatestMessages from "@/components/cards/LatestMessages";
-import ServerInfo from "@/components/cards/ServerInfo";
-import ServerRules from "@/components/cards/ServerRules";
+import LatestMessages from "@/components/public/cards/LatestMessages";
+import ServerInfo from "@/components/public/cards/ServerInfo";
+import ServerRules from "@/components/public/cards/ServerRules";
 import { GradientTemplates } from "@/lib/constants/GradientTemplates";
 import { CardData } from "@/lib/types/CardData";
 import { useQuery } from "react-query";

@@ -67,17 +67,17 @@ module.exports = {
         'mastheadCycleUp': 'mastheadCycleUp 1990ms ease-in-out infinite 2000ms',
       },
       fontFamily: {
-        'josefin-sans': "'Josefin Sans', sans-serif",
+        'josefin-sans': "var(--font-josefin-sans)",
         'bauhaus': "'Bauhaus 93', sans-serif",
-        'josefin-slab': "'Josefin Slab', sans-serif",
-        'playfair-display': "'Playfair Display', sans-serif",
-        'oswald': "'Oswald', sans-serif",
-        'roboto': "'Roboto', sans-serif",
-        'lato': "'Lato', sans-serif",
-        'montserrat': "'Montserrat', sans-serif",
-        'open-sans': "'Open Sans', sans-serif",
-        'inter': "'Inter', sans-serif",
-        'raleway': "'Raleway', sans-serif"
+        'josefin-slab': 'var(--font-josefin-slab)',
+        'playfair-display': "var(--font-playfair-display)",
+        'oswald': "var(--font-oswald)",
+        'roboto': "var(--font-roboto)",
+        'lato': "var(--font-lato)",
+        'montserrat': "var(--font-montserrat)",
+        'open-sans': "var(--font-open-sans)",
+        'inter': "var(--font-inter)",
+        'raleway': "var(--font-raleway)"
       }
     },
   },

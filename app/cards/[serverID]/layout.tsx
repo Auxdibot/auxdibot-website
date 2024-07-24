@@ -1,7 +1,9 @@
-import LoadingCard from "@/components/cards/LoadingCard";
 import { Metadata, Viewport } from "next";
 import '@/styles/global.scss'
 import { CardBadgeEmojis } from "@/lib/constants/CardBadgeEmojis";
+import { CardData } from "@/lib/types/CardData";
+import axios from "axios";
+import LoadingCard from "@/components/public/cards/LoadingCard";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -9,9 +11,12 @@ interface CardProps {
 }
 
 export async function generateMetadata({ params }: CardProps): Promise<Metadata> {
-    const cardData = await fetch(`${process.env.NEXT_PUBLIC_URL}/bot/v1/cards/${params.serverID}`)
-    .then((result) => result.json())
-    .then((data) => data && !data['error'] ? data : undefined)
+    const cardData = await axios.get<CardData | { error: string } | undefined>(`${process.env.NEXT_PUBLIC_SITE_URL}/bot/v1/cards/${params.serverID}`, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(async (result) => result.data && !('error' in result.data) ? result.data : undefined)
     .catch(() => undefined);
     if (!cardData) return {
         title: 'Card Not Found',
