@@ -17,6 +17,7 @@ export interface LevelPayload {
     readonly event_xp_range: number[];
     readonly level_message: { content: string, embed: APIEmbed };
     readonly level_embed: boolean;
+    readonly publicize_leaderboard: boolean;
 
 }
 export default function DashboardLevelsConfig({ id }: { id: string }) {

@@ -33,10 +33,10 @@ export function Reward({ reward, role, serverID }: { role: { name: string, color
         });
     }
     return (<span className={'flex gap-2 items-center self-stretch justify-between'}>
-    <span className={"flex flex-row gap-2 text-xl items-center font-open-sans bg-gray-900/70 border-gray-800/50 border px-1 p-0.5 rounded-2xl w-full"}>
-    <code>#{reward.index+1}</code>
-    <BsAt className={"text-xl"} style={{ fill: role?.color ? '#' + role.color.toString(16) : '' }} /> {role?.name ?? "Deleted Role"} - Level {reward.level} 
-        </span>
+    <span className={"flex flex-row gap-2 text-xl max-md:text-base items-center font-open-sans bg-gray-900/70 border-gray-800/50 border px-1 p-0.5 rounded-2xl w-full"}>
+        <code>#{reward.index+1}</code>
+        <BsAt className={"text-xl"} style={{ fill: role?.color ? '#' + role.color.toString(16) : '' }} /> {role?.name ?? "Deleted Role"}
+    </span>
     <span className={"border text-gray-700 border-gray-700 rounded-2xl w-fit h-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-lg cursor-pointer"} onClick={() => deleteReward()}><BsTrash/></span>
      </span>);
 }
@@ -90,7 +90,7 @@ export default function LevelRewardsList({ server }: { server: LevelPayload }) {
 
     return <div className={"shadow-2xl border-2 border-gray-800 rounded-2xl self-stretch w-full max-md:mx-auto"}>
     <h2 className={"secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Level Rewards</h2>
-    {rewards && server.level_rewards.length > 0 ? <ul className={"flex flex-col my-4 gap-2 border border-gray-800 p-2 w-fit mx-auto rounded-2xl"}>
+    {rewards && server.level_rewards.length > 0 ? <ul className={"flex flex-col my-4 gap-2 border border-gray-800 p-2 max-md:w-[98%] w-fit mx-auto rounded-2xl"}>
     <Suspense fallback={null}>
         {rewards.map((i, index) => <LevelsReward key={index} rewards={i} server={server}/>).value()}
     </Suspense>
