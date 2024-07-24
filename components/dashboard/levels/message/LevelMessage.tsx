@@ -47,7 +47,7 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
     level_message.embed = content?.length > 0 || embed?.author?.name || embed?.description || embed?.title || embed?.footer?.text || (embed?.fields?.length || 0) > 0 ? embed : level_message.embed;
     return <div className={"flex-1 flex-grow flex-shrink-0 shadow-2xl border-2 border-gray-800 rounded-2xl h-fit w-full max-md:mx-auto"}>
         <h2 className={" secondary text-2xl p-4 text-center rounded-2xl rounded-b-none"}>Embed Preview</h2>
-        <div className="bg-discord-bg/50 mx-2 rounded-lg py-2">
+        <div className="bg-discord-bg/50 mx-2 rounded-lg py-2 px-2">
         {level_message.content && <span className={"md:p-5 w-full flex my-2 font-roboto"}>{level_message.content}</span>}
         <span className={"md:p-5 !pt-0 w-full flex"}>{level_message.embed?.author?.name || level_message.embed?.description || level_message.embed?.title || level_message.embed?.footer?.text || (level_message.embed?.fields?.length || 0) > 0 ? <MockEmbed embed={level_message.embed}/> : ""}</span>
         </div>

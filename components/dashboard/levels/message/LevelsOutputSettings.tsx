@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import LevelEmbed from "./LevelEmbed";
 import LevelChannel from "./LevelChannel";
 import { LevelPayload } from '../DashboardLevelsConfig';
+import LevelLeaderboardVisibility from './LevelLeaderboardVisibility';
 
 export default function LevelOutputSettings({ server }: { server: LevelPayload }) {
 
@@ -17,6 +18,7 @@ export default function LevelOutputSettings({ server }: { server: LevelPayload }
             <LevelChannel server={server}/>
             <div className={"flex flex-row max-md:flex-col md:justify-between w-fit mx-auto p-4 gap-10 text"}>
             <span className={"flex flex-row gap-2 items-center text-xl"}><LevelEmbed server={server} /> Level Embed</span>
+            <span className={"flex flex-row gap-2 items-center text-xl"}><LevelLeaderboardVisibility server={server} /> Leaderboard Website</span>
             </div>
             
         </> : "" }

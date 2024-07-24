@@ -39,7 +39,7 @@ export default function LevelVoiceXP({ server }: { server: LevelPayload }) {
     }
 
     return <div className={"flex flex-col gap-1 w-fit mx-auto p-4"}>
-    <label className={"text-lg font-bold flex flex-col"}>Voice XP</label>
+    <label className={"text-lg max-md:text-center font-bold flex flex-col"}>Voice XP</label>
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <Input max={2000} value={Number(voiceXP[0]) || 0} className={'w-32'} onChange={(e) => onVoiceXPChange([e.target.value, voiceXP[1]])}/>
         to

@@ -39,7 +39,7 @@ export default function LevelStarboardXP({ server }: { server: LevelPayload }) {
     }
 
     return <div className={"flex flex-col gap-1 w-fit mx-auto p-4"}>
-    <label className={"text-lg font-bold flex flex-col"}>Starboard XP</label>
+    <label className={"text-lg max-md:text-center font-bold flex flex-col"}>Starboard XP</label>
     <span className={"flex flex-row max-xl:flex-col items-center gap-2"}>
         <Input max={2000} value={Number(starboardXP[0]) || 0} className={'w-32'} onChange={(e) => onStarboardXPChange([e.target.value, starboardXP[1]])}/>
         to
