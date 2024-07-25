@@ -1,15 +1,16 @@
+import { PublicServerData } from "./PublicServerData"
+
 export interface LeaderboardPayload {
-    server: {
-        name: string,
-        icon_url?: string,
-        members: number,
-        acronym: string
-    },
+    server: PublicServerData,
     leaderboard: {
-        userID: string,
-        level: number,
-        xp: number,
-        xpTill: number,
-        in_server: boolean
+        user: {
+            username: string;
+            avatar: string;
+            id: string;
+        };
+        level: number;
+        xp: number;
+        in_server: boolean;
+        xpTill: number;
     }[]
 }
