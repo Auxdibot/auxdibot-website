@@ -1,14 +1,10 @@
 import { CardBadge } from "./CardBadge"
 import { CardFont } from "./CardFont"
 import { CardGradients } from "./CardGradients"
+import { PublicServerData } from "./PublicServerData";
 
 export interface CardData {
-    server: {
-        name: string,
-        icon_url?: string,
-        members: number,
-        acronym: string
-    },
+    server: PublicServerData,
     description?: string,
     invite_url?: string,
     background?: {

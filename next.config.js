@@ -7,6 +7,9 @@ const nextConfig = {
           }, 
           {
             hostname: 'cdn.jsdelivr.net'
+          },
+          {
+            hostname: 'auxdible.me'
           }
         ]
     },
