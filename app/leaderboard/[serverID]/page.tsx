@@ -1,5 +1,6 @@
 "use client";
 
+import NotFound from "@/app/not-found";
 import LeaderboardNotFound from "@/components/public/leaderboard/LeaderboardNotFound";
 import { LeaderboardPagination } from "@/components/public/leaderboard/LeaderboardPagination";
 import { LeaderboardServer } from "@/components/public/leaderboard/LeaderboardServer";
@@ -21,16 +22,19 @@ export default function LeaderboardPage({ params }: { params: { serverID: string
     const { data, status, error } = useQuery<LeaderboardPayload | { error: string } | undefined>([params.serverID, 'leaderboard', start, limit], async () => await fetch(`/bot/v1/leaderboard/${params.serverID}?start=${start ?? ''}&limit=${limit ?? ''}`).then(async (data) => 
     await data.json().catch(() => undefined)).catch(() => undefined));
     if (status == 'loading') return <LoadingLeaderboard serverID={params.serverID}/>
-    if ((!data) || error || (data && 'error' in data)) { return <LeaderboardNotFound/> }
+    if ((!data) || error || (data && 'error' in data)) { return <NotFound/> }
     
     return (
     <StartContext.Provider value={{ setStart, start }}>
-    <main className={`self-stretch flex flex-col overflow-x-hidden`}>
+    <main className={`self-stretch flex flex-col overflow-x-hidden gap-40`}>
         <LeaderboardServer server={data.server}/>
-        <h1 className={"text-7xl max-sm:text-5xl mb-12 text-center header"}>leaderboard</h1>
+        <div className="flex flex-col gap-20">
+        <h1 className={"text-7xl max-sm:text-5xl text-center header"}>leaderboard</h1>
         {Number(start) === 0 ? <TopThreeMembers members={data.leaderboard.slice(0,3)}/> : ""}
         <MemberLeaderboard leaderboard={Number(start) === 0 ? data.leaderboard.slice(3) : data.leaderboard} start={Number(start) || 0}/>
         <LeaderboardPagination total={data.total} />
+        </div>
+        
     </main>
     </StartContext.Provider>
     )

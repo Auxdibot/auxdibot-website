@@ -10,7 +10,7 @@ export function LeaderboardMember({ member, place }: { member: LeaderboardMember
     const [username, setUsername] = useState<string>("Unknown");
     useEffect(() => {
         if (member?.user) {
-            setUsername(member.user.username + (session?.user?.id == member.user.id ? " (you)" : ""));
+            setUsername(member.user.username);
         }
     }, [setUsername, member, session])
     return <span className="flex items-center w-full justify-between max-w-xl mx-auto gap-2 bg-gradient-to-br from-gray-800 to-gray-950 rounded-2xl border-2 border-gray-700 py-2 px-4">
@@ -25,7 +25,7 @@ export function LeaderboardMember({ member, place }: { member: LeaderboardMember
                     alt={`${member?.user.username}'s avatar`}
                 />
             ) : ""}
-            {username.length > 16 ? username.slice(0, 16) + '...' : username}
+            {username.length > 18 ? username.slice(0, 16) + '...' : username}
         </span>
         <span className={"flex gap-2 items-center justify-end flex-1"}>
             <span className={"font-roboto text-2xl max-sm:hidden"}>{abbreviateNumber(member?.xp)} XP</span>

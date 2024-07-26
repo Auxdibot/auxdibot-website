@@ -1,6 +1,7 @@
 "use client";
 
 import NotFound from "@/app/not-found";
+import { CardLeaderboard } from "@/components/public/cards/CardLeaderboard";
 import LatestMessages from "@/components/public/cards/LatestMessages";
 import ServerInfo from "@/components/public/cards/ServerInfo";
 import ServerRules from "@/components/public/cards/ServerRules";
@@ -18,7 +19,7 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
     if (status == 'loading') return <></>
     const gradient = GradientTemplates?.[(data as CardData)?.background?.gradient || 'BACKGROUND'] ?? undefined;
     return (
-    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: gradient && gradient(data?.background?.color1, data?.background?.color2)}}>
+    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col mb-40 max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: gradient && gradient(data?.background?.color1, data?.background?.color2)}}>
         <div className={"flex max-md:flex-col p-1 justify-center mx-auto items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
         {isMobile ? 
         <>
@@ -33,7 +34,7 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
         <div className={"flex-1 flex justify-center"}>{data?.rules && data.rules.length > 0 && <ServerRules data={data} />}</div>
         </>}
         </div>
-        <span className={"text-xl w-fit py-2 max-md:my-5 max-md:text-center max-md:flex max-md:flex-col font-open-sans"}><span className={"bg-green-500 rounded-2xl border-gray-800 max-md:w-fit max-md:mx-auto border p-1 font-bold"}>BETA</span> This is a feature currently in testing and development for Auxdibot and will receive constant updates.</span>
+        {data && <CardLeaderboard data={data} serverID={params.serverID} />}
         
     </main>)
 }

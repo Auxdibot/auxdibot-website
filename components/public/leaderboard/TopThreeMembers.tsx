@@ -3,7 +3,7 @@ import { LeaderboardMember } from "./LeaderboardMember";
 
 export function TopThreeMembers({ members }: { members: LeaderboardMemberData[] }) {
     return (
-        <div className="flex flex-col w-full items-center max-w-7xl mx-auto gap-10 mb-40 justify-center">
+        <div className="flex flex-col w-full items-center max-w-7xl mx-auto gap-10 justify-center">
             <span className="flex max-lg:flex-col items-center justify-center w-full">
                 {members.length > 0 && <LeaderboardMember member={members[0]} place={0} />}
             </span>
