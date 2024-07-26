@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function LeaderboardServer({ server }: { server: PublicServerData }) {
     server.banner_url = "https://cdn.discordapp.com/banners/303681520202285057/a_5619d61d751fbb86536e9e0f608eeb55.webp?size=600";
-    return <div className="w-full mb-80 overflow-visible">
+    return <div className="w-full mb-72 overflow-visible">
         <div className="flex relative">
             <span className="rounded-2xl max-w-[95%] mt-10 mb-42 mx-auto h-96 max-lg:h-64 max-sm:h-48 max-[360px]:h-32 w-full border-4 overflow-hidden border-gray-700">
             {server.banner_url ? <Image src={server.banner_url} width={0}
