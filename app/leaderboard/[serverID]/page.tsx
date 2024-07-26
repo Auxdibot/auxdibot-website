@@ -1,18 +1,18 @@
 "use client";
 
 import NotFound from "@/app/not-found";
-import LeaderboardNotFound from "@/components/public/leaderboard/LeaderboardNotFound";
 import { LeaderboardPagination } from "@/components/public/leaderboard/LeaderboardPagination";
 import { LeaderboardServer } from "@/components/public/leaderboard/LeaderboardServer";
 import LoadingLeaderboard from "@/components/public/leaderboard/LoadingLeaderboard";
 import { MemberLeaderboard } from "@/components/public/leaderboard/MemberLeaderboard";
 import { TopThreeMembers } from "@/components/public/leaderboard/TopThreeMembers";
+import { StartContext } from "@/context/StartContext";
 import { LeaderboardPayload } from "@/lib/types/LeaderboardPayload";
 import { useSearchParams } from "next/navigation";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 
-export const StartContext = createContext<{ start: number, setStart: Dispatch<SetStateAction<number>> | null }>({ start: 0, setStart: null });
+
 export default function LeaderboardPage({ params }: { params: { serverID: string } }) {
     const queryParams = useSearchParams();
     const startQuery = queryParams.get('start'),
