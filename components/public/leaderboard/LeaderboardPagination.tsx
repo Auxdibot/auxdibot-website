@@ -1,12 +1,8 @@
-import { Button } from '@/components/ui/button/button';
-import { useContext } from 'react';
-import {
-    ArrowBigLeft,
-    ArrowBigRight,
-    ArrowLeftFromLine,
-    ArrowRightFromLine,
-} from 'lucide-react';
-import { StartContext } from '@/context/StartContext';
+
+import { Button } from "@/components/ui/button/button";
+import { useContext } from "react";
+import { ArrowBigLeft, ArrowBigRight, ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react'
+import { StartContext } from "@/context/StartContext";
 export function LeaderboardPagination({ total }: { total: number }) {
     const { start, setStart } = useContext(StartContext);
     return (
