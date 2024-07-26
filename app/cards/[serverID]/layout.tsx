@@ -4,6 +4,7 @@ import { CardBadgeEmojis } from "@/lib/constants/CardBadgeEmojis";
 import { CardData } from "@/lib/types/CardData";
 import axios from "axios";
 import LoadingCard from "@/components/public/cards/LoadingCard";
+import fonts from "@/app/fonts";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -61,7 +62,7 @@ export async function generateViewport({ params }: CardProps): Promise<Viewport>
 export default function ServerCardLayout({ params, children }: CardProps) {
     // extra div element here is to render in all card fonts to tailwind
     return (<div className={"flex flex-1 flex-col h-full"}>
-    <div className={"font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus font-raleway"}/>
+    <div className={`font-roboto font-lato font-playfair-display font-inter font-josefin-slab font-oswald font-bauhaus font-raleway ${Object.keys(fonts).map((i) => fonts[i as keyof typeof fonts].variable).join(' ')}`}/>
     <LoadingCard serverID={params.serverID}/>
     {children}
     </div>)

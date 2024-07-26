@@ -57,13 +57,13 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
         <section className={"flex flex-col gap-2 w-full max-md:items-center"}>
             <span className={"flex flex-row gap-2 items-center font-open-sans text-xl"}><BsChatLeftDots/> Content:</span>
             <Controller name={'content'} control={control} render={({ field }) => (
-                <TextareaMessage maxLength={2000} wrapperClass={'w-full'} placeholderContext={['level']} serverID={server.serverID} {...field}/>
+                <TextareaMessage maxLength={2000} wrapperClass={'w-full'} placeholderContext={['level', 'member']} serverID={server.serverID} {...field}/>
             )}/>
         </section>
         
         
         <section className={'flex justify-between gap-2 items-center max-md:flex-col'}>
-        <EmbedDialog serverID={server.serverID} addField={append} removeField={remove} control={control}  placeholderContext={['level']} register={register} />
+        <EmbedDialog serverID={server.serverID} addField={append} removeField={remove} control={control}  placeholderContext={['level', 'member']} register={register} />
 
         <Button variant={'outline'} className={`flex flex-row gap-2 items-center`} type="submit">
             <BsTrophy/> Update

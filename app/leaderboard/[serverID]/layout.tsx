@@ -4,8 +4,7 @@ import axios from 'axios';
 import LoadingLeaderboard from "@/components/public/leaderboard/LoadingLeaderboard";
 import Providers from "@/components/Providers";
 import LayoutNavbar from "@/components/navbar/LayoutNavbar";
-import '@/styles/global.scss'
-import { Suspense } from "react";
+import '@/styles/global.scss';
 
 interface CardProps {
     params: { readonly serverID: string }
