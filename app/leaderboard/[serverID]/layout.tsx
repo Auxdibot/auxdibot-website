@@ -5,6 +5,7 @@ import LoadingLeaderboard from "@/components/public/leaderboard/LoadingLeaderboa
 import Providers from "@/components/Providers";
 import LayoutNavbar from "@/components/navbar/LayoutNavbar";
 import '@/styles/global.scss';
+import fonts from "@/app/fonts";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -61,7 +62,7 @@ export async function generateViewport({ params }: CardProps): Promise<Viewport>
 
 export default function ServerLeaderboardLayout({ params, children }: CardProps) {
 
-    return (<div className={"flex flex-1 flex-col h-full bg-gray-950"}>
+    return (<div className={`flex flex-1 flex-col h-full bg-gray-950 ${Object.keys(fonts).map((i) => fonts[i as keyof typeof fonts].variable).join(' ')}`}>
     <Providers>
         <LayoutNavbar preventCollapse />
         <LoadingLeaderboard serverID={params.serverID}/>
