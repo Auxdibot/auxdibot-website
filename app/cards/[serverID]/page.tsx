@@ -19,7 +19,7 @@ export default function ServerCardPage({ params }: { params: { serverID: string 
     if (status == 'loading') return <></>
     const gradient = GradientTemplates?.[(data as CardData)?.background?.gradient || 'BACKGROUND'] ?? undefined;
     return (
-    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col mb-40 max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: gradient && gradient(data?.background?.color1, data?.background?.color2)}}>
+    <main className={`${data?.dark ? "bg-black" : "bg-gray-100"} ${data?.dark ? "text-gray-100" : "text-gray-800"}  flex flex-col max-md:p-1 justify-center items-center overflow-x-hidden`} style={{ backgroundImage: gradient && gradient(data?.background?.color1, data?.background?.color2)}}>
         <div className={"flex max-md:flex-col p-1 justify-center mx-auto items-center min-h-screen w-full gap-20 max-md:mt-12 animate-fadeIn"}>
         {isMobile ? 
         <>
