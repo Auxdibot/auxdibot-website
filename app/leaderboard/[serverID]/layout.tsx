@@ -5,6 +5,7 @@ import LoadingLeaderboard from "@/components/public/leaderboard/LoadingLeaderboa
 import Providers from "@/components/Providers";
 import LayoutNavbar from "@/components/navbar/LayoutNavbar";
 import '@/styles/global.scss'
+import { Suspense } from "react";
 
 interface CardProps {
     params: { readonly serverID: string }
@@ -65,7 +66,6 @@ export default function ServerLeaderboardLayout({ params, children }: CardProps)
     <Providers>
         <LayoutNavbar preventCollapse />
         <LoadingLeaderboard serverID={params.serverID}/>
-        
             {children}
         </Providers>
     </div>)
