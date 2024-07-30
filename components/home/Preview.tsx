@@ -1,3 +1,4 @@
+"use client";
 import { useFieldArray, useForm } from "react-hook-form";
 import MockEmbed from "../ui/messages/mock-embed";
 import { APIEmbed } from "discord-api-types/v10";
@@ -5,6 +6,7 @@ import { APIEmbed } from "discord-api-types/v10";
 import { BsTrash } from "react-icons/bs";
 import { motion } from 'framer-motion';
 import { EmbedDialog } from "../ui/dialog/embed-dialog";
+import { Trash } from "lucide-react";
 type EmbedPreviewBody = { embed: APIEmbed }
 export function Preview() {
     const { control, register, watch, reset } = useForm<EmbedPreviewBody>({
@@ -43,14 +45,18 @@ export function Preview() {
     return (
         <div className={'flex flex-col items-center gap-20'}>
 
-            <div className={'flex max-lg:flex-col max-lg:gap-20 justify-between items-center max-w-5xl mx-auto w-full'}>
-            <div className={'flex-1  max-lg:text-center flex max-lg:items-center flex-col'}>
-            <motion.h1 className={"header text-6xl py-2"} initial={{ transform: "translateY(-2rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.2  }}>next-gen tools</motion.h1>
-            <p className={'font-open-sans text-gray-300'}>Auxdibot features an innovative dashboard with an approachable, user-friendly UI and convenience prioritized first-hand! Click &quot;Edit Embed&quot; to start creating!</p>
+            <div className={'flex max-lg:flex-col max-lg:gap-20 justify-between items-center max-w-7xl mx-auto w-full'}>
+            <div className={'flex-1  max-lg:text-center flex max-lg:items-center flex-col gap-4'}>
+            <div>
+                <motion.h1 className={"font-raleway font-bold tracking-wide text-5xl py-2"} initial={{ transform: "translateY(-2rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.2  }}>Next-gen Tools</motion.h1>
+                <span className="text-lg font-inter text-zinc-400">The future is now, old man.</span>
+            </div>
+            
+            <p className={'font-inter text-zinc-200 max-w-lg'}>Auxdibot features an innovative dashboard with an approachable, user-friendly UI and convenience prioritized first-hand! Click &quot;Edit Embed&quot; to start creating!</p>
             <span className={'flex items-center gap-2'}>
             <EmbedDialog register={register} control={control} removeField={removeField} addField={addField}/>
 
-                <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border border-gray-700 text-gray-600 rounded-2xl w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => reset({ embed: { fields: [] }})}><BsTrash/></button></span>
+                <span className={"secondary text-xl text-gray-300 flex flex-row items-center gap-2"}><button className={"border-2 border-zinc-700 text-zinc-600 rounded-md w-fit p-1 hover-gradient transition-all hover:text-black hover:border-black text-xl"} onClick={() => reset({ embed: { fields: [] }})}><Trash/></button></span>
             </span>
             </div>
             <span className="flex items-center justify-center flex-1 relative">
