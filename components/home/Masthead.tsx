@@ -44,8 +44,8 @@ export default function Masthead() {
             </div>
             </div>
 
-            <span className={"font-raleway text-5xl gap-3 max-md:text-2xl text-zinc-100 mx-auto flex flex-col items-center w-full justify-center"}><span className="font-bold tracking-wide">The next Discord app for your</span> 
-            <Names/>
+            <span className={"font-raleway text-5xl gap-3 max-md:text-2xl text-zinc-100 mx-auto flex items-center w-full justify-center"}><span className="font-bold tracking-wide">The next Discord app for your</span> 
+            <span className="relative overflow-visible w-36 text-left"><Names/></span>
             </span>
             <span className="flex items-center max-w-xl w-full">
               <div className="flex-1 flex justify-center"><HeaderButton className="font-bold flex text-2xl" href={process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK}><span className="flex items-center gap-2"><Sparkle/> Get Auxdibot</span></HeaderButton></div>

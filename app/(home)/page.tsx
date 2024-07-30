@@ -1,5 +1,6 @@
 import AboutBot from "@/components/home/AboutBot";
 import Analytics from "@/components/home/Analytics";
+import { Ending } from "@/components/home/Ending";
 import { Features } from "@/components/home/features/Features";
 import Footer from "@/components/home/Footer";
 import Masthead from "@/components/home/Masthead";
@@ -15,6 +16,7 @@ export default function Home() {
       <Features/>
       <Preview/>
       <Start/>
+      <Ending/>
       <Footer/>
     </main>
   )
