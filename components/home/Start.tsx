@@ -8,10 +8,10 @@ export default function Start() {
             className={"font-raleway font-bold flex flex-col mx-auto text-5xl max-md:text-4xl text-center w-full bg-zinc-950"}>
             Where do I start?
         </motion.h1>
-        <motion.span initial={{ transform: "translateY(-4rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.5 }}
+        <span
         className='text-xl font-inter text-zinc-300'>
             Drop the hassle of setting up an abundance of parameters. It&apos;s easy to setup and learn Auxdibot.
-        </motion.span>
+        </span>
         </div>
         
         <div className={"flex max-md:flex-col max-md:gap-10"}>
