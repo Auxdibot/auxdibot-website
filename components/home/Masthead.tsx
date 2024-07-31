@@ -14,7 +14,7 @@ export default function Masthead() {
         <div className={"flex w-full flex-col max-md:flex-col justify-center items-center gap-4"}>
         
         
-            <div className="relative w-full h-[560px]">
+            <div className="relative w-full h-[560px] max-md:h-[480px]">
             
                 <div className="absolute top-12 max-md:top-0 left-2 max-md:left-1/2 max-md:-translate-x-1/2 max-md:w-[calc(100%-5rem)] z-20"><Image src="/masthead1.png" alt="test" width={0}
             height={0}
@@ -25,7 +25,7 @@ export default function Masthead() {
             />
             <div className="h-[360px] absolute top-0 w-full bg-gradient-to-b from-transparent max-md:h-48 to-zinc-950 from-70% z-40"/>
             </div>
-                <div className="absolute top-0 left-1/2 max-md:w-[calc(100%-1rem)] max-md:top-32 -translate-x-1/2  z-30">
+                <div className="absolute top-0 left-1/2 max-md:w-[calc(100%-1rem)] max-md:top-16 -translate-x-1/2  z-30">
                 <Image src="/masthead2.png" alt="test" width={0}
             height={0}
             className="object-cover object-left-top h-[480px] rounded-t-2xl max-md:w-full max-md:h-72 w-[1024px]  shadow-2xl shadow-zinc-900"
@@ -35,7 +35,7 @@ export default function Masthead() {
             priority />
             <div className="h-[480px] absolute top-0 w-full bg-gradient-to-b from-transparent max-md:h-72 to-zinc-950 from-70% z-40"/>
             </div>
-            <div className="absolute top-12 right-2 max-md:right-1/2 max-md:translate-x-1/2 max-md:w-[calc(100%-5rem)] max-md:top-[348px] overflow-x-hidden z-20">
+            <div className="absolute top-12 right-2 max-md:right-1/2 max-md:translate-x-1/2 max-md:w-[calc(100%-5rem)] max-md:top-64 overflow-x-hidden z-20">
                 <Image src="/masthead1.png" alt="test" width={0}
             height={0}
             sizes="100vw"

@@ -13,9 +13,9 @@ export default function Footer() {
         </div>
         <div className="flex flex-col">
             <h3 className="font-raleway font-bold text-lg">Legal</h3>
-            <Link href={(process.env.NEXT_PUBLIC_DOCUMENTATION_LINK ?? "") + "/terms-of-service"}><Button className="px-0" variant={'link'}>Terms of Service</Button></Link>
+            <Link href={(process.env.NEXT_PUBLIC_DOCUMENTATION_LINK ?? "") + "/legal/terms-of-service"}><Button className="px-0" variant={'link'}>Terms of Service</Button></Link>
             
-            <Link href={(process.env.NEXT_PUBLIC_DOCUMENTATION_LINK ?? "") + "/terms-of-service"}><Button className="px-0" variant={'link'}>Support Server</Button></Link>
+            <Link href={(process.env.NEXT_PUBLIC_DOCUMENTATION_LINK ?? "") + "/legal/privacy-policy"}><Button className="px-0" variant={'link'}>Privacy Policy</Button></Link>
         </div>
         <div className="flex flex-col">
             <h3 className="font-raleway font-bold text-lg">General</h3>
