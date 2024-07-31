@@ -84,15 +84,15 @@ export default function Analytics() {
 
     return (
         <Suspense fallback={<></>}>
-            <div className={"flex gap-4 max-w-4xl mx-auto max-md:gap-5 justify-center w-full"}>
+            <div className={"flex gap-4 max-w-4xl mx-auto max-md:gap-5 max-md:flex-col max-md:px-10 justify-center w-full"}>
                 <section ref={serverRef} className="bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 p-4 rounded-lg shadow border-zinc-800 flex flex-col w-full gap-2 items-center ">
-                    <p className={"flex gap-2 font-raleway font-bold text-6xl max-md:flex-col items-center max-md:text-2xl w-max"}><span>{status === 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(serverState).toLocaleString()}</span></p>
-                    <h2 className={"font-raleway font-bold text-3xl max-md:text-xl text-white flex items-center gap-2"}><Users size={"32px"}/> Servers</h2>
+                    <p className={"flex gap-2 font-raleway font-bold text-6xl max-md:flex-col items-center w-max"}><span>{status === 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(serverState).toLocaleString()}</span></p>
+                    <h2 className={"font-raleway font-bold text-3xl text-white flex items-center gap-2"}><Users size={"32px"}/> Servers</h2>
                 </section>
 
                 <section ref={memberRef} className="bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 p-4 rounded-lg shadow border-zinc-800 flex flex-col w-full gap-2 items-center">
-                    <p className={"flex gap-2 font-raleway font-bold text-6xl max-md:flex-col items-center max-md:text-2xl w-max"}><span>{status === 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(memberState).toLocaleString()}+</span></p>
-                    <h2 className={"font-raleway font-bold text-3xl max-md:text-xl text-white flex items-center gap-2"}><User size={"32px"}/> Members</h2>
+                    <p className={"flex gap-2 font-raleway font-bold text-6xl max-md:flex-col items-center w-max"}><span>{status === 'loading' ? <BsThreeDots className={"animate-spin text-4xl text-white"}/> : parseInt(memberState).toLocaleString()}</span></p>
+                    <h2 className={"font-raleway font-bold text-3xl text-white flex items-center gap-2"}><User size={"32px"}/> Members</h2>
                 </section>
             </div>
         </Suspense>

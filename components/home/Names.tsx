@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const names = ['server', 'group', 'community', 'gathering', 'project', 'guild', 'events']
+const names = ['server', 'group', 'project', 'guild', 'chats', 'events']
 
 export default function Names() {
     const [text1, setText1] = useState(0);
@@ -32,7 +32,7 @@ export default function Names() {
         return () => clearInterval(interval);
     }, [text1, text2]);
 
-    return <div className="absolute -top-6 left-0 flex flex-col h-14 w-fit whitespace-nowrap overflow-hidden text-left items-start md:items-center">
+    return <div className="absolute -top-6 left-0 max-lg:left-1/2 max-lg:-translate-x-1/2 flex flex-col h-14 w-fit whitespace-nowrap overflow-hidden text-left items-start max-lg:text-center max-lg:items-center">
     <span className={"header text-5xl h-14 w-full"} ref={text1Ref}>{names[text1]}</span>
     <span className={"header text-5xl h-14 w-full"} ref={text2Ref}>{names[text2]}</span>
   </div>;

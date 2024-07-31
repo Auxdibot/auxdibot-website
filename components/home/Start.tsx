@@ -9,7 +9,7 @@ export default function Start() {
             Where do I start?
         </motion.h1>
         <span
-        className='text-xl font-inter text-zinc-300'>
+        className='text-xl font-inter text-zinc-300 text-center'>
             Drop the hassle of setting up an abundance of parameters. It&apos;s easy to setup and learn Auxdibot.
         </span>
         </div>
