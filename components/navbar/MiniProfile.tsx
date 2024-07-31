@@ -1,19 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { BsArrowDownShort, BsArrowRightCircle, BsListTask, BsPersonAdd, BsShield, BsThreeDots } from "react-icons/bs";
+import { BsArrowDownShort, BsPersonAdd, BsThreeDots } from "react-icons/bs";
 import { useEffect, useRef, useState } from 'react';
 import useSession from "@/lib/hooks/useSession";
-import { BsArrowLeftCircle } from "react-icons/bs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { User, UserCog } from "lucide-react";
 
 export default function MiniProfile(props: React.ComponentProps<any>) {
     const [expanded, setExpanded] = useState(false);
     const { user, status } = useSession();
     const queryClient = useQueryClient();
-    const router = useRouter();
     const ref = useRef<HTMLDivElement | null>();
     useEffect(() => {
         const clickedOutside = (e: globalThis.MouseEvent) => {
@@ -48,26 +47,34 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
             height={36}
             quality="100"
             priority
-            /> : <BsPersonAdd className={"text text-2xl align-middle inline-block"}/>}
+            /> : <UserCog className={"text text-2xl align-middle inline-block"}/>}
         
-        <span className={"flex group flex-row gap-2 items-center text-gray-200 font-montserrat tracking-wide text-lg cursor-pointer"} onClick={() => expand()}>
-        <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
+        <DropdownMenu >
+            <DropdownMenuTrigger asChild>
+            <button className={"flex group flex-row gap-2 items-center text-gray-200 font-raleway tracking-wide text-lg cursor-pointer"}>
+            <span className={"max-md:hidden select-none"}>{user?.username || "Sign in"}</span>
         
-        <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
-        </span>
+            <BsArrowDownShort className={"group-hover:translate-y-1 transition-transform"}/>
+            </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="font-inter translate-y-2">
+            <DropdownMenuLabel className="font-raleway font-bold text-lg flex items-center gap-1"><User width={"20px"}/> User</DropdownMenuLabel>
+            {status == "authenticated" ?
+            <>
+            <Link href={'/dashboard'}><DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+            <DropdownMenuItem onClick={() => signOut()} className="text-red-500 cursor-pointer hover:text-red-400">Sign out</DropdownMenuItem>
+            </> :
+            <Link href={'/bot/v1/auth/discord'}><DropdownMenuItem>Sign in</DropdownMenuItem></Link>
+            }
+            </DropdownMenuContent>
+        </DropdownMenu>
+        
         
 
         </span>
 
         </span>
-        <div className={`absolute ${expanded ? "scale-100" : "scale-0"} transition-all origin-top-right select-none top-12 z-10 right-0 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl`}>
-            <h1 className={"secondary p-4 rounded-t-xl flex flex-row gap-2 items-center bg-black bg-auxdibot-gradient border-b border-gray-800"}><BsShield/> Account</h1>
-            <ul className={"flex flex-col gap-2 p-4"}>
-            {status == "authenticated" ? 
-            <Link href={"/dashboard"} onClick={() => setExpanded(false)}  className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsListTask/></span>Servers</Link> : ""}
-                {status == "unauthenticated" ? <span onClick={() => router.push('/bot/v1/auth/discord')} className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowRightCircle/></span>Sign in</span>
-                : <span onClick={() => signOut()} className={"flex flex-row gap-2 items-center font-roboto text-gray-300 transition-colors group cursor-pointer"}><span className={"bg-gray-800 p-1 rounded-lg text-gray-300 group-hover:text-orange-500 bg-opacity-50 transition-all"}><BsArrowLeftCircle/></span>Sign out</span> }
-            </ul>
-        </div>
+        
+
     </div>)
 }

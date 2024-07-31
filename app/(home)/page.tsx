@@ -9,10 +9,12 @@ import Start from "@/components/home/Start";
 
 export default function Home() {
   return (
-    <main className="bg-zinc-950 flex flex-col gap-40">
+    <main className="bg-zinc-950 flex flex-col gap-52">
       <Masthead/>
+      <div className="flex flex-col gap-20">
       <Analytics/>
       <AboutBot/>
+      </div>
       <Features/>
       <Preview/>
       <Start/>

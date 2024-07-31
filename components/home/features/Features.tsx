@@ -9,11 +9,11 @@ export function Features() {
             <FeaturesHeader/>
             <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 max-lg:px-5 max-sm:flex max-sm:flex-col gap-4 max-w-7xl mx-auto">
                 <div className="flex flex-col bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 border-zinc-800 p-4 rounded-lg shadow">
-                    <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><ShieldAlert/> <span className="flex items-center">Moderation <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
+                    <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><ShieldAlert/> <span className="flex items-center">Moderation <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/features/moderation"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.</p>
                 </div>
                 <div className="flex flex-col bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 border-zinc-800 p-4 rounded-lg shadow">
-                    <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><MessageCircle/> <span className="flex items-center">Embeds <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
+                    <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><MessageCircle/> <span className="flex items-center">Embeds <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/features/embeds"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Create fleshed out custom Discord Embeds with Auxdibot&apos;s embeds feature. Featuring an easy-to-use editor, you can create embeds with a variety of fields and colors.</p>
                 </div>
                 <div className="flex flex-col bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 border-zinc-800 p-4 rounded-lg shadow">
