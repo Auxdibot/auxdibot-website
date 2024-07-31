@@ -65,8 +65,8 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
       const { clientX, clientY } = event;
       const { innerWidth, innerHeight } = window;
 
-      const x = (clientX / innerWidth) * 5 - 2.5;
-      const y = -(clientY / innerHeight) * 5 + 4.5;
+      const x = (clientX / innerWidth) * 12 - 5.5;
+      const y = -(clientY / innerHeight) * 12 + 5.5;
 
       // Convert to 3D space coordinates
       const vector = new THREE.Vector3(x, y, 0.9);

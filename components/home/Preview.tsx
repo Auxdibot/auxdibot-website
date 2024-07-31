@@ -45,8 +45,8 @@ export function Preview() {
     return (
         <div className={'flex flex-col items-center gap-20'}>
 
-            <div className={'flex max-lg:flex-col max-lg:gap-20 justify-between items-center max-w-7xl mx-auto w-full'}>
-            <div className={'flex-1  max-lg:text-center flex max-lg:items-center flex-col gap-4'}>
+            <div className={'flex max-xl:flex-col max-xl:gap-20 justify-between items-center max-w-7xl mx-auto w-full'}>
+            <div className={'flex-1  max-xl:text-center flex max-xl:items-center flex-col gap-4'}>
             <div>
                 <motion.h1 className={"header text-5xl py-2"} initial={{ transform: "translateY(-2rem)", opacity: 0 }} viewport={{ once: true }} whileInView={{ transform: "translateY(0px)", opacity: 1 }} transition={{ duration: 0.5, delay: 0.2  }}>next-gen tools</motion.h1>
                 <span className="text-lg font-inter text-zinc-400">The future is now, old man.</span>

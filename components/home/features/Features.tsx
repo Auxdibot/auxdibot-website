@@ -7,7 +7,7 @@ export function Features() {
     return (
         <section className="bg-zinc bg-opacity-50 py-5">
             <FeaturesHeader/>
-            <div className="grid grid-cols-3 grid-rows-4 gap-4 max-w-7xl mx-auto">
+            <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 max-lg:px-5 max-sm:flex max-sm:flex-col gap-4 max-w-7xl mx-auto">
                 <div className="flex flex-col bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 border-zinc-800 p-4 rounded-lg shadow">
                     <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><ShieldAlert/> <span className="flex items-center">Moderation <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Auxdibot&apos;s moderation suite features a tracked punishment history, a variety of moderation commands, a reporting tool, and more. Moderators have a tool for every situation with Auxdibot&apos;s moderation suite.</p>
@@ -48,12 +48,12 @@ export function Features() {
                     <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><Image/> <span className="flex items-center">Cards <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Experience the future of server presentation with Auxdibot&apos;s cards feature. Cards are a way to present your server to the world in a unique way. Create a custom website for your server with a library of various fonts and backgrounds.</p>
                 </div>
-                <div className="bg-gradient-to-bl from-zinc-400/20 to-zinc-900/20 cursor-pointer border-2 border-zinc-800 p-4 rounded-lg shadow col-span-2 flex">
+                <div className="bg-gradient-to-bl from-zinc-400/20 to-zinc-900/20 cursor-pointer border-2 border-zinc-800 p-4 rounded-lg shadow col-span-2 flex max-sm:flex-col max-sm:gap-2">
                     <div className="flex-1">
                     <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><Medal/> <span className="flex items-center">Levels <span className="border px-1 text-base rounded-md ml-2">UPDATED</span><Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Incentivize your members to chat on your server with Auxdibot&apos;s levels feature. Members can earn experience, level up, and gain role rewards by chatting on a server with Auxdibot&apos;s Levels module enabled.</p>
                     </div>
-                    <div className="flex-1 flex flex-col items-center">
+                    <div className="flex-1 flex flex-col sm:items-center">
                         <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center mb-2">New Features</h2>
                         <ul className="font-inter text-zinc-200">
                             <li>XP Multipliers</li>
