@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BsArrowDownShort, BsPersonAdd, BsThreeDots } from "react-icons/bs";
+import { BsArrowDownShort, BsThreeDots } from "react-icons/bs";
 import { useEffect, useRef, useState } from 'react';
 import useSession from "@/lib/hooks/useSession";
 import Link from "next/link";
@@ -22,9 +22,6 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         document.addEventListener("mousedown", clickedOutside)
         return () => document.removeEventListener("mousedown", clickedOutside);
       }, [expanded])
-    function expand() {
-        setExpanded(!expanded)
-    }
     function signOut() {
         return fetch(`/bot/v1/auth/signout`).then(() => {
             setExpanded(false);

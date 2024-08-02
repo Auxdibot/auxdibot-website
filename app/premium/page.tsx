@@ -27,8 +27,9 @@ export default function PremiumPage() {
         polar={[-Math.PI / 3, Math.PI / 3]}
         azimuth={[-Math.PI / 5, Math.PI / 5]}>
             <Icon
-            frustumCulled={false} scale={[12,12,12]} rotation={[Math.PI/2,0,0]}
+            frustumCulled={false} scale={[12,12,12]} rotation={[0,0,0]}
             randomColor1={"#eab308"}
+            noRotate
             randomColor2={"#fef08a"}
             />
       </PresentationControls>

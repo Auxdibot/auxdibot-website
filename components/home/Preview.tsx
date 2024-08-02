@@ -2,8 +2,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import MockEmbed from "../ui/messages/mock-embed";
 import { APIEmbed } from "discord-api-types/v10";
-
-import { BsTrash } from "react-icons/bs";
 import { motion } from 'framer-motion';
 import { EmbedDialog } from "../ui/dialog/embed-dialog";
 import { Trash } from "lucide-react";
