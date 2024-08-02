@@ -16,7 +16,7 @@ export default function Masthead() {
         
             <div className="relative w-full h-[560px] max-md:h-[480px]">
             
-                <div className="absolute top-12 max-md:top-0 left-2 max-md:left-1/2 max-md:-translate-x-1/2 max-md:w-[calc(100%-5rem)] z-20"><Image src="/masthead1.png" alt="test" width={0}
+                <div className="absolute top-12 max-md:top-0 left-2 max-md:left-1/2 max-md:-translate-x-1/2 max-md:w-[calc(100%-5rem)] z-20"><Image src="/masthead2.png" alt="test" width={0}
             height={0}
             sizes="100vw"
             className="object-cover object-left-top h-[360px] rounded-t-2xl w-[640px] max-md:h-48 max-md:w-full shadow-2xl shadow-zinc-900"
@@ -26,7 +26,7 @@ export default function Masthead() {
             <div className="h-[360px] absolute top-0 w-full bg-gradient-to-b from-transparent max-md:h-48 to-zinc-950 from-70% z-40"/>
             </div>
                 <div className="absolute top-0 left-1/2 max-md:w-[calc(100%-1rem)] max-md:top-16 -translate-x-1/2  z-30">
-                <Image src="/masthead2.png" alt="test" width={0}
+                <Image src="/masthead3.png" alt="" width={0}
             height={0}
             className="object-cover object-left-top h-[480px] rounded-t-2xl max-md:w-full max-md:h-72 w-[1024px]  shadow-2xl shadow-zinc-900"
             sizes="100vw"
