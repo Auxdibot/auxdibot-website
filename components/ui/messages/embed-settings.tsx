@@ -25,15 +25,15 @@ export default function EmbedSettings({ value, register, control, addField, remo
 <span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsPerson/> Author</span>
 <span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
 <Input placeholder='Author Name' maxLength={256} type="text" {...register("embed.author.name", { maxLength: 256 })}/>
-<Input placeholder='Author URL' type="url" {...register("embed.author.url")}/>
-<Input placeholder='Author Icon URL' type="url" {...register("embed.author.icon_url")}/>
+<Input placeholder='Author URL' type="text" {...register("embed.author.url")}/>
+<Input placeholder='Author Icon URL' type="text" {...register("embed.author.icon_url")}/>
 </span>
 
 <span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsTextCenter/> Title</span>
 <span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
 <Input placeholder='Embed Title' maxLength={256} type="text" {...register("embed.title", { maxLength: 256 })}/>
-<Input placeholder='Embed URL' type="url" {...register("embed.url")}/>
-<Input placeholder='Embed Thumbnail URL' type="url" {...register("embed.thumbnail.url")}/>
+<Input placeholder='Embed URL' type="text" {...register("embed.url")}/>
+<Input placeholder='Embed Thumbnail URL' type="text" {...register("embed.thumbnail.url")}/>
 </span>
 <Controller control={control} name={"embed.description"} render={({ field }) => {
     return <TextareaMessage placeholderContext={placeholderContext} serverID={serverID} placeholder='Embed description here...' className={"font-open-sans text-sm"} maxLength={4096} {...field}/>
@@ -63,12 +63,12 @@ export default function EmbedSettings({ value, register, control, addField, remo
 <span className={"flex flex-row gap-2 items-center font-montserrat text-xl"}><BsTextarea/> Footer</span>
 <span className={"grid w-full max-sm:grid-rows-3 sm:grid-cols-3 gap-3"}>
 <Input placeholder='Footer text' type="text" className={'sm:col-span-2'} maxLength={2048} {...register("embed.footer.text", { maxLength: 2048 })}/>
-<Input placeholder='Footer Icon URL' type="url" {...register("embed.footer.icon_url")}/>
+<Input placeholder='Footer Icon URL' type="text" {...register("embed.footer.icon_url")}/>
 </span>
 <span className={"flex max-md:flex-col max-md:gap-5 w-full justify-center mx-auto max-w-2xl my-5"}>
 <section className={"flex flex-col self-stretch justify-between items-center gap-2 font-montserrat text-xl flex-1 mx-auto"}>
     <label className={"flex flex-row gap-2 text-lg items-center"}><BsImage/> Embed Image:</label>
-    <Input type="url" {...register("embed.image.url")}/>
+    <Input type="text" {...register("embed.image.url")}/>
 </section>
 <section className={'flex-1 flex items-center  flex-col'}>
 <label className={"flex gap-2 items-center font-montserrat text-lg text-left"}><BsEyedropper/> Embed Color:</label>
