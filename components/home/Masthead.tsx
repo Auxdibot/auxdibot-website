@@ -61,27 +61,3 @@ export default function Masthead() {
     </section>
     );
 }
-/*
-<div style={{ width: "250px", height: "200px", touchAction: "none" }}>
-<Suspense fallback={ <BsThreeDots className={"animate-spin text-4xl text-white"}/>}>
-          
-        
-        <Canvas>
-        <ambientLight  intensity={0.0} />
-        <PerspectiveCamera makeDefault position={[0,-1,10]}/>
-        <Suspense fallback={null}>
-        <PresentationControls
-        global={false}
-        cursor={true}
-        config={{ mass: 2, tension: 500 }}
-        snap={{ mass: 4, tension: 1500 }}
-        rotation={[0, 0, 0]}
-        polar={[-Math.PI / 3, Math.PI / 3]}
-        azimuth={[-Math.PI / 5, Math.PI / 5]}>
-        <Icon frustumCulled={false} scale={[12,12,12]} rotation={[Math.PI/2,0,0]} frontToBack/>
-      </PresentationControls>
-            
-        </Suspense>
-      </Canvas>
-      </Suspense> 
-      </div>*/

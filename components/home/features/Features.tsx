@@ -45,6 +45,7 @@ export function Features() {
                     <p className="font-inter text-sm text-zinc-200">Log messages and moderation actions with more depth than Discord&apos;s Audit Log system with Auxdibot&apos;s logging feature. Trace the latest actions taken on your server, and keep a record of everything that happens.</p>
                 </div>
                 <div className="flex flex-col bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 cursor-pointer hover:bg-zinc-500/5 transition-colors border-2 border-zinc-800 p-4 rounded-lg shadow">
+                    {/*eslint-disable-next-line jsx-a11y/alt-text*/}
                     <h2 className="font-raleway text-zinc-200 font-bold text-2xl flex gap-2 items-center"><Image/> <span className="flex items-center">Cards <Link href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL + "/feature"}><Button className="text-sm" variant="link">[docs]</Button></Link></span></h2>
                     <p className="font-inter text-sm text-zinc-200">Experience the future of server presentation with Auxdibot&apos;s cards feature. Cards are a way to present your server to the world in a unique way. Create a custom website for your server with a library of various fonts and backgrounds.</p>
                 </div>

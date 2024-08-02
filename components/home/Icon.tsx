@@ -10,7 +10,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useThree } from '@react-three/fiber';
 
 
-type AdditionalProps = { randomColor1?: string, randomColor2?: string, frontToBack?: boolean }
+type AdditionalProps = { randomColor1?: string, randomColor2?: string, frontToBack?: boolean, noRotate?: boolean }
 export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
   const { nodes } = useGLTF('/auxdibot.gltf', false);
   let mesh = (nodes.Text as THREE.Mesh);
@@ -58,7 +58,7 @@ export function Icon(props: JSX.IntrinsicElements['group'] & AdditionalProps) {
   const mobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
-    if (mobile) return;
+    if (mobile || props.noRotate) return;
     const handleMouseMove = (event: MouseEvent) => {
       if (!groupRef.current) return;
 

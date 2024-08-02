@@ -1,4 +1,4 @@
-import { Inter, Josefin_Sans, Josefin_Slab, Lato, Montserrat, Noto_Sans, Open_Sans, Oswald, Playfair_Display, Raleway, Roboto } from "next/font/google"
+import { Inter, Josefin_Sans, Josefin_Slab, Lato, Montserrat, Open_Sans, Oswald, Playfair_Display, Raleway, Roboto } from "next/font/google"
 
 const lato = Lato({
     weight: "300",
@@ -19,7 +19,7 @@ const montserrat = Montserrat({
     subsets: ["latin"],
     variable: "--font-montserrat"
 });
-const openSans = Noto_Sans({
+const openSans = Open_Sans({
     weight: "300",
     subsets: ["latin"],
     variable: "--font-open-sans"

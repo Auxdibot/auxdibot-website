@@ -36,8 +36,6 @@ This is the repository housing the webpage, dashboard and documentation for Auxd
 
 `/hooks` - **Custom React Hooks**
 
-`/Documentation` - **.md Documentation files**
-
 `/components` - **React components**
 
 `/public` - **Public asset files**
