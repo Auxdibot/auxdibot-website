@@ -2,25 +2,25 @@
 const nextConfig = {
     images: {
         remotePatterns: [
-          {
-            hostname: "cdn.discordapp.com",
-          }, 
-          {
-            hostname: 'cdn.jsdelivr.net'
-          },
-          {
-            hostname: 'auxdible.me'
-          }
-        ]
+            {
+                hostname: 'cdn.discordapp.com',
+            },
+            {
+                hostname: 'cdn.jsdelivr.net',
+            },
+            {
+                hostname: 'auxdible.me',
+            },
+        ],
     },
     async rewrites() {
         return [
-          {
-            source: '/bot/v1/:path*',
-            destination: `${process.env.PROXY_URL}/:path*` // Proxy to Backend
-          }
-        ]
+            {
+                source: '/bot/v1/:path*',
+                destination: `${process.env.PROXY_URL}/:path*`, // Proxy to Backend
+            },
+        ];
     },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

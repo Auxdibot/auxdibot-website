@@ -1,27 +1,34 @@
-import { BsDashCircle, BsExclamationTriangle, BsHammer, BsMicMute, BsTrash } from 'react-icons/bs';
-import { PunishmentType } from "../types/PunishmentType"
+import {
+    BsDashCircle,
+    BsExclamationTriangle,
+    BsHammer,
+    BsMicMute,
+    BsTrash,
+} from 'react-icons/bs';
+import { PunishmentType } from '../types/PunishmentType';
 
-let iconClass = "text-red-600";
-export const PunishmentNames: {[k in PunishmentType]: { name: string, icon: React.ReactElement }} = {
-    "DELETE_MESSAGE": {
+let iconClass = 'text-red-600';
+export const PunishmentNames: {
+    [k in PunishmentType]: { name: string; icon: React.ReactElement };
+} = {
+    DELETE_MESSAGE: {
         name: 'Delete Message',
-        icon: <BsTrash className={iconClass}/>
+        icon: <BsTrash className={iconClass} />,
     },
-    "WARN": {
+    WARN: {
         name: 'Warn',
-        icon: <BsExclamationTriangle className={iconClass}/>
+        icon: <BsExclamationTriangle className={iconClass} />,
     },
-    "KICK": {
+    KICK: {
         name: 'Kick',
-        icon: <BsDashCircle className={iconClass}/>,
+        icon: <BsDashCircle className={iconClass} />,
     },
-    "MUTE": {
+    MUTE: {
         name: 'Mute',
-        icon: <BsMicMute className={iconClass}/>,
+        icon: <BsMicMute className={iconClass} />,
     },
-    "BAN": {
+    BAN: {
         name: 'Ban',
-        icon: <BsHammer className={iconClass}/>
+        icon: <BsHammer className={iconClass} />,
     },
-    
-}
+};

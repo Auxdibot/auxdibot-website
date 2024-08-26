@@ -3,5 +3,5 @@ type StarboardData = {
     board_name: string;
     reaction: string;
     count: number;
-    star_levels: {  }[]
-}
+    star_levels: {}[];
+};

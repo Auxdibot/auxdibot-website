@@ -1,4 +1,4 @@
-import { PunishmentType } from "./PunishmentType";
+import { PunishmentType } from './PunishmentType';
 
 export interface AutomodPunishment {
     punishment: PunishmentType;
