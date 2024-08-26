@@ -31,7 +31,7 @@ export default function PremiumLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`dark ${Object.keys(fonts).map((i) => fonts[i as keyof typeof fonts].variable).join(' ')}`} style={{ colorScheme: "dark" }}>
+    <html lang="en" suppressHydrationWarning className={`dark ${Object.keys(fonts).map((i) => fonts[i as keyof typeof fonts].variable).join(' ')}`} style={{ colorScheme: "dark" }}>
       <body className={"flex flex-col min-h-screen text-white"}>
         <Providers>
           <LayoutNavbar premiumIcon />

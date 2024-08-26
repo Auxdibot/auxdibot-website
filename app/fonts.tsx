@@ -45,7 +45,7 @@ const josefinSlab = Josefin_Slab({
 const oswald = Oswald({
     subsets: ["latin"],
     variable: "--font-oswald"
-})
+});
 const fonts = {
     lato,
     raleway,

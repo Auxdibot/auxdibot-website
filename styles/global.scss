@@ -118,6 +118,14 @@
 
 
     }
+    .triangle {
+        clip-path: polygon(100% 0, 100% 100%, 0 0);
+
+    }
+    .triangle-reverse {
+        clip-path: polygon(0 0, 100% 100%, 0 100%);
+
+    }
 }
 @layer utilities {
     .scrollbar::-webkit-scrollbar {
