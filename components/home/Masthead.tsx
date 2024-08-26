@@ -29,7 +29,7 @@ export default function Masthead() {
                                 quality={100}
                                 priority
                             />
-                            
+
                             <div className='absolute top-0 z-40 h-[360px] w-full bg-gradient-to-b from-transparent from-70% to-zinc-950 max-lg:h-56 max-md:h-48' />
                         </div>
                         <div className='absolute left-1/2 top-0 z-30 -translate-x-1/2 max-lg:top-12 max-lg:w-[calc(100%-1rem)] max-md:top-16'>
