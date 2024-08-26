@@ -1,7 +1,9 @@
-import Servers from "@/components/dashboard/Servers";
+import Servers from '@/components/dashboard/Servers';
 
 export default function Dashboard() {
-    return (<>
-        <Servers/>
-    </>);
+    return (
+        <>
+            <Servers />
+        </>
+    );
 }

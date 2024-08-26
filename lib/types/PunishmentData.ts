@@ -1,4 +1,4 @@
-import { PunishmentType } from "./PunishmentType";
+import { PunishmentType } from './PunishmentType';
 
 export default interface PunishmentData {
     type: PunishmentType;
@@ -10,4 +10,4 @@ export default interface PunishmentData {
     userID: string;
     moderatorID?: string;
     punishmentID: number;
-};
+}

@@ -1,1 +1,6 @@
-export type PunishmentType = 'WARN' | 'MUTE' | 'KICK' | 'BAN' | 'DELETE_MESSAGE'
+export type PunishmentType =
+    | 'WARN'
+    | 'MUTE'
+    | 'KICK'
+    | 'BAN'
+    | 'DELETE_MESSAGE';

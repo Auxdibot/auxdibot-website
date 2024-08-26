@@ -1,1 +1,4 @@
-export type DashboardActionPrompt = { success: boolean, status: string | React.ReactElement };
+export type DashboardActionPrompt = {
+    success: boolean;
+    status: string | React.ReactElement;
+};
