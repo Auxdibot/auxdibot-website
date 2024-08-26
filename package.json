@@ -9,7 +9,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+        "pc": "npm run lint && npm run format"
     },
     "repository": {
         "url": "https://github.com/Auxdibot/auxdibot-website"
