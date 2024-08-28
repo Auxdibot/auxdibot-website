@@ -8,6 +8,7 @@ import BlacklistedPhrases from './blacklist/BlacklistedPhrases';
 import SpamSettings from './spam/SpamSettings';
 import AttachmentsSettings from './attachments/AttachmentsSettings';
 import InvitesSettings from './invites/InvitesSettings';
+import { ShieldAlert } from 'lucide-react';
 
 export default function DashboardModerationConfig({ id }: { id: string }) {
     let { data: moderation } = useQuery(
@@ -25,9 +26,25 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
                     'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
                 }
             >
-                <h1 className={'header text-6xl max-md:text-5xl'}>
-                    moderation
-                </h1>
+                <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
+                    <div className='flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-800 bg-gradient-to-bl from-gray-500/40 to-gray-900/40 shadow transition-colors hover:bg-gray-500/40'>
+                        <ShieldAlert size={'48'} />
+                    </div>
+                    <div className='flex flex-col max-md:items-center max-md:text-center'>
+                        <h1
+                            className={
+                                'font-raleway text-4xl font-bold text-white'
+                            }
+                        >
+                            Moderation
+                        </h1>
+                        <p className='max-w-4xl font-inter text-lg'>
+                            Allows users to utilize various punishment and
+                            reporting tools, auto-moderation utilities, and
+                            more.
+                        </p>
+                    </div>
+                </span>
                 <span className={'flex w-full gap-5 max-xl:flex-col'}>
                     <Suspense fallback={null}>
                         <LatestPunishments serverID={id} />

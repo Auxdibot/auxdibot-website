@@ -16,6 +16,7 @@ import {
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { Button } from '@/components/ui/button/button';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
+import { Hand } from 'lucide-react';
 
 enum GreetingType {
     JOIN = 'join',
@@ -93,7 +94,25 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                     'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center xl:px-5'
                 }
             >
-                <h1 className={'header text-6xl max-md:text-5xl'}>greetings</h1>
+                <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
+                    <div className='flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-800 bg-gradient-to-bl from-gray-500/40 to-gray-900/40 shadow transition-colors hover:bg-gray-500/40'>
+                        <Hand size={'48'} />
+                    </div>
+                    <div className='flex flex-col max-md:items-center max-md:text-center'>
+                        <h1
+                            className={
+                                'font-raleway text-4xl font-bold text-white'
+                            }
+                        >
+                            Greetings
+                        </h1>
+                        <p className='max-w-4xl font-inter text-lg'>
+                            Allows Auxdibot to greet members as they join your
+                            server. Greetings can be customized using
+                            Auxdibot&apos;s Discord Embed creator.
+                        </p>
+                    </div>
+                </span>
                 <span
                     className={
                         'grid w-full grid-cols-2 grid-rows-2 gap-10 max-xl:grid-cols-1 max-xl:grid-rows-none'
