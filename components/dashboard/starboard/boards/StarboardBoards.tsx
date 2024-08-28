@@ -49,7 +49,6 @@ export default function StarboardBoards({
     const { toast } = useToast();
     const queryClient = useQueryClient();
     function deleteBoard() {
-        console.log(board);
         if (!board) return;
         fetch(`/bot/v1/servers/${server.data.serverID}/starboard/boards`, {
             method: 'DELETE',

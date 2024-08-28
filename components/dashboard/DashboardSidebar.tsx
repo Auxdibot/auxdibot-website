@@ -92,7 +92,6 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
     const contextExpanded = useContext(ExpandedContext);
     const pathname = usePathname();
     const page = useMemo(() => pathname.split('/').pop(), [pathname]);
-    console.log(page);
     function changeCategory(category: SidebarCategories) {
         if (!server) return;
 

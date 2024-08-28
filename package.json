@@ -9,8 +9,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-        "pc": "npm run lint && npm run format"
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
     },
     "repository": {
         "url": "https://github.com/Auxdibot/auxdibot-website"
@@ -86,6 +85,7 @@
         "@types/lodash": "^4.17.7",
         "@types/react-twemoji": "^0.4.3",
         "eslint-config-prettier": "^9.1.0",
+        "lint-staged": "^15.2.9",
         "prettier-plugin-tailwindcss": "^0.6.6"
-    }
+    },
 }
