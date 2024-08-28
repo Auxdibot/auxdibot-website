@@ -19,7 +19,6 @@
    <h1>Auxdibot Website</h1>
 </div>
 
-
 ## About Project
 
 This is the repository housing the webpage, dashboard and documentation for Auxdibot.

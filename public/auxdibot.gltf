@@ -1,109 +1,99 @@
 {
-	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.0.44",
-		"version":"2.0"
-	},
-	"scene":0,
-	"scenes":[
-		{
-			"name":"Scene",
-			"nodes":[
-				0
-			]
-		}
-	],
-	"nodes":[
-		{
-			"mesh":0,
-			"name":"Text",
-			"scale":[
-				20,
-				20,
-				20
-			]
-		}
-	],
-	"meshes":[
-		{
-			"name":"Text",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":0,
-						"NORMAL":1,
-						"TEXCOORD_0":2
-					},
-					"indices":3
-				}
-			]
-		}
-	],
-	"accessors":[
-		{
-			"bufferView":0,
-			"componentType":5126,
-			"count":690,
-			"max":[
-				0.20951977372169495,
-				0.09999999403953552,
-				0.2987675368785858
-			],
-			"min":[
-				-0.2328941822052002,
-				-0.09999999403953552,
-				-0.14237144589424133
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":1,
-			"componentType":5126,
-			"count":690,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":2,
-			"componentType":5126,
-			"count":690,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":3,
-			"componentType":5123,
-			"count":2052,
-			"type":"SCALAR"
-		}
-	],
-	"bufferViews":[
-		{
-			"buffer":0,
-			"byteLength":8280,
-			"byteOffset":0,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":8280,
-			"byteOffset":8280,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":5520,
-			"byteOffset":16560,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4104,
-			"byteOffset":22080,
-			"target":34963
-		}
-	],
-	"buffers":[
-		{
-			"byteLength":26184,
-			"uri":"auxdibot.bin"
-		}
-	]
+    "asset": {
+        "generator": "Khronos glTF Blender I/O v4.0.44",
+        "version": "2.0"
+    },
+    "scene": 0,
+    "scenes": [
+        {
+            "name": "Scene",
+            "nodes": [0]
+        }
+    ],
+    "nodes": [
+        {
+            "mesh": 0,
+            "name": "Text",
+            "scale": [20, 20, 20]
+        }
+    ],
+    "meshes": [
+        {
+            "name": "Text",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "indices": 3
+                }
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 690,
+            "max": [
+                0.20951977372169495, 0.09999999403953552, 0.2987675368785858
+            ],
+            "min": [
+                -0.2328941822052002, -0.09999999403953552, -0.14237144589424133
+            ],
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 690,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 690,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5123,
+            "count": 2052,
+            "type": "SCALAR"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 8280,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 8280,
+            "byteOffset": 8280,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 5520,
+            "byteOffset": 16560,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 4104,
+            "byteOffset": 22080,
+            "target": 34963
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 26184,
+            "uri": "auxdibot.bin"
+        }
+    ]
 }

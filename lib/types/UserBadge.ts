@@ -1,1 +1,1 @@
-export type UserBadge = "OLD_USER" | "PARTNER";
+export type UserBadge = 'OLD_USER' | 'PARTNER';

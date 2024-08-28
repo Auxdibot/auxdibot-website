@@ -1,7 +1,19 @@
-import { BsRss, BsTwitch, BsYoutube } from "react-icons/bs";
+import { BsRss, BsTwitch, BsYoutube } from 'react-icons/bs';
 
 export const NotificationNames = {
-    "TWITCH": <><BsTwitch /> Twitch</>,
-    "YOUTUBE": <><BsYoutube /> YouTube</>,
-    "RSS": <><BsRss /> RSS Feed</>
+    TWITCH: (
+        <>
+            <BsTwitch /> Twitch
+        </>
+    ),
+    YOUTUBE: (
+        <>
+            <BsYoutube /> YouTube
+        </>
+    ),
+    RSS: (
+        <>
+            <BsRss /> RSS Feed
+        </>
+    ),
 };
