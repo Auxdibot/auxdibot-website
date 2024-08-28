@@ -32,12 +32,12 @@ export const columns: ColumnDef<LogType>[] = [
         ),
     },
     {
-        accessorKey: 'date_unix',
+        accessorKey: 'date',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title='Date' />
         ),
         cell: ({ row }) => {
-            const date = new Date(row.original.date_unix);
+            const date = new Date(row.original.date);
             return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
         },
     },

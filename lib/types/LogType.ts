@@ -1,6 +1,6 @@
 export type LogType = {
     type: string;
     userID: string;
-    date_unix: number;
+    date: string;
     description: string;
 };
