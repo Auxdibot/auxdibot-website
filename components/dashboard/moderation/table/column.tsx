@@ -61,12 +61,12 @@ export const columns: (serverID: string) => ColumnDef<PunishmentData>[] = (
         ),
     },
     {
-        accessorKey: 'date_unix',
+        accessorKey: 'date',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title='Date' />
         ),
         cell: ({ row }) => {
-            const date = new Date(row.original.date_unix);
+            const date = new Date(row.original.date);
             return date.toLocaleDateString();
         },
     },
@@ -124,11 +124,11 @@ export const columns: (serverID: string) => ColumnDef<PunishmentData>[] = (
                             <p className={'break-words p-1 text-xs italic'}>
                                 &quot;{row.original.reason}&quot;
                             </p>
-                            {row.original.expires_date_unix && (
+                            {row.original.expires_date && (
                                 <span className={'text-xs font-bold'}>
                                     Expires{' '}
                                     {new Date(
-                                        row.original.expires_date_unix
+                                        row.original.expires_date
                                     ).toLocaleDateString()}
                                 </span>
                             )}

@@ -3,16 +3,12 @@
 import { DataTable } from '@/components/ui/data-table/data-table';
 
 import { columns } from './table/column';
+import { LogType } from '@/lib/types/LogType';
 
 export default function Logs({
     logs,
 }: {
-    logs?: {
-        type: string;
-        userID: string;
-        date_unix: number;
-        description: string;
-    }[];
+    logs?: LogType[];
 }) {
     return (
         <div
