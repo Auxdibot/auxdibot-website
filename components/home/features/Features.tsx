@@ -8,6 +8,7 @@ import {
     Image,
     Medal,
     MessageCircle,
+    MessageCircleQuestionIcon,
     Scroll,
     ShieldAlert,
     Star,
@@ -118,7 +119,7 @@ export function Features() {
                 </div>
                 <div className='flex cursor-pointer flex-col rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 p-4 shadow transition-colors hover:bg-zinc-500/5'>
                     <h2 className='flex items-center gap-2 font-raleway text-2xl font-bold text-zinc-200'>
-                        <Handshake />{' '}
+                        <MessageCircleQuestionIcon />{' '}
                         <span className='flex items-center'>
                             Suggestions{' '}
                             <Link

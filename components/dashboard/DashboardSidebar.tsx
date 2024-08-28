@@ -12,27 +12,26 @@ import {
     useContext,
     useMemo,
 } from 'react';
-import {
-    BsArrowRight,
-    BsCardImage,
-    BsChat,
-    BsClock,
-    BsExclamationTriangle,
-    BsGear,
-    BsHammer,
-    BsJournalBookmark,
-    BsList,
-    BsQuestionCircle,
-    BsSlashLg,
-    BsStar,
-    BsTag,
-    BsTextLeft,
-    BsTrophy,
-    BsYoutube,
-} from 'react-icons/bs';
-import { PiHandWavingLight } from 'react-icons/pi';
+import { BsArrowRight, BsList } from 'react-icons/bs';
 import { useMediaQuery } from 'react-responsive';
 import { ScrollArea } from '../ui/scroll-area';
+import { SiYoutube } from '@icons-pack/react-simple-icons';
+import {
+    AlertTriangle,
+    CircleSlashIcon,
+    Clock,
+    Hammer,
+    Hand,
+    ImageIcon,
+    Medal,
+    MessageCircleQuestion,
+    Scroll,
+    Settings,
+    ShieldAlert,
+    Star,
+    Tag,
+    Text,
+} from 'lucide-react';
 
 const ExpandedContext = createContext<{
     expanded: boolean;
@@ -115,10 +114,10 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                         >
                             <h2
                                 className={
-                                    'mb-2 mt-5 flex items-center gap-2 font-montserrat text-lg'
+                                    'mb-2 mt-5 flex items-center gap-2 pl-1 font-montserrat text-lg'
                                 }
                             >
-                                <BsGear /> General
+                                <Settings size={'24'} /> General
                             </h2>
                             <section
                                 className={`dashboard-sidebar-wrapper ${page == SidebarCategories.SETTINGS ? 'dashboard-sidebar-selected' : ''}`}
@@ -134,9 +133,9 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                             SidebarCategories.SETTINGS
                                         )
                                     }
-                                    className={`dashboard-sidebar-element ${page == SidebarCategories.SETTINGS ? 'dashboard-sidebar-selected-text' : ''}`}
+                                    className={`dashboard-sidebar-element items-center ${page == SidebarCategories.SETTINGS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsGear /> Settings
+                                    <Settings size={'20'} /> Settings
                                 </span>
                             </section>
                             <section
@@ -155,7 +154,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.LOGGING ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsJournalBookmark /> Logging
+                                    <Scroll size={'20'} /> Logging
                                 </span>
                             </section>
                             <section
@@ -174,15 +173,15 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.COMMANDS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsSlashLg /> Commands
+                                    <CircleSlashIcon size={'20'} /> Commands
                                 </span>
                             </section>
                             <h2
                                 className={
-                                    'mb-2 mt-5 flex items-center gap-2 font-montserrat text-lg'
+                                    'mb-2 mt-5 flex items-center gap-2 pl-1 font-montserrat text-lg'
                                 }
                             >
-                                <BsHammer /> Utility
+                                <Hammer size={'24'} /> Utility
                             </h2>
                             <section
                                 className={`dashboard-sidebar-wrapper ${page == SidebarCategories.LEVELS ? 'dashboard-sidebar-selected' : ''}`}
@@ -198,7 +197,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.LEVELS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsTrophy />{' '}
+                                    <Medal size={'20'} />{' '}
                                     <span
                                         className={
                                             'rounded-2xl bg-blue-500 px-1 text-sm'
@@ -225,7 +224,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.MODERATION ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsHammer /> Moderation
+                                    <ShieldAlert size={'20'} /> Moderation
                                 </span>
                             </section>
                             <section
@@ -244,7 +243,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.STARBOARD ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsStar /> Starboard
+                                    <Star size={'20'} /> Starboard
                                 </span>
                             </section>
                             <section
@@ -263,7 +262,8 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.SUGGESTIONS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsQuestionCircle /> Suggestions
+                                    <MessageCircleQuestion size={'20'} />{' '}
+                                    Suggestions
                                 </span>
                             </section>
 
@@ -281,15 +281,15 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.ROLES ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsTag /> Roles
+                                    <Tag size={'20'} /> Roles
                                 </span>
                             </section>
                             <h2
                                 className={
-                                    'mb-2 mt-5 flex items-center gap-2 font-montserrat text-lg'
+                                    'mb-2 mt-5 flex items-center gap-2 pl-1 font-montserrat text-lg'
                                 }
                             >
-                                <BsChat /> Messages
+                                <Text size={'24'} /> Messages
                             </h2>
                             <section
                                 className={`dashboard-sidebar-wrapper ${page == SidebarCategories.EMBEDS ? 'dashboard-sidebar-selected' : ''}`}
@@ -305,7 +305,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.EMBEDS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsTextLeft /> Embeds
+                                    <Text size={'20'} /> Embeds
                                 </span>
                             </section>
                             <section
@@ -324,7 +324,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.NOTIFICATIONS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsYoutube /> Notifications
+                                    <SiYoutube size={'20'} /> Notifications
                                 </span>
                             </section>
                             <section
@@ -343,7 +343,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.SCHEDULES ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsClock /> Schedules
+                                    <Clock size={'20'} /> Schedules
                                 </span>
                             </section>
                             <section
@@ -362,15 +362,15 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.GREETINGS ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <PiHandWavingLight /> Greetings
+                                    <Hand size={'20'} /> Greetings
                                 </span>
                             </section>
                             <h2
                                 className={
-                                    'mb-2 mt-5 flex items-center gap-2 font-montserrat text-lg'
+                                    'mb-2 mt-5 flex items-center gap-2 pl-1 font-montserrat text-lg'
                                 }
                             >
-                                <BsExclamationTriangle /> Beta Features
+                                <AlertTriangle size={'24'} /> Beta Features
                             </h2>
                             <section
                                 className={`dashboard-sidebar-wrapper ${page == SidebarCategories.CARD ? 'dashboard-sidebar-selected' : ''}`}
@@ -386,7 +386,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     }
                                     className={`dashboard-sidebar-element ${page == SidebarCategories.CARD ? 'dashboard-sidebar-selected-text' : ''}`}
                                 >
-                                    <BsCardImage />{' '}
+                                    <ImageIcon />{' '}
                                     <span
                                         className={
                                             'rounded-2xl bg-green-500 px-1 text-sm'
@@ -394,7 +394,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
                                     >
                                         BETA
                                     </span>{' '}
-                                    Card
+                                    Cards
                                 </span>
                             </section>
                         </div>

@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import StarboardBoards from './boards/StarboardBoards';
 import { Suspense } from 'react';
 import StarboardSettings from './settings/StarboardSettings';
+import { Star } from 'lucide-react';
 
 export default function DashboardStarboardConfig({ id }: { id: string }) {
     let { data: starboard } = useQuery(
@@ -20,7 +21,24 @@ export default function DashboardStarboardConfig({ id }: { id: string }) {
                     'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
                 }
             >
-                <h1 className={'header text-6xl max-md:text-5xl'}>starboard</h1>
+                <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
+                    <div className='flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-800 bg-gradient-to-bl from-gray-500/40 to-gray-900/40 shadow transition-colors hover:bg-gray-500/40'>
+                        <Star size={'48'} />
+                    </div>
+                    <div className='flex flex-col max-md:items-center max-md:text-center'>
+                        <h1
+                            className={
+                                'font-raleway text-4xl font-bold text-white'
+                            }
+                        >
+                            Starboard
+                        </h1>
+                        <p className='max-w-4xl font-inter text-lg'>
+                            Allows users to setup and configure starboards that
+                            can be utilized on their server.
+                        </p>
+                    </div>
+                </span>
                 <span className={'flex w-full flex-row gap-10 max-xl:flex-col'}>
                     <Suspense fallback={null}>
                         {starboard && <StarboardBoards server={starboard} />}

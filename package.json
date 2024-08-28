@@ -9,13 +9,14 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\""
     },
     "repository": {
         "url": "https://github.com/Auxdibot/auxdibot-website"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.609.0",
+        "@icons-pack/react-simple-icons": "^10.0.0",
         "@radix-ui/react-alert-dialog": "^1.0.5",
         "@radix-ui/react-checkbox": "^1.0.4",
         "@radix-ui/react-collapsible": "^1.1.0",
@@ -87,5 +88,5 @@
         "eslint-config-prettier": "^9.1.0",
         "lint-staged": "^15.2.9",
         "prettier-plugin-tailwindcss": "^0.6.6"
-    },
+    }
 }
