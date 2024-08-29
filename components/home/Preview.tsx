@@ -1,10 +1,10 @@
 'use client';
 import { useFieldArray, useForm } from 'react-hook-form';
-import MockEmbed from '../ui/messages/mock-embed';
 import { APIEmbed } from 'discord-api-types/v10';
 import { motion } from 'framer-motion';
 import { EmbedDialog } from '../ui/dialog/embed-dialog';
 import { Trash } from 'lucide-react';
+import { DiscordMessage } from '../ui/messages/discord-message';
 type EmbedPreviewBody = { embed: APIEmbed };
 export function Preview() {
     const { control, register, watch, reset } = useForm<EmbedPreviewBody>({
@@ -136,7 +136,7 @@ export function Preview() {
                             Click &quot;Edit Embed&quot; to start creating!
                         </span>
                     ) : (
-                        <MockEmbed embed={embed} />
+                        <DiscordMessage embed={embed} />
                     )}
                 </span>
             </div>

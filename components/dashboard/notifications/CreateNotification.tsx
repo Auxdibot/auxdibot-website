@@ -14,7 +14,6 @@ import {
     BsYoutube,
 } from 'react-icons/bs';
 import { APIEmbed } from 'discord-api-types/v10';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import Channels from '@/components/ui/select/channels';
 import {
     Select,
@@ -30,6 +29,7 @@ import { Button } from '@/components/ui/button/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Separator } from '@/components/ui/separator';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 type NotificationBody = {
     type: string;
     topic: string;
@@ -311,7 +311,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
                                 <BsEye /> Embed Preview
                             </h1>
                             {embed ? (
-                                <MockEmbed
+                                <DiscordMessage
                                     embed={JSON.parse(
                                         Object.keys(FeedPlaceholders).reduce(
                                             (acc: string, i) =>

@@ -7,7 +7,6 @@ module.exports = {
         './app/**/*.{ts,tsx}',
         './src/**/*.{ts,tsx}',
     ],
-
     theme: {
         container: {
             center: true,
@@ -48,6 +47,28 @@ module.exports = {
                     200: '#310707',
                     100: '#580F0F',
                 },
+                'discord-text': '#dcddde',
+                'discord-embed-border': '#202225',
+                'discord-link': '#00aff4',
+            },
+            gridTemplateColumns: {
+                'thumbnail': 'auto min-content',
+                'auto': 'auto',
+            },
+            gridColumn: {
+                'span-field': '1 / 13',
+                'span-inline-1': '1 / 5',
+                'span-inline-2': '5 / 9',
+                'span-inline-3': '9 / 13',
+                'span-image': '1 / 3',
+                'span-thumbnail': '2 / 2',
+            },
+            gridRow: {
+                'span-thumbnail': '1 / 8',  
+            },
+            gridTemplateRows: {
+                'auto': 'auto',
+                
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -86,6 +107,7 @@ module.exports = {
             },
         },
     },
+    safelist: ['col-span-inline-1', 'col-span-inline-2', 'col-span-inline-3', 'col-span-field'],
     plugins: [
         require('@tailwindcss/typography'),
         require('tailwindcss-animate'),

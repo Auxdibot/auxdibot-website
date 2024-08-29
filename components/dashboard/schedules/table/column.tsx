@@ -15,9 +15,9 @@ import { useQueryClient } from 'react-query';
 import { BsEye, BsTrash } from 'react-icons/bs';
 import ScheduleType from '@/lib/types/ScheduleType';
 import { Channel } from '@/components/ui/channel';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Dialog, DialogContent } from '@/components/ui/dialog/dialog';
 import { useState } from 'react';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 
 export const columns: (serverID: string) => ColumnDef<ScheduleType>[] = (
     serverID
@@ -145,7 +145,7 @@ export const columns: (serverID: string) => ColumnDef<ScheduleType>[] = (
                                 >
                                     <BsEye /> Embed Preview
                                 </h2>
-                                <MockEmbed embed={row.original.embed} />
+                                <DiscordMessage embed={row.original.embed} />
                             </DialogContent>
                         </Dialog>
                     </>
