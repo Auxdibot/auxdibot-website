@@ -53,6 +53,7 @@ export default function DashboardRolesConfig({ id }: { id: string }) {
                             >
                                 Roles
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

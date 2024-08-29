@@ -85,13 +85,13 @@ export default function Start() {
                         <span
                             className={'font-montserrat text-4xl text-gray-200'}
                         >
-                            setup auto
+                            setup
                         </span>
                     </h1>
                     <p>
                         Automatically setup Auxdibot for your server with a
-                        default suite of channels, roles, and settings that you
-                        can use immediately.
+                        suite of simple-to-use commands that allow you to
+                        configure your server in minutes.
                     </p>
                 </section>
             </div>

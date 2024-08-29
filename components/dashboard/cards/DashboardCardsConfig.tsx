@@ -30,6 +30,7 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
                         >
                             Cards
                             <Link
+                                target='_blank'
                                 href={
                                     process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
                                     '/navigating/dashboard#cards'

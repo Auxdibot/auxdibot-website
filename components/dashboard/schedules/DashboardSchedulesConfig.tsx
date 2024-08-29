@@ -38,6 +38,7 @@ export default function DashboardSchedulesConfig({ id }: { id: string }) {
                             >
                                 Schedules
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

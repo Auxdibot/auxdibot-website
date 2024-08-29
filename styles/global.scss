@@ -16,20 +16,12 @@
         --color-primary-500: 243, 139, 44;
         --color-primary-600: 242, 142, 39;
     }
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+    
     .emoji {
         width: 1.5rem;
         height: fit-content;
     }
-    .contain-paint {
-        contain: paint;
-    }
+    
     .hover-underline {
         @apply absolute -bottom-1 left-0 block h-[2px] w-full origin-right scale-0 transition-transform duration-300 hover:origin-left;
         content: '';
@@ -59,9 +51,7 @@
         @apply absolute left-1/2 top-1/2 -z-10 h-full min-h-fit min-w-full -translate-x-1/2 -translate-y-1/2 bg-black object-cover blur-sm;
         background-attachment: scroll;
     }
-    .break-words-wrap {
-        word-wrap: break-word;
-    }
+
     .dashboard-sidebar-wrapper {
         @apply flex flex-row items-center from-orange-400 to-red-500 pl-5 transition-all hover:bg-gradient-to-l;
     }
@@ -100,14 +90,39 @@
             @apply flex flex-row justify-center py-1;
         }
     }
-    .doc-alert {
-        @apply my-3 w-full max-w-[600px] font-open-sans;
-        div {
-            @apply block text-ellipsis whitespace-pre-line break-words;
-            p {
-                margin: 0 !important;
+    .discord-content {
+        @apply prose-headings:font-bold prose-headings:my-2 prose-h1:text-2xl prose-h2:text-xl prose-ul:list-disc prose-ul:ml-5 prose-ul:h-auto prose-ul:mt-1 prose-ul:list-outside 
+        prose-ul:flex prose-ul:flex-col prose-ul:gap-0 prose-li:whitespace-break-spaces prose-li:mb-1
+         prose-a:text-discord-link prose-a:hover:underline prose-code:my-[-0.2em] prose-code:rounded-[4px] prose-code:px-[0.2em] prose-code:whitespace-pre-wrap prose-code:bg-discord-code prose-code:border-discord-code-border prose-code:border;
+        small {
+            @apply text-discord-muted;
+        }
+        ul {
+            ul {
+                @apply list-[circle] ml-4;
             }
         }
+    }
+}
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .break-words-wrap {
+        word-wrap: break-word;
+    }
+    .word-break-word {
+        word-break: break-word;
+    }
+    .text-wrap {
+        text-wrap: wrap;
+    }
+    .contain-paint {
+        contain: paint;
     }
     .triangle {
         clip-path: polygon(100% 0, 100% 100%, 0 0);
@@ -115,8 +130,6 @@
     .triangle-reverse {
         clip-path: polygon(0 0, 100% 100%, 0 100%);
     }
-}
-@layer utilities {
     .scrollbar::-webkit-scrollbar {
         width: 15px;
         height: 20px;

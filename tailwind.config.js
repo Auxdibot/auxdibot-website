@@ -50,10 +50,15 @@ module.exports = {
                 'discord-text': '#dcddde',
                 'discord-embed-border': '#202225',
                 'discord-link': '#00aff4',
+                'discord-app-tag': '#5865f2',
+                'discord-muted': '#72767d',
+                'discord-quote': '#4f545c',
+                'discord-code': '#2b2d31',
+                'discord-code-border': '#1e1f22',
             },
             gridTemplateColumns: {
-                'thumbnail': 'auto min-content',
-                'auto': 'auto',
+                thumbnail: 'auto min-content',
+                auto: 'auto',
             },
             gridColumn: {
                 'span-field': '1 / 13',
@@ -64,11 +69,10 @@ module.exports = {
                 'span-thumbnail': '2 / 2',
             },
             gridRow: {
-                'span-thumbnail': '1 / 8',  
+                'span-thumbnail': '1 / 8',
             },
             gridTemplateRows: {
-                'auto': 'auto',
-                
+                auto: 'auto',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -107,7 +111,16 @@ module.exports = {
             },
         },
     },
-    safelist: ['col-span-inline-1', 'col-span-inline-2', 'col-span-inline-3', 'col-span-field'],
+    safelist: [
+        'col-span-inline-1',
+        'col-span-inline-2',
+        'col-span-inline-3',
+        'col-span-field',
+        'hover:text-white',
+        'w-1',
+        'bg-discord-quote',
+        'pl-3',
+    ],
     plugins: [
         require('@tailwindcss/typography'),
         require('tailwindcss-animate'),

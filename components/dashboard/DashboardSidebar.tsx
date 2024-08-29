@@ -104,7 +104,7 @@ export function DashboardSidebar({ server }: { server?: DiscordGuild }) {
         <>
             <div className={'w-64 flex-shrink-0'}>
                 <nav
-                    className={`fixed flex h-screen w-64 flex-col border-r-2 border-gray-800 bg-gray-950 max-md:w-48`}
+                    className={`fixed z-20 flex h-screen w-64 flex-col border-r-2 border-gray-800 bg-gray-950 max-md:w-48`}
                 >
                     <ScrollArea>
                         <div

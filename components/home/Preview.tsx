@@ -119,7 +119,7 @@ export function Preview() {
                 <span className='relative flex flex-1 items-center justify-center'>
                     <div
                         className={
-                            'absolute -inset-1 bg-gradient-to-br from-primary-100 to-primary-600 opacity-70 blur-3xl'
+                            'absolute -inset-1 z-0 bg-gradient-to-br from-primary-100 to-primary-600 opacity-70 blur-3xl'
                         }
                     />
                     {!embed ||
@@ -136,7 +136,13 @@ export function Preview() {
                             Click &quot;Edit Embed&quot; to start creating!
                         </span>
                     ) : (
-                        <DiscordMessage embed={embed} />
+                        <DiscordMessage
+                            background
+                            embed={embed}
+                            content={
+                                "# DID I MENTION\nWe support Discord's custom formatting? You can preview it LIVE in this Embed builder! 😎 👉 👉"
+                            }
+                        />
                     )}
                 </span>
             </div>
