@@ -47,6 +47,7 @@ export function DashboardCommandsConfig({ id }: { id: string }) {
                         >
                             Commands
                             <Link
+                                target='_blank'
                                 href={
                                     process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
                                     '/navigating/commands'

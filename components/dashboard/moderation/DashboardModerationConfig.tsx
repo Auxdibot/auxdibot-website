@@ -43,6 +43,7 @@ export default function DashboardModerationConfig({ id }: { id: string }) {
                             >
                                 Moderation
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

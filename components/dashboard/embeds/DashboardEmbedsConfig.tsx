@@ -21,6 +21,7 @@ import { Text } from 'lucide-react';
 import Link from 'next/link';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
 import { ModuleDisableOverlay } from '../ModuleDisableOverlay';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
 
 type EmbedBody = {
     message: string;
@@ -88,14 +89,15 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
             .catch(() => {});
     }
 
-    const embed = watch('embed');
+    const embed = watch('embed'),
+        message = watch('message');
     return (
         <>
             <ModuleDisableOverlay id={id} module={'Messages'} />
             <main className={'flex-grow bg-gray-950'}>
                 <div
                     className={
-                        'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
+                        'flex max-w-full animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
                     }
                 >
                     <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
@@ -110,6 +112,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
                             >
                                 Embeds
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +
@@ -130,12 +133,12 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
                     </span>
                     <span
                         className={
-                            'flex w-full flex-row gap-10 max-xl:flex-col'
+                            'flex h-full w-full flex-auto flex-row gap-10 max-xl:flex-col'
                         }
                     >
                         <div
                             className={
-                                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                                'w-full flex-grow-0 self-stretch overflow-auto rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto xl:w-1/2'
                             }
                         >
                             <h2
@@ -229,7 +232,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
                                 </label>
                                 <section
                                     className={
-                                        'flex w-full flex-col gap-2 max-md:items-center'
+                                        'flex w-full max-w-full flex-col gap-2 max-md:items-center'
                                     }
                                 >
                                     <span
@@ -245,7 +248,7 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
                                         render={({ field }) => (
                                             <TextareaMessage
                                                 maxLength={2000}
-                                                wrapperClass={'w-full'}
+                                                wrapperClass={''}
                                                 serverID={id}
                                                 {...field}
                                             />
@@ -278,31 +281,18 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
                         </div>
                         <div
                             className={
-                                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                                'w-full max-w-full self-stretch overflow-auto max-md:mx-auto xl:w-1/2'
                             }
                         >
-                            <h2
-                                className={
-                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                            <DiscordMessage
+                                background
+                                content={
+                                    isEmbedEmpty(embed) && !message
+                                        ? `This is the Embed preview. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                        : message
                                 }
-                            >
-                                Embed Preview
-                            </h2>
-                            <span
-                                className={
-                                    'my-2 flex w-full justify-center md:p-5'
-                                }
-                            >
-                                {embed?.author?.name ||
-                                embed?.description ||
-                                embed?.title ||
-                                embed?.footer?.text ||
-                                (embed?.fields?.length || 0) > 0 ? (
-                                    <DiscordMessage embed={embed} />
-                                ) : (
-                                    ''
-                                )}
-                            </span>
+                                embed={embed}
+                            />
                         </div>
                     </span>
                 </div>

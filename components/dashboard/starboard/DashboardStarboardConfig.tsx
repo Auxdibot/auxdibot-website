@@ -37,6 +37,7 @@ export default function DashboardStarboardConfig({ id }: { id: string }) {
                             >
                                 Starboard
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

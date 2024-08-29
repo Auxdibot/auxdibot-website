@@ -39,6 +39,7 @@ export default function DashboardSuggestionsConfig({ id }: { id: string }) {
                             >
                                 Suggestions
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

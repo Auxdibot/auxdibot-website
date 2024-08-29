@@ -111,6 +111,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                             >
                                 Greetings
                                 <Link
+                                    target='_blank'
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { memo, useState } from 'react';
 import { useQuery } from 'react-query';
 import twemoji from 'twemoji';
-function Twemoji({
+export const Twemoji = memo(function ({
     children,
     className,
     serverID,
@@ -62,6 +62,6 @@ function Twemoji({
             onError={() => setFallback(true)}
         />
     );
-}
-
-export default memo(Twemoji);
+});
+Twemoji.displayName = 'Twemoji';
+export default Twemoji;
