@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 import Logs from './Logs';
 import LogSettings from './LogSettings';
 import { Scroll } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button/button';
 
 export default function DashboardLoggingConfig({ id }: { id: string }) {
     let { data: logging } = useQuery(
@@ -27,10 +29,20 @@ export default function DashboardLoggingConfig({ id }: { id: string }) {
                     <div className='flex flex-col max-md:items-center max-md:text-center'>
                         <h1
                             className={
-                                'font-raleway text-4xl font-bold text-white'
+                                'header flex items-center font-raleway text-4xl font-bold'
                             }
                         >
                             Logging
+                            <Link
+                                href={
+                                    process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
+                                    '/modules/logging'
+                                }
+                            >
+                                <Button className='text-sm' variant='link'>
+                                    [docs]
+                                </Button>
+                            </Link>
                         </h1>
                         <p className='max-w-4xl font-inter text-lg'>
                             Allows the logging of messages and moderation

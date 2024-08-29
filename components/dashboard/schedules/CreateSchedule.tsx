@@ -1,5 +1,4 @@
 'use client';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
@@ -22,6 +21,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 type ScheduleBody = {
     times_to_run: number;
     message: string;
@@ -272,7 +272,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
                         >
                             <BsEye /> Embed Preview
                         </h1>
-                        {embed ? <MockEmbed embed={embed} /> : ''}
+                        {embed ? <DiscordMessage embed={embed} /> : ''}
                     </span>
                 </form>
             </div>

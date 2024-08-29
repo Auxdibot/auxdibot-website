@@ -17,9 +17,9 @@ import {
 import { Button } from '@/components/ui/button/button';
 import { MoreHorizontal } from 'lucide-react';
 import { BsEye, BsTrash } from 'react-icons/bs';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Dialog, DialogContent } from '@/components/ui/dialog/dialog';
 import { useState } from 'react';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 
 export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (
     serverID
@@ -151,7 +151,9 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (
                                 >
                                     <BsEye /> Embed Preview
                                 </h2>
-                                <MockEmbed embed={row.original.message.embed} />
+                                <DiscordMessage
+                                    embed={row.original.message.embed}
+                                />
                             </DialogContent>
                         </Dialog>
                     </>

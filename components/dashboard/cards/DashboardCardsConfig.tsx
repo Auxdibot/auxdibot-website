@@ -5,6 +5,8 @@ import { CardPreview } from './CardPreview';
 import { CardBody } from './CardBody';
 import { CreateCard } from './CreateCard';
 import { ImageIcon } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button/button';
 
 export default function DashboardCardsConfig({ id }: { id: string }) {
     const form = useForm<CardBody>();
@@ -23,10 +25,20 @@ export default function DashboardCardsConfig({ id }: { id: string }) {
                     <div className='flex flex-col max-md:items-center max-md:text-center'>
                         <h1
                             className={
-                                'font-raleway text-4xl font-bold text-white'
+                                'header flex items-center font-raleway text-4xl font-bold'
                             }
                         >
                             Cards
+                            <Link
+                                href={
+                                    process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
+                                    '/navigating/dashboard#cards'
+                                }
+                            >
+                                <Button className='text-sm' variant='link'>
+                                    [docs]
+                                </Button>
+                            </Link>
                         </h1>
                         <p className='max-w-4xl font-inter text-lg'>
                             A built-in Auxdibot system, allowing users to design

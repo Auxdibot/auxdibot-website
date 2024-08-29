@@ -27,9 +27,7 @@ export default function DashboardSettingsConfig({ id }: { id: string }) {
                     </div>
                     <div className='flex flex-col max-md:items-center max-md:text-center'>
                         <h1
-                            className={
-                                'font-raleway text-4xl font-bold text-white'
-                            }
+                            className={'header font-raleway text-4xl font-bold'}
                         >
                             Settings
                         </h1>

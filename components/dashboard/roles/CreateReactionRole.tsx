@@ -1,5 +1,4 @@
 'use client';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
@@ -35,6 +34,7 @@ import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
 import { testWebhook } from '@/lib/testWebhook';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 
 type ReactionRoleBody = {
     message?: string;
@@ -512,7 +512,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                         >
                             <BsEye /> Embed Preview
                         </h1>
-                        {embed ? <MockEmbed embed={embed} /> : ''}
+                        {embed ? <DiscordMessage embed={embed} /> : ''}
                     </span>
                 </form>
             </div>

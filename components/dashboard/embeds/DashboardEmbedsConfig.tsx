@@ -1,5 +1,4 @@
 'use client';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
 import {
@@ -19,6 +18,9 @@ import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 import { testWebhook } from '@/lib/testWebhook';
 import { Input } from '@/components/ui/input';
 import { Text } from 'lucide-react';
+import Link from 'next/link';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
+import { ModuleDisableOverlay } from '../ModuleDisableOverlay';
 
 type EmbedBody = {
     message: string;
@@ -88,198 +90,223 @@ export default function DashboardEmbedsConfig({ id }: { id: string }) {
 
     const embed = watch('embed');
     return (
-        <main className={'flex-grow bg-gray-950'}>
-            <div
-                className={
-                    'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
-                }
-            >
-                <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
-                    <div className='flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-800 bg-gradient-to-bl from-gray-500/40 to-gray-900/40 shadow transition-colors hover:bg-gray-500/40'>
-                        <Text size={'48'} />
-                    </div>
-                    <div className='flex flex-col max-md:items-center max-md:text-center'>
-                        <h1
-                            className={
-                                'font-raleway text-4xl font-bold text-white'
-                            }
-                        >
-                            Embeds
-                        </h1>
-                        <p className='max-w-4xl font-inter text-lg'>
-                            Allows users to create complex Discord Embeds and
-                            store them for use in other Auxdibot modules.
-                        </p>
-                    </div>
-                </span>
-                <span className={'flex w-full flex-row gap-10 max-xl:flex-col'}>
-                    <div
+        <>
+            <ModuleDisableOverlay id={id} module={'Messages'} />
+            <main className={'flex-grow bg-gray-950'}>
+                <div
+                    className={
+                        'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center md:px-5'
+                    }
+                >
+                    <span className='mb-5 mt-2 flex items-center gap-5 max-md:flex-col'>
+                        <div className='flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-800 bg-gradient-to-bl from-gray-500/40 to-gray-900/40 shadow transition-colors hover:bg-gray-500/40'>
+                            <Text size={'48'} />
+                        </div>
+                        <div className='flex flex-col max-md:items-center max-md:text-center'>
+                            <h1
+                                className={
+                                    'header flex items-center font-raleway text-4xl font-bold'
+                                }
+                            >
+                                Embeds
+                                <Link
+                                    href={
+                                        process.env
+                                            .NEXT_PUBLIC_DOCUMENTATION_LINK +
+                                        '/modules/embeds'
+                                    }
+                                >
+                                    <Button className='text-sm' variant='link'>
+                                        [docs]
+                                    </Button>
+                                </Link>
+                            </h1>
+                            <p className='max-w-4xl font-inter text-lg'>
+                                Allows users to create complex Discord Embeds
+                                and store them for use in other Auxdibot
+                                modules.
+                            </p>
+                        </div>
+                    </span>
+                    <span
                         className={
-                            'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                            'flex w-full flex-row gap-10 max-xl:flex-col'
                         }
                     >
-                        <h2
+                        <div
                             className={
-                                'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
                             }
                         >
-                            Create Embed
-                        </h2>
-                        <p
-                            className={
-                                'font-open-sans text-base italic text-gray-400 max-md:w-full max-md:text-center md:ml-4'
-                            }
-                        >
-                            <span className={'text-red-500'}>*</span> = required
-                            field
-                        </p>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className={'my-5 flex flex-col gap-2 md:m-5'}
-                        >
-                            <label
+                            <h2
                                 className={
-                                    'flex flex-row items-center gap-2 max-xl:flex-col'
+                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
                                 }
                             >
-                                <span
-                                    className={
-                                        'flex flex-row items-center gap-2 font-open-sans text-xl'
-                                    }
-                                >
-                                    <span className={'text-red-500'}>*</span>{' '}
-                                    <BsMegaphone /> Channel:
-                                </span>
-                                <Controller
-                                    name={'channel'}
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Channels
-                                            required
-                                            serverID={id}
-                                            value={field.value}
-                                            onChange={(e) =>
-                                                field.onChange(e.channel)
-                                            }
-                                        />
-                                    )}
-                                ></Controller>
-                            </label>
-                            <label
+                                Create Embed
+                            </h2>
+                            <p
                                 className={
-                                    'flex flex-row items-center gap-2 max-xl:flex-col'
+                                    'font-open-sans text-base italic text-gray-400 max-md:w-full max-md:text-center md:ml-4'
                                 }
                             >
-                                <span
-                                    className={
-                                        'flex flex-row items-center gap-2 font-open-sans text-xl'
-                                    }
-                                >
-                                    <BsRobot /> Webhook URL:
-                                </span>
-                                <Controller
-                                    name={`webhook_url`}
-                                    control={control}
-                                    render={({ field }) => {
-                                        const tested = testWebhook(
-                                            field.value ?? ''
-                                        );
-                                        return (
-                                            <span
-                                                className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}
-                                            >
-                                                <Input
-                                                    className={'w-64 text-sm'}
-                                                    value={field.value}
-                                                    onChange={(e) =>
-                                                        field.onChange(
-                                                            e.currentTarget
-                                                                .value
-                                                        )
-                                                    }
-                                                />
-                                            </span>
-                                        );
-                                    }}
-                                />
-                            </label>
-                            <section
-                                className={
-                                    'flex w-full flex-col gap-2 max-md:items-center'
-                                }
+                                <span className={'text-red-500'}>*</span> =
+                                required field
+                            </p>
+                            <form
+                                onSubmit={handleSubmit(onSubmit)}
+                                className={'my-5 flex flex-col gap-2 md:m-5'}
                             >
-                                <span
+                                <label
                                     className={
-                                        'flex flex-row items-center gap-2 font-open-sans text-xl'
+                                        'flex flex-row items-center gap-2 max-xl:flex-col'
                                     }
                                 >
-                                    <BsChatLeftDots /> Message:
-                                </span>
-                                <Controller
-                                    name={'message'}
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextareaMessage
-                                            maxLength={2000}
-                                            wrapperClass={'w-full'}
-                                            serverID={id}
-                                            {...field}
-                                        />
-                                    )}
-                                />
-                            </section>
+                                    <span
+                                        className={
+                                            'flex flex-row items-center gap-2 font-open-sans text-xl'
+                                        }
+                                    >
+                                        <span className={'text-red-500'}>
+                                            *
+                                        </span>{' '}
+                                        <BsMegaphone /> Channel:
+                                    </span>
+                                    <Controller
+                                        name={'channel'}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Channels
+                                                required
+                                                serverID={id}
+                                                value={field.value}
+                                                onChange={(e) =>
+                                                    field.onChange(e.channel)
+                                                }
+                                            />
+                                        )}
+                                    ></Controller>
+                                </label>
+                                <label
+                                    className={
+                                        'flex flex-row items-center gap-2 max-xl:flex-col'
+                                    }
+                                >
+                                    <span
+                                        className={
+                                            'flex flex-row items-center gap-2 font-open-sans text-xl'
+                                        }
+                                    >
+                                        <BsRobot /> Webhook URL:
+                                    </span>
+                                    <Controller
+                                        name={`webhook_url`}
+                                        control={control}
+                                        render={({ field }) => {
+                                            const tested = testWebhook(
+                                                field.value ?? ''
+                                            );
+                                            return (
+                                                <span
+                                                    className={`w-fit ${tested ? 'text-green-500' : (field.value?.length || 0) > 10 ? 'text-red-500' : ''}`}
+                                                >
+                                                    <Input
+                                                        className={
+                                                            'w-64 text-sm'
+                                                        }
+                                                        value={field.value}
+                                                        onChange={(e) =>
+                                                            field.onChange(
+                                                                e.currentTarget
+                                                                    .value
+                                                            )
+                                                        }
+                                                    />
+                                                </span>
+                                            );
+                                        }}
+                                    />
+                                </label>
+                                <section
+                                    className={
+                                        'flex w-full flex-col gap-2 max-md:items-center'
+                                    }
+                                >
+                                    <span
+                                        className={
+                                            'flex flex-row items-center gap-2 font-open-sans text-xl'
+                                        }
+                                    >
+                                        <BsChatLeftDots /> Message:
+                                    </span>
+                                    <Controller
+                                        name={'message'}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <TextareaMessage
+                                                maxLength={2000}
+                                                wrapperClass={'w-full'}
+                                                serverID={id}
+                                                {...field}
+                                            />
+                                        )}
+                                    />
+                                </section>
 
-                            <section
-                                className={
-                                    'flex items-center justify-between gap-2 max-md:flex-col'
-                                }
-                            >
-                                <EmbedDialog
-                                    serverID={id}
-                                    addField={append}
-                                    removeField={remove}
-                                    control={control}
-                                    register={register}
-                                />
-
-                                <Button
-                                    variant={'outline'}
-                                    className={`flex flex-row items-center gap-2`}
-                                    type='submit'
+                                <section
+                                    className={
+                                        'flex items-center justify-between gap-2 max-md:flex-col'
+                                    }
                                 >
-                                    <BsBroadcast /> Send Message
-                                </Button>
-                            </section>
-                        </form>
-                    </div>
-                    <div
-                        className={
-                            'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
-                        }
-                    >
-                        <h2
+                                    <EmbedDialog
+                                        serverID={id}
+                                        addField={append}
+                                        removeField={remove}
+                                        control={control}
+                                        register={register}
+                                    />
+
+                                    <Button
+                                        variant={'outline'}
+                                        className={`flex flex-row items-center gap-2`}
+                                        type='submit'
+                                    >
+                                        <BsBroadcast /> Send Message
+                                    </Button>
+                                </section>
+                            </form>
+                        </div>
+                        <div
                             className={
-                                'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
                             }
                         >
-                            Embed Preview
-                        </h2>
-                        <span
-                            className={'my-2 flex w-full justify-center md:p-5'}
-                        >
-                            {embed?.author?.name ||
-                            embed?.description ||
-                            embed?.title ||
-                            embed?.footer?.text ||
-                            (embed?.fields?.length || 0) > 0 ? (
-                                <MockEmbed embed={embed} />
-                            ) : (
-                                ''
-                            )}
-                        </span>
-                    </div>
-                </span>
-            </div>
-        </main>
+                            <h2
+                                className={
+                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                                }
+                            >
+                                Embed Preview
+                            </h2>
+                            <span
+                                className={
+                                    'my-2 flex w-full justify-center md:p-5'
+                                }
+                            >
+                                {embed?.author?.name ||
+                                embed?.description ||
+                                embed?.title ||
+                                embed?.footer?.text ||
+                                (embed?.fields?.length || 0) > 0 ? (
+                                    <DiscordMessage embed={embed} />
+                                ) : (
+                                    ''
+                                )}
+                            </span>
+                        </div>
+                    </span>
+                </div>
+            </main>
+        </>
     );
 }

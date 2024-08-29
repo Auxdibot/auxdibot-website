@@ -1,4 +1,3 @@
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { BsChatLeftDots, BsTrophy } from 'react-icons/bs';
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button/button';
 import { APIEmbed } from 'discord-api-types/v10';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueryClient } from 'react-query';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
 
 type FormBody = { embed: APIEmbed; content: string };
 export function LevelMessage({ server }: { server: LevelPayload }) {
@@ -97,7 +97,7 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                     level_message.embed?.title ||
                     level_message.embed?.footer?.text ||
                     (level_message.embed?.fields?.length || 0) > 0 ? (
-                        <MockEmbed embed={level_message.embed} />
+                        <DiscordMessage embed={level_message.embed} />
                     ) : (
                         ''
                     )}

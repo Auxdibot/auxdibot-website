@@ -27,6 +27,9 @@
         width: 1.5rem;
         height: fit-content;
     }
+    .contain-paint {
+        contain: paint;
+    }
     .hover-underline {
         @apply absolute -bottom-1 left-0 block h-[2px] w-full origin-right scale-0 transition-transform duration-300 hover:origin-left;
         content: '';
