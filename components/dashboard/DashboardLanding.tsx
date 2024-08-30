@@ -306,11 +306,12 @@ export default function DashboardLanding({ id }: { id: string }) {
                             </CardTitle>
                             <CardDescription>
                                 {' '}
-                                Receive feedback from your server members with
-                                Auxdibot&apos;s suggestion system. Members can
-                                submit suggestions and vote on them, and
-                                moderators can respond to them with a reason and
-                                status.
+                                Experience the future of server presentation
+                                with Auxdibot&apos;s cards feature. Cards are a
+                                way to present your server to the world in a
+                                unique way. Create a custom website for your
+                                server with a library of various fonts and
+                                backgrounds.
                             </CardDescription>
                         </CardContent>
                     </Card>
