@@ -4,5 +4,5 @@ export default <ShowdownExtension>{
     type: 'lang',
     regex: /!\[([^\]]+)\]\(([^)]+)\)/g,
 
-    replace: (match: string) => match.replace('!', ''),
+    replace: (match: string) => match.replace('!', '\\!'),
 };
