@@ -10,6 +10,10 @@ import Image from 'next/image';
 import MarkdownView from 'react-showdown';
 import Twemoji from '../emojis/twemoji';
 import emoji from '@/lib/parser/emoji';
+import { parsePlaceholders } from '@/lib/placeholders';
+import DOMPurify from 'dompurify';
+import time from '@/lib/parser/time';
+import nolinks from '@/lib/parser/nolinks';
 
 type DiscordMessageBody = {
     embed?: APIEmbed;
@@ -30,6 +34,7 @@ const CONTENT_OPTS = {
         blockquote,
         codeblock,
         emoji,
+        time,
     ],
     underline: true,
 };
@@ -46,9 +51,18 @@ const EMBED_OPTS = {
         blockquote,
         emoji,
         codeblock,
+        time,
     ],
     underline: true,
 };
+const EMBED_TITLE_OPTS = {
+    noHeaderId: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    extensions: [placeholders, spoiler, smallest, noimages, emoji, nolinks],
+    underline: true,
+};
+
 export function DiscordMessage({
     embed,
     content,
@@ -71,9 +85,14 @@ export function DiscordMessage({
                     className={`min-w-0 ${field.inline ? `col-span-inline-${totalInlines}` : 'col-span-field'}`}
                 >
                     <div className='text-left text-sm font-semibold leading-[1.375rem] text-white'>
-                        <span className='text-wrap block break-words'>
-                            {field.name}
-                        </span>
+                        <span
+                            className='text-wrap block break-words'
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(
+                                    parsePlaceholders(field.name)
+                                ),
+                            }}
+                        />
                     </div>
                     <div className='min-w-0 whitespace-pre-line text-left text-sm leading-[1.375rem]'>
                         <span className='text-wrap block break-words'>
@@ -175,7 +194,10 @@ export function DiscordMessage({
                                         {/* eslint-disable-next-line @next/next/no-img-element*/}
                                         {embed.author.icon_url && (
                                             <img
-                                                src={embed.author.icon_url}
+                                                src={parsePlaceholders(
+                                                    embed?.author?.icon_url,
+                                                    false
+                                                )}
                                                 alt=''
                                                 className='mr-2 h-6 w-6 rounded-[50%] object-contain indent-[-9999px] align-baseline'
                                             />
@@ -183,16 +205,53 @@ export function DiscordMessage({
                                         <div className='min-w-0'>
                                             {embed?.author?.url ? (
                                                 <a
-                                                    href={embed.author.url}
+                                                    href={parsePlaceholders(
+                                                        embed?.author?.url,
+                                                        false
+                                                    )}
                                                     target='_blank'
                                                     role='button'
                                                     className={`text-wrap block cursor-pointer whitespace-pre-line break-words text-left text-sm font-semibold leading-[1.375rem] text-white hover:underline`}
                                                 >
-                                                    {embed.author.name}
+                                                    <MarkdownView
+                                                        className='flex flex-col gap-2'
+                                                        markdown={
+                                                            embed?.author?.name
+                                                        }
+                                                        options={
+                                                            EMBED_TITLE_OPTS
+                                                        }
+                                                        components={{
+                                                            Twemoji: ({
+                                                                children,
+                                                            }) => (
+                                                                <Twemoji className='inline'>
+                                                                    {children?.toString()}
+                                                                </Twemoji>
+                                                            ),
+                                                        }}
+                                                    />
                                                 </a>
                                             ) : (
                                                 <span className='text-wrap block whitespace-break-spaces break-words text-left text-sm font-semibold leading-[1.375rem] text-white'>
-                                                    {embed.author.name}
+                                                    <MarkdownView
+                                                        className='flex flex-col gap-2'
+                                                        markdown={
+                                                            embed?.author?.name
+                                                        }
+                                                        options={
+                                                            EMBED_TITLE_OPTS
+                                                        }
+                                                        components={{
+                                                            Twemoji: ({
+                                                                children,
+                                                            }) => (
+                                                                <Twemoji className='inline'>
+                                                                    {children?.toString()}
+                                                                </Twemoji>
+                                                            ),
+                                                        }}
+                                                    />
                                                 </span>
                                             )}
                                         </div>
@@ -207,15 +266,44 @@ export function DiscordMessage({
                                                 className={
                                                     'text-discord-link hover:underline'
                                                 }
-                                                href={embed.url}
+                                                href={parsePlaceholders(
+                                                    embed?.url,
+                                                    false
+                                                )}
                                                 target='_blank'
                                                 role='button'
                                             >
-                                                {embed.title}
+                                                <MarkdownView
+                                                    className='flex flex-col gap-2'
+                                                    markdown={embed?.title}
+                                                    options={EMBED_TITLE_OPTS}
+                                                    components={{
+                                                        Twemoji: ({
+                                                            children,
+                                                        }) => (
+                                                            <Twemoji className='inline'>
+                                                                {children?.toString()}
+                                                            </Twemoji>
+                                                        ),
+                                                    }}
+                                                />
                                             </a>
                                         ) : (
                                             <span className='text-wrap block break-words text-white'>
-                                                {embed.title}
+                                                <MarkdownView
+                                                    className='flex flex-col gap-2'
+                                                    markdown={embed?.title}
+                                                    options={EMBED_TITLE_OPTS}
+                                                    components={{
+                                                        Twemoji: ({
+                                                            children,
+                                                        }) => (
+                                                            <Twemoji className='inline'>
+                                                                {children?.toString()}
+                                                            </Twemoji>
+                                                        ),
+                                                    }}
+                                                />
                                             </span>
                                         )}
                                     </div>
@@ -248,7 +336,13 @@ export function DiscordMessage({
                                         className={`mt-4 min-w-0 ${embed?.thumbnail?.url ? 'col-span-image' : 'col-span-1'} contain-paint block rounded-[4px] object-fill`}
                                     >
                                         {/* eslint-disable-next-line @next/next/no-img-element*/}
-                                        <img src={embed?.image?.url} alt='' />
+                                        <img
+                                            src={parsePlaceholders(
+                                                embed?.image?.url,
+                                                false
+                                            )}
+                                            alt=''
+                                        />
                                     </div>
                                 )}
                                 {embed?.thumbnail?.url && (
@@ -257,7 +351,10 @@ export function DiscordMessage({
                                     >
                                         {/* eslint-disable-next-line @next/next/no-img-element*/}
                                         <img
-                                            src={embed?.thumbnail?.url}
+                                            src={parsePlaceholders(
+                                                embed?.thumbnail?.url,
+                                                false
+                                            )}
                                             alt=''
                                             className='overflow-hidden rounded-[3px] object-contain'
                                         />
@@ -268,14 +365,32 @@ export function DiscordMessage({
                                         {/* eslint-disable-next-line @next/next/no-img-element*/}
                                         {embed.footer.icon_url && (
                                             <img
-                                                src={embed.footer.icon_url}
+                                                src={parsePlaceholders(
+                                                    embed?.footer?.icon_url,
+                                                    false
+                                                )}
                                                 alt=''
                                                 className='mr-2 h-6 w-6 rounded-[50%] object-contain indent-[-9999px] align-baseline'
                                             />
                                         )}
                                         <div className='min-w-0'>
                                             <span className='text-wrap block whitespace-break-spaces break-words text-left text-sm font-semibold leading-[1.375rem] text-white'>
-                                                {embed.footer.text}
+                                                <MarkdownView
+                                                    className='flex flex-col gap-2'
+                                                    markdown={
+                                                        embed?.footer?.text
+                                                    }
+                                                    options={EMBED_TITLE_OPTS}
+                                                    components={{
+                                                        Twemoji: ({
+                                                            children,
+                                                        }) => (
+                                                            <Twemoji className='inline'>
+                                                                {children?.toString()}
+                                                            </Twemoji>
+                                                        ),
+                                                    }}
+                                                />
                                             </span>
                                         </div>
                                     </div>
