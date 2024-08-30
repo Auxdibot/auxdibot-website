@@ -3,10 +3,10 @@
 import Error from '@/app/error';
 import DiscordGuild from '@/lib/types/DiscordGuild';
 import PageLoading from '../PageLoading';
-import Button from '../ui/button/primary-button';
-import { BsBook } from 'react-icons/bs';
 import useSession from '@/lib/hooks/useSession';
 import { Server } from './Server';
+import { HeaderButton } from '../ui/header-button';
+import { Book } from 'lucide-react';
 
 export default function Servers() {
     const { user, status } = useSession();
@@ -28,12 +28,16 @@ export default function Servers() {
                 <br />
                 You can view the Auxdibot documentation below.
             </p>
-            <Button
-                icon={<BsBook />}
-                text={'Documentation'}
-                href={'/docs'}
-                className={'my-4'}
-            />
+            <HeaderButton
+                className='mx-auto my-2 flex w-fit text-xl font-bold'
+                target='_blank'
+                href={process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}
+            >
+                <span className='flex items-center gap-2'>
+                    <Book /> Documentation
+                </span>
+            </HeaderButton>
+
             <div
                 className={
                     'auto-cols-1 auto-rows-1 mx-auto grid grid-flow-row grid-cols-3 gap-5 px-2 max-md:grid-cols-1'
