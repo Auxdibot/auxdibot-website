@@ -1,20 +1,29 @@
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { BsChatLeftDots, BsTrophy } from 'react-icons/bs';
+import { BsTrophy } from 'react-icons/bs';
 import { LevelPayload } from '../DashboardLevelsConfig';
 
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 import { Button } from '@/components/ui/button/button';
 import { APIEmbed } from 'discord-api-types/v10';
 import { useToast } from '@/components/ui/use-toast';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
+import { MessageCircleIcon } from 'lucide-react';
+import { StoredEmbeds } from '@/components/ui/messages/stored-embeds';
+import { StoredEmbed } from '@/lib/types/StoredEmbed';
 
 type FormBody = { embed: APIEmbed; content: string };
 export function LevelMessage({ server }: { server: LevelPayload }) {
     let level_message = Object.create(server.level_message);
-    const { register, handleSubmit, reset, control, watch } =
-        useForm<FormBody>();
+    const { register, handleSubmit, reset, control, watch, setValue } =
+        useForm<FormBody>({
+            defaultValues: {
+                embed: server?.level_message?.embed,
+                content: server?.level_message?.content,
+            },
+        });
     const { append, remove } = useFieldArray({
         name: 'embed.fields',
         control,
@@ -24,6 +33,15 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
     });
     const queryClient = useQueryClient();
     const { toast } = useToast();
+    const { data: embeds } = useQuery<
+        { data: { stored_embeds: StoredEmbed[] } } | undefined
+    >(
+        ['data_embeds', server.serverID],
+        async () =>
+            await fetch(`/bot/v1/servers/${server.serverID}/embeds`)
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
     function onSubmit(data: FormBody) {
         let body = new URLSearchParams();
         body.append('content', data.content || '');
@@ -75,7 +93,7 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
     return (
         <div
             className={
-                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                'h-fit w-full flex-1 flex-shrink-0 flex-grow rounded-2xl border-2 border-gray-800 px-2 shadow-2xl max-md:mx-auto'
             }
         >
             <h2
@@ -85,24 +103,24 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
             >
                 Embed Preview
             </h2>
-            <div className='mx-2 rounded-lg bg-discord-bg/50 px-2 py-2'>
-                {level_message.content && (
-                    <span className={'my-2 flex w-full font-roboto md:p-5'}>
-                        {level_message.content}
-                    </span>
-                )}
-                <span className={'flex w-full !pt-0 md:p-5'}>
-                    {level_message.embed?.author?.name ||
-                    level_message.embed?.description ||
-                    level_message.embed?.title ||
-                    level_message.embed?.footer?.text ||
-                    (level_message.embed?.fields?.length || 0) > 0 ? (
-                        <DiscordMessage embed={level_message.embed} />
-                    ) : (
-                        ''
-                    )}
-                </span>
-            </div>
+            <DiscordMessage
+                background
+                serverData={{
+                    placeholderContext: [
+                        'member',
+                        'level',
+                        'member_join',
+                        'member_punishments',
+                        'member_levels',
+                    ],
+                }}
+                content={
+                    isEmbedEmpty(embed) && !content
+                        ? `This is the Embed preview for the Levelup Message you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                        : content
+                }
+                embed={embed}
+            />
             <h3 className='secondary mt-5 text-center text-xl'>
                 Update Level Embed
             </h3>
@@ -117,27 +135,56 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                 className={'mb-5 flex flex-col gap-2 md:m-5'}
             >
                 <section
-                    className={'flex w-full flex-col gap-2 max-md:items-center'}
+                    className={
+                        'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
+                    }
                 >
                     <span
                         className={
-                            'flex flex-row items-center gap-2 font-open-sans text-xl'
+                            'flex w-full flex-row items-center gap-2 max-md:flex-col'
                         }
                     >
-                        <BsChatLeftDots /> Content:
+                        <label className={'flex flex-row items-center gap-1'}>
+                            <MessageCircleIcon /> Message Content:
+                        </label>
+                        <span className='ml-auto max-md:mx-auto'>
+                            <StoredEmbeds
+                                id={server.serverID}
+                                value={''}
+                                onValueChange={(e) => {
+                                    const message =
+                                        embeds?.data?.stored_embeds?.find(
+                                            (i) => i.id === e
+                                        );
+                                    if (!message) return;
+                                    setValue('embed', message.embed ?? {});
+                                    setValue('content', message.content ?? '');
+                                }}
+                            />
+                        </span>
                     </span>
+
                     <Controller
                         name={'content'}
                         control={control}
-                        render={({ field }) => (
-                            <TextareaMessage
-                                maxLength={2000}
-                                wrapperClass={'w-full'}
-                                placeholderContext={['level', 'member']}
-                                serverID={server.serverID}
-                                {...field}
-                            />
-                        )}
+                        render={({ field }) => {
+                            return (
+                                <TextareaMessage
+                                    serverID={server.serverID}
+                                    wrapperClass={'w-full'}
+                                    placeholderContext={[
+                                        'member',
+                                        'level',
+                                        'member_join',
+                                        'member_punishments',
+                                        'member_levels',
+                                    ]}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    maxLength={2000}
+                                />
+                            );
+                        }}
                     />
                 </section>
 
@@ -151,7 +198,13 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                         addField={append}
                         removeField={remove}
                         control={control}
-                        placeholderContext={['level', 'member']}
+                        placeholderContext={[
+                            'level',
+                            'member',
+                            'member_join',
+                            'member_punishments',
+                            'member_levels',
+                        ]}
                         register={register}
                     />
 

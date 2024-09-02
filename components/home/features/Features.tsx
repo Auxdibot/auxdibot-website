@@ -4,8 +4,7 @@ import {
     BellRing,
     Clock,
     Hand,
-    Handshake,
-    Image,
+    ImageIcon,
     Medal,
     MessageCircle,
     MessageCircleQuestionIcon,
@@ -43,30 +42,6 @@ export function Features() {
                         punishment history, a variety of moderation commands, a
                         reporting tool, and more. Moderators have a tool for
                         every situation with Auxdibot&apos;s moderation suite.
-                    </p>
-                </div>
-                <div className='flex cursor-pointer flex-col rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 p-4 shadow transition-colors hover:bg-zinc-500/5'>
-                    <h2 className='flex items-center gap-2 font-raleway text-2xl font-bold text-zinc-200'>
-                        <MessageCircle />{' '}
-                        <span className='flex items-center'>
-                            Embeds{' '}
-                            <Link
-                                href={
-                                    process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
-                                    '/modules/embeds'
-                                }
-                            >
-                                <Button className='text-sm' variant='link'>
-                                    [docs]
-                                </Button>
-                            </Link>
-                        </span>
-                    </h2>
-                    <p className='font-inter text-sm text-zinc-200'>
-                        Create fleshed out custom Discord Embeds with
-                        Auxdibot&apos;s embeds feature. Featuring an easy-to-use
-                        editor, you can create embeds with a variety of fields
-                        and colors.
                     </p>
                 </div>
                 <div className='flex cursor-pointer flex-col rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 p-4 shadow transition-colors hover:bg-zinc-500/5'>
@@ -238,7 +213,7 @@ export function Features() {
                 <div className='flex cursor-pointer flex-col rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 p-4 shadow transition-colors hover:bg-zinc-500/5'>
                     {/*eslint-disable-next-line jsx-a11y/alt-text*/}
                     <h2 className='flex items-center gap-2 font-raleway text-2xl font-bold text-zinc-200'>
-                        <Image />{' '}
+                        <ImageIcon />{' '}
                         <span className='flex items-center'>
                             Cards{' '}
                             <Link
@@ -261,12 +236,39 @@ export function Features() {
                         various fonts and backgrounds.
                     </p>
                 </div>
+                <div className='flex cursor-pointer flex-col rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-300/5 to-zinc-900/5 p-4 shadow transition-colors hover:bg-zinc-500/5'>
+                    <h2 className='flex items-center gap-2 font-raleway text-2xl font-bold text-zinc-200'>
+                        <Medal />{' '}
+                        <span className='flex items-center'>
+                            Levels{' '}
+                            <span className='ml-2 rounded-md border px-1 text-base'>
+                                UPDATED
+                            </span>
+                            <Link
+                                href={
+                                    process.env.NEXT_PUBLIC_DOCUMENTATION_LINK +
+                                    '/modules/levels'
+                                }
+                            >
+                                <Button className='text-sm' variant='link'>
+                                    [docs]
+                                </Button>
+                            </Link>
+                        </span>
+                    </h2>
+                    <p className='font-inter text-sm text-zinc-200'>
+                        Incentivize your members to chat on your server with
+                        Auxdibot&apos;s levels feature. Members can earn
+                        experience, level up, and gain role rewards by chatting
+                        on a server with Auxdibot&apos;s Levels module enabled.
+                    </p>
+                </div>
                 <div className='col-span-2 flex cursor-pointer rounded-lg border-2 border-zinc-800 bg-gradient-to-bl from-zinc-400/20 to-zinc-900/20 p-4 shadow max-sm:flex-col max-sm:gap-2'>
                     <div className='flex-1'>
                         <h2 className='flex items-center gap-2 font-raleway text-2xl font-bold text-zinc-200'>
-                            <Medal />{' '}
+                            <MessageCircle />{' '}
                             <span className='flex items-center'>
-                                Levels{' '}
+                                Embeds{' '}
                                 <span className='ml-2 rounded-md border px-1 text-base'>
                                     UPDATED
                                 </span>
@@ -274,7 +276,7 @@ export function Features() {
                                     href={
                                         process.env
                                             .NEXT_PUBLIC_DOCUMENTATION_LINK +
-                                        '/modules/levels'
+                                        '/modules/embeds'
                                     }
                                 >
                                     <Button className='text-sm' variant='link'>
@@ -284,11 +286,10 @@ export function Features() {
                             </span>
                         </h2>
                         <p className='font-inter text-sm text-zinc-200'>
-                            Incentivize your members to chat on your server with
-                            Auxdibot&apos;s levels feature. Members can earn
-                            experience, level up, and gain role rewards by
-                            chatting on a server with Auxdibot&apos;s Levels
-                            module enabled.
+                            Create fleshed out custom Discord Embeds with
+                            Auxdibot&apos;s embeds feature. Featuring an
+                            easy-to-use editor, you can create embeds with a
+                            variety of fields and colors.
                         </p>
                     </div>
                     <div className='flex flex-1 flex-col sm:items-center'>
@@ -296,10 +297,10 @@ export function Features() {
                             New Features
                         </h2>
                         <ul className='font-inter text-zinc-200'>
-                            <li>XP Multipliers</li>
-                            <li>Leaderboard Website</li>
-                            <li>Level Messages</li>
-                            <li>Randomized XP</li>
+                            <li>Embed Builder</li>
+                            <li>Stored Embeds</li>
+                            <li>Restructured Commands</li>
+                            <li>Improved Editing</li>
                         </ul>
                     </div>
                 </div>

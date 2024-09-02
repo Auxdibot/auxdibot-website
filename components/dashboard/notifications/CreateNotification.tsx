@@ -1,10 +1,9 @@
 'use client';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import {
     BsBell,
-    BsChatLeftDots,
     BsEye,
     BsLink,
     BsMegaphone,
@@ -30,6 +29,10 @@ import { useToast } from '@/components/ui/use-toast';
 import { Separator } from '@/components/ui/separator';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
+import { MessageCircleIcon } from 'lucide-react';
+import { StoredEmbeds } from '@/components/ui/messages/stored-embeds';
+import { StoredEmbed } from '@/lib/types/StoredEmbed';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
 type NotificationBody = {
     type: string;
     topic: string;
@@ -54,14 +57,12 @@ const NotificationSelect = {
         </>
     ),
 };
-const FeedPlaceholders: { [key: string]: string } = {
-    '{%feed_link%}': '[[ LINK TO CONTENT ]]',
-    '{%feed_author%}': '[[ CONTENT AUTHOR ]]',
-    '{%feed_title%}': '[[ CONTENT TITLE ]]',
-    '{%feed_content%}': '[[ FEED CONTENT ]]',
-};
-export default function CreateNotification({ serverID }: { serverID: string }) {
-    const { handleSubmit, reset, control, register, watch } =
+export default function CreateNotification({
+    serverID: id,
+}: {
+    serverID: string;
+}) {
+    const { handleSubmit, reset, control, register, watch, setValue } =
         useForm<NotificationBody>({
             defaultValues: {
                 type: 'YOUTUBE',
@@ -77,8 +78,18 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         rules: { maxLength: 25 },
     });
     const queryClient = useQueryClient();
+    const { data: embeds } = useQuery<
+        { data: { stored_embeds: StoredEmbed[] } } | undefined
+    >(
+        ['data_embeds', id],
+        async () =>
+            await fetch(`/bot/v1/servers/${id}/embeds`)
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
     const embed = watch('embed');
     const type = watch('type');
+    const content = watch('message');
     const { toast } = useToast();
     function onSubmit(data: NotificationBody) {
         let body = new URLSearchParams();
@@ -95,7 +106,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
         ) {
             body.append('embed', JSON.stringify(data.embed));
         }
-        fetch(`/bot/v1/servers/${serverID}/notifications`, {
+        fetch(`/bot/v1/servers/${id}/notifications`, {
             method: 'POST',
             body,
         })
@@ -109,7 +120,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
                     });
                     return;
                 }
-                queryClient.invalidateQueries(['data_notifications', serverID]);
+                queryClient.invalidateQueries(['data_notifications', id]);
                 toast({
                     title: 'Notification Created',
                     description: `Notification was created.`,
@@ -162,7 +173,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
                             control={control}
                             render={({ field }) => (
                                 <Channels
-                                    serverID={serverID}
+                                    serverID={id}
                                     value={field.value}
                                     onChange={(e) => field.onChange(e.channel)}
                                 />
@@ -254,25 +265,55 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
 
                     <section
                         className={
-                            'flex w-full flex-col gap-2 font-open-sans text-xl max-md:items-center'
+                            'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
                         }
                     >
-                        <span className={'flex flex-row items-center gap-2'}>
-                            <BsChatLeftDots /> Message:
+                        <span
+                            className={
+                                'flex w-full flex-row items-center gap-2 max-md:flex-col'
+                            }
+                        >
+                            <label
+                                className={'flex flex-row items-center gap-1'}
+                            >
+                                <MessageCircleIcon /> Message Content:
+                            </label>
+                            <span className='ml-auto max-md:mx-auto'>
+                                <StoredEmbeds
+                                    id={id}
+                                    value={''}
+                                    onValueChange={(e) => {
+                                        const message =
+                                            embeds?.data?.stored_embeds?.find(
+                                                (i) => i.id === e
+                                            );
+                                        if (!message) return;
+                                        setValue('embed', message.embed ?? {});
+                                        setValue(
+                                            'message',
+                                            message.content ?? ''
+                                        );
+                                    }}
+                                />
+                            </span>
                         </span>
+
                         <Controller
                             name={'message'}
                             control={control}
-                            render={({ field }) => (
-                                <TextareaMessage
-                                    placeholderContext={['feed']}
-                                    wrapperClass={'w-full'}
-                                    maxLength={2000}
-                                    serverID={serverID}
-                                    {...field}
-                                />
-                            )}
-                        ></Controller>
+                            render={({ field }) => {
+                                return (
+                                    <TextareaMessage
+                                        serverID={id}
+                                        placeholderContext={['feed']}
+                                        wrapperClass={'w-full'}
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        maxLength={2000}
+                                    />
+                                );
+                            }}
+                        />
                     </section>
                     <section
                         className={
@@ -286,7 +327,7 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
                         >
                             <EmbedDialog
                                 placeholderContext={['feed']}
-                                serverID={serverID}
+                                serverID={id}
                                 addField={append}
                                 register={register}
                                 removeField={remove}
@@ -312,16 +353,13 @@ export default function CreateNotification({ serverID }: { serverID: string }) {
                             </h1>
                             {embed ? (
                                 <DiscordMessage
-                                    embed={JSON.parse(
-                                        Object.keys(FeedPlaceholders).reduce(
-                                            (acc: string, i) =>
-                                                acc.replace(
-                                                    i,
-                                                    FeedPlaceholders[i]
-                                                ),
-                                            JSON.stringify(embed)
-                                        )
-                                    )}
+                                    embed={embed}
+                                    content={
+                                        isEmbedEmpty(embed) && !content
+                                            ? `This is the Embed preview for the Notification you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                            : content
+                                    }
+                                    background
                                 />
                             ) : (
                                 ''

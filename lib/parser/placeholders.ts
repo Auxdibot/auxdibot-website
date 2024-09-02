@@ -1,20 +1,22 @@
 import { TemplatePlaceholderData } from '@/lib/constants/TemplatePlaceholderData';
 import { ShowdownExtension } from 'showdown';
 
-export default <ShowdownExtension>{
-    type: 'lang',
+const placeholders = (placeholders?: string[]) =>
+    <ShowdownExtension>{
+        type: 'lang',
 
-    regex: /(%[A-Za-z0-9_\\]+%|\{%[A-Za-z0-9_\\]+%\})/g,
-    replace: (_: string, match: string) => {
-        const placeholder = match
-            .replaceAll('\\', '')
-            .replaceAll(/({%|%}|%)/g, '')
-            .toLowerCase();
+        regex: /(%[A-Za-z0-9_\\]+%|\{%[A-Za-z0-9_\\]+%\})/g,
+        replace: (_: string, match: string) => {
+            const placeholder = match
+                .replaceAll('\\', '')
+                .replaceAll(/({%|%}|%)/g, '')
+                .toUpperCase();
 
-        const data =
-            TemplatePlaceholderData[
-                placeholder as keyof typeof TemplatePlaceholderData
-            ];
-        return `<span class="${data ? 'text-green-500' : 'text-red-500'}">${data ?? 'Invalid Placeholder'}</span>`;
-    },
-};
+            const data =
+                TemplatePlaceholderData[
+                    placeholder as keyof typeof TemplatePlaceholderData
+                ];
+            return `<span class="${data ? (Array(...(placeholders ?? [])).includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (placeholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`;
+        },
+    };
+export default placeholders;
