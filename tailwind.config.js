@@ -55,6 +55,10 @@ module.exports = {
                 'discord-quote': '#4f545c',
                 'discord-code': '#2b2d31',
                 'discord-code-border': '#1e1f22',
+                'discord-mention': '#5865f24d',
+                'discord-mention-text': '#e3e7f8',
+                'discord-highlight': '#5865f2',
+                'discord-highlight-text': '#e3e7f8'
             },
             gridTemplateColumns: {
                 thumbnail: 'auto min-content',
@@ -121,7 +125,9 @@ module.exports = {
         'bg-discord-quote',
         'pl-3',
         'border-discord-code-border',
-        'text-yellow-500'
+        'text-yellow-500',
+        'bg-discord-code',
+        'discord-mention'
     ],
     plugins: [
         require('@tailwindcss/typography'),

@@ -354,6 +354,10 @@ export default function CreateNotification({
                             {embed ? (
                                 <DiscordMessage
                                     embed={embed}
+                                    serverData={{
+                                        serverID: id,
+                                        placeholderContext: ['feed'],
+                                    }}
                                     content={
                                         isEmbedEmpty(embed) && !content
                                             ? `This is the Embed preview for the Notification you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`

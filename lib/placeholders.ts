@@ -20,7 +20,7 @@ export function parsePlaceholders(
                         placeholder as keyof typeof TemplatePlaceholderData
                     ];
                 return html
-                    ? `<span class="${data ? (usablePlaceholders?.includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (usablePlaceholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`
+                    ? `<span class="${data ? (Array(...(usablePlaceholders ?? [])).includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (usablePlaceholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`
                     : data
                       ? usablePlaceholders?.includes(placeholder)
                           ? data

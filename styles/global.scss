@@ -103,6 +103,10 @@
             }
         }
     }
+
+    .discord-mention {
+        @apply bg-discord-mention text-discord-mention-text hover:bg-discord-highlight hover:text-discord-highlight-text rounded-[4px] px-0.5;
+    }
 }
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {
