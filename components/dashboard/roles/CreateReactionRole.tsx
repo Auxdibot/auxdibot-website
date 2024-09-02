@@ -1,9 +1,8 @@
 'use client';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
 import {
-    BsChatLeftDots,
     BsEye,
     BsMegaphone,
     BsPerson,
@@ -35,6 +34,10 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
 import { testWebhook } from '@/lib/testWebhook';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
+import { MessageCircleIcon } from 'lucide-react';
+import { StoredEmbed } from '@/lib/types/StoredEmbed';
+import { StoredEmbeds } from '@/components/ui/messages/stored-embeds';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
 
 type ReactionRoleBody = {
     message?: string;
@@ -46,7 +49,11 @@ type ReactionRoleBody = {
     messageID?: string;
     type: ReactionRoleTypes;
 };
-export default function CreateReactionRole({ serverID }: { serverID: string }) {
+export default function CreateReactionRole({
+    serverID: id,
+}: {
+    serverID: string;
+}) {
     const { register, watch, control, handleSubmit, reset, setValue } =
         useForm<ReactionRoleBody>({
             defaultValues: {
@@ -80,7 +87,15 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
 
     const { toast } = useToast();
     const queryClient = useQueryClient();
-
+    const { data: embeds } = useQuery<
+        { data: { stored_embeds: StoredEmbed[] } } | undefined
+    >(
+        ['data_embeds', id],
+        async () =>
+            await fetch(`/bot/v1/servers/${id}/embeds`)
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
     function onSubmit(data: ReactionRoleBody) {
         let body = new URLSearchParams();
         body.append('channel', data.channel ?? '');
@@ -108,7 +123,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
         ) {
             body.append('embed', JSON.stringify(data.embed));
         }
-        fetch(`/bot/v1/servers/${serverID}/reaction_roles`, {
+        fetch(`/bot/v1/servers/${id}/reaction_roles`, {
             method: 'POST',
             body,
         })
@@ -131,17 +146,15 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                 });
 
                 removeReaction(fields.length);
-                queryClient.invalidateQueries([
-                    'data_reaction_roles',
-                    serverID,
-                ]);
+                queryClient.invalidateQueries(['data_reaction_roles', id]);
                 removeReaction(reactions.length);
                 reset({ channel: undefined });
             })
             .catch(() => {});
     }
     const embed = watch('embed'),
-        messageID = watch('messageID');
+        messageID = watch('messageID'),
+        content = watch('message');
     return (
         <>
             <div
@@ -188,7 +201,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                                     render={({ field }) => (
                                         <Channels
                                             required
-                                            serverID={serverID}
+                                            serverID={id}
                                             value={field.value}
                                             onChange={(e) =>
                                                 field.onChange(e.channel)
@@ -339,7 +352,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                                     render={({ field }) => {
                                         return (
                                             <EmojiPicker
-                                                serverID={serverID}
+                                                serverID={id}
                                                 value={field.value}
                                                 onChange={(e) =>
                                                     field.onChange(e.emoji)
@@ -354,7 +367,7 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                                     render={({ field }) => {
                                         return (
                                             <Roles
-                                                serverID={serverID}
+                                                serverID={id}
                                                 onChange={(e) =>
                                                     field.onChange(e.role)
                                                 }
@@ -427,25 +440,56 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                                     }}
                                 />
                             </label>
-                            <label
+                            <section
                                 className={
-                                    'flex flex-col gap-2 font-lato text-xl max-md:items-center'
+                                    'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
                                 }
                             >
                                 <span
                                     className={
-                                        'flex flex-row items-center gap-2'
+                                        'flex w-full flex-row items-center gap-2 max-md:flex-col'
                                     }
                                 >
-                                    <BsChatLeftDots /> Message:
+                                    <label
+                                        className={
+                                            'flex flex-row items-center gap-1'
+                                        }
+                                    >
+                                        <MessageCircleIcon /> Message Content:
+                                    </label>
+                                    <span className='ml-auto max-md:mx-auto'>
+                                        <StoredEmbeds
+                                            id={id}
+                                            value={''}
+                                            onValueChange={(e) => {
+                                                const message =
+                                                    embeds?.data?.stored_embeds?.find(
+                                                        (i) => i.id === e
+                                                    );
+                                                if (!message) return;
+                                                setValue(
+                                                    'embed',
+                                                    message.embed ?? {}
+                                                );
+                                                setValue(
+                                                    'message',
+                                                    message.content ?? ''
+                                                );
+                                            }}
+                                        />
+                                    </span>
                                 </span>
+
                                 <Controller
                                     name={'message'}
                                     control={control}
                                     render={({ field }) => {
                                         return (
                                             <TextareaMessage
-                                                serverID={serverID}
+                                                serverID={id}
+                                                placeholderContext={[
+                                                    'reaction_role',
+                                                ]}
                                                 wrapperClass={'w-full'}
                                                 value={field.value}
                                                 onChange={field.onChange}
@@ -454,14 +498,14 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                                         );
                                     }}
                                 />
-                            </label>
+                            </section>
                             <section
                                 className={
                                     'flex items-center justify-between gap-2 max-md:flex-col'
                                 }
                             >
                                 <EmbedDialog
-                                    serverID={serverID}
+                                    serverID={id}
                                     control={control}
                                     addField={append}
                                     register={register}
@@ -512,7 +556,19 @@ export default function CreateReactionRole({ serverID }: { serverID: string }) {
                         >
                             <BsEye /> Embed Preview
                         </h1>
-                        {embed ? <DiscordMessage embed={embed} /> : ''}
+                        {embed ? (
+                            <DiscordMessage
+                                embed={embed}
+                                content={
+                                    isEmbedEmpty(embed) && !content
+                                        ? `This is the Embed preview for the Reaction Role you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                        : content
+                                }
+                                background
+                            />
+                        ) : (
+                            ''
+                        )}
                     </span>
                 </form>
             </div>

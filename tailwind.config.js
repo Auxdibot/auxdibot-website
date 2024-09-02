@@ -120,7 +120,8 @@ module.exports = {
         'w-1',
         'bg-discord-quote',
         'pl-3',
-        'border-discord-code-border'
+        'border-discord-code-border',
+        'text-yellow-500'
     ],
     plugins: [
         require('@tailwindcss/typography'),

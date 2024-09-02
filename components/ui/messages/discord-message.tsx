@@ -14,11 +14,17 @@ import { parsePlaceholders } from '@/lib/placeholders';
 import DOMPurify from 'dompurify';
 import time from '@/lib/parser/time';
 import nolinks from '@/lib/parser/nolinks';
+import { useQuery } from 'react-query';
+import { TemplatePlaceholderData } from '@/lib/constants/TemplatePlaceholderData';
 
 type DiscordMessageBody = {
     embed?: APIEmbed;
     content?: string;
     background?: boolean;
+    serverData?: {
+        serverID?: string;
+        placeholderContext?: string[] | string;
+    };
 };
 
 const CONTENT_OPTS = {
@@ -27,7 +33,6 @@ const CONTENT_OPTS = {
     strikethrough: true,
     ghCodeBlocks: true,
     extensions: [
-        placeholders,
         spoiler,
         smallest,
         noimages,
@@ -44,7 +49,6 @@ const EMBED_OPTS = {
     strikethrough: true,
     ghCodeBlocks: true,
     extensions: [
-        placeholders,
         spoiler,
         smallest,
         noimages,
@@ -67,7 +71,24 @@ export function DiscordMessage({
     embed,
     content,
     background,
+    serverData,
 }: DiscordMessageBody) {
+    console.log(serverData?.placeholderContext);
+    const { data: placeholdersRes } = useQuery<{
+        placeholders: {
+            [k: string]: { context: string | null; description?: string };
+        };
+    }>(
+        ['placeholders', serverData?.placeholderContext ?? '*'],
+        async () =>
+            await fetch(
+                `/bot/v1/placeholders?${Array.isArray(serverData?.placeholderContext) ? serverData.placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${serverData?.placeholderContext ?? '*'}`}`
+            )
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
+    console.log('res');
+    console.log(placeholdersRes);
     function generateFields() {
         if (!embed?.fields) return '';
         let totalInlines = 0;
@@ -89,7 +110,14 @@ export function DiscordMessage({
                             className='text-wrap block break-words'
                             dangerouslySetInnerHTML={{
                                 __html: DOMPurify.sanitize(
-                                    parsePlaceholders(field.name)
+                                    parsePlaceholders(
+                                        field.name,
+                                        false,
+                                        Object.keys(
+                                            placeholdersRes?.placeholders ??
+                                                TemplatePlaceholderData
+                                        )
+                                    )
                                 ),
                             }}
                         />
@@ -99,7 +127,17 @@ export function DiscordMessage({
                             <MarkdownView
                                 className='flex flex-col gap-2'
                                 markdown={field.value}
-                                options={EMBED_OPTS}
+                                options={{
+                                    ...EMBED_OPTS,
+                                    extensions: EMBED_OPTS.extensions.concat(
+                                        placeholders(
+                                            Object.keys(
+                                                placeholdersRes?.placeholders ??
+                                                    TemplatePlaceholderData
+                                            )
+                                        )
+                                    ),
+                                }}
                                 components={{
                                     Twemoji: ({ children }) => (
                                         <Twemoji className='inline'>
@@ -164,7 +202,17 @@ export function DiscordMessage({
                             <MarkdownView
                                 className='flex flex-col gap-2'
                                 markdown={content}
-                                options={CONTENT_OPTS}
+                                options={{
+                                    ...CONTENT_OPTS,
+                                    extensions: CONTENT_OPTS.extensions.concat(
+                                        placeholders(
+                                            Object.keys(
+                                                placeholdersRes?.placeholders ??
+                                                    TemplatePlaceholderData
+                                            )
+                                        )
+                                    ),
+                                }}
                                 components={{
                                     Twemoji: ({ children }) => (
                                         <Twemoji className='inline'>
@@ -196,7 +244,11 @@ export function DiscordMessage({
                                             <img
                                                 src={parsePlaceholders(
                                                     embed?.author?.icon_url,
-                                                    false
+                                                    false,
+                                                    Object.keys(
+                                                        placeholdersRes?.placeholders ??
+                                                            TemplatePlaceholderData
+                                                    )
                                                 )}
                                                 alt=''
                                                 className='mr-2 h-6 w-6 rounded-[50%] object-contain indent-[-9999px] align-baseline'
@@ -207,7 +259,11 @@ export function DiscordMessage({
                                                 <a
                                                     href={parsePlaceholders(
                                                         embed?.author?.url,
-                                                        false
+                                                        false,
+                                                        Object.keys(
+                                                            placeholdersRes?.placeholders ??
+                                                                TemplatePlaceholderData
+                                                        )
                                                     )}
                                                     target='_blank'
                                                     role='button'
@@ -268,7 +324,11 @@ export function DiscordMessage({
                                                 }
                                                 href={parsePlaceholders(
                                                     embed?.url,
-                                                    false
+                                                    false,
+                                                    Object.keys(
+                                                        placeholdersRes?.placeholders ??
+                                                            TemplatePlaceholderData
+                                                    )
                                                 )}
                                                 target='_blank'
                                                 role='button'
@@ -314,7 +374,18 @@ export function DiscordMessage({
                                             <MarkdownView
                                                 className='flex flex-col gap-2'
                                                 markdown={embed.description}
-                                                options={EMBED_OPTS}
+                                                options={{
+                                                    ...EMBED_OPTS,
+                                                    extensions:
+                                                        EMBED_OPTS.extensions.concat(
+                                                            placeholders(
+                                                                Object.keys(
+                                                                    placeholdersRes?.placeholders ??
+                                                                        TemplatePlaceholderData
+                                                                )
+                                                            )
+                                                        ),
+                                                }}
                                                 components={{
                                                     Twemoji: ({ children }) => (
                                                         <Twemoji className='inline'>
@@ -339,7 +410,11 @@ export function DiscordMessage({
                                         <img
                                             src={parsePlaceholders(
                                                 embed?.image?.url,
-                                                false
+                                                false,
+                                                Object.keys(
+                                                    placeholdersRes?.placeholders ??
+                                                        TemplatePlaceholderData
+                                                )
                                             )}
                                             alt=''
                                         />
@@ -353,7 +428,11 @@ export function DiscordMessage({
                                         <img
                                             src={parsePlaceholders(
                                                 embed?.thumbnail?.url,
-                                                false
+                                                false,
+                                                Object.keys(
+                                                    placeholdersRes?.placeholders ??
+                                                        TemplatePlaceholderData
+                                                )
                                             )}
                                             alt=''
                                             className='overflow-hidden rounded-[3px] object-contain'
@@ -367,7 +446,11 @@ export function DiscordMessage({
                                             <img
                                                 src={parsePlaceholders(
                                                     embed?.footer?.icon_url,
-                                                    false
+                                                    false,
+                                                    Object.keys(
+                                                        placeholdersRes?.placeholders ??
+                                                            TemplatePlaceholderData
+                                                    )
                                                 )}
                                                 alt=''
                                                 className='mr-2 h-6 w-6 rounded-[50%] object-contain indent-[-9999px] align-baseline'

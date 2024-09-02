@@ -2,7 +2,8 @@ import { TemplatePlaceholderData } from './constants/TemplatePlaceholderData';
 
 export function parsePlaceholders(
     content: JSX.Element | string,
-    html: boolean = true
+    html: boolean = true,
+    usablePlaceholders?: string[]
 ): string {
     return content
         .toString()
@@ -12,15 +13,19 @@ export function parsePlaceholders(
                 const placeholder = match
                     .replaceAll('\\', '')
                     .replaceAll(/({%|%}|%)/g, '')
-                    .toLowerCase();
+                    .toUpperCase();
 
                 const data =
                     TemplatePlaceholderData[
                         placeholder as keyof typeof TemplatePlaceholderData
                     ];
                 return html
-                    ? `<span class="${data ? 'text-green-500' : 'text-red-500'}">${data ?? 'Invalid Placeholder'}</span>`
-                    : (data ?? 'Invalid Placeholder');
+                    ? `<span class="${data ? (usablePlaceholders?.includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (usablePlaceholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`
+                    : data
+                      ? usablePlaceholders?.includes(placeholder)
+                          ? data
+                          : 'This placeholder cannot be used for this feature'
+                      : 'Invalid Placeholder';
             }
         );
 }

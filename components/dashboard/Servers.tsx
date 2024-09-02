@@ -29,7 +29,7 @@ export default function Servers() {
                 You can view the Auxdibot documentation below.
             </p>
             <HeaderButton
-                className='mx-auto my-2 flex w-fit text-xl font-bold'
+                className='mx-auto my-3 flex w-fit text-xl font-bold'
                 target='_blank'
                 href={process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}
             >

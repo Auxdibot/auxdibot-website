@@ -1,7 +1,6 @@
 'use client';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { APIEmbed } from 'discord-api-types/v10';
-import { BsChatLeftDots } from 'react-icons/bs';
 import { PiHandWavingLight } from 'react-icons/pi';
 import JoinLeaveChannel from './JoinLeaveChannel';
 import { useToast } from '@/components/ui/use-toast';
@@ -15,10 +14,14 @@ import {
 import { TextareaMessage } from '@/components/ui/messages/textarea-message';
 import { Button } from '@/components/ui/button/button';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
-import { Hand } from 'lucide-react';
+import { Hand, MessageCircleIcon } from 'lucide-react';
 import Link from 'next/link';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
 import { ModuleDisableOverlay } from '../ModuleDisableOverlay';
+import { StoredEmbeds } from '@/components/ui/messages/stored-embeds';
+import { StoredEmbed } from '@/lib/types/StoredEmbed';
+import { useQuery } from 'react-query';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
 
 enum GreetingType {
     JOIN = 'join',
@@ -32,7 +35,7 @@ type GreetingBody = {
     embed: APIEmbed;
 };
 export default function DashboardGreetingsConfig({ id }: { id: string }) {
-    const { register, watch, control, handleSubmit, reset } =
+    const { register, watch, control, handleSubmit, reset, setValue } =
         useForm<GreetingBody>();
     const { append, remove } = useFieldArray({
         name: 'embed.fields',
@@ -41,6 +44,15 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             maxLength: 25,
         },
     });
+    const { data: embeds } = useQuery<
+        { data: { stored_embeds: StoredEmbed[] } } | undefined
+    >(
+        ['data_embeds', id],
+        async () =>
+            await fetch(`/bot/v1/servers/${id}/embeds`)
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
     const { toast } = useToast();
     function onSubmit(bodyData: GreetingBody) {
         let body = new URLSearchParams();
@@ -89,6 +101,8 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
             .catch(() => {});
     }
     const embed = watch('embed');
+    const content = watch('message');
+    const type = watch('greeting');
     return (
         <>
             <ModuleDisableOverlay id={id} module={'Greetings'} />
@@ -161,7 +175,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                             >
                                 <label
                                     className={
-                                        'flex flex-row items-center gap-2 font-lato text-xl max-xl:flex-col'
+                                        'flex flex-row items-center gap-2 font-open-sans text-xl max-xl:flex-col'
                                     }
                                 >
                                     <span
@@ -210,18 +224,47 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                                         )}
                                     />
                                 </label>
-                                <label
+                                <section
                                     className={
-                                        'flex flex-col gap-2 font-lato text-xl max-md:items-center'
+                                        'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
                                     }
                                 >
                                     <span
                                         className={
-                                            'flex flex-row items-center gap-2'
+                                            'flex w-full flex-row items-center gap-2 max-md:flex-col'
                                         }
                                     >
-                                        <BsChatLeftDots /> Message:
+                                        <label
+                                            className={
+                                                'flex flex-row items-center gap-1'
+                                            }
+                                        >
+                                            <MessageCircleIcon /> Message
+                                            Content:
+                                        </label>
+                                        <span className='ml-auto max-md:mx-auto'>
+                                            <StoredEmbeds
+                                                id={id}
+                                                value={''}
+                                                onValueChange={(e) => {
+                                                    const message =
+                                                        embeds?.data?.stored_embeds?.find(
+                                                            (i) => i.id === e
+                                                        );
+                                                    if (!message) return;
+                                                    setValue(
+                                                        'embed',
+                                                        message.embed ?? {}
+                                                    );
+                                                    setValue(
+                                                        'message',
+                                                        message.content ?? ''
+                                                    );
+                                                }}
+                                            />
+                                        </span>
                                     </span>
+
                                     <Controller
                                         name={'message'}
                                         control={control}
@@ -230,6 +273,12 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                                                 <TextareaMessage
                                                     serverID={id}
                                                     wrapperClass={'w-full'}
+                                                    placeholderContext={[
+                                                        'member',
+                                                        'member_join',
+                                                        'member_punishments',
+                                                        'member_levels',
+                                                    ]}
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     maxLength={2000}
@@ -237,7 +286,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                                             );
                                         }}
                                     />
-                                </label>
+                                </section>
                                 <section
                                     className={
                                         'flex items-center justify-between gap-2 max-md:flex-col'
@@ -263,31 +312,18 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                         </div>
                         <div
                             className={
-                                'flex h-fit w-full flex-col rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto max-md:h-fit'
+                                'w-full max-w-full self-stretch overflow-auto max-md:mx-auto'
                             }
                         >
-                            <h2
-                                className={
-                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                            <DiscordMessage
+                                background
+                                content={
+                                    isEmbedEmpty(embed) && !content
+                                        ? `This is the Embed preview for the ${type.split('_').map((i) => i[0].toUpperCase() + i.slice(1))} greeting you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                        : content
                                 }
-                            >
-                                Embed Preview
-                            </h2>
-                            <span
-                                className={
-                                    'mx-auto w-full justify-center md:p-5'
-                                }
-                            >
-                                {embed?.author?.name ||
-                                embed?.description ||
-                                embed?.title ||
-                                embed?.footer?.text ||
-                                (embed?.fields?.length || 0) > 0 ? (
-                                    <DiscordMessage embed={embed} />
-                                ) : (
-                                    ''
-                                )}
-                            </span>
+                                embed={embed}
+                            />
                         </div>
                         <div
                             className={
