@@ -107,7 +107,7 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
         <>
             <ModuleDisableOverlay id={id} module={'Greetings'} />
 
-            <main className={'flex-grow bg-gray-950'}>
+            <main className={'flex-grow bg-gray-950 max-xl:px-2'}>
                 <div
                     className={
                         'flex animate-fadeIn flex-col gap-5 py-5 max-md:items-center xl:px-5'
@@ -144,202 +144,244 @@ export default function DashboardGreetingsConfig({ id }: { id: string }) {
                             </p>
                         </div>
                     </span>
-                    <span
-                        className={
-                            'grid w-full grid-cols-2 grid-rows-2 gap-10 max-xl:grid-cols-1 max-xl:grid-rows-none'
-                        }
-                    >
-                        <div
+                    <div className='flex w-full gap-10 max-xl:flex-col-reverse max-xl:px-2'>
+                        <span
                             className={
-                                'row-span-2 h-fit w-full rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                                'flex flex-1 flex-shrink-0 flex-grow flex-col gap-10'
                             }
                         >
-                            <h2
+                            <div
                                 className={
-                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
+                                    'row-span-2 h-fit w-full rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
                                 }
                             >
-                                Set Greeting
-                            </h2>
-                            <p
-                                className={
-                                    'font-open-sans text-base italic text-gray-400 max-md:w-full max-md:text-center md:ml-4'
-                                }
-                            >
-                                <span className={'text-red-500'}>*</span> =
-                                required field
-                            </p>
-                            <form
-                                onSubmit={handleSubmit(onSubmit)}
-                                className={'my-5 flex flex-col gap-2 md:m-5'}
-                            >
-                                <label
+                                <h2
                                     className={
-                                        'flex flex-row items-center gap-2 font-open-sans text-xl max-xl:flex-col'
+                                        'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
                                     }
                                 >
-                                    <span
-                                        className={
-                                            'flex flex-row items-center gap-2'
-                                        }
-                                    >
-                                        <span className={'text-red-500'}>
-                                            *
-                                        </span>{' '}
-                                        <PiHandWavingLight /> Greeting:
-                                    </span>
-                                    <Controller
-                                        control={control}
-                                        name={'greeting'}
-                                        render={({ field }) => (
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={field.onChange}
-                                            >
-                                                <SelectTrigger
-                                                    className={
-                                                        'w-fit min-w-[200px]'
-                                                    }
-                                                >
-                                                    <SelectValue
-                                                        placeholder={
-                                                            'Select a type'
-                                                        }
-                                                    />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value={'JOIN'}>
-                                                        Join
-                                                    </SelectItem>
-                                                    <SelectItem
-                                                        value={'JOIN_DM'}
-                                                    >
-                                                        Join (DM)
-                                                    </SelectItem>
-                                                    <SelectItem value={'LEAVE'}>
-                                                        Leave
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        )}
-                                    />
-                                </label>
-                                <section
+                                    Set Greeting
+                                </h2>
+                                <p
                                     className={
-                                        'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
+                                        'font-open-sans text-base italic text-gray-400 max-md:w-full max-md:text-center md:ml-4'
                                     }
                                 >
-                                    <span
+                                    <span className={'text-red-500'}>*</span> =
+                                    required field
+                                </p>
+                                <form
+                                    onSubmit={handleSubmit(onSubmit)}
+                                    className={
+                                        'my-5 flex flex-col gap-2 md:m-5'
+                                    }
+                                >
+                                    <label
                                         className={
-                                            'flex w-full flex-row items-center gap-2 max-md:flex-col'
+                                            'flex flex-row items-center gap-2 font-open-sans text-xl max-xl:flex-col'
                                         }
                                     >
-                                        <label
+                                        <span
                                             className={
-                                                'flex flex-row items-center gap-1'
+                                                'flex flex-row items-center gap-2'
                                             }
                                         >
-                                            <MessageCircleIcon /> Message
-                                            Content:
-                                        </label>
-                                        <span className='ml-auto max-md:mx-auto'>
-                                            <StoredEmbeds
-                                                id={id}
-                                                value={''}
-                                                onValueChange={(e) => {
-                                                    const message =
-                                                        embeds?.data?.stored_embeds?.find(
-                                                            (i) => i.id === e
-                                                        );
-                                                    if (!message) return;
-                                                    setValue(
-                                                        'embed',
-                                                        message.embed ?? {}
-                                                    );
-                                                    setValue(
-                                                        'message',
-                                                        message.content ?? ''
-                                                    );
-                                                }}
-                                            />
+                                            <span className={'text-red-500'}>
+                                                *
+                                            </span>{' '}
+                                            <PiHandWavingLight /> Greeting:
                                         </span>
-                                    </span>
-
-                                    <Controller
-                                        name={'message'}
-                                        control={control}
-                                        render={({ field }) => {
-                                            return (
-                                                <TextareaMessage
-                                                    serverID={id}
-                                                    wrapperClass={'w-full'}
-                                                    placeholderContext={[
-                                                        'member',
-                                                        'member_join',
-                                                        'member_punishments',
-                                                        'member_levels',
-                                                    ]}
+                                        <Controller
+                                            control={control}
+                                            name={'greeting'}
+                                            render={({ field }) => (
+                                                <Select
                                                     value={field.value}
-                                                    onChange={field.onChange}
-                                                    maxLength={2000}
+                                                    onValueChange={
+                                                        field.onChange
+                                                    }
+                                                >
+                                                    <SelectTrigger
+                                                        className={
+                                                            'w-fit min-w-[200px]'
+                                                        }
+                                                    >
+                                                        <SelectValue
+                                                            placeholder={
+                                                                'Select a type'
+                                                            }
+                                                        />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem
+                                                            value={'JOIN'}
+                                                        >
+                                                            Join
+                                                        </SelectItem>
+                                                        <SelectItem
+                                                            value={'JOIN_DM'}
+                                                        >
+                                                            Join (DM)
+                                                        </SelectItem>
+                                                        <SelectItem
+                                                            value={'LEAVE'}
+                                                        >
+                                                            Leave
+                                                        </SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                    </label>
+                                    <section
+                                        className={
+                                            'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
+                                        }
+                                    >
+                                        <span
+                                            className={
+                                                'flex w-full flex-row items-center gap-2 max-md:flex-col'
+                                            }
+                                        >
+                                            <label
+                                                className={
+                                                    'flex flex-row items-center gap-1'
+                                                }
+                                            >
+                                                <MessageCircleIcon /> Message
+                                                Content:
+                                            </label>
+                                            <span className='ml-auto max-md:mx-auto'>
+                                                <StoredEmbeds
+                                                    id={id}
+                                                    value={''}
+                                                    onValueChange={(e) => {
+                                                        const message =
+                                                            embeds?.data?.stored_embeds?.find(
+                                                                (i) =>
+                                                                    i.id === e
+                                                            );
+                                                        if (!message) return;
+                                                        setValue(
+                                                            'embed',
+                                                            message.embed ?? {}
+                                                        );
+                                                        setValue(
+                                                            'message',
+                                                            message.content ??
+                                                                ''
+                                                        );
+                                                    }}
                                                 />
-                                            );
-                                        }}
-                                    />
-                                </section>
-                                <section
+                                            </span>
+                                        </span>
+
+                                        <Controller
+                                            name={'message'}
+                                            control={control}
+                                            render={({ field }) => {
+                                                return (
+                                                    <TextareaMessage
+                                                        serverID={id}
+                                                        wrapperClass={'w-full'}
+                                                        placeholderContext={[
+                                                            'member',
+                                                            'member_join',
+                                                            'member_punishments',
+                                                            'member_levels',
+                                                        ]}
+                                                        value={field.value}
+                                                        onChange={
+                                                            field.onChange
+                                                        }
+                                                        maxLength={2000}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                    </section>
+                                    <section
+                                        className={
+                                            'flex items-center justify-between gap-2 max-md:flex-col'
+                                        }
+                                    >
+                                        <EmbedDialog
+                                            serverID={id}
+                                            control={control}
+                                            addField={append}
+                                            placeholderContext={[
+                                                'member',
+                                                'member_join',
+                                                'member_punishments',
+                                                'member_levels',
+                                            ]}
+                                            register={register}
+                                            removeField={remove}
+                                        />
+
+                                        <Button
+                                            variant={'outline'}
+                                            className={`flex flex-row items-center gap-2`}
+                                            type='submit'
+                                        >
+                                            <PiHandWavingLight /> Set Greeting
+                                        </Button>
+                                    </section>
+                                </form>
+                            </div>
+
+                            <div
+                                className={
+                                    'h-fit w-full flex-1 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
+                                }
+                            >
+                                <h2
                                     className={
-                                        'flex items-center justify-between gap-2 max-md:flex-col'
+                                        'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
                                     }
                                 >
-                                    <EmbedDialog
-                                        serverID={id}
-                                        control={control}
-                                        addField={append}
-                                        register={register}
-                                        removeField={remove}
-                                    />
-
-                                    <Button
-                                        variant={'outline'}
-                                        className={`flex flex-row items-center gap-2`}
-                                        type='submit'
-                                    >
-                                        <PiHandWavingLight /> Set Greeting
-                                    </Button>
-                                </section>
-                            </form>
-                        </div>
+                                    Greetings Settings
+                                </h2>
+                                <JoinLeaveChannel serverID={id} />
+                            </div>
+                        </span>
                         <div
                             className={
-                                'w-full max-w-full self-stretch overflow-auto max-md:mx-auto'
+                                'w-full max-w-full flex-1 flex-shrink-0 flex-grow self-stretch overflow-auto max-md:mx-auto'
                             }
                         >
                             <DiscordMessage
                                 background
+                                serverData={{
+                                    serverID: id,
+                                    placeholderContext: [
+                                        'member',
+                                        'member_join',
+                                        'member_punishments',
+                                        'member_levels',
+                                    ],
+                                }}
                                 content={
                                     isEmbedEmpty(embed) && !content
-                                        ? `This is the Embed preview for the ${type.split('_').map((i) => i[0].toUpperCase() + i.slice(1))} greeting you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                        ? `This is the Embed preview for the ${
+                                              type
+                                                  ?.split('_')
+                                                  .map((i) =>
+                                                      i.length > 2
+                                                          ? i[0].toUpperCase() +
+                                                            i
+                                                                .slice(1)
+                                                                .toLowerCase()
+                                                          : i
+                                                  )
+                                                  .join(' ') ?? 'Join'
+                                          } greeting you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
                                         : content
                                 }
                                 embed={embed}
                             />
                         </div>
-                        <div
-                            className={
-                                'h-fit w-full flex-1 flex-grow rounded-2xl border-2 border-gray-800 shadow-2xl max-md:mx-auto'
-                            }
-                        >
-                            <h2
-                                className={
-                                    'secondary rounded-2xl rounded-b-none p-4 text-center text-2xl'
-                                }
-                            >
-                                Greetings Settings
-                            </h2>
-                            <JoinLeaveChannel serverID={id} />
-                        </div>
-                    </span>
+                    </div>
                 </div>
             </main>
         </>

@@ -24,18 +24,15 @@ export const Twemoji = memo(function ({
     const uniqueEmojis = {
         '👁‍🗨': 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f441-200d-1f5e8.svg',
     };
-    const unicode = children
+    const original = Array.isArray(children) ? children.join('-') : children;
+    const unicode = original
         ?.split('-')
         .map((i) => twemoji.convert.fromCodePoint(i))
         .join('')
         .replaceAll('\uFE0F', '');
-    const src = Object.keys(uniqueEmojis).includes(unicode)
-        ? uniqueEmojis[unicode as keyof typeof uniqueEmojis]
-        : /^[\da-f-]+$/.test(children)
-          ? `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${children}.svg`
-          : `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${twemoji.convert.toCodePoint(children)}.svg`;
+
     const serverEmojiValue = serverEmojis?.emojis.find(
-        (i2) => i2.id == children
+        (i2) => i2.id == original
     );
     if (serverEmojiValue)
         return (
@@ -48,6 +45,13 @@ export const Twemoji = memo(function ({
                 src={serverEmojiValue.image}
             />
         );
+    if (!twemoji && !unicode)
+        return <span className={'w-full'}>{original}</span>;
+    const src = Object.keys(uniqueEmojis).includes(unicode)
+        ? uniqueEmojis[unicode as keyof typeof uniqueEmojis]
+        : /^[\da-f-]+$/.test(original)
+          ? `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${original}.svg`
+          : `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${twemoji?.convert?.toCodePoint(original)}.svg`;
     return fallback ? (
         <span className={'w-full'}>{unicode}</span>
     ) : (

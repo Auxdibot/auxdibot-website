@@ -114,7 +114,7 @@ function TextareaMessage({
                 className={cn('relative min-h-[100px] max-md:px-2', className)}
             >
                 <Textarea
-                    className={cn('min-h-[100px] resize-none', className)}
+                    className={cn('min-h-[100px] resize-y', className)}
                     {...props}
                 />
                 <div className={'absolute bottom-0 right-4 p-2 max-md:right-5'}>

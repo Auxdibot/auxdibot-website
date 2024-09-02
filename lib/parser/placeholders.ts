@@ -3,7 +3,7 @@ import { ShowdownExtension } from 'showdown';
 
 const placeholders = (placeholders?: string[]) =>
     <ShowdownExtension>{
-        type: 'lang',
+        type: 'output',
 
         regex: /(%[A-Za-z0-9_\\]+%|\{%[A-Za-z0-9_\\]+%\})/g,
         replace: (_: string, match: string) => {
@@ -16,7 +16,7 @@ const placeholders = (placeholders?: string[]) =>
                 TemplatePlaceholderData[
                     placeholder as keyof typeof TemplatePlaceholderData
                 ];
-            return `<span class="${data ? (Array(...(placeholders ?? [])).includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (placeholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`;
+            return `<span markdown="1" class="${data ? (Array(...(placeholders ?? [])).includes(placeholder) ? 'text-green-500' : 'text-yellow-500') : 'text-red-500'}">${data ? (placeholders?.includes(placeholder) ? data : 'This placeholder cannot be used for this feature') : 'Invalid Placeholder'}</span>`;
         },
     };
 export default placeholders;

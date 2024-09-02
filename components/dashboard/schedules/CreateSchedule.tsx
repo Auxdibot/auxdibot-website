@@ -277,6 +277,7 @@ export default function CreateSchedule({ serverID: id }: { serverID: string }) {
                                         serverID={id}
                                         wrapperClass={'w-full'}
                                         value={field.value}
+                                        placeholderContext={['schedule']}
                                         onChange={field.onChange}
                                         maxLength={2000}
                                     />
@@ -292,6 +293,7 @@ export default function CreateSchedule({ serverID: id }: { serverID: string }) {
                         <EmbedDialog
                             serverID={id}
                             addField={append}
+                            placeholderContext={['schedule']}
                             register={register}
                             removeField={remove}
                             control={control}
@@ -317,6 +319,10 @@ export default function CreateSchedule({ serverID: id }: { serverID: string }) {
                         {embed ? (
                             <DiscordMessage
                                 embed={embed}
+                                serverData={{
+                                    serverID: id,
+                                    placeholderContext: ['schedule'],
+                                }}
                                 content={
                                     isEmbedEmpty(embed) && !content
                                         ? `This is the Embed preview for the Notification you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`

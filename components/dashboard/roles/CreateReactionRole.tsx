@@ -508,6 +508,7 @@ export default function CreateReactionRole({
                                     serverID={id}
                                     control={control}
                                     addField={append}
+                                    placeholderContext={['reaction_role']}
                                     register={register}
                                     removeField={remove}
                                 />
@@ -559,6 +560,10 @@ export default function CreateReactionRole({
                         {embed ? (
                             <DiscordMessage
                                 embed={embed}
+                                serverData={{
+                                    serverID: id,
+                                    placeholderContext: ['reaction_role'],
+                                }}
                                 content={
                                     isEmbedEmpty(embed) && !content
                                         ? `This is the Embed preview for the Reaction Role you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`

@@ -11,11 +11,14 @@ import MarkdownView from 'react-showdown';
 import Twemoji from '../emojis/twemoji';
 import emoji from '@/lib/parser/emoji';
 import { parsePlaceholders } from '@/lib/placeholders';
-import DOMPurify from 'dompurify';
 import time from '@/lib/parser/time';
 import nolinks from '@/lib/parser/nolinks';
 import { useQuery } from 'react-query';
 import { TemplatePlaceholderData } from '@/lib/constants/TemplatePlaceholderData';
+import serveremoji from '@/lib/parser/serveremoji';
+import role from '@/lib/parser/role';
+import user from '@/lib/parser/user';
+import channel from '@/lib/parser/channel';
 
 type DiscordMessageBody = {
     embed?: APIEmbed;
@@ -32,14 +35,19 @@ const CONTENT_OPTS = {
     simplifiedAutoLink: true,
     strikethrough: true,
     ghCodeBlocks: true,
+    backslashEscapesHTMLTags: true,
     extensions: [
         spoiler,
         smallest,
         noimages,
+        role,
+        user,
+        channel,
         blockquote,
         codeblock,
         emoji,
         time,
+        serveremoji,
     ],
     underline: true,
 };
@@ -48,14 +56,19 @@ const EMBED_OPTS = {
     simplifiedAutoLink: true,
     strikethrough: true,
     ghCodeBlocks: true,
+    backslashEscapesHTMLTags: true,
     extensions: [
         spoiler,
         smallest,
         noimages,
+        user,
+        channel,
         blockquote,
+        role,
         emoji,
         codeblock,
         time,
+        serveremoji,
     ],
     underline: true,
 };
@@ -63,7 +76,18 @@ const EMBED_TITLE_OPTS = {
     noHeaderId: true,
     simplifiedAutoLink: true,
     strikethrough: true,
-    extensions: [placeholders, spoiler, smallest, noimages, emoji, nolinks],
+    backslashEscapesHTMLTags: true,
+    extensions: [
+        spoiler,
+        smallest,
+        noimages,
+        emoji,
+        role,
+        user,
+        nolinks,
+        channel,
+        serveremoji,
+    ],
     underline: true,
 };
 
@@ -73,7 +97,6 @@ export function DiscordMessage({
     background,
     serverData,
 }: DiscordMessageBody) {
-    console.log(serverData?.placeholderContext);
     const { data: placeholdersRes } = useQuery<{
         placeholders: {
             [k: string]: { context: string | null; description?: string };
@@ -82,13 +105,18 @@ export function DiscordMessage({
         ['placeholders', serverData?.placeholderContext ?? '*'],
         async () =>
             await fetch(
-                `/bot/v1/placeholders?${Array.isArray(serverData?.placeholderContext) ? serverData.placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${serverData?.placeholderContext ?? '*'}`}`
+                `/bot/v1/placeholders?${Array.isArray(serverData?.placeholderContext) ? serverData?.placeholderContext.map((i) => `context=${i}`, '').join('&') : `context=${serverData?.placeholderContext ?? '*'}`}`
             )
                 .then(async (data) => await data.json().catch(() => undefined))
                 .catch(() => undefined)
     );
-    console.log('res');
-    console.log(placeholdersRes);
+    const additionalExtensions = [
+        placeholders(
+            Object.keys(
+                placeholdersRes?.placeholders ?? TemplatePlaceholderData
+            )
+        ),
+    ];
     function generateFields() {
         if (!embed?.fields) return '';
         let totalInlines = 0;
@@ -109,14 +137,12 @@ export function DiscordMessage({
                         <span
                             className='text-wrap block break-words'
                             dangerouslySetInnerHTML={{
-                                __html: DOMPurify.sanitize(
-                                    parsePlaceholders(
-                                        field.name,
-                                        false,
-                                        Object.keys(
-                                            placeholdersRes?.placeholders ??
-                                                TemplatePlaceholderData
-                                        )
+                                __html: parsePlaceholders(
+                                    field.name,
+                                    false,
+                                    Object.keys(
+                                        placeholdersRes?.placeholders ??
+                                            TemplatePlaceholderData
                                     )
                                 ),
                             }}
@@ -125,25 +151,17 @@ export function DiscordMessage({
                     <div className='min-w-0 whitespace-pre-line text-left text-sm leading-[1.375rem]'>
                         <span className='text-wrap block break-words'>
                             <MarkdownView
-                                className='flex flex-col gap-2'
+                                className='discord-content flex flex-col gap-2'
                                 markdown={field.value}
                                 options={{
                                     ...EMBED_OPTS,
-                                    extensions: EMBED_OPTS.extensions.concat(
-                                        placeholders(
-                                            Object.keys(
-                                                placeholdersRes?.placeholders ??
-                                                    TemplatePlaceholderData
-                                            )
-                                        )
-                                    ),
+                                    extensions:
+                                        EMBED_OPTS.extensions.concat(
+                                            additionalExtensions
+                                        ),
                                 }}
                                 components={{
-                                    Twemoji: ({ children }) => (
-                                        <Twemoji className='inline'>
-                                            {children?.toString()}
-                                        </Twemoji>
-                                    ),
+                                    Twemoji,
                                 }}
                             />
                         </span>
@@ -200,22 +218,21 @@ export function DiscordMessage({
                     <div className='text-wrap word-break-word discord-content mt-[2px] block max-w-full overflow-hidden break-words'>
                         {
                             <MarkdownView
-                                className='flex flex-col gap-2'
+                                className='discord-content flex flex-col gap-2'
                                 markdown={content}
                                 options={{
                                     ...CONTENT_OPTS,
-                                    extensions: CONTENT_OPTS.extensions.concat(
-                                        placeholders(
-                                            Object.keys(
-                                                placeholdersRes?.placeholders ??
-                                                    TemplatePlaceholderData
-                                            )
-                                        )
-                                    ),
+                                    extensions:
+                                        CONTENT_OPTS.extensions.concat(
+                                            additionalExtensions
+                                        ),
                                 }}
                                 components={{
                                     Twemoji: ({ children }) => (
-                                        <Twemoji className='inline'>
+                                        <Twemoji
+                                            serverID={serverData?.serverID}
+                                            className='inline'
+                                        >
                                             {children?.toString()}
                                         </Twemoji>
                                     ),
@@ -270,18 +287,27 @@ export function DiscordMessage({
                                                     className={`text-wrap block cursor-pointer whitespace-pre-line break-words text-left text-sm font-semibold leading-[1.375rem] text-white hover:underline`}
                                                 >
                                                     <MarkdownView
-                                                        className='flex flex-col gap-2'
+                                                        className='discord-content flex flex-col gap-2'
                                                         markdown={
                                                             embed?.author?.name
                                                         }
-                                                        options={
-                                                            EMBED_TITLE_OPTS
-                                                        }
+                                                        options={{
+                                                            ...EMBED_TITLE_OPTS,
+                                                            extensions:
+                                                                EMBED_TITLE_OPTS.extensions.concat(
+                                                                    additionalExtensions
+                                                                ),
+                                                        }}
                                                         components={{
                                                             Twemoji: ({
                                                                 children,
                                                             }) => (
-                                                                <Twemoji className='inline'>
+                                                                <Twemoji
+                                                                    serverID={
+                                                                        serverData?.serverID
+                                                                    }
+                                                                    className='inline'
+                                                                >
                                                                     {children?.toString()}
                                                                 </Twemoji>
                                                             ),
@@ -291,18 +317,27 @@ export function DiscordMessage({
                                             ) : (
                                                 <span className='text-wrap block whitespace-break-spaces break-words text-left text-sm font-semibold leading-[1.375rem] text-white'>
                                                     <MarkdownView
-                                                        className='flex flex-col gap-2'
+                                                        className='discord-content flex flex-col gap-2'
                                                         markdown={
                                                             embed?.author?.name
                                                         }
-                                                        options={
-                                                            EMBED_TITLE_OPTS
-                                                        }
+                                                        options={{
+                                                            ...EMBED_TITLE_OPTS,
+                                                            extensions:
+                                                                EMBED_TITLE_OPTS.extensions.concat(
+                                                                    additionalExtensions
+                                                                ),
+                                                        }}
                                                         components={{
                                                             Twemoji: ({
                                                                 children,
                                                             }) => (
-                                                                <Twemoji className='inline'>
+                                                                <Twemoji
+                                                                    serverID={
+                                                                        serverData?.serverID
+                                                                    }
+                                                                    className='inline'
+                                                                >
                                                                     {children?.toString()}
                                                                 </Twemoji>
                                                             ),
@@ -334,14 +369,25 @@ export function DiscordMessage({
                                                 role='button'
                                             >
                                                 <MarkdownView
-                                                    className='flex flex-col gap-2'
+                                                    className='discord-content flex flex-col gap-2'
                                                     markdown={embed?.title}
-                                                    options={EMBED_TITLE_OPTS}
+                                                    options={{
+                                                        ...EMBED_TITLE_OPTS,
+                                                        extensions:
+                                                            EMBED_TITLE_OPTS.extensions.concat(
+                                                                additionalExtensions
+                                                            ),
+                                                    }}
                                                     components={{
                                                         Twemoji: ({
                                                             children,
                                                         }) => (
-                                                            <Twemoji className='inline'>
+                                                            <Twemoji
+                                                                serverID={
+                                                                    serverData?.serverID
+                                                                }
+                                                                className='inline'
+                                                            >
                                                                 {children?.toString()}
                                                             </Twemoji>
                                                         ),
@@ -351,14 +397,25 @@ export function DiscordMessage({
                                         ) : (
                                             <span className='text-wrap block break-words text-white'>
                                                 <MarkdownView
-                                                    className='flex flex-col gap-2'
+                                                    className='discord-content flex flex-col gap-2'
                                                     markdown={embed?.title}
-                                                    options={EMBED_TITLE_OPTS}
+                                                    options={{
+                                                        ...EMBED_TITLE_OPTS,
+                                                        extensions:
+                                                            EMBED_TITLE_OPTS.extensions.concat(
+                                                                additionalExtensions
+                                                            ),
+                                                    }}
                                                     components={{
                                                         Twemoji: ({
                                                             children,
                                                         }) => (
-                                                            <Twemoji className='inline'>
+                                                            <Twemoji
+                                                                serverID={
+                                                                    serverData?.serverID
+                                                                }
+                                                                className='inline'
+                                                            >
                                                                 {children?.toString()}
                                                             </Twemoji>
                                                         ),
@@ -372,23 +429,23 @@ export function DiscordMessage({
                                     <div className='col-span-1 mt-2 min-w-0 whitespace-pre-line text-left text-sm leading-[1.125rem]'>
                                         <span className='text-wrap block break-words'>
                                             <MarkdownView
-                                                className='flex flex-col gap-2'
+                                                className='discord-content flex flex-col gap-2'
                                                 markdown={embed.description}
                                                 options={{
                                                     ...EMBED_OPTS,
                                                     extensions:
                                                         EMBED_OPTS.extensions.concat(
-                                                            placeholders(
-                                                                Object.keys(
-                                                                    placeholdersRes?.placeholders ??
-                                                                        TemplatePlaceholderData
-                                                                )
-                                                            )
+                                                            additionalExtensions
                                                         ),
                                                 }}
                                                 components={{
                                                     Twemoji: ({ children }) => (
-                                                        <Twemoji className='inline'>
+                                                        <Twemoji
+                                                            serverID={
+                                                                serverData?.serverID
+                                                            }
+                                                            className='inline'
+                                                        >
                                                             {children?.toString()}
                                                         </Twemoji>
                                                     ),
@@ -459,16 +516,27 @@ export function DiscordMessage({
                                         <div className='min-w-0'>
                                             <span className='text-wrap block whitespace-break-spaces break-words text-left text-sm font-semibold leading-[1.375rem] text-white'>
                                                 <MarkdownView
-                                                    className='flex flex-col gap-2'
+                                                    className='discord-content flex flex-col gap-2'
                                                     markdown={
                                                         embed?.footer?.text
                                                     }
-                                                    options={EMBED_TITLE_OPTS}
+                                                    options={{
+                                                        ...EMBED_TITLE_OPTS,
+                                                        extensions:
+                                                            EMBED_TITLE_OPTS.extensions.concat(
+                                                                additionalExtensions
+                                                            ),
+                                                    }}
                                                     components={{
                                                         Twemoji: ({
                                                             children,
                                                         }) => (
-                                                            <Twemoji className='inline'>
+                                                            <Twemoji
+                                                                serverID={
+                                                                    serverData?.serverID
+                                                                }
+                                                                className='inline'
+                                                            >
                                                                 {children?.toString()}
                                                             </Twemoji>
                                                         ),

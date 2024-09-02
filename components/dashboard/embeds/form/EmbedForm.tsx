@@ -256,6 +256,7 @@ export function EmbedForm({ id }: { id: string }) {
                                         serverID={id}
                                         wrapperClass={'w-full'}
                                         value={field.value}
+                                        placeholderContext={'*'}
                                         onChange={field.onChange}
                                         maxLength={2000}
                                     />

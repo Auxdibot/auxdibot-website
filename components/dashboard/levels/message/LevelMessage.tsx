@@ -17,7 +17,7 @@ import { StoredEmbed } from '@/lib/types/StoredEmbed';
 type FormBody = { embed: APIEmbed; content: string };
 export function LevelMessage({ server }: { server: LevelPayload }) {
     let level_message = Object.create(server.level_message);
-    const { register, handleSubmit, reset, control, watch, setValue } =
+    const { register, handleSubmit, control, watch, setValue } =
         useForm<FormBody>({
             defaultValues: {
                 embed: server?.level_message?.embed,
@@ -73,8 +73,7 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                     description: `Successfully updated the levels message for your server.`,
                     status: 'success',
                 });
-                queryClient.refetchQueries(['data_levels', server.serverID]);
-                reset({ embed: {}, content: '' });
+                queryClient.invalidateQueries(['data_levels', server.serverID]);
             })
             .catch(() => {});
     }
@@ -106,6 +105,7 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
             <DiscordMessage
                 background
                 serverData={{
+                    serverID: server.serverID,
                     placeholderContext: [
                         'member',
                         'level',
@@ -125,10 +125,10 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                 Update Level Embed
             </h3>
             <span className='mx-auto mt-2 flex max-w-lg text-center font-lato text-sm italic text-gray-400'>
-                Using the placeholders %LEVEL_TO% and %LEVEL_FROM% will
-                automatically fill with the level the player is going to, and
-                the level the player is going from when the levelup message is
-                sent.
+                Using the placeholders %LEVEL_TO%/&quot;Level To&quot; and
+                %LEVEL_FROM%/&quot;Level From&quot; will automatically fill with
+                the level the player is going to, and the level the player is
+                going from when the levelup message is sent.
             </span>
             <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -173,8 +173,8 @@ export function LevelMessage({ server }: { server: LevelPayload }) {
                                     serverID={server.serverID}
                                     wrapperClass={'w-full'}
                                     placeholderContext={[
-                                        'member',
                                         'level',
+                                        'member',
                                         'member_join',
                                         'member_punishments',
                                         'member_levels',
