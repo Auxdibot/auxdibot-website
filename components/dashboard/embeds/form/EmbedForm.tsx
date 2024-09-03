@@ -415,6 +415,11 @@ export function EmbedForm({ id }: { id: string }) {
             >
                 <DiscordMessage
                     background
+                    serverData={
+                        {
+                            serverID: id,
+                        }
+                    }
                     content={
                         isEmbedEmpty(embed) && !message
                             ? `This is the Embed preview. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`

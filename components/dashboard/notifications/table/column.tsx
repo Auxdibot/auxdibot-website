@@ -15,8 +15,8 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button/button';
-import { MoreHorizontal } from 'lucide-react';
-import { BsEye, BsTrash } from 'react-icons/bs';
+import { Eye, MoreHorizontal } from 'lucide-react';
+import { BsTrash } from 'react-icons/bs';
 import { Dialog, DialogContent } from '@/components/ui/dialog/dialog';
 import { useState } from 'react';
 import { DiscordMessage } from '@/components/ui/messages/discord-message';
@@ -135,7 +135,7 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (
                                         'flex cursor-pointer items-center gap-1 transition-all'
                                     }
                                 >
-                                    <BsEye /> View Embed
+                                    <Eye size='16' /> View Embed
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -149,9 +149,16 @@ export const columns: (serverID: string) => ColumnDef<NotificationType>[] = (
                                         'flex items-center gap-2 font-montserrat text-xl'
                                     }
                                 >
-                                    <BsEye /> Embed Preview
+                                    <Eye /> Embed Preview
                                 </h2>
                                 <DiscordMessage
+                                    content={row.original.message.content}
+                                    serverData={
+                                        {
+                                            serverID,
+                                        }
+                                    }
+                                    background
                                     embed={row.original.message.embed}
                                 />
                             </DialogContent>
