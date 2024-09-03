@@ -69,6 +69,9 @@ export function StoredEmbeds({
                                         <DiscordMessage
                                             content={i.content}
                                             background
+                                            serverData={{
+                                                serverID: id
+                                            }}
                                             embed={i.embed}
                                         />
                                     </DialogDescription>

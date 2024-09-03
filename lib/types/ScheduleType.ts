@@ -7,7 +7,7 @@ type ScheduleType = {
     times_run: number;
     interval_timestamp: string;
     embed: APIEmbed;
-    message: String;
+    message: string;
     times_to_run: number;
 };
 

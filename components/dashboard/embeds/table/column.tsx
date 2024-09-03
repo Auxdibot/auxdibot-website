@@ -120,6 +120,11 @@ export const columns: (serverID: string) => ColumnDef<StoredEmbed>[] = (
                                 </h2>
                                 <DiscordMessage
                                     content={row.original.content}
+                                    serverData={
+                                        {
+                                            serverID,
+                                        }
+                                    }
                                     background
                                     embed={row.original.embed}
                                 />
