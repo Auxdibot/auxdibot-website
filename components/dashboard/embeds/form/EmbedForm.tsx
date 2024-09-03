@@ -242,6 +242,7 @@ export function EmbedForm({ id }: { id: string }) {
                                             'message',
                                             message.content ?? ''
                                         );
+                                        setValue('webhook_url', message.webhook_url ?? '');
                                     }}
                                 />
                             </span>
