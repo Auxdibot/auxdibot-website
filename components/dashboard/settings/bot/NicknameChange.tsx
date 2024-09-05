@@ -24,10 +24,13 @@ export default function NicknameChange({
         setNick(e.currentTarget.value);
     }
     function setNickname() {
-        if (!server) return;
+        if (!server || !server.data) return;
         const body = new URLSearchParams();
         body.append('new_nickname', nick);
-        fetch(`/bot/v1/servers/${server.id}/nick`, { method: 'POST', body })
+        fetch(`/bot/v1/servers/${server.data.serverID}/nick`, {
+            method: 'POST',
+            body,
+        })
             .then(async (data) => {
                 const json = await data.json().catch(() => undefined);
                 queryClient.invalidateQueries(['data_settings', server.id]);
