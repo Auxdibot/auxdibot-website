@@ -285,7 +285,7 @@ export function CreateCard({
                                             >
                                                 <SelectValue
                                                     placeholder={
-                                                        'Select a gradient'
+                                                        'Select a font'
                                                     }
                                                 />
                                             </SelectTrigger>
@@ -347,7 +347,7 @@ export function CreateCard({
                                             >
                                                 <SelectValue
                                                     placeholder={
-                                                        'Select a gradient'
+                                                        'Select a font'
                                                     }
                                                 />
                                             </SelectTrigger>
