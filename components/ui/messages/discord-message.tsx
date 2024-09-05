@@ -161,7 +161,14 @@ export function DiscordMessage({
                                         ),
                                 }}
                                 components={{
-                                    Twemoji,
+                                    Twemoji: ({ children }) => (
+                                        <Twemoji
+                                            serverID={serverData?.serverID}
+                                            className='inline'
+                                        >
+                                            {children?.toString()}
+                                        </Twemoji>
+                                    ),
                                 }}
                             />
                         </span>
