@@ -7,7 +7,6 @@ module.exports = {
         './app/**/*.{ts,tsx}',
         './src/**/*.{ts,tsx}',
     ],
-
     theme: {
         container: {
             center: true,
@@ -48,6 +47,36 @@ module.exports = {
                     200: '#310707',
                     100: '#580F0F',
                 },
+                'discord-text': '#dcddde',
+                'discord-embed-border': '#202225',
+                'discord-link': '#00aff4',
+                'discord-app-tag': '#5865f2',
+                'discord-muted': '#72767d',
+                'discord-quote': '#4f545c',
+                'discord-code': '#2b2d31',
+                'discord-code-border': '#1e1f22',
+                'discord-mention': '#5865f24d',
+                'discord-mention-text': '#e3e7f8',
+                'discord-highlight': '#5865f2',
+                'discord-highlight-text': '#e3e7f8'
+            },
+            gridTemplateColumns: {
+                thumbnail: 'auto min-content',
+                auto: 'auto',
+            },
+            gridColumn: {
+                'span-field': '1 / 13',
+                'span-inline-1': '1 / 5',
+                'span-inline-2': '5 / 9',
+                'span-inline-3': '9 / 13',
+                'span-image': '1 / 3',
+                'span-thumbnail': '2 / 2',
+            },
+            gridRow: {
+                'span-thumbnail': '1 / 8',
+            },
+            gridTemplateRows: {
+                auto: 'auto',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -86,6 +115,20 @@ module.exports = {
             },
         },
     },
+    safelist: [
+        'col-span-inline-1',
+        'col-span-inline-2',
+        'col-span-inline-3',
+        'col-span-field',
+        'hover:text-white',
+        'w-1',
+        'bg-discord-quote',
+        'pl-3',
+        'border-discord-code-border',
+        'text-yellow-500',
+        'bg-discord-code',
+        'discord-mention'
+    ],
     plugins: [
         require('@tailwindcss/typography'),
         require('tailwindcss-animate'),

@@ -1,12 +1,10 @@
 'use client';
-import MockEmbed from '@/components/ui/messages/mock-embed';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useQuery, useQueryClient } from 'react-query';
 import { APIEmbed } from 'discord-api-types/v10';
 import {
     BsBell,
     BsCalendar,
-    BsChatLeftDots,
     BsClock,
     BsEye,
     BsMegaphone,
@@ -22,6 +20,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { EmbedDialog } from '@/components/ui/dialog/embed-dialog';
+import { DiscordMessage } from '@/components/ui/messages/discord-message';
+import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
+import { MessageCircleIcon } from 'lucide-react';
+import { StoredEmbed } from '@/lib/types/StoredEmbed';
+import { StoredEmbeds } from '@/components/ui/messages/stored-embeds';
 type ScheduleBody = {
     times_to_run: number;
     message: string;
@@ -30,8 +33,8 @@ type ScheduleBody = {
     embed: APIEmbed;
     start_date?: Date;
 };
-export default function CreateSchedule({ serverID }: { serverID: string }) {
-    const { register, watch, control, handleSubmit, reset } =
+export default function CreateSchedule({ serverID: id }: { serverID: string }) {
+    const { register, watch, control, handleSubmit, reset, setValue } =
         useForm<ScheduleBody>({
             defaultValues: {
                 embed: { fields: [] },
@@ -42,9 +45,18 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
             },
         });
     const { data: channels } = useQuery(
-        ['data_channels', serverID],
+        ['data_channels', id],
         async () =>
-            await fetch(`/bot/v1/servers/${serverID}/channels`)
+            await fetch(`/bot/v1/servers/${id}/channels`)
+                .then(async (data) => await data.json().catch(() => undefined))
+                .catch(() => undefined)
+    );
+    const { data: embeds } = useQuery<
+        { data: { stored_embeds: StoredEmbed[] } } | undefined
+    >(
+        ['data_embeds', id],
+        async () =>
+            await fetch(`/bot/v1/servers/${id}/embeds`)
                 .then(async (data) => await data.json().catch(() => undefined))
                 .catch(() => undefined)
     );
@@ -75,7 +87,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
             body.append('embed', JSON.stringify(data.embed));
         }
         body.append('times_to_run', data.times_to_run?.toString() || '');
-        fetch(`/bot/v1/servers/${serverID}/schedules`, { method: 'POST', body })
+        fetch(`/bot/v1/servers/${id}/schedules`, { method: 'POST', body })
             .then(async (res) => {
                 const json = await res.json().catch(() => undefined);
                 if (!json || json['error']) {
@@ -92,12 +104,13 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
                     status: 'success',
                 });
 
-                queryClient.invalidateQueries(['data_schedules', serverID]);
+                queryClient.invalidateQueries(['data_schedules', id]);
                 reset();
             })
             .catch(() => {});
     }
     const embed = watch('embed');
+    const content = watch('message');
     return (
         <>
             <div
@@ -141,7 +154,7 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
                             control={control}
                             render={({ field }) => (
                                 <Channels
-                                    serverID={serverID}
+                                    serverID={id}
                                     value={field.value}
                                     onChange={(e) => field.onChange(e.channel)}
                                 />
@@ -220,36 +233,67 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
                             )}
                         ></Controller>
                     </label>
-                    <label
+                    <section
                         className={
                             'flex flex-col gap-2 font-open-sans text-xl max-md:items-center'
                         }
                     >
-                        <span className={'flex flex-row items-center gap-2'}>
-                            <BsChatLeftDots /> Message:
+                        <span
+                            className={
+                                'flex w-full flex-row items-center gap-2 max-md:flex-col'
+                            }
+                        >
+                            <label
+                                className={'flex flex-row items-center gap-1'}
+                            >
+                                <MessageCircleIcon /> Message Content:
+                            </label>
+                            <span className='ml-auto max-md:mx-auto'>
+                                <StoredEmbeds
+                                    id={id}
+                                    value={''}
+                                    onValueChange={(e) => {
+                                        const message =
+                                            embeds?.data?.stored_embeds?.find(
+                                                (i) => i.id === e
+                                            );
+                                        if (!message) return;
+                                        setValue('embed', message.embed ?? {});
+                                        setValue(
+                                            'message',
+                                            message.content ?? ''
+                                        );
+                                    }}
+                                />
+                            </span>
                         </span>
+
                         <Controller
                             name={'message'}
                             control={control}
-                            render={({ field }) => (
-                                <TextareaMessage
-                                    placeholderContext={['schedule']}
-                                    wrapperClass={'w-full'}
-                                    maxLength={2000}
-                                    serverID={serverID}
-                                    {...field}
-                                />
-                            )}
-                        ></Controller>
-                    </label>
+                            render={({ field }) => {
+                                return (
+                                    <TextareaMessage
+                                        serverID={id}
+                                        wrapperClass={'w-full'}
+                                        value={field.value}
+                                        placeholderContext={['schedule']}
+                                        onChange={field.onChange}
+                                        maxLength={2000}
+                                    />
+                                );
+                            }}
+                        />
+                    </section>
                     <span
                         className={
                             'flex items-center justify-between gap-5 max-md:flex-col'
                         }
                     >
                         <EmbedDialog
-                            serverID={serverID}
+                            serverID={id}
                             addField={append}
+                            placeholderContext={['schedule']}
                             register={register}
                             removeField={remove}
                             control={control}
@@ -272,7 +316,23 @@ export default function CreateSchedule({ serverID }: { serverID: string }) {
                         >
                             <BsEye /> Embed Preview
                         </h1>
-                        {embed ? <MockEmbed embed={embed} /> : ''}
+                        {embed ? (
+                            <DiscordMessage
+                                embed={embed}
+                                serverData={{
+                                    serverID: id,
+                                    placeholderContext: ['schedule'],
+                                }}
+                                content={
+                                    isEmbedEmpty(embed) && !content
+                                        ? `This is the Embed preview for the Notification you are creating. When you make changes to your embed, the changes will be reflected here! See the [documentation for Embeds](${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/embeds) for more information!`
+                                        : content
+                                }
+                                background
+                            />
+                        ) : (
+                            ''
+                        )}
                     </span>
                 </form>
             </div>

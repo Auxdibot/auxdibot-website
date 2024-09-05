@@ -82,7 +82,7 @@ export default function FilteredLogs({
                 Filter Log Actions
             </h3>
             <Link
-                href={'/docs/logging'}
+                href={`${process.env.NEXT_PUBLIC_DOCUMENTATION_LINK}/modules/logging`}
                 className={'h-fit text-center font-open-sans text-gray-400'}
             >
                 Click me to view all log actions that Auxdibot uses.

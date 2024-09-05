@@ -17,7 +17,7 @@ export default function DashboardProviders({
     if (!user || !user.guilds.find((i: DiscordGuild) => i.id == serverID))
         return <Unauthorized />;
     return (
-        <main className={'flex w-full flex-1 flex-grow flex-row'}>
+        <main className={'relative flex w-full flex-1 flex-grow flex-row'}>
             <DashboardSidebarContainer serverID={serverID} />
             {children}
         </main>

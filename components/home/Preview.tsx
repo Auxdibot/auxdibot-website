@@ -1,10 +1,10 @@
 'use client';
 import { useFieldArray, useForm } from 'react-hook-form';
-import MockEmbed from '../ui/messages/mock-embed';
 import { APIEmbed } from 'discord-api-types/v10';
 import { motion } from 'framer-motion';
 import { EmbedDialog } from '../ui/dialog/embed-dialog';
 import { Trash } from 'lucide-react';
+import { DiscordMessage } from '../ui/messages/discord-message';
 type EmbedPreviewBody = { embed: APIEmbed };
 export function Preview() {
     const { control, register, watch, reset } = useForm<EmbedPreviewBody>({
@@ -15,6 +15,7 @@ export function Preview() {
                     name: 'Auxdible',
                     icon_url: 'https://auxdible.me/icon.png',
                 },
+                url: 'https://auxdibot.xyz',
                 title: 'Auxdibot Embed Tools',
                 description:
                     'This is a preview of the embed you are creating. You can edit the embed by clicking the Edit Embed button. You can implement placeholders, roles, emojis, or channels in your bot by clicking the + in the bottom right of text boxes.',
@@ -34,13 +35,17 @@ export function Preview() {
                         value: 'Siiiickkk.',
                         inline: true,
                     },
+                    {
+                        name: 'Placeholders',
+                        value: '%server_name% <- This is a placeholder! You can use placeholders in your embeds to display server information.',
+                    },
                 ],
                 footer: {
                     text: 'Powered by Auxdibot',
-                    icon_url: 'https://bot.auxdible.me/logo.png',
+                    icon_url: 'https://auxdibot.xyz/logo.png',
                 },
                 thumbnail: {
-                    url: 'https://bot.auxdible.me/logo.png',
+                    url: 'https://auxdibot.xyz/logo.png',
                 },
             },
         },
@@ -54,7 +59,7 @@ export function Preview() {
     });
     const embed = watch('embed');
     return (
-        <div className={'flex flex-col items-center gap-20'}>
+        <div className={'flex flex-col items-center gap-20 px-1'}>
             <div
                 className={
                     'mx-auto flex w-full max-w-7xl items-center justify-between max-xl:flex-col max-xl:gap-20'
@@ -96,6 +101,7 @@ export function Preview() {
                         <EmbedDialog
                             register={register}
                             control={control}
+                            placeholderContext={'*'}
                             removeField={removeField}
                             addField={addField}
                         />
@@ -119,7 +125,7 @@ export function Preview() {
                 <span className='relative flex flex-1 items-center justify-center'>
                     <div
                         className={
-                            'absolute -inset-1 bg-gradient-to-br from-primary-100 to-primary-600 opacity-70 blur-3xl'
+                            'absolute -inset-1 z-0 bg-gradient-to-br from-primary-100 to-primary-600 opacity-70 blur-3xl'
                         }
                     />
                     {!embed ||
@@ -136,7 +142,13 @@ export function Preview() {
                             Click &quot;Edit Embed&quot; to start creating!
                         </span>
                     ) : (
-                        <MockEmbed embed={embed} />
+                        <DiscordMessage
+                            background
+                            embed={embed}
+                            content={
+                                "# DID I MENTION\nWe support Discord's custom formatting? You can preview it LIVE in this Embed builder! 😎 👉 👉"
+                            }
+                        />
                     )}
                 </span>
             </div>
