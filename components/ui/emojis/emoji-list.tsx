@@ -16,7 +16,6 @@ import {
     Utensils,
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
-import { BsDiscord } from 'react-icons/bs';
 import { DiscordLogoIcon } from '@radix-ui/react-icons';
 
 function Category({ name, icon }: { name: string; icon: JSX.Element }) {
