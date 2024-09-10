@@ -1,36 +1,30 @@
 import ServerEmojiBody from '@/lib/types/ServerEmojis';
 import Image from 'next/image';
 import { Suspense, useState } from 'react';
-import {
-    BsBuilding,
-    BsDiscord,
-    BsEmojiSmile,
-    BsFlag,
-    BsHash,
-    BsLamp,
-    BsPerson,
-} from 'react-icons/bs';
-import { MdOutlineFastfood, MdOutlineSportsBasketball } from 'react-icons/md';
-import { PiDog } from 'react-icons/pi';
 import { emojis } from '@/lib/constants/emojis';
 import { ScrollArea } from '../scroll-area';
+import { Input } from '../input';
+import {
+    Building,
+    Dog,
+    Dumbbell,
+    Flag,
+    Hash,
+    Lamp,
+    Smile,
+    User,
+    Utensils,
+} from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+import { BsDiscord } from 'react-icons/bs';
+import { DiscordLogoIcon } from '@radix-ui/react-icons';
 
 function Category({ name, icon }: { name: string; icon: JSX.Element }) {
     return (
-        <span
-            className={
-                'group relative flex items-center self-stretch p-0.5 px-1 md:px-1.5'
-            }
-        >
-            {icon}
-            <span
-                className={
-                    'absolute left-1/2 z-[60] origin-bottom -translate-x-1/2 -translate-y-8 scale-0 rounded-2xl border border-gray-700 bg-gray-950 px-1 font-open-sans transition-all group-hover:scale-100 max-md:hidden'
-                }
-            >
-                {name}
-            </span>
-        </span>
+        <Tooltip>
+            <TooltipTrigger asChild>{icon}</TooltipTrigger>
+            <TooltipContent>{name}</TooltipContent>
+        </Tooltip>
     );
 }
 interface EmojiListProps {
@@ -44,108 +38,93 @@ export function EmojiList({
     parseServerEmojis,
 }: EmojiListProps) {
     const [category, setCategory] = useState(0);
+    const [q, setQuery] = useState('');
     return (
-        <div className={`flex h-auto max-md:py-2 md:flex-col`}>
+        <div className={`flex h-auto max-md:py-2 md:min-w-[346px] md:flex-col`}>
             <span
                 className={
-                    'flex w-fit items-center justify-between max-md:h-fit max-md:flex-col md:self-stretch md:pr-6'
+                    'flex items-center justify-between self-stretch border-gray-600/50 max-md:mr-2 max-md:flex-col max-md:border-r max-md:pl-2 max-md:pr-2 md:w-full md:border-b md:px-4 md:py-2'
                 }
             >
                 <span
                     onClick={() => setCategory(0)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsEmojiSmile />} name={'Smileys'} />
+                    <Category icon={<Smile size='20' />} name={'Smileys'} />
                 </span>
                 <span
                     onClick={() => setCategory(1)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsPerson />} name={'People'} />
+                    <Category icon={<User size='20' />} name={'People'} />
                 </span>
                 <span
                     onClick={() => setCategory(2)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<PiDog />} name={'Nature'} />
+                    <Category icon={<Dog size='20' />} name={'Nature'} />
                 </span>
                 <span
                     onClick={() => setCategory(3)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<MdOutlineFastfood />} name={'Food'} />
+                    <Category icon={<Utensils size='20' />} name={'Food'} />
                 </span>
                 <span
                     onClick={() => setCategory(4)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsBuilding />} name={'Places'} />
+                    <Category icon={<Building size='20' />} name={'Places'} />
                 </span>
                 <span
                     onClick={() => setCategory(5)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
                     <Category
-                        icon={<MdOutlineSportsBasketball />}
+                        icon={<Dumbbell size='20' />}
                         name={'Activities'}
                     />
                 </span>
                 <span
                     onClick={() => setCategory(6)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsLamp />} name={'Objects'} />
+                    <Category icon={<Lamp size='20' />} name={'Objects'} />
                 </span>
                 <span
                     onClick={() => setCategory(7)}
-                    className={
-                        'cursor-pointer border-r max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsHash />} name={'Symbols'} />
+                    <Category icon={<Hash size='20' />} name={'Symbols'} />
                 </span>
                 <span
                     onClick={() => setCategory(8)}
-                    className={
-                        'cursor-pointer border-r last-of-type:border-0 max-md:border-b max-md:border-r-0 max-md:py-0.5'
-                    }
+                    className={'cursor-pointer max-md:py-0.5'}
                 >
-                    <Category icon={<BsFlag />} name={'Flags'} />
+                    <Category icon={<Flag size='20' />} name={'Flags'} />
                 </span>
+
                 {serverEmojis?.emojis.length ? (
                     <span
                         onClick={() => setCategory(9)}
-                        className={
-                            'cursor-pointer border-r last-of-type:border-0 max-md:py-0.5'
-                        }
+                        className={'relative cursor-pointer max-md:py-0.5'}
                     >
                         <Category
                             icon={
-                                serverEmojis.server_icon ? (
+                                serverEmojis?.server_icon ? (
                                     <Image
                                         alt={'Server Icon'}
-                                        width={16}
-                                        height={16}
+                                        width={20}
+                                        height={20}
                                         className={'rounded-xl'}
                                         quality={100}
-                                        src={serverEmojis.server_icon}
+                                        src={serverEmojis?.server_icon}
                                     />
                                 ) : (
-                                    <BsDiscord />
+                                    <DiscordLogoIcon
+                                        width={'20'}
+                                        height={'20'}
+                                    />
                                 )
                             }
                             name={'Server'}
@@ -155,70 +134,96 @@ export function EmojiList({
                     <></>
                 )}
             </span>
-
-            <ScrollArea
-                className={`flex h-60 flex-col gap-1 self-stretch py-2 font-open-sans`}
-            >
-                {
-                    <div
-                        className={
-                            'grid min-h-full flex-1 grid-cols-9 gap-1 self-stretch pr-4'
-                        }
-                    >
-                        {category != 9
-                            ? emojis[category].emojis.map((emoji) => (
-                                  <span
-                                      key={emoji.order}
-                                      onClick={() => change(emoji.emoji)}
-                                      className={
-                                          'h-fit cursor-pointer rounded-lg p-1 hover:bg-gray-600'
-                                      }
-                                  >
-                                      <Suspense
-                                          fallback={
-                                              <span className={'bg-gray-600'}>
-                                                  {
-                                                      <BsEmojiSmile
+            <div className={'flex-shrink-0 flex-grow max-md:pr-2'}>
+                <Input
+                    value={q}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={'Search...'}
+                    className={'my-2 self-stretch'}
+                />
+                <ScrollArea
+                    className={`flex h-60 flex-col gap-1 self-stretch py-2 font-open-sans`}
+                >
+                    {
+                        <div
+                            className={
+                                'grid min-h-full flex-1 grid-cols-9 gap-1 self-stretch pr-4'
+                            }
+                        >
+                            {category != 9
+                                ? emojis[category].emojis
+                                      .filter((i) => {
+                                          if (q.length == 0) return true;
+                                          return i.annotation
+                                              .replaceAll('_', ' ')
+                                              .includes(q);
+                                      })
+                                      .map((emoji) => (
+                                          <span
+                                              key={emoji.order}
+                                              onClick={() =>
+                                                  change(emoji.emoji)
+                                              }
+                                              className={
+                                                  'h-fit cursor-pointer rounded-lg p-1 hover:bg-gray-600'
+                                              }
+                                          >
+                                              <Suspense
+                                                  fallback={
+                                                      <span
                                                           className={
-                                                              'animate-pulse'
+                                                              'bg-gray-600'
                                                           }
-                                                      />
+                                                      >
+                                                          {
+                                                              <Smile
+                                                                  size='20'
+                                                                  className={
+                                                                      'animate-pulse'
+                                                                  }
+                                                              />
+                                                          }
+                                                      </span>
                                                   }
-                                              </span>
-                                          }
-                                      >
-                                          {emoji.twemoji}
-                                      </Suspense>
-                                  </span>
-                              ))
-                            : serverEmojis?.emojis.map((emoji) => (
-                                  <span
-                                      key={emoji.name}
-                                      onClick={() =>
-                                          change(
-                                              parseServerEmojis
-                                                  ? `<:${emoji.name}:${emoji.id}>`
-                                                  : emoji.id
-                                          )
-                                      }
-                                      className={
-                                          'h-fit cursor-pointer rounded-lg p-1 hover:bg-gray-600'
-                                      }
-                                  >
-                                      <Image
-                                          alt={emoji.name}
-                                          width={24}
-                                          height={24}
-                                          quality={100}
-                                          draggable='false'
-                                          loading='lazy'
-                                          src={emoji.image}
-                                      />
-                                  </span>
-                              ))}
-                    </div>
-                }
-            </ScrollArea>
+                                              >
+                                                  {emoji.twemoji}
+                                              </Suspense>
+                                          </span>
+                                      ))
+                                : serverEmojis?.emojis
+                                      .filter((i) => {
+                                          if (q.length == 0) return true;
+                                          return i.name.includes(q);
+                                      })
+                                      .map((emoji) => (
+                                          <span
+                                              key={emoji.name}
+                                              onClick={() =>
+                                                  change(
+                                                      parseServerEmojis
+                                                          ? `<:${emoji.name}:${emoji.id}>`
+                                                          : emoji.id
+                                                  )
+                                              }
+                                              className={
+                                                  'h-fit cursor-pointer rounded-lg p-1 hover:bg-gray-600'
+                                              }
+                                          >
+                                              <Image
+                                                  alt={emoji.name}
+                                                  width={24}
+                                                  height={24}
+                                                  quality={100}
+                                                  draggable='false'
+                                                  loading='lazy'
+                                                  src={emoji.image}
+                                              />
+                                          </span>
+                                      ))}
+                        </div>
+                    }
+                </ScrollArea>
+            </div>
         </div>
     );
 }
