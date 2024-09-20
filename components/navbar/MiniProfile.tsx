@@ -13,7 +13,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { User, UserCog } from 'lucide-react';
+import { Check, User, UserCog } from 'lucide-react';
+import { hasVoted } from '@/lib/hasVoted';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export default function MiniProfile(props: React.ComponentProps<any>) {
     const [expanded, setExpanded] = useState(false);
@@ -51,6 +53,22 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
             <span className={'text-primary-300'}></span>
             <span className={`flex flex-row gap-2`}>
                 <span className={'flex items-center gap-2'}>
+                    {status == 'authenticated' &&
+                    user?.voted_date &&
+                    hasVoted(new Date(user.voted_date)) ? (
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Check
+                                    className={'cursor-pointer text-yellow-600'}
+                                />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                Thank you for voting for Auxdibot!
+                            </TooltipContent>
+                        </Tooltip>
+                    ) : (
+                        ''
+                    )}
                     {status == 'authenticated' && user?.avatar && user?.id ? (
                         <Image
                             src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
