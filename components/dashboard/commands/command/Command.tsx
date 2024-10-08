@@ -15,7 +15,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog/dialog';
-import AdminOnlySlider from './AdminOnlySlider';
 import OutputChannel from './OutputChannel';
 import BlacklistedChannels from './BlacklistedChannels';
 import RequiredChannels from './RequiredChannels';
@@ -23,6 +22,7 @@ import BlacklistedRoles from './BlacklistedRoles';
 import RequiredRoles from './RequiredRoles';
 import PermissionBypassRoles from './PermissionBypassRoles';
 import { Separator } from '@/components/ui/separator';
+import DiscordPermissions from './DiscordPermissions';
 interface CommandProps {
     readonly command: CommandType;
     readonly data?: CommandPermissionData;
@@ -99,26 +99,25 @@ function CommandEditMenu({ data, command, id }: CommandProps) {
                     <section
                         className={'flex flex-1 flex-col items-center gap-1'}
                     >
-                        <label className={'font-open-sans'}>Admin Only</label>
+                        <label className={'font-open-sans'}>
+                            Discord Permissions
+                        </label>
                         <p
                             className={
                                 'w-fit text-center text-xs italic text-gray-400'
                             }
                         >
-                            Toggle whether users with the Administrator
-                            permission on Discord can use this command
-                            exclusively.
+                            Add Discord Permission requirements in order to run
+                            a command.
                         </p>
-                        <AdminOnlySlider
-                            admin_only={
-                                data?.admin_only ?? !!!command.allowedDefault
-                            }
+                        <DiscordPermissions
                             command={command.command}
                             subcommand={[
                                 command.group ?? '',
                                 command.subcommand ?? '',
                             ].filter((i) => i)}
                             id={id}
+                            permissions={data?.discord_permissions}
                         />
                     </section>
                 </div>
