@@ -9,7 +9,7 @@ export function PremiumBenefits() {
                 donation goes to Auxdibot.
             </li>
             <li className={'flex items-center gap-1 font-open-sans'}>
-                <BsCheck className={'flex-shrink-0 text-2xl'} /> 5 Premium
+                <BsCheck className={'flex-shrink-0 text-2xl'} /> 3 Premium
                 Servers
             </li>
             <li className={'flex items-center gap-1 font-open-sans'}>
