@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { BsBook, BsDiscord, BsArrowUp, BsCurrencyDollar } from 'react-icons/bs';
 import MiniProfile from './MiniProfile';
 import MiniServer from './MiniServer';
+
+// TODO: preventCollapse is now depreceated eventually redo sidebar look on dashboard and remove it
 export default function LayoutNavbar({
     preventCollapse,
     premiumIcon,
@@ -17,7 +19,7 @@ export default function LayoutNavbar({
     return (
         <>
             <nav
-                className={`${preventCollapse ? 'fixed border-b border-gray-800 bg-gradient-to-br from-gray-900 to-black' : 'absolute'} z-50 flex h-16 w-full items-center gap-10 px-5 py-2 align-middle transition-all max-md:gap-4`}
+                className={`${preventCollapse ? 'fixed border-b border-gray-800 bg-gradient-to-br from-gray-900 to-black' : 'fixed border-b border-b-black border-opacity-50 bg-black bg-opacity-30 backdrop-blur-3xl'} z-50 flex h-16 w-full items-center gap-10 px-5 py-2 align-middle transition-all max-md:gap-4`}
             >
                 <Link
                     href={'/'}

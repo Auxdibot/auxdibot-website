@@ -105,8 +105,8 @@ module.exports = {
                     'mastheadCycleUp 1990ms ease-in-out infinite 2000ms',
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
-                marquee: 'marquee 30s linear infinite',
-                marquee2: 'marquee2 30s linear infinite'
+                marquee: 'marquee 40s linear infinite',
+                marquee2: 'marquee2 40s linear infinite'
             },
             fontFamily: {
                 'josefin-sans': 'var(--font-josefin-sans)',

@@ -27,7 +27,7 @@ export function HeaderButton({
             <div className='absolute inset-0 overflow-hidden rounded-full'>
                 <div
                     className={
-                        'group-hover:triangle triangle-reverse absolute -inset-5 origin-bottom-left scale-0 rounded-full bg-gradient-to-bl from-primary-600 from-20% to-primary-100 to-50% transition-transform duration-700 ease-in-out group-hover:origin-top-right group-hover:scale-[180%] group-hover:from-primary-100 group-hover:to-primary-600' +
+                        'group-hover:triangle triangle-reverse absolute -inset-5 origin-bottom-left scale-0 rounded-full bg-gradient-to-bl from-primary-600 from-20% to-primary-100 to-50% transition-transform duration-700 ease-in-out group-hover:origin-top-right group-hover:scale-[180%] group-hover:from-primary-100 group-hover:to-primary-600 ' +
                         gradientClass
                     }
                 />
