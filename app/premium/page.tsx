@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import { HeaderButton } from '@/components/ui/header-button';
 import { DollarSign } from 'lucide-react';
+import { Marquee } from '@/components/ui/marquee';
 export default function PremiumPage() {
     const mobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
@@ -90,50 +91,28 @@ export default function PremiumPage() {
                         </span>
                         .
                     </h1>
-                    <article className='whitespace-no-wrap flex w-full overflow-x-hidden'>
-                        <div className='relative w-full font-raleway text-4xl max-2xl:text-2xl'>
-                            <ul className='flex w-max min-w-full animate-marquee'>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Unlimited Storage
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Exclusive Role
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Premium Features
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Instant Support
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Beta Features
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Exclusive Badge
-                                </li>
-                            </ul>
-                            <ul className='absolute top-0 flex w-max min-w-full animate-marquee2'>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Unlimited Storage
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Exclusive Role
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Premium Features
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Instant Support
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Beta Features
-                                </li>
-                                <li className='m-8 flex-1 whitespace-nowrap'>
-                                    Exclusive Badge
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
+                    <Marquee
+                        className={'font-raleway text-4xl max-2xl:text-2xl'}
+                    >
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Unlimited Storage
+                        </span>
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Exclusive Role
+                        </span>
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Premium Features
+                        </span>
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Instant Support
+                        </span>
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Beta Features
+                        </span>
+                        <span className='m-8 flex-1 whitespace-nowrap'>
+                            Exclusive Badge
+                        </span>
+                    </Marquee>
                 </div>
 
                 <span
@@ -363,7 +342,7 @@ export default function PremiumPage() {
                                 'relative flex w-full flex-col items-center justify-center gap-10 rounded-2xl border border-zinc-900 bg-zinc-950 p-2 py-5'
                             }
                         >
-                            <section className={'flex flex-col gap-2'}>
+                            <section className={'flex w-full flex-col gap-2'}>
                                 <h1
                                     className={
                                         'premium-gradient w-full border-b-2 border-zinc-900 bg-clip-text py-1 pb-5 text-center font-bauhaus text-6xl text-transparent'
@@ -377,7 +356,7 @@ export default function PremiumPage() {
                                             'font-raleway text-4xl font-bold'
                                         }
                                     >
-                                        6.99$
+                                        4.99$
                                     </span>{' '}
                                     USD/mo
                                 </span>
@@ -414,7 +393,7 @@ export default function PremiumPage() {
                                 'relative flex w-full flex-col items-center gap-10 self-stretch rounded-2xl border border-zinc-900 bg-zinc-950 p-2 py-5'
                             }
                         >
-                            <section className={'flex flex-col gap-2'}>
+                            <section className={'w-fullwe flex flex-col gap-2'}>
                                 <h1
                                     className={
                                         'w-full border-b-2 border-zinc-900 bg-clip-text py-1 pb-5 text-center font-raleway text-6xl font-bold'

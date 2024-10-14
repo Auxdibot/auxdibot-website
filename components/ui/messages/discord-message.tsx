@@ -1,3 +1,4 @@
+'use client';
 import { isEmbedEmpty } from '@/lib/isEmbedEmpty';
 import blockquote from '@/lib/parser/blockquote';
 import codeblock from '@/lib/parser/codeblock';
@@ -19,6 +20,7 @@ import serveremoji from '@/lib/parser/serveremoji';
 import role from '@/lib/parser/role';
 import user from '@/lib/parser/user';
 import channel from '@/lib/parser/channel';
+import { useEffect, useState } from 'react';
 
 type DiscordMessageBody = {
     embed?: APIEmbed;
@@ -117,6 +119,25 @@ export function DiscordMessage({
             )
         ),
     ];
+    const [textDate, setTextDate] = useState('');
+    useEffect(() => {
+        if (!textDate) {
+            setTextDate(
+                new Date()
+                    .toLocaleTimeString(
+                        typeof navigator !== 'undefined'
+                            ? navigator?.language
+                            : 'en-US',
+                        {
+                            hour: 'numeric',
+                            minute: '2-digit',
+                        }
+                    )
+                    .replace(/(:\d{2})$/, '')
+            );
+        }
+        return () => {};
+    }, [textDate]);
     function generateFields() {
         if (!embed?.fields) return '';
         let totalInlines = 0;
@@ -204,18 +225,7 @@ export function DiscordMessage({
                                     </span>
                                 </div>
                                 <span className='ml-[0.25rem] h-[1.25rem] align-baseline text-xs text-discord-muted'>
-                                    Today at{' '}
-                                    {new Date()
-                                        .toLocaleTimeString(
-                                            typeof navigator !== 'undefined'
-                                                ? navigator?.language
-                                                : 'en-US',
-                                            {
-                                                hour: 'numeric',
-                                                minute: '2-digit',
-                                            }
-                                        )
-                                        .replace(/(:\d{2})$/, '')}
+                                    Today at {textDate}
                                 </span>
                             </h3>
                         </div>
