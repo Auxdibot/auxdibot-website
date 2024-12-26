@@ -262,7 +262,7 @@ export default function Analytics() {
                         }
                     >
                         {status == 'success' ? (
-                            <Countable start={0} end={analytics?.punishments} />
+                            <Countable start={0} end={analytics?.greetings} />
                         ) : (
                             <BsThreeDots
                                 className={'animate-spin text-4xl text-white'}
