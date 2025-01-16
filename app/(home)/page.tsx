@@ -4,7 +4,7 @@ import { Ending } from '@/components/home/Ending';
 import { Features } from '@/components/home/features/Features';
 import Footer from '@/components/home/Footer';
 import Masthead from '@/components/home/Masthead';
-import { NewFeature } from '@/components/home/NewFeature';
+
 import { Preview } from '@/components/home/Preview';
 import Start from '@/components/home/Start';
 
@@ -16,7 +16,6 @@ export default function Home() {
                 <Analytics />
                 <AboutBot />
             </div>
-            <NewFeature />
             <Features />
             <Preview />
             <Start />

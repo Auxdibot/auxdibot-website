@@ -27,7 +27,7 @@ export default function RootLayout({
                 }
             >
                 <Providers>
-                    <LayoutNavbar preventCollapse />
+                    <LayoutNavbar />
                     {children}
                 </Providers>
             </body>

@@ -14,7 +14,9 @@ export default function Servers() {
     if (status == 'loading') return <PageLoading />;
     if (!user?.guilds) return <Error />;
     return (
-        <div className={'relative flex flex-grow flex-col justify-center py-5'}>
+        <div
+            className={'relative flex flex-grow flex-col justify-center py-32'}
+        >
             <div
                 className={
                     'absolute top-0 -z-10 h-screen w-full overflow-hidden bg-black bg-auxdibot-masthead bg-auto bg-no-repeat'

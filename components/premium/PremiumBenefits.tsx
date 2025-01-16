@@ -25,12 +25,16 @@ export function PremiumBenefits() {
                 at no additional cost.
             </li>
             <li className={'flex items-center gap-1 font-open-sans'}>
-                <BsCheck className={'flex-shrink-0 text-2xl'} /> Access to beta
-                versions of Auxdibot features.
+                <BsCheck className={'flex-shrink-0 text-2xl'} /> Customize your
+                level card across all Auxdibot servers.
             </li>
             <li className={'flex items-center gap-1 font-open-sans'}>
-                <BsCheck className={'flex-shrink-0 text-2xl'} /> Increased
-                limits for most features.
+                <BsCheck className={'flex-shrink-0 text-2xl'} /> Enhanced
+                Moderation features, including appeals.
+            </li>
+            <li className={'flex items-center gap-1 font-open-sans'}>
+                <BsCheck className={'flex-shrink-0 text-2xl'} /> Access to beta
+                versions of Auxdibot features.
             </li>
             <li className={'flex items-center gap-1 font-open-sans'}>
                 <BsCheck className={'flex-shrink-0 text-2xl'} /> Infinite

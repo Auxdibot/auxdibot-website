@@ -64,7 +64,7 @@ export default function Footer() {
             <div className='flex flex-col gap-1'>
                 <h3 className='header text-2xl'>auxdibot</h3>
                 <span className='font-inter text-zinc-300'>
-                    © 2024 Steven Primeaux
+                    © 2025 Steven Primeaux
                 </span>
                 <span className='flex gap-2 max-sm:justify-center'>
                     <Link href={'https://github.com/Auxdible'}>
@@ -78,12 +78,3 @@ export default function Footer() {
         </footer>
     );
 }
-/*
-<div className={"w-full mx-auto py-5 flex flex-row max-md:flex-col justify-between items-center max-md:gap-8"}>
-            <div className={"flex-1 flex-grow flex-shrink flex"}><Link className={"secondary text-2xl hover:text-orange-500 hover:-translate-y-1 transition-all flex flex-row gap-2 items-center"} href={"https://github.com/Auxdibot/"}><BsGithub/></Link></div>
-            <Link href={process.env.NEXT_PUBLIC_DISCORD_SERVER_LINK || ""} className={"flex max-md:flex-col flex-row gap-2 text-center items-center font-open-sans group"}><BsDiscord className={"group-hover:text-discord-primary transition-all max-sm:text-2xl"}/> Need help? Join the Discord Server.</Link>
-        </div>
-        <div className={'flex max-md:flex-col justify-between items-center font-open-sans text-gray-400'}>
-            <span className={"header text-3xl"}>auxdibot</span>
-            <Link href={'https://auxdible.me'}>Created by Auxdible.</Link>
-        </div> */

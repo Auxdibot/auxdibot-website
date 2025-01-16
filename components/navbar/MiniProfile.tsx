@@ -52,85 +52,87 @@ export default function MiniProfile(props: React.ComponentProps<any>) {
         <div ref={ref} {...props}>
             <span className={'text-primary-300'}></span>
             <span className={`flex flex-row gap-2`}>
-                <span className={'flex items-center gap-2'}>
-                    {status == 'authenticated' &&
-                    user?.voted_date &&
-                    hasVoted(new Date(user.voted_date)) ? (
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Check
-                                    className={'cursor-pointer text-yellow-600'}
+                {status == 'authenticated' &&
+                user?.voted_date &&
+                hasVoted(new Date(user.voted_date)) ? (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Check
+                                className={'cursor-pointer text-yellow-600'}
+                            />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Thank you for voting for Auxdibot!
+                        </TooltipContent>
+                    </Tooltip>
+                ) : (
+                    ''
+                )}
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <span
+                            className={'flex cursor-pointer items-center gap-2'}
+                        >
+                            {status == 'authenticated' &&
+                            user?.avatar &&
+                            user?.id ? (
+                                <Image
+                                    src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
+                                    alt={'Discord profile icon'}
+                                    className={
+                                        'inline-block rounded-xl align-middle'
+                                    }
+                                    width={36}
+                                    height={36}
+                                    quality='100'
+                                    priority
                                 />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                Thank you for voting for Auxdibot!
-                            </TooltipContent>
-                        </Tooltip>
-                    ) : (
-                        ''
-                    )}
-                    {status == 'authenticated' && user?.avatar && user?.id ? (
-                        <Image
-                            src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
-                            alt={'Discord profile icon'}
-                            className={'inline-block rounded-xl align-middle'}
-                            width={36}
-                            height={36}
-                            quality='100'
-                            priority
-                        />
-                    ) : (
-                        <UserCog
-                            className={
-                                'text inline-block align-middle text-2xl'
-                            }
-                        />
-                    )}
+                            ) : (
+                                <UserCog
+                                    className={
+                                        'text inline-block align-middle text-2xl'
+                                    }
+                                />
+                            )}
 
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
                             <button
                                 className={
                                     'group flex cursor-pointer flex-row items-center gap-2 font-raleway text-lg tracking-wide text-gray-200'
                                 }
                             >
-                                <span className={'select-none max-md:hidden'}>
-                                    {user?.username || 'Sign in'}
-                                </span>
-
                                 <BsArrowDownShort
                                     className={
                                         'transition-transform group-hover:translate-y-1'
                                     }
                                 />
                             </button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className='translate-y-2 font-inter'>
-                            <DropdownMenuLabel className='flex items-center gap-1 font-raleway text-lg font-bold'>
-                                <User width={'20px'} /> User
-                            </DropdownMenuLabel>
-                            {status == 'authenticated' ? (
-                                <>
-                                    <Link href={'/dashboard'}>
-                                        <DropdownMenuItem>
-                                            Dashboard
-                                        </DropdownMenuItem>
-                                    </Link>
-                                    <DropdownMenuItem
-                                        onClick={() => signOut()}
-                                        className='cursor-pointer text-red-500 hover:text-red-400'
-                                    >
-                                        Sign out
+                        </span>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className='translate-y-2 font-inter'>
+                        <DropdownMenuLabel className='flex items-center gap-1 font-raleway text-lg font-bold'>
+                            <User width={'20px'} /> User
+                        </DropdownMenuLabel>
+                        {status == 'authenticated' ? (
+                            <>
+                                <Link href={'/dashboard'}>
+                                    <DropdownMenuItem>
+                                        Dashboard
                                     </DropdownMenuItem>
-                                </>
-                            ) : (
-                                <Link href={'/bot/v1/auth/discord'}>
-                                    <DropdownMenuItem>Sign in</DropdownMenuItem>
                                 </Link>
-                            )}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </span>
+                                <DropdownMenuItem
+                                    onClick={() => signOut()}
+                                    className='cursor-pointer text-red-500 hover:text-red-400'
+                                >
+                                    Sign out
+                                </DropdownMenuItem>
+                            </>
+                        ) : (
+                            <Link href={'/bot/v1/auth/discord'}>
+                                <DropdownMenuItem>Sign in</DropdownMenuItem>
+                            </Link>
+                        )}
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </span>
         </div>
     );

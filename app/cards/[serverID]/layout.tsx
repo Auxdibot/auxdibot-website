@@ -35,7 +35,7 @@ export async function generateMetadata({
                 title: 'Card Not Found',
                 description: "Couldn't find an Auxdibot card for that server.",
                 type: 'website',
-                url: 'https://bot.auxdible.me',
+                url: 'https://auxdibot.xyz',
             },
         };
     return {
@@ -52,7 +52,7 @@ export async function generateMetadata({
             images: cardData.server.icon_url && [cardData.server.icon_url],
             siteName: `🧍 ${cardData.server.members.toLocaleString()} members | ${cardData.badges.map((i: string) => CardBadgeEmojis[i as keyof typeof CardBadgeEmojis] ?? '').join(' ')} badges`,
             type: 'website',
-            url: 'https://bot.auxdible.me',
+            url: 'https://auxdibot.xyz',
         },
     };
 }
