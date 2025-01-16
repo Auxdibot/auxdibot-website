@@ -24,7 +24,7 @@ export default function RootLayout({
         >
             <body className={'flex min-h-screen flex-col bg-black text-white'}>
                 <Providers>
-                    <LayoutNavbar preventCollapse serverID={params.serverID} />
+                    <LayoutNavbar dashboard serverID={params.serverID} />
                     {children}
                 </Providers>
             </body>

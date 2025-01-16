@@ -41,7 +41,7 @@ export default function Masthead() {
     return (
         <section
             className={
-                'min-h-screen w-full bg-zinc-950 bg-auxdibot-masthead pt-8 max-lg:pt-16'
+                'min-h-screen w-full bg-zinc-950 bg-auxdibot-masthead pt-8 max-lg:pt-32'
             }
         >
             <section className={'flex min-h-screen justify-center'}>

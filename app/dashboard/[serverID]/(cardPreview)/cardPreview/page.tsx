@@ -102,7 +102,7 @@ export default function DashboardCardPreview({
             }),
         },
         rules: searchParams.getAll('rules').slice(0, 10),
-        invite_url: 'https://bot.auxdible.me',
+        invite_url: 'https://auxdibot.xyz',
         header_font:
             (Object.entries(CardFonts).find(
                 (i) => i[0].toString() == header_font

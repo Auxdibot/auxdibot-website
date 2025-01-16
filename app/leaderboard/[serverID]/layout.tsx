@@ -96,7 +96,7 @@ export default function ServerLeaderboardLayout({
                 .join(' ')}`}
         >
             <Providers>
-                <LayoutNavbar preventCollapse />
+                <LayoutNavbar dashboard />
                 <LoadingLeaderboard serverID={params.serverID} />
                 {children}
             </Providers>

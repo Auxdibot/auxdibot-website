@@ -31,20 +31,27 @@ export default function Analytics() {
 
     return (
         <Suspense fallback={<></>}>
-            <span className='inline-flex w-full items-center justify-center gap-2 text-center text-4xl font-bold max-sm:flex-col'>
-                As seen on
-                <Link
-                    href={process.env.NEXT_PUBLIC_TOPGG_URL ?? ''}
-                    className='inline-flex items-center gap-2 bg-gradient-to-br from-pink-700 from-50% to-red-500 bg-clip-text text-transparent'
-                >
-                    <Image
-                        src={'/topgg.png'}
-                        width={48}
-                        height={48}
-                        alt='Top.gg icon'
-                    />{' '}
-                    top.gg
-                </Link>
+            <span className='relative z-10 flex'>
+                <div
+                    className={
+                        'absolute -inset-1 z-0 mx-auto w-[60%] max-w-xl overflow-hidden bg-gradient-to-br from-pink-700 from-50% to-red-500 bg-clip-content opacity-40 blur-3xl'
+                    }
+                />
+                <span className='z-10 inline-flex w-full items-center justify-center gap-2 text-center text-4xl font-bold max-sm:flex-col'>
+                    As seen on
+                    <Link
+                        href={process.env.NEXT_PUBLIC_TOPGG_URL ?? ''}
+                        className='inline-flex items-center gap-2 bg-gradient-to-br from-pink-700 from-50% to-red-500 bg-clip-text text-transparent'
+                    >
+                        <Image
+                            src={'/topgg.png'}
+                            width={48}
+                            height={48}
+                            alt='Top.gg icon'
+                        />{' '}
+                        top.gg
+                    </Link>
+                </span>
             </span>
             <div
                 className={

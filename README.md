@@ -1,6 +1,6 @@
 <div align="center" id="header">
-   <a href="https://bot.auxdible.me">
-      <img src="https://bot.auxdible.me/logo.png" alt="Auxdibot icon" width=250/>
+   <a href="https://auxdibot.xyz">
+      <img src="https://auxdibot.xyz/logo.png" alt="Auxdibot icon" width=250/>
    </a>
    
    <div id="badges">
